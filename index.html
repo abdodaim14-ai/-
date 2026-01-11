@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -18,6 +18,7 @@
         }
         .container { width: 92%; max-width: 500px; margin: auto; }
         @keyframes pulse-gold { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--gold-glow); } 50% { transform: scale(1.05); box-shadow: 0 0 25px var(--gold-glow); } }
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } }
         @keyframes glow-white { 0%, 100% { text-shadow: 0 0 10px #fff; } 50% { text-shadow: 0 0 20px #fff, 0 0 30px #fff; } }
         
         .header-section { text-align: center; margin-bottom: 25px; }
@@ -50,26 +51,35 @@
         
         .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
         
-        /* شاشة التحميل الممتعة */
+        /* شاشة التحميل (المسابقة الدينية) */
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; 
             flex-direction: column; text-align: center; padding: 20px;
         }
-        .loader-spin { border: 4px solid #333; border-top: 4px solid var(--gold); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        .loader-spin { border: 4px solid #333; border-top: 4px solid var(--gold); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 25px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #quizText { color: var(--gold); font-size: 1.2rem; font-family: 'Cairo'; margin-bottom: 10px; }
-        #quizAnswer { color: #fff; font-size: 1rem; opacity: 0.8; }
+        
+        #quizTitle { color: var(--gold); font-size: 1.3rem; font-family: 'Cairo'; margin-bottom: 15px; font-weight: 900; }
+        #quizQuestion { color: #fff; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.4; }
+        #quizAnswer { color: var(--gold); font-size: 1.2rem; font-weight: bold; opacity: 0; transition: 0.5s; }
 
         .footer-words { text-align: center; margin-top: 40px; color: var(--gold); font-family: 'Cairo'; opacity: 0.8; font-size: 0.9rem; }
+
+        /* زر الاستفسار الثابت */
+        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); }
+        .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
+        .fixed-call-btn i { color: var(--gold); font-size: 1.2rem; animation: shake 2s infinite; }
     </style>
 </head>
 <body>
 
 <div id="loadingOverlay">
     <div class="loader-spin"></div>
-    <div id="quizText">جاري رفع تلاوتك ببركة القرآن...</div>
-    <div id="quizAnswer">هل تعلم؟ أول من جهر بالقرآن في مكة هو عبد الله بن مسعود.</div>
+    <div id="quizTitle">سؤال ديني سرييع..</div>
+    <div id="quizQuestion">من هو النبي الذي لُقب بـ "ذو النون"؟</div>
+    <div id="quizAnswer">نبي الله يونس عليه السلام</div>
+    <p style="color: #666; font-size: 0.8rem; margin-top: 30px;">جاري رفع تلاوتك الآن، لا تغلق الصفحة..</p>
 </div>
 
 <div class="container">
@@ -80,18 +90,17 @@
     </div>
 
     <div class="motivational-box">
-        <p>"صوتك العذب قد يكون سبباً في خشوع قلب.. لا تحرم نفسك من أجر نشر كلام الله."</p>
+        <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك."</p>
     </div>
 
     <div class="video-card">
-        <p style="color:var(--gold); font-size:0.85rem; margin-bottom:10px; font-weight:bold;">📽️ شاهد نماذج من إبداعات زملائك:</p>
+        <p style="color:var(--gold); font-size:0.85rem; margin-bottom:10px; font-weight:bold;">📽️ نماذج من تلاوات المبدعين السابقة:</p>
         <div class="video-box">
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="social-card">
-        <p style="color:var(--gold); font-size:0.9rem; margin-bottom:15px;">انضم لأسرتنا على منصات التواصل</p>
         <div class="social-row">
             <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box fb-link"><i class="fab fa-facebook-f"></i></a>
             <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box yt-link"><i class="fab fa-youtube"></i></a>
@@ -99,26 +108,25 @@
     </div>
 
     <div class="form-card">
-        <h3 style="color:var(--gold); font-family:'Cairo'; margin-top:0;">سجل تلاوتك الآن</h3>
-        <p style="font-size:0.8rem; margin-bottom:20px;">أهل القرآن هم أهل الله وخاصته، شاركنا نور موهبتك</p>
+        <h3 style="color:var(--gold); font-family:'Cairo'; margin-top:0;">إرسال المشاركة</h3>
         
         <form id="talentForm">
             <div class="field">
-                <label><i class="fas fa-user"></i> الاسم الثلاثي</label>
-                <input type="text" id="name" required placeholder="اكتب اسمك هنا">
+                <label>الاسم بالكامل</label>
+                <input type="text" id="name" required placeholder="اسم القارئ الثلاثي">
             </div>
             <div class="field">
-                <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
+                <label>رقم الواتساب</label>
                 <input type="tel" id="phone" required>
             </div>
             
             <div class="upload-grid">
                 <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <i class="fas fa-image"></i><br><span id="imgT">الصورة الشخصية</span>
+                    <i class="fas fa-camera"></i><br><span id="imgT">الصورة الشخصية</span>
                     <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="up(this,'imgT')">
                 </div>
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i class="fas fa-microphone"></i><br><span id="fileT">ملف التلاوة (صوت)</span>
+                    <i class="fas fa-microphone"></i><br><span id="fileT">ملف الصوت</span>
                     <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="up(this,'fileT')">
                 </div>
             </div>
@@ -128,10 +136,14 @@
     </div>
 
     <div class="footer-words">
-        <p>بإشراف/ عبد الرحمن مكي</p>
-        <p>نسأل الله القبول والإخلاص في القول والعمل</p>
+        <p>بإشراف خادم القرآن/ عبد الرحمن مكي</p>
     </div>
 </div>
+
+<a href="tel:01122783768" class="fixed-call-btn">
+    <i class="fas fa-phone-alt"></i>
+    <span>للاستفسار تواصل معنا هاتفياً</span>
+</a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
@@ -144,12 +156,13 @@
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
-    const quizData = [
-        "هل تعلم؟ سورة الرحمن تسمى 'عروس القرآن'.",
-        "هل تعلم؟ أطول سورة في القرآن هي سورة البقرة.",
-        "هل تعلم؟ عدد سجدات التلاوة في القرآن 15 سجدة.",
-        "سبحان الله.. القارئ الماهر مع السفرة الكرام البررة.",
-        "جاري رفع صوتك الشجي.. جعل الله القرآن ربيع قلبك."
+    // قائمة الأسئلة الدينية للمسابقة أثناء التحميل
+    const religiousQuizzes = [
+        { q: "من هو النبي الذي لُقب بـ 'ذو النون'؟", a: "يونس عليه السلام" },
+        { q: "ما هي أطول سورة في القرآن الكريم؟", a: "سورة البقرة" },
+        { q: "كم عدد سور القرآن الكريم؟", a: "114 سورة" },
+        { q: "من هو أول من جهر بالقرآن في مكة؟", a: "عبد الله بن مسعود" },
+        { q: "ما هي السورة التي تسمى 'قلب القرآن'؟", a: "سورة يس" }
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzMsY9RBIKyg3BzgCmEt3b5ZMqglbN4DeIEMTQqvAGgChf2yAOqHQ6FzuhL2Vy-VEOc/exec';
@@ -157,14 +170,22 @@
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         const overlay = document.getElementById('loadingOverlay');
-        const quizMsg = document.getElementById('quizAnswer');
+        const qText = document.getElementById('quizQuestion');
+        const aText = document.getElementById('quizAnswer');
         
         overlay.style.display = 'flex';
+
+        // تشغيل المسابقة الدينية
         let quizIdx = 0;
         const quizInterval = setInterval(() => {
-            quizIdx = (quizIdx + 1) % quizData.length;
-            quizMsg.innerText = quizData[quizIdx];
-        }, 3000);
+            aText.style.opacity = "1"; // إظهار الإجابة
+            setTimeout(() => {
+                aText.style.opacity = "0"; // إخفاء الإجابة تمهيداً للسؤال التالي
+                quizIdx = (quizIdx + 1) % religiousQuizzes.length;
+                qText.innerText = religiousQuizzes[quizIdx].q;
+                aText.innerText = religiousQuizzes[quizIdx].a;
+            }, 2000);
+        }, 4000);
 
         try {
             const photoFile = document.getElementById('imgIn').files[0];
@@ -184,13 +205,13 @@
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
             
             clearInterval(quizInterval);
-            alert("✅ تم استلام تلاوتك بنجاح! نفع الله بك وبصوتك.");
+            alert("✅ تم استلام تلاوتك وصورتك بنجاح! نفع الله بك.");
             location.reload();
 
         } catch (err) {
             clearInterval(quizInterval);
             overlay.style.display = 'none';
-            alert("❌ حدث خطأ، يرجى المحاولة مرة أخرى.");
+            alert("❌ حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى.");
         }
     };
 
