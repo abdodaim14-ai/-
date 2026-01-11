@@ -8,8 +8,10 @@
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 20px; }
         form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); display: inline-block; width: 100%; max-width: 400px; }
         input, button { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-        button { background-color: #28a745; color: white; cursor: pointer; border: none; }
+        label { display: block; text-align: right; margin-right: 5%; font-weight: bold; font-size: 14px; margin-top: 10px; }
+        button { background-color: #28a745; color: white; cursor: pointer; border: none; font-size: 16px; }
         button:hover { background-color: #218838; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
         #message { margin-top: 15px; font-weight: bold; }
     </style>
 </head>
@@ -19,39 +21,52 @@
     <form id="uploadForm">
         <input type="text" name="Name" placeholder="الاسم الكامل" required>
         <input type="tel" name="Phone" placeholder="رقم الهاتف" required>
-        <p>ارفع ملف التلاوة (صوت أو فيديو):</p>
-        <input type="file" id="fileInput" accept="audio/*,video/*" required>
+        
+        <label>الصورة الشخصية:</label>
+        <input type="file" id="photoInput" accept="image/*" required>
+        
+        <label>ملف التلاوة (صوت فقط):</label>
+        <input type="file" id="audioInput" accept="audio/*" required>
+        
         <button type="submit" id="submitBtn">إرسال البيانات</button>
     </form>
 
     <div id="message"></div>
 
     <script>
-        // الرابط الجديد الذي أرسلته
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzjES174fRZJjdoIpGVyu0RnB9aPFFoOG8BqM9H9VB8xZ_JNQTUAMNqVcIb85y7FDVX/exec';
         const form = document.getElementById('uploadForm');
         const msg = document.getElementById('message');
         const btn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             btn.disabled = true;
             btn.innerText = "جاري الإرسال...";
-            msg.innerText = "انتظر قليلاً، يتم رفع الملف والبيانات...";
+            msg.innerText = "يرجى الانتظار، يتم رفع الملفات الآن...";
+            msg.style.color = "black";
 
-            const file = document.getElementById('fileInput').files[0];
-            const reader = new FileReader();
+            try {
+                const photoFile = document.getElementById('photoInput').files[0];
+                const audioFile = document.getElementById('audioInput').files[0];
 
-            reader.onload = function() {
-                const base64Data = reader.result.split(',')[1];
-                const formData = new FormData(form);
-                
-                // إضافة بيانات الملف للكود
-                const queryString = `?Name=${encodeURIComponent(formData.get('Name'))}&Phone=${encodeURIComponent(formData.get('Phone'))}&fileName=${encodeURIComponent(file.name)}&mimeType=${encodeURIComponent(file.type)}`;
+                // تحويل الملفات إلى Base64
+                const photoBase64 = await toBase64(photoFile);
+                const audioBase64 = await toBase64(audioFile);
 
-                fetch(scriptURL + queryString, {
+                const data = {
+                    Name: form.Name.value,
+                    Phone: form.Phone.value,
+                    photoData: photoBase64.split(',')[1],
+                    photoName: photoFile.name,
+                    audioData: audioBase64.split(',')[1],
+                    audioName: audioFile.name
+                };
+
+                // إرسال البيانات دون مغادرة الصفحة
+                fetch(scriptURL, {
                     method: 'POST',
-                    body: JSON.stringify({ fileData: base64Data })
+                    body: JSON.stringify(data)
                 })
                 .then(response => {
                     msg.innerText = "تم الإرسال بنجاح! شكراً لك.";
@@ -61,14 +76,25 @@
                     btn.innerText = "إرسال البيانات";
                 })
                 .catch(error => {
-                    msg.innerText = "حدث خطأ أثناء الإرسال، حاول مرة أخرى.";
+                    msg.innerText = "حدث خطأ في الاتصال، حاول مرة أخرى.";
                     msg.style.color = "red";
                     btn.disabled = false;
                     btn.innerText = "إرسال البيانات";
                 });
-            };
 
+            } catch (error) {
+                msg.innerText = "حدث خطأ أثناء معالجة الملفات.";
+                msg.style.color = "red";
+                btn.disabled = false;
+            }
+        });
+
+        // وظيفة تحويل الملفات
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
             reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
         });
     </script>
 
