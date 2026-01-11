@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -20,36 +20,45 @@
         @keyframes pulse-gold { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--gold-glow); } 50% { transform: scale(1.05); box-shadow: 0 0 25px var(--gold-glow); } }
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } }
         @keyframes glow-white { 0%, 100% { text-shadow: 0 0 10px #fff; } 50% { text-shadow: 0 0 25px #fff, 0 0 35px #fff; } }
+        
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo-main { width: 150px; filter: drop-shadow(0 0 15px var(--gold-glow)); mix-blend-mode: screen; }
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; animation: glow-white 2s infinite; font-weight: 900; }
+        
         .motivational-section { text-align: center; margin-bottom: 30px; line-height: 1.8; }
         .motivational-section p { font-size: 1.1rem; color: #ddd; margin: 10px 0; font-weight: bold; }
         .highlight-text { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
-        .video-card { margin-bottom: 30px; text-align: center; }
+        
+        .video-card { margin-bottom: 20px; text-align: center; }
         .video-title { color: var(--gold); font-size: 0.9rem; margin-bottom: 15px; font-weight: bold; }
         .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: #000; box-shadow: 0 0 20px var(--gold-glow); }
         .video-box iframe { width: 100%; height: 100%; border: none; }
-        .social-card { text-align: center; margin: 35px 0; }
+        
+        .social-card { text-align: center; margin: 25px 0; }
         .social-text { color: var(--gold); font-family: 'Cairo'; font-size: 1rem; margin-bottom: 15px; line-height: 1.6; }
         .social-row { display: flex; justify-content: center; gap: 25px; }
         .s-box { background: #000; width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.8rem; animation: pulse-gold 4s infinite ease-in-out; }
         .fb-link { color: #1877F2; }
         .yt-link { color: #FF0000; }
+        
         .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; }
         .free-tag { color: var(--gold); font-weight: 900; font-size: 1.2rem; display: block; font-family: 'Cairo'; }
         .free-sub { color: #fff; font-size: 0.8rem; margin-bottom: 25px; opacity: 0.8; }
+        
         .field { text-align: right; margin-bottom: 15px; }
         .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
-        .iti { width: 100%; direction: ltr; }
         .field input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
+        
         .upload-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 20px 0; }
         .upload-item { border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; cursor: pointer; }
         .upload-item i { font-size: 1.5rem; color: var(--gold); margin-bottom: 5px; animation: pulse-gold 2s infinite; }
+        
         .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
+        
         .footer-words { text-align: center; margin-top: 40px; color: var(--gold); font-family: 'Cairo'; opacity: 0.8; line-height: 1.8; }
         .footer-words p { margin: 5px 0; font-size: 0.95rem; }
+        
         .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); }
         .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
@@ -62,24 +71,29 @@
         <div class="site-name">داعم المواهب للقرآن الكريم</div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
+
     <div class="motivational-section">
         <p>مرحباً بك في رحاب <span class="highlight-text">كلام الله</span></p>
         <p>صوتك أمانة، وموهبتك نور.. شاركنا تلاوتك لعلها تكون سبباً في هداية قلب</p>
     </div>
+
     <div class="video-card">
-        <p class="video-title">نماذج مشرفة من تلاوات المبدعين في المسابقات السابقة 👇</p>
+        <p class="video-title">نماذج مشرفة من تلاوات المبدعين 👇</p>
         <div class="video-box">
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
+
     <div class="social-card">
-        <div class="social-text">كن جزءاً من رحلتنا في نشر آيات الذكر الحكيم<br><b>تابعونا عبر صفحاتنا الرسمية</b></div>
+        <div class="social-text">تابعونا عبر صفحاتنا الرسمية لنشر آيات الذكر الحكيم</div>
         <div class="social-row">
             <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box fb-link"><i class="fab fa-facebook-f"></i></a>
             <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box yt-link"><i class="fab fa-youtube"></i></a>
         </div>
     </div>
+
     <hr style="height: 1px; border: none; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 30px 0;">
+
     <div class="form-card">
         <span class="free-tag">المشاركة مجانية بالكامل</span>
         <p class="free-sub">هذه الخدمة متاحة للجميع ابتغاء وجه الله تعالى</p>
@@ -102,12 +116,14 @@
             <button type="submit" id="btn" class="main-btn">أرسل مشاركتك الآن</button>
         </form>
     </div>
+
     <div class="footer-words">
         <p>خادمكم/ عبد الرحمن مكي</p>
         <p>أهل القرآن هم أهل الله وخاصته</p>
         <p style="font-size:0.85rem; opacity:0.7;">نسألكم الدعاء بالتوفيق والقبول والإخلاص</p>
     </div>
 </div>
+
 <a href="tel:01122783768" class="fixed-call-btn">
     <i class="fas fa-phone-alt"></i>
     <span>بالقرآن نحيا.. تواصل معنا للاستفسار</span>
@@ -125,7 +141,7 @@
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
     // الرابط الجديد الخاص بك
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxMsY9RBIKyg3BzgCmEt3b5ZMqglbN4DeIEMTQqvAGgChf2yAOqHQ6FzuhL2Vy-VEOc/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzMsY9RBIKyg3BzgCmEt3b5ZMqglbN4DeIEMTQqvAGgChf2yAOqHQ6FzuhL2Vy-VEOc/exec';
     
     document.getElementById('talentForm').onsubmit = function(e) {
         e.preventDefault();
