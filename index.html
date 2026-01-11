@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -18,53 +18,60 @@
         }
         .container { width: 92%; max-width: 500px; margin: auto; }
         @keyframes pulse-gold { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--gold-glow); } 50% { transform: scale(1.05); box-shadow: 0 0 25px var(--gold-glow); } }
-        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } }
-        @keyframes glow-white { 0%, 100% { text-shadow: 0 0 10px #fff; } 50% { text-shadow: 0 0 25px #fff, 0 0 35px #fff; } }
+        @keyframes glow-white { 0%, 100% { text-shadow: 0 0 10px #fff; } 50% { text-shadow: 0 0 20px #fff, 0 0 30px #fff; } }
         
         .header-section { text-align: center; margin-bottom: 25px; }
-        .logo-main { width: 150px; filter: drop-shadow(0 0 15px var(--gold-glow)); mix-blend-mode: screen; }
+        .logo-main { width: 140px; filter: drop-shadow(0 0 15px var(--gold-glow)); mix-blend-mode: screen; }
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; animation: glow-white 2s infinite; font-weight: 900; }
         
-        .motivational-section { text-align: center; margin-bottom: 30px; line-height: 1.8; }
-        .motivational-section p { font-size: 1.1rem; color: #ddd; margin: 10px 0; font-weight: bold; }
-        .highlight-text { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
-        
-        .video-card { margin-bottom: 20px; text-align: center; }
-        .video-title { color: var(--gold); font-size: 0.9rem; margin-bottom: 15px; font-weight: bold; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: #000; box-shadow: 0 0 20px var(--gold-glow); }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
+        .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; }
+
+        .video-card { margin-bottom: 25px; text-align: center; }
+        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); }
         .video-box iframe { width: 100%; height: 100%; border: none; }
         
         .social-card { text-align: center; margin: 25px 0; }
-        .social-text { color: var(--gold); font-family: 'Cairo'; font-size: 1rem; margin-bottom: 15px; line-height: 1.6; }
         .social-row { display: flex; justify-content: center; gap: 25px; }
-        .s-box { background: #000; width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.8rem; animation: pulse-gold 4s infinite ease-in-out; }
-        .fb-link { color: #1877F2; }
-        .yt-link { color: #FF0000; }
+        .s-box { background: #000; width: 55px; height: 55px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.6rem; animation: pulse-gold 4s infinite ease-in-out; }
+        .fb-link { color: #1877F2; } .yt-link { color: #FF0000; }
         
-        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; }
-        .free-tag { color: var(--gold); font-weight: 900; font-size: 1.2rem; display: block; font-family: 'Cairo'; }
-        .free-sub { color: #fff; font-size: 0.8rem; margin-bottom: 25px; opacity: 0.8; }
-        
+        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; position: relative; }
         .field { text-align: right; margin-bottom: 15px; }
-        .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
-        .field input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
+        .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
+        .field input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; font-family: 'Almarai'; }
         
-        .upload-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; cursor: pointer; }
-        .upload-item i { font-size: 1.5rem; color: var(--gold); margin-bottom: 5px; animation: pulse-gold 2s infinite; }
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+        .upload-item:hover { background: rgba(255, 204, 51, 0.1); }
+        .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; }
+        .upload-item span { font-size: 0.75rem; color: #fff; display: block; }
         
         .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
         
-        .footer-words { text-align: center; margin-top: 40px; color: var(--gold); font-family: 'Cairo'; opacity: 0.8; line-height: 1.8; }
-        .footer-words p { margin: 5px 0; font-size: 0.95rem; }
-        
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); }
-        .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
-        .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
+        /* شاشة التحميل الممتعة */
+        #loadingOverlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; 
+            flex-direction: column; text-align: center; padding: 20px;
+        }
+        .loader-spin { border: 4px solid #333; border-top: 4px solid var(--gold); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #quizText { color: var(--gold); font-size: 1.2rem; font-family: 'Cairo'; margin-bottom: 10px; }
+        #quizAnswer { color: #fff; font-size: 1rem; opacity: 0.8; }
+
+        .footer-words { text-align: center; margin-top: 40px; color: var(--gold); font-family: 'Cairo'; opacity: 0.8; font-size: 0.9rem; }
     </style>
 </head>
 <body>
+
+<div id="loadingOverlay">
+    <div class="loader-spin"></div>
+    <div id="quizText">جاري رفع تلاوتك ببركة القرآن...</div>
+    <div id="quizAnswer">هل تعلم؟ أول من جهر بالقرآن في مكة هو عبد الله بن مسعود.</div>
+</div>
+
 <div class="container">
     <div class="header-section">
         <img src="https://i.postimg.cc/rDsR6fgv/Picsart-25-03-28-19-08-45-917.png" class="logo-main">
@@ -72,62 +79,59 @@
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
-    <div class="motivational-section">
-        <p>مرحباً بك في رحاب <span class="highlight-text">كلام الله</span></p>
-        <p>صوتك أمانة، وموهبتك نور.. شاركنا تلاوتك لعلها تكون سبباً في هداية قلب</p>
+    <div class="motivational-box">
+        <p>"صوتك العذب قد يكون سبباً في خشوع قلب.. لا تحرم نفسك من أجر نشر كلام الله."</p>
     </div>
 
     <div class="video-card">
-        <p class="video-title">نماذج مشرفة من تلاوات المبدعين 👇</p>
+        <p style="color:var(--gold); font-size:0.85rem; margin-bottom:10px; font-weight:bold;">📽️ شاهد نماذج من إبداعات زملائك:</p>
         <div class="video-box">
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="social-card">
-        <div class="social-text">تابعونا عبر صفحاتنا الرسمية لنشر آيات الذكر الحكيم</div>
+        <p style="color:var(--gold); font-size:0.9rem; margin-bottom:15px;">انضم لأسرتنا على منصات التواصل</p>
         <div class="social-row">
             <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box fb-link"><i class="fab fa-facebook-f"></i></a>
             <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box yt-link"><i class="fab fa-youtube"></i></a>
         </div>
     </div>
 
-    <hr style="height: 1px; border: none; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 30px 0;">
-
     <div class="form-card">
-        <span class="free-tag">المشاركة مجانية بالكامل</span>
-        <p class="free-sub">هذه الخدمة متاحة للجميع ابتغاء وجه الله تعالى</p>
+        <h3 style="color:var(--gold); font-family:'Cairo'; margin-top:0;">سجل تلاوتك الآن</h3>
+        <p style="font-size:0.8rem; margin-bottom:20px;">أهل القرآن هم أهل الله وخاصته، شاركنا نور موهبتك</p>
         
         <form id="talentForm">
             <div class="field">
-                <label>الاسم بالكامل</label>
-                <input type="text" id="name" required placeholder="اسم القارئ الثلاثي">
+                <label><i class="fas fa-user"></i> الاسم الثلاثي</label>
+                <input type="text" id="name" required placeholder="اكتب اسمك هنا">
             </div>
             <div class="field">
-                <label>رقم الهاتف (الواتساب)</label>
+                <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
                 <input type="tel" id="phone" required>
             </div>
+            
             <div class="upload-grid">
+                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
+                    <i class="fas fa-image"></i><br><span id="imgT">الصورة الشخصية</span>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="up(this,'imgT')">
+                </div>
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i class="fas fa-microphone-alt"></i> <br> <span id="fileT" style="font-size:0.75rem;">ارفع تلاوتك الآن (صوت أو فيديو)</span>
-                    <input type="file" id="fileIn" accept="audio/*,video/*" style="display:none" required onchange="up(this,'fileT')">
+                    <i class="fas fa-microphone"></i><br><span id="fileT">ملف التلاوة (صوت)</span>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="up(this,'fileT')">
                 </div>
             </div>
+            
             <button type="submit" id="btn" class="main-btn">أرسل مشاركتك الآن</button>
         </form>
     </div>
 
     <div class="footer-words">
-        <p>خادمكم/ عبد الرحمن مكي</p>
-        <p>أهل القرآن هم أهل الله وخاصته</p>
-        <p style="font-size:0.85rem; opacity:0.7;">نسألكم الدعاء بالتوفيق والقبول والإخلاص</p>
+        <p>بإشراف/ عبد الرحمن مكي</p>
+        <p>نسأل الله القبول والإخلاص في القول والعمل</p>
     </div>
 </div>
-
-<a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-phone-alt"></i>
-    <span>بالقرآن نحيا.. تواصل معنا للاستفسار</span>
-</a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
@@ -140,42 +144,62 @@
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
-    // الرابط الجديد الخاص بك
+    const quizData = [
+        "هل تعلم؟ سورة الرحمن تسمى 'عروس القرآن'.",
+        "هل تعلم؟ أطول سورة في القرآن هي سورة البقرة.",
+        "هل تعلم؟ عدد سجدات التلاوة في القرآن 15 سجدة.",
+        "سبحان الله.. القارئ الماهر مع السفرة الكرام البررة.",
+        "جاري رفع صوتك الشجي.. جعل الله القرآن ربيع قلبك."
+    ];
+
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzMsY9RBIKyg3BzgCmEt3b5ZMqglbN4DeIEMTQqvAGgChf2yAOqHQ6FzuhL2Vy-VEOc/exec';
     
-    document.getElementById('talentForm').onsubmit = function(e) {
+    document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        const btn = document.getElementById('btn');
-        btn.disabled = true;
-        btn.innerHTML = "جاري الحفظ ببركة القرآن...";
+        const overlay = document.getElementById('loadingOverlay');
+        const quizMsg = document.getElementById('quizAnswer');
+        
+        overlay.style.display = 'flex';
+        let quizIdx = 0;
+        const quizInterval = setInterval(() => {
+            quizIdx = (quizIdx + 1) % quizData.length;
+            quizMsg.innerText = quizData[quizIdx];
+        }, 3000);
 
-        const file = document.getElementById('fileIn').files[0];
-        const fr = new FileReader();
-        fr.readAsDataURL(file);
-        fr.onload = () => {
-            const base64Data = fr.result.split(',')[1];
-            
+        try {
+            const photoFile = document.getElementById('imgIn').files[0];
+            const audioFile = document.getElementById('fileIn').files[0];
+
+            const photoBase64 = await toBase64(photoFile);
+            const audioBase64 = await toBase64(audioFile);
+
             const formData = new URLSearchParams();
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", iti.getNumber());
-            formData.append("fileData", base64Data);
-            formData.append("fileName", file.name);
-            formData.append("mimeType", file.type);
+            formData.append("photoData", photoBase64.split(',')[1]);
+            formData.append("photoName", photoFile.name);
+            formData.append("audioData", audioBase64.split(',')[1]);
+            formData.append("audioName", audioFile.name);
 
-            fetch(scriptURL, {
-                method: "POST",
-                mode: "no-cors",
-                body: formData
-            }).then(() => {
-                alert("تم استلام تلاوتك بنجاح! نفع الله بك.");
-                location.reload();
-            }).catch(err => {
-                alert("حدث خطأ، يرجى المحاولة مرة أخرى.");
-                btn.disabled = false;
-                btn.innerHTML = "أرسل مشاركتك الآن";
-            });
-        };
+            await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
+            
+            clearInterval(quizInterval);
+            alert("✅ تم استلام تلاوتك بنجاح! نفع الله بك وبصوتك.");
+            location.reload();
+
+        } catch (err) {
+            clearInterval(quizInterval);
+            overlay.style.display = 'none';
+            alert("❌ حدث خطأ، يرجى المحاولة مرة أخرى.");
+        }
     };
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 </script>
 </body>
 </html>
