@@ -3,168 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داعم المواهب للقرآن الكريم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
-    
+    <title>تسجيل المتسابقين</title>
     <style>
-        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
-        body {
-            font-family: 'Almarai', sans-serif;
-            margin: 0; color: #fff; background: #000;
-            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
-            min-height: 100vh; padding: 20px 0 120px 0;
-        }
-        .container { width: 92%; max-width: 500px; margin: auto; }
-        @keyframes pulse-gold { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--gold-glow); } 50% { transform: scale(1.05); box-shadow: 0 0 25px var(--gold-glow); } }
-        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } }
-        @keyframes glow-white { 0%, 100% { text-shadow: 0 0 10px #fff; } 50% { text-shadow: 0 0 25px #fff, 0 0 35px #fff; } }
-        .header-section { text-align: center; margin-bottom: 25px; }
-        .logo-main { width: 150px; filter: drop-shadow(0 0 15px var(--gold-glow)); mix-blend-mode: screen; }
-        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
-        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; animation: glow-white 2s infinite; font-weight: 900; }
-        .motivational-section { text-align: center; margin-bottom: 30px; line-height: 1.8; }
-        .motivational-section p { font-size: 1.1rem; color: #ddd; margin: 10px 0; font-weight: bold; }
-        .highlight-text { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
-        .video-card { margin-bottom: 30px; text-align: center; }
-        .video-title { color: var(--gold); font-size: 0.9rem; margin-bottom: 15px; font-weight: bold; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: #000; box-shadow: 0 0 20px var(--gold-glow); }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
-        .social-card { text-align: center; margin: 35px 0; }
-        .social-text { color: var(--gold); font-family: 'Cairo'; font-size: 1rem; margin-bottom: 15px; line-height: 1.6; }
-        .social-row { display: flex; justify-content: center; gap: 25px; }
-        .s-box { background: #000; width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.8rem; animation: pulse-gold 4s infinite ease-in-out; }
-        .fb-link { color: #1877F2; }
-        .yt-link { color: #FF0000; }
-        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; }
-        .free-tag { color: var(--gold); font-weight: 900; font-size: 1.2rem; display: block; font-family: 'Cairo'; }
-        .free-sub { color: #fff; font-size: 0.8rem; margin-bottom: 25px; opacity: 0.8; }
-        .field { text-align: right; margin-bottom: 15px; }
-        .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
-        .iti { width: 100%; direction: ltr; }
-        .field input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; cursor: pointer; }
-        .upload-item i { font-size: 1.5rem; color: var(--gold); margin-bottom: 5px; animation: pulse-gold 2s infinite; }
-        .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
-        .footer-words { text-align: center; margin-top: 40px; color: var(--gold); font-family: 'Cairo'; opacity: 0.8; line-height: 1.8; }
-        .footer-words p { margin: 5px 0; font-size: 0.95rem; }
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); }
-        .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
-        .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 20px; }
+        form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); display: inline-block; width: 100%; max-width: 400px; }
+        input, button { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #28a745; color: white; cursor: pointer; border: none; }
+        button:hover { background-color: #218838; }
+        #message { margin-top: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header-section">
-        <img src="https://i.postimg.cc/rDsR6fgv/Picsart-25-03-28-19-08-45-917.png" class="logo-main">
-        <div class="site-name">داعم المواهب للقرآن الكريم</div>
-        <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
-    </div>
-    <div class="motivational-section">
-        <p>مرحباً بك في رحاب <span class="highlight-text">كلام الله</span></p>
-        <p>صوتك أمانة، وموهبتك نور.. شاركنا تلاوتك لعلها تكون سبباً في هداية قلب</p>
-    </div>
-    <div class="video-card">
-        <p class="video-title">نماذج مشرفة من تلاوات المبدعين في المسابقات السابقة 👇</p>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
-        </div>
-    </div>
-    <div class="social-card">
-        <div class="social-text">كن جزءاً من رحلتنا في نشر آيات الذكر الحكيم<br><b>تابعونا عبر صفحاتنا الرسمية</b></div>
-        <div class="social-row">
-            <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box fb-link"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box yt-link"><i class="fab fa-youtube"></i></a>
-        </div>
-    </div>
-    <hr style="height: 1px; border: none; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 30px 0;">
-    <div class="form-card">
-        <span class="free-tag">المشاركة مجانية بالكامل</span>
-        <p class="free-sub">هذه الخدمة متاحة للجميع ابتغاء وجه الله تعالى</p>
-        
-        <form id="talentForm">
-            <div class="field">
-                <label>الاسم بالكامل</label>
-                <input type="text" id="name" required placeholder="اسم القارئ الثلاثي">
-            </div>
-            <div class="field">
-                <label>رقم الهاتف (الواتساب)</label>
-                <input type="tel" id="phone" required>
-            </div>
-            <div class="upload-grid">
-                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <i class="fas fa-camera"></i> <br> <span id="imgT" style="font-size:0.75rem;">صورتك الشخصية</span>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" onchange="up(this,'imgT')">
-                </div>
-                <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i class="fas fa-microphone-alt"></i> <br> <span id="fileT" style="font-size:0.75rem;">ارفع تلاوتك الآن</span>
-                    <input type="file" id="fileIn" accept="audio/*,video/*" style="display:none" required onchange="up(this,'fileT')">
-                </div>
-            </div>
-            <button type="submit" id="btn" class="main-btn">أرسل مشاركتك الآن</button>
-        </form>
-    </div>
-    <div class="footer-words">
-        <p>خادمكم/ عبد الرحمن مكي</p>
-        <p>أهل القرآن هم أهل الله وخاصته</p>
-        <p style="font-size:0.85rem; opacity:0.7;">نسألكم الدعاء بالتوفيق والقبول والإخلاص</p>
-    </div>
-</div>
-<a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-phone-alt"></i>
-    <span>بالقرآن نحيا.. تواصل معنا للاستفسار</span>
-</a>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<script>
-    const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, {
-        initialCountry: "eg",
-        separateDialCode: true,
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
+    <h2>استمارة تسجيل المتسابقين</h2>
+    <form id="uploadForm">
+        <input type="text" name="Name" placeholder="الاسم الكامل" required>
+        <input type="tel" name="Phone" placeholder="رقم الهاتف" required>
+        <p>ارفع ملف التلاوة (صوت أو فيديو):</p>
+        <input type="file" id="fileInput" accept="audio/*,video/*" required>
+        <button type="submit" id="submitBtn">إرسال البيانات</button>
+    </form>
 
-    function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
+    <div id="message"></div>
 
-    // الرابط الجديد الخاص بك
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxQVuM-5OntZflAqyPj1zMdXjmXojmvBAAZjpCo8DDapPQoHruKMB0LRTlhBlNbxZ_3/exec';
-    
-    document.getElementById('talentForm').onsubmit = function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btn');
-        btn.disabled = true;
-        btn.innerHTML = "جاري الحفظ ببركة القرآن...";
+    <script>
+        // الرابط الجديد الذي أرسلته
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzjES174fRZJjdoIpGVyu0RnB9aPFFoOG8BqM9H9VB8xZ_JNQTUAMNqVcIb85y7FDVX/exec';
+        const form = document.getElementById('uploadForm');
+        const msg = document.getElementById('message');
+        const btn = document.getElementById('submitBtn');
 
-        const file = document.getElementById('fileIn').files[0];
-        const fr = new FileReader();
-        fr.readAsDataURL(file);
-        fr.onload = () => {
-            const base64Data = fr.result.split(',')[1];
-            
-            // إرسال البيانات باستخدام fetch لضمان التوافق مع الرابط الجديد
-            fetch(scriptURL, {
-                method: "POST",
-                mode: "no-cors",
-                body: new URLSearchParams({
-                    "Name": document.getElementById('name').value,
-                    "Phone": iti.getNumber(),
-                    "fileData": base64Data,
-                    "fileName": file.name,
-                    "mimeType": file.type
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "جاري الإرسال...";
+            msg.innerText = "انتظر قليلاً، يتم رفع الملف والبيانات...";
+
+            const file = document.getElementById('fileInput').files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const base64Data = reader.result.split(',')[1];
+                const formData = new FormData(form);
+                
+                // إضافة بيانات الملف للكود
+                const queryString = `?Name=${encodeURIComponent(formData.get('Name'))}&Phone=${encodeURIComponent(formData.get('Phone'))}&fileName=${encodeURIComponent(file.name)}&mimeType=${encodeURIComponent(file.type)}`;
+
+                fetch(scriptURL + queryString, {
+                    method: 'POST',
+                    body: JSON.stringify({ fileData: base64Data })
                 })
-            }).then(() => {
-                alert("تم استلام تلاوتك بنجاح! نفع الله بك.");
-                location.reload();
-            }).catch(err => {
-                alert("حدث خطأ، يرجى المحاولة مرة أخرى.");
-                btn.disabled = false;
-                btn.innerHTML = "أرسل مشاركتك الآن";
-            });
-        };
-    };
-</script>
+                .then(response => {
+                    msg.innerText = "تم الإرسال بنجاح! شكراً لك.";
+                    msg.style.color = "green";
+                    form.reset();
+                    btn.disabled = false;
+                    btn.innerText = "إرسال البيانات";
+                })
+                .catch(error => {
+                    msg.innerText = "حدث خطأ أثناء الإرسال، حاول مرة أخرى.";
+                    msg.style.color = "red";
+                    btn.disabled = false;
+                    btn.innerText = "إرسال البيانات";
+                });
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+
 </body>
 </html>
-
