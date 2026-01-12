@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -18,62 +19,48 @@
         }
         .container { width: 92%; max-width: 500px; margin: auto; }
         
-        /* الهيدر واللوجو */
         .header-section { text-align: center; margin-bottom: 20px; }
-        .logo-main { width: 120px; filter: drop-shadow(0 0 15px var(--gold-glow)); }
+        .logo-main { width: 110px; filter: drop-shadow(0 0 15px var(--gold-glow)); }
         
-        /* بوست الترحيب العلوي */
         .intro-post {
-            background: rgba(255, 204, 51, 0.1);
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 0 15px rgba(255, 204, 51, 0.2);
+            background: rgba(255, 204, 51, 0.08);
+            border: 1px solid var(--gold);
+            border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 25px;
         }
-        .intro-post h1 { font-family: 'Cairo'; color: var(--gold); font-size: 1.6rem; margin: 0 0 10px 0; }
-        .intro-post .sub-text { font-size: 1rem; line-height: 1.6; color: #eee; margin-bottom: 15px; }
-        .intro-post .signature { font-family: 'Cairo'; color: var(--gold); font-weight: bold; border-top: 1px solid rgba(255,204,51,0.3); padding-top: 10px; display: block; }
+        .intro-post h1 { font-family: 'Cairo'; color: var(--gold); font-size: 1.5rem; margin: 0 0 10px 0; }
+        .intro-post .signature { font-family: 'Cairo'; color: var(--gold); font-weight: bold; font-size: 0.9rem; margin-top: 10px; display: block; }
 
-        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; text-align: center; margin: 20px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
+        /* ركن المتابعة الحنون */
+        .follow-corner { text-align: center; margin: 30px 0; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 15px; }
+        .follow-corner p { font-size: 0.95rem; color: #ddd; margin-bottom: 15px; line-height: 1.6; }
+        .social-row { display: flex; justify-content: center; gap: 20px; }
+        .s-box { background: #000; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 1px solid var(--gold); color: var(--gold); transition: 0.3s; }
+        .s-box:hover { box-shadow: 0 0 15px var(--gold); transform: translateY(-3px); }
 
-        /* قسم الفيديو */
-        .video-card { margin-bottom: 25px; text-align: center; }
-        .video-label { color: var(--gold); font-size: 1rem; margin-bottom: 10px; display: block; font-family: 'Cairo'; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); }
+        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-top: 10px; }
 
-        .social-row { display: flex; justify-content: center; gap: 20px; margin: 25px 0; }
-        .s-box { background: #000; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.4rem; color: var(--gold); }
-        
-        /* الاستمارة */
-        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; }
+        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; margin-top: 20px; }
         .field { text-align: right; margin-bottom: 15px; }
-        .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
+        .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.85rem; }
         .field input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
         
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; }
-        .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; }
-        
-        .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+        .main-btn { width: 100%; background: var(--gold); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; cursor: pointer; }
 
-        /* تذييل الموقع */
-        .footer-credit { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid rgba(255,204,51,0.2); }
-        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.3rem; display: block; }
-        .footer-credit .pray { color: #888; font-size: 0.9rem; margin-top: 5px; display: block; }
-
-        /* شاشة التحميل والمسابقة */
+        /* شاشة التحميل التفاعلية */
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
             flex-direction: column; text-align: center; padding: 20px;
         }
-        #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; }
+        #quizBox { border: 1px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 340px; }
         #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
-        #quizA { color: #fff; font-size: 1.3rem; opacity: 0; transition: 0.8s; }
+        .quiz-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #000; color: #fff; text-align: center; margin-bottom: 10px; outline: none; }
+        #quizFeedback { font-size: 0.9rem; margin-top: 10px; min-height: 20px; }
 
-        /* زر الاستفسار */
+        .footer-credit { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid rgba(255,204,51,0.1); }
+        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.2rem; display: block; }
+        .footer-credit .pray { color: #777; font-size: 0.85rem; margin-top: 5px; display: block; }
+
         .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 440px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); }
         .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.9rem; font-weight: bold; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
@@ -83,12 +70,14 @@
 <body>
 
 <div id="loadingOverlay">
-    <div style="color:var(--gold); margin-bottom:15px;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
     <div id="quizBox">
-        <p style="color:#fff; font-size:0.9rem; margin-bottom:15px;">مسابقة سريعة للتسلية بذكر الله حتى يكتمل الرفع..</p>
-        <div id="quizQ">تحميل السؤال..</div>
-        <div id="quizA">...</div>
+        <p style="color:#ddd; font-size:0.9rem; margin-bottom:15px; line-height:1.5;">سلّ وقتك بالأسئلة الإيمانية حتى يكتمل الرفع..</p>
+        <div id="quizQ">ما هي أطول سورة في القرآن؟</div>
+        <input type="text" id="userAns" class="quiz-input" placeholder="اكتب إجابتك هنا..">
+        <button onclick="checkAns()" style="background:var(--gold); border:none; padding:8px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">تأكيد الإجابة</button>
+        <div id="quizFeedback"></div>
     </div>
+    <p style="color: #555; font-size: 0.8rem; margin-top: 20px;">جاري إرسال تلاوتك بأمان..</p>
 </div>
 
 <div class="container">
@@ -98,56 +87,48 @@
 
     <div class="intro-post">
         <h1>داعم المواهب للقرآن الكريم</h1>
-        <div class="sub-text">
-            نسأل الله لنا ولكم التوفيق والسداد، والإخلاص والقبول في خدمة كتابه الكريم.. <br>
-            هنا نفتح الباب لكل ذي صوت حسن ليكون من أهل الله وخاصته.
-        </div>
+        <p style="color:#eee; font-size:0.95rem; line-height:1.6; margin:0;">
+            "نسأل الله لنا ولكم التوفيق والسداد، والإخلاص والقبول في خدمة كتابه الكريم."
+        </p>
         <span class="signature">خادم القرآن/ عبد الرحمن مكي</span>
     </div>
 
-    <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
-
-    <div class="video-card">
-        <span class="video-label">✨ من نفحات تلاوات مبدعينا ✨</span>
+    <div style="text-align:center;">
+        <span style="color:var(--gold); font-size:0.9rem; font-weight:bold; font-family:'Cairo';">✨ عطر مسامعك بتلاوات خاشعة ✨</span>
         <div class="video-box">
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
 
-    <div class="social-row">
-        <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
+    <div class="follow-corner">
+        <p>"كن معنا في رحلة الهدى.. نتشرف بمتابعتك لنرتقي سوياً بالقرآن وننشر الخير في كل مكان."</p>
+        <div class="social-row">
+            <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
+        </div>
     </div>
 
     <div class="form-card">
         <form id="talentForm">
-            <div class="field">
-                <label>الاسم بالكامل</label>
-                <input type="text" id="name" required placeholder="اسم القارئ المبارك">
-            </div>
-            <div class="field">
-                <label>رقم الواتساب</label>
-                <input type="tel" id="phone" required>
-            </div>
-            
-            <div class="upload-grid">
-                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <i class="fas fa-camera"></i><br><span id="imgT">صورتك الشخصية</span>
+            <div class="field"><label>الاسم الكريم</label><input type="text" id="name" required placeholder="اكتب اسمك هنا"></div>
+            <div class="field"><label>رقم الواتساب</label><input type="tel" id="phone" required></div>
+            <div class="upload-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:15px 0;">
+                <div onclick="document.getElementById('imgIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
+                    <i class="fas fa-image" style="color:var(--gold);"></i><br><span id="imgT" style="font-size:0.75rem;">الصورة</span>
                     <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="up(this,'imgT')">
                 </div>
-                <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i class="fas fa-microphone"></i><br><span id="fileT">تسجيلك الصوتي</span>
+                <div onclick="document.getElementById('fileIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
+                    <i class="fas fa-microphone" style="color:var(--gold);"></i><br><span id="fileT" style="font-size:0.75rem;">التلاوة</span>
                     <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="up(this,'fileT')">
                 </div>
             </div>
-            
-            <button type="submit" id="btn" class="main-btn">أرسل مشاركتك الآن</button>
+            <button type="submit" class="main-btn">أرسل تلاوتك الآن</button>
         </form>
     </div>
 
     <div class="footer-credit">
-        <span class="name">خادم القرآن/ عبد الرحمن مكي</span>
-        <span class="pray">نسألكم الدعاء بظهر الغيب بالقبول</span>
+        <span class="name">خادمكم/ عبد الرحمن مكي</span>
+        <span class="pray">نسألكم الدعاء بظهر الغيب بالقبول والإخلاص</span>
     </div>
 </div>
 
@@ -160,37 +141,43 @@
 <script>
     const phoneInput = document.querySelector("#phone");
     const iti = window.intlTelInput(phoneInput, {
-        initialCountry: "eg",
-        separateDialCode: true,
+        initialCountry: "eg", separateDialCode: true,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
-    function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
+    function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ جاهز"; }
 
+    let currentQ = 0;
     const questions = [
-        {q: "ما هي أطول سورة في القرآن؟", a: "سورة البقرة"},
-        {q: "ما هي السورة التي تسمى (قلب القرآن)؟", a: "سورة يس"},
-        {q: "كم عدد سور القرآن الكريم؟", a: "114 سورة"},
-        {q: "ما هي السورة التي تُسمى (عروس القرآن)؟", a: "سورة الرحمن"}
+        {q: "ما هي أطول سورة في القرآن؟", a: "البقرة"},
+        {q: "ما هي السورة التي تسمى قلب القرآن؟", a: "يس"},
+        {q: "كم عدد سور القرآن الكريم؟", a: "114"},
+        {q: "ما هي السورة الملقبة بعروس القرآن؟", a: "الرحمن"}
     ];
+
+    function checkAns() {
+        const val = document.getElementById('userAns').value;
+        const feedback = document.getElementById('quizFeedback');
+        if(val.includes(questions[currentQ].a)) {
+            feedback.innerHTML = "✅ إجابة صحيحة.. نفع الله بك!";
+            feedback.style.color = "#4CAF50";
+            setTimeout(() => {
+                currentQ = (currentQ + 1) % questions.length;
+                document.getElementById('quizQ').innerText = questions[currentQ].q;
+                document.getElementById('userAns').value = "";
+                feedback.innerHTML = "";
+            }, 2000);
+        } else {
+            feedback.innerHTML = "❌ حاول مرة أخرى..";
+            feedback.style.color = "#f44336";
+        }
+    }
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzB51SO2lH2_Z_ZVyffxfgcZ-2Lr50CHpdygXQlswBynAC6DuC25RZsr8R6bMabLddKCQ/exec';
     
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        const overlay = document.getElementById('loadingOverlay');
-        const qText = document.getElementById('quizQ');
-        const aText = document.getElementById('quizA');
-        
-        overlay.style.display = 'flex';
-        let idx = 0;
-        const qInterval = setInterval(() => {
-            qText.innerText = questions[idx].q;
-            aText.innerText = questions[idx].a;
-            aText.style.opacity = 1;
-            setTimeout(() => { aText.style.opacity = 0; idx = (idx + 1) % questions.length; }, 2000);
-        }, 3500);
-
+        document.getElementById('loadingOverlay').style.display = 'flex';
         try {
             const photoFile = document.getElementById('imgIn').files[0];
             const audioFile = document.getElementById('fileIn').files[0];
@@ -206,14 +193,11 @@
             formData.append("audioName", audioFile.name);
 
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
-            
-            clearInterval(qInterval);
-            alert("✅ تم استلام مشاركتك بنجاح.. بارك الله فيك!");
+            alert("✅تم استلام تلاوتك بنجاح..نفع الله بك");
             location.reload();
         } catch (err) {
-            clearInterval(qInterval);
-            overlay.style.display = 'none';
-            alert("حدث خطأ، حاول الإرسال مرة أخرى");
+            alert("حدث خطأ، حاول مرة أخرى");
+            document.getElementById('loadingOverlay').style.display = 'none';
         }
     };
 
