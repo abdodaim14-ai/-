@@ -3,11 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية مكي - المجلد الملياري</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>الانضمام إلى إمبراطورية أهل القرآن</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #ffd700;
+            --dark-gold: #b8860b;
+            --bg: #050505;
+        }
 
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* حاوية إنشاء الحساب */
+        .register-container {
+            background: #111;
+            padding: 40px;
+            border-radius: 25px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .register-container h1 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .register-container p {
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* الحقول */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* زر الانضمام */
+        .join-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
+            border: none;
+            border-radius: 10px;
+            color: black;
+            font-weight: 900;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 10px;
+        }
+
+        .join-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيق خاص للكمبيوتر */
+        @media (min-width: 1024px) {
+            .register-container { max-width: 450px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container" id="reg-box">
+        <i class="fas fa-quran" style="font-size: 3rem; color: var(--gold); margin-bottom: 15px;"></i>
+        <h1>أهل القرآن</h1>
+        <p>مرحباً بك في إمبراطورية خادم القرآن عبد الرحمن مكي</p>
+
+        <form id="registerForm" onsubmit="startMakiJourney(event)">
+            <div class="input-group">
+                <label>الاسم بالكامل</label>
+                <input type="text" id="userName" placeholder="اكتب اسمك الثلاثي..." required>
+            </div>
+
+            <div class="input-group">
+                <label>نوع الموهبة</label>
+                <select id="talent">
+                    <option value="قارئ">قارئ قرآن</option>
+                    <option value="منشد">منشد ديني</option>
+                    <option value="محفظ">محفظ قرآن</option>
+                    <option value="مبتهل">مبتهل</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>كلمة السر</label>
+                <input type="password" id="userPass" placeholder="********" required>
+            </div>
+
+            <button type="submit" class="join-btn">انضم للإمبراطورية الآن</button>
+        </form>
+    </div>
+
+    <script>
+        function startMakiJourney(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('userName').value;
+            const talent = document.getElementById('talent').value;
+
+            // تأثير التحميل
+            const box = document.getElementById('reg-box');
+            box.innerHTML = `
+                <h2 style="color:var(--gold);">جاري فحص الموهبة...</h2>
+                <div class="loader" style="margin: 20px auto; width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid gold; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <p>أهلاً بك يا ${name} في ركن ${talent} بإمبراطورية أهل القرآن</p>
+            `;
+
+            // التوجيه للإمبراطورية بعد 2 ثانية
+            setTimeout(() => {
+                alert("تم قبولك بنجاح في إمبراطورية أهل القرآن تحت قيادة عبد الرحمن مكي!");
+                // هنا نضع الكود الذي يفتح صفحة الإمبراطورية الرئيسية
+                window.location.href = "#empire-main"; // أو اسم ملفك الرئيسي
+                // إذا كنت تضع كل الأكواد في ملف واحد، سنقوم بإخفاء صفحة التسجيل وإظهار الموقع
+                document.body.innerHTML = "<h1 style='color:gold; text-align:center; margin-top:20%'>مرحباً بك في قلب الإمبراطورية... جاري تحميل الأركان</h1>";
+                location.reload(); // لإظهار الموقع الحقيقي
+            }, 2500);
+        }
+    </script>
+
+    <style>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</body>
+</html>
     <style>
         /* [قسم التصميم الممتد - 1000 سطر تنسيق] */
         :root {
