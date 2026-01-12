@@ -5,169 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>داعم المواهب للقرآن الكريم | عبد الرحمن مكي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #ffd700;
-            --gold-glow: 0 0 20px rgba(255, 215, 0, 0.6);
+            --maki-gold: #ffd700;
+            --gold-glow: 0 0 30px rgba(255, 215, 0, 0.5);
             --bg-black: #050505;
         }
 
-        /* [1] الخلفية والخطوط الذهبية المتوهجة */
+        /* الخلفية الملكية بخطوط ذهبية متوهجة وثابتة */
         body {
             background-color: var(--bg-black);
             color: white;
             font-family: 'Cairo', sans-serif;
             margin: 0; padding: 0;
             background-image: 
-                linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
-                repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255, 215, 0, 0.05) 100px, rgba(255, 215, 0, 0.05) 101px),
-                repeating-linear-gradient(-45deg, transparent, transparent 100px, rgba(255, 215, 0, 0.05) 100px, rgba(255, 215, 0, 0.05) 101px);
-            background-attachment: fixed; /* الخطوط ثابتة وتتحرك مع الاسكرول */
+                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                repeating-linear-gradient(45deg, transparent, transparent 120px, rgba(255, 215, 0, 0.08) 120px, rgba(255, 215, 0, 0.08) 121px);
+            background-attachment: fixed; /* الخطوط ثابتة تتحرك مع الاسكرول */
         }
 
-        .maki-wrapper { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
 
-        /* [2] اسم الصفحة الملكي */
-        .page-header-title {
-            font-family: 'Amiri', serif;
-            font-size: 3rem;
-            color: var(--gold);
-            text-shadow: var(--gold-glow);
-            margin-top: 30px;
-            letter-spacing: 2px;
-        }
-
-        /* [3] رسائل الترحيب والتحفيز */
-        .spiritual-card {
-            background: rgba(20, 20, 20, 0.7);
-            border: 1px solid var(--gold);
-            padding: 30px;
-            border-radius: 20px;
-            margin: 40px 0;
+        /* [1] السيرة الذاتية واللوجو */
+        .header-bio {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(15, 15, 15, 0.7);
+            border-bottom: 2px solid var(--maki-gold);
+            border-radius: 0 0 50px 50px;
             box-shadow: var(--gold-glow);
         }
 
-        .motivation-text { color: var(--gold); font-style: italic; font-size: 1.3rem; line-height: 1.8; margin-bottom: 20px; }
-
-        /* [4] أيقونات المنصات بالشادو الملون */
-        .social-box { margin: 40px 0; }
-        .social-icons { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
-        .icon-btn {
-            width: 80px; height: 80px; background: #000; border: 2px solid var(--gold);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; color: var(--gold); text-decoration: none; transition: 0.4s;
+        .maki-logo {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--maki-gold);
+            box-shadow: var(--gold-glow);
+            margin-bottom: 20px;
+            object-fit: cover;
         }
-        .yt-shadow { box-shadow: 0 0 30px #ff0000; }
-        .fb-shadow { box-shadow: 0 0 30px #1877f2; }
-        .icon-btn:hover { transform: scale(1.1); background: var(--gold); color: black; }
 
-        /* [5] استمارة التقديم */
-        .apply-form {
-            background: rgba(10, 10, 10, 0.9);
+        .maki-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.8rem;
+            color: var(--maki-gold);
+            text-shadow: var(--gold-glow);
+            margin: 0;
+        }
+
+        .bio-description {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #efefef;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* [2] نصوص تحفيزية إيمانية */
+        .faith-booster {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 1.6rem;
+            font-family: 'Amiri', serif;
+            color: var(--maki-gold);
+            text-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+
+        /* [3] قسم الفيديو التحفيزي */
+        .video-box {
+            border: 2px solid var(--maki-gold);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--gold-glow);
+            margin: 20px 0;
+        }
+
+        .video-caption {
+            text-align: center;
+            color: #ddd;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* [4] استمارة التقديم المجانية */
+        .free-tag {
+            background: var(--maki-gold);
+            color: black;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px gold;
+        }
+
+        .registration-form {
+            background: rgba(20, 20, 20, 0.95);
             padding: 40px;
             border-radius: 30px;
-            border-top: 5px solid var(--gold);
-            text-align: right;
+            border: 1px solid var(--maki-gold);
+            margin-top: 40px;
         }
 
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; color: var(--gold); margin-bottom: 10px; font-weight: bold; }
+        .form-group { margin-bottom: 20px; text-align: right; }
+        .form-group label { display: block; color: var(--maki-gold); margin-bottom: 8px; font-weight: bold; }
         .form-group input {
-            width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #333;
-            color: white; border-radius: 12px; outline: none; transition: 0.3s;
+            width: 100%; padding: 12px; background: #111; border: 1px solid #333;
+            color: white; border-radius: 10px; outline: none; transition: 0.3s;
         }
-        .form-group input:focus { border-color: var(--gold); box-shadow: var(--gold-glow); }
+        .form-group input:focus { border-color: var(--maki-gold); box-shadow: var(--gold-glow); }
 
         .submit-btn {
-            width: 100%; padding: 20px; background: var(--gold); color: black;
-            border: none; border-radius: 15px; font-weight: 900; font-size: 1.3rem;
-            cursor: pointer; box-shadow: var(--gold-glow); transition: 0.3s;
+            width: 100%; padding: 18px; background: var(--maki-gold); color: black;
+            border: none; border-radius: 12px; font-weight: 900; font-size: 1.3rem;
+            cursor: pointer; transition: 0.4s; margin-top: 15px;
         }
 
-        /* [6] محرك المسابقات (50 سؤال) */
-        #quiz-section {
-            display: none; padding: 40px; background: #000; border: 2px solid var(--gold);
-            border-radius: 20px; margin-top: 30px; animation: fadeIn 1s;
-        }
-
-        .footer-signature {
-            margin: 60px 0; font-size: 1.8rem; color: var(--gold); text-shadow: var(--gold-glow);
-            font-family: 'Amiri', serif;
+        .footer-maki {
+            text-align: center; padding: 60px 20px;
+            font-family: 'Amiri', serif; font-size: 2.2rem;
+            color: var(--maki-gold); text-shadow: var(--gold-glow);
         }
     </style>
 </head>
 <body>
 
-    <div class="maki-wrapper">
-        <h1 class="page-header-title">داعم المواهب للقرآن الكريم</h1>
-        
-        <div class="spiritual-card">
-            <p class="motivation-text">"إن الذي ملأ القلوب بنوره.. جعل القلوب بآيهِ تتفجرُ"<br>
-            أهلاً بك في رحاب أهل الله وخاصته، هنا نُعلي كلمة الحق وندعم أصوات الهدى مجاناً لوجه الله.</p>
+    <div class="container">
+        <header class="header-bio">
+            <img src="رابط-اللوجو-الخاص-بك" alt="لوجو دعم المواهب" class="maki-logo">
+            <h1 class="maki-title">داعم المواهب للقرآن الكريم</h1>
+            <div class="bio-description">
+                خادم القرآن عبد الرحمن مكي.. نذرنا أنفسنا لنشر الهدى ودعم كل صوتٍ شجيٍّ يرتل آيات الله. سمينا "دعم المواهب" لنكون يداً تمتد بالخير لكل قارئ ومنشد، نؤمن أن الموهبة هبة من الله، ودعمها واجبٌ علينا بلا مقابل.
+            </div>
+        </header>
+
+        <div class="faith-booster">
+            "وَمَنْ أَحْسَنُ قَوْلًا مِّمَّن دَعَا إِلَى اللَّهِ وَعَمِلَ صَالِحًا"
+            <br>
+            <span style="font-size: 1.1rem; color: #888;">كن أنت الصوت الذي يحيي القلوب</span>
         </div>
 
-        <div class="social-box">
-            <p class="motivation-text" style="font-size: 1.1rem;">سارع بالانضمام إلينا لنشر الهدى في كل مكان</p>
-            <div class="social-icons">
-                <a href="#" class="icon-btn yt-shadow"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="icon-btn fb-shadow"><i class="fab fa-facebook-f"></i></a>
+        <div class="video-section">
+            <p class="video-caption"><i class="fas fa-microphone-alt"></i> من تلاواتنا السابقة.. عبيرٌ من جنات الرحمن</p>
+            <div class="video-box">
+                <iframe width="100%" height="450" src="https://www.youtube.com/embed/رابط-الفيديو" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 
-        <div class="apply-form">
-            <h2 style="color:var(--gold); text-align:center; margin-bottom:30px;">استمارة الموهبة القرآنية</h2>
-            <p class="motivation-text" style="font-size: 0.9rem; text-align: center;">"صوتك أمانة.. وصورتك وقار.. ابدأ الآن رحلة العطاء"</p>
-            
-            <form id="talentForm">
+        <div class="registration-form">
+            <div style="text-align: center;">
+                <span class="free-tag">خِدْمَة مَجّانية بِالكَامِل</span>
+                <h2 style="color: var(--maki-gold); margin-bottom: 25px;">ابدأ رحلتك العالمية الآن</h2>
+                <p style="color: #aaa; margin-bottom: 30px;">"لا تتردد.. صوتك قد يكون سبباً في هداية قلبٍ حائر، سجل بياناتك ودعنا نُحلق بصوتك في آفاق الدنيا."</p>
+            </div>
+
+            <form id="makiForm">
                 <div class="form-group">
                     <label>الاسم الثلاثي</label>
-                    <input type="text" placeholder="ادخل اسمك بالكامل" required>
+                    <input type="text" placeholder="اكتب اسمك كاملاً" required>
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف (واتساب)</label>
                     <input type="tel" placeholder="01xxxxxxxxx" required>
                 </div>
                 <div class="form-group">
-                    <label>إرفاق صورتك الشخصية</label>
+                    <label>إرفاق صورتك الشخصية (لعمل تصاميم لك)</label>
                     <input type="file" accept="image/*" required>
                 </div>
                 <div class="form-group">
-                    <label>إرفاق مقطع صوتي (تلاوة أو إنشاد)</label>
+                    <label>إرفاق المقطع الصوتي (تلاوة أو إنشاد)</label>
                     <input type="file" accept="audio/*" required>
                 </div>
-                <button type="button" class="submit-btn" onclick="startQuiz()">إرسال البيانات وبدء المسابقة</button>
+                <button type="button" class="submit-btn" onclick="submitToEmpire()">إرسال البيانات وبدء مسابقة الـ 50 سؤال</button>
             </form>
         </div>
 
-        <div id="quiz-section">
-            <h2 style="color:var(--gold);">جاري رفع بياناتك.. استمتع بذكر الله</h2>
-            <p id="q-text" style="font-size: 1.4rem; margin: 20px 0;">سؤال 1: ما هي السورة التي تعدل ثلث القرآن؟</p>
-            <button class="submit-btn" style="background:none; border:1px solid gold; color:gold; margin-bottom:10px;" onclick="nextQ()">سورة الإخلاص</button>
-            <button class="submit-btn" style="background:none; border:1px solid gold; color:gold;" onclick="alert('تلميح: سورة التوحيد')">سورة الفاتحة</button>
-        </div>
-
-        <div class="footer-signature">
+        <div class="footer-maki">
             خادم القرآن: عبد الرحمن مكي
         </div>
     </div>
 
     <script>
-        function startQuiz() {
-            document.querySelector('.apply-form').style.display = 'none';
-            document.getElementById('quiz-section').style.display = 'block';
-            window.scrollTo(0, 500);
-        }
-
-        let currentQ = 1;
-        function nextQ() {
-            currentQ++;
-            if(currentQ <= 50) {
-                document.getElementById('q-text').innerText = "سؤال " + currentQ + ": جاري تحميل السؤال التالي من الـ 50 سؤال...";
-                alert("إجابة صحيحة! بارك الله فيك.");
-            } else {
-                alert("تهانينا يا إمبراطور مكي! أتممت الـ 50 سؤال وتم رفع بياناتك بنجاح.");
-            }
+        function submitToEmpire() {
+            alert("يا إمبراطور مكي، تم استلام بيانات الموهبة.. جاري البدء في الرفع والمسابقة!");
+            // هنا نربط مع صفحة المسابقة والرفع
         }
     </script>
 </body>
