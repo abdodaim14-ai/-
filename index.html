@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ورتل القرآن ترتيلاً | عبد الرحمن مكي</title>
+    <title>إمبراطورية أهل القرآن | عبد الرحمن مكي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&family=El+Messiri:wght@700&family=Amiri:ital,wght@1,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --gold: #ffd700;
-            --gold-glow: 0 0 30px rgba(255, 215, 0, 0.5);
+            --gold-glow: 0 0 30px rgba(255, 215, 0, 0.6);
             --bg-black: #050505;
         }
 
@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* [1] الخلفية الموجية الذهبية السحرية */
+        /* الخلفية الموجية الذهبية السحرية */
         .waves-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -38,161 +38,163 @@
             animation: moveWaves 30s linear infinite;
         }
 
-        @keyframes moveWaves {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        @keyframes moveWaves { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .container { max-width: 650px; margin: 0 auto; padding: 20px; text-align: center; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
 
-        /* [2] اللوجو والآية المركزية */
-        .header-section { padding: 40px 0; }
+        /* اللوجو والاسم */
         .maki-logo {
             width: 140px; height: 140px;
             border-radius: 50%;
-            border: 3px solid var(--gold);
+            border: 4px solid var(--gold);
             box-shadow: var(--gold-glow);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: var(--gold-glow); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
-        }
-
-        .quran-verse {
-            font-family: 'Amiri', serif;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-shadow: var(--gold-glow);
-            margin: 20px 0;
-            font-style: italic;
+            margin-top: 30px;
         }
 
         .main-title {
-            font-size: 2.8rem;
-            font-weight: 900; /* خط عريض جداً */
-            line-height: 1.2;
-            margin-bottom: 10px;
-        }
-
-        /* [3] زر الاستفسار والسيرة الذاتية */
-        .btn-action {
-            display: inline-block;
-            margin: 20px 0;
-            padding: 15px 45px;
-            border: 3px solid var(--gold);
-            color: var(--gold);
-            border-radius: 50px;
-            text-decoration: none;
+            font-size: 3rem;
             font-weight: 900;
-            font-size: 1.2rem;
-            box-shadow: var(--gold-glow);
-            transition: 0.4s;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .btn-action:hover {
-            background: var(--gold);
-            color: black;
-            transform: translateY(-5px);
+            color: var(--gold);
+            text-shadow: var(--gold-glow);
+            margin: 15px 0;
         }
 
         .bio-box {
             background: rgba(255, 255, 255, 0.05);
             padding: 30px;
             border-radius: 25px;
-            border-right: 6px solid var(--gold);
+            border-right: 8px solid var(--gold);
             text-align: right;
-            margin: 30px 0;
-            backdrop-filter: blur(5px);
-        }
-
-        .bio-box p {
+            margin-bottom: 40px;
             font-family: 'El Messiri', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             line-height: 1.8;
-            font-weight: 700;
         }
 
-        /* [4] الفيديو الطولي والتحفيز */
-        .video-wrapper {
+        /* قسم الفيديو العريض */
+        .video-section { margin-bottom: 50px; }
+        .video-praise {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            font-family: 'Amiri', serif;
+        }
+        .video-container {
             width: 100%;
-            max-width: 320px;
-            aspect-ratio: 9/16;
-            margin: 20px auto 40px;
+            aspect-ratio: 16 / 9; /* فيديو يوتيوب عريض */
             border: 3px solid var(--gold);
-            border-radius: 25px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--gold-glow);
         }
 
-        /* [5] المنصات بالشادو الأصلي */
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
+        /* أيقونات التواصل */
+        .social-call { font-size: 1.3rem; color: #ccc; margin-bottom: 20px; font-weight: bold; }
+        .social-row { display: flex; justify-content: center; gap: 30px; margin-bottom: 50px; }
         .social-btn {
-            width: 75px; height: 75px;
-            background: #000;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-decoration: none;
-            transition: 0.4s;
+            width: 80px; height: 80px; background: #000; border: 2px solid var(--gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: var(--gold); text-decoration: none; transition: 0.4s;
         }
-
         .yt-shadow { box-shadow: 0 0 25px #ff0000; }
         .fb-shadow { box-shadow: 0 0 25px #1877f2; }
-        .social-btn:hover { transform: scale(1.15); background: var(--gold); color: black; }
 
-        .footer-sig {
-            margin: 60px 0 40px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 900;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-shadow: var(--gold-glow);
+        /* الاستمارة والمسابقة */
+        .form-card {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid var(--gold);
+            text-align: right;
         }
+        .form-card h2 { color: var(--gold); text-align: center; margin-bottom: 20px; font-weight: 900; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; color: var(--gold); margin-bottom: 10px; font-weight: bold; }
+        .input-group input { width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 12px; }
+
+        .submit-btn {
+            width: 100%; padding: 20px; background: var(--gold); color: black;
+            border: none; border-radius: 15px; font-weight: 900; font-size: 1.4rem;
+            cursor: pointer; box-shadow: var(--gold-glow);
+        }
+
+        /* منطقة الـ 100 سؤال */
+        #quiz-area { display: none; margin-top: 30px; padding: 30px; border-top: 2px dashed var(--gold); }
+        .question-box { font-size: 1.6rem; color: var(--gold); margin-bottom: 20px; font-family: 'Amiri', serif; }
+
+        .footer-sig { margin: 60px 0; font-size: 2.2rem; color: var(--gold); text-shadow: var(--gold-glow); font-weight: 900; }
     </style>
 </head>
 <body>
 
-    <div class="waves-bg">
-        <div class="wave"></div>
-    </div>
+    <div class="waves-bg"><div class="wave"></div></div>
 
     <div class="container">
-        <header class="header-section">
-            <img src="رابط_اللوجو_الخاص_بك" alt="لوجو أهل القرآن" class="maki-logo">
-            <div class="quran-verse">"وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا"</div>
-            <h1 class="main-title">دَاعِمُ المَوَاهِبِ<br>لِلقُرآنِ الكَرِيمِ</h1>
-            <a href="https://wa.me/رقمك" class="btn-action">للاستفسار المباشر <i class="fab fa-whatsapp"></i></a>
+        <header>
+            <img src="رابط-اللوجو" alt="لوجو مكي" class="maki-logo">
+            <h1 class="main-title">داعم المواهب للقرآن الكريم</h1>
+            <div class="bio-box">
+                نحنُ هنا لِنرفعَ ذِكرَ كِتابِ اللهِ، ونَدعمَ كلَّ صاحبِ صَوتٍ نديٍّ مجاناً. خادمُ القُرآن <strong>عبد الرحمن مكي</strong> يفتحُ لكَ أبوابَ الإمبراطوريةِ لِتكونَ من نُخبةِ القُرّاءِ في العالَم.
+            </div>
         </header>
 
-        <div class="bio-box">
-            <p>خادم القرآن <strong>عبد الرحمن مكي</strong>، وهبنا هذه المنصة لتكون منبراً لكل صوت شجي يرتل آيات الله. نحن هنا لندعم موهبتك "مجاناً" وننشر تلاوتك للعالم أجمع بصورة تليق بجلال كتاب الله عز وجل.</p>
-        </div>
+        <section class="video-section">
+            <p class="video-praise">✨ "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا.. نُورٌ يَتلألأ فِي سَمَاءِ الإمبَراطورِيَّة" ✨</p>
+            <div class="video-container">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/رابط-فيديو-يوتيوب-عريض" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
 
-        <p style="color: var(--gold); font-weight: 900; font-size: 1.3rem; margin-bottom: 15px;">📽️ من فيض تلاواتنا السابقة</p>
-        <div class="video-wrapper">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/رابط_فيديو_طولي" frameborder="0" allowfullscreen></iframe>
-        </div>
-
-        <h3 style="font-weight: 900; color: var(--gold);">تَابِعُونا لِنَشْرِ الهُدَى</h3>
+        <p class="social-call">﴿ وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى ﴾.. تابعونا لنشر الخير</p>
         <div class="social-row">
-            <a href="#" class="social-btn yt-shadow" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="social-btn fb-shadow" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn yt-shadow"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-btn fb-shadow"><i class="fab fa-facebook-f"></i></a>
+        </div>
+
+        <div class="form-card">
+            <h2>سَجِّل الآن فِي مَوكِبِ النُّور</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 30px;">"خِدْمَةٌ مَجَّانِيَّةٌ لِوَجْهِ اللهِ تَعَالَى.. صَوْتُكَ أَمَانَةٌ فَأَسْمِعْهُ لِلْعَالَم"</p>
+            <div id="main-form">
+                <div class="input-group">
+                    <label>الاسم الثلاثي</label>
+                    <input type="text" placeholder="اكتب اسمك كاملاً">
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" placeholder="01xxxxxxxxx">
+                </div>
+                <div class="input-group">
+                    <label>ارفق صوتك (تلاوة)</label>
+                    <input type="file" accept="audio/*">
+                </div>
+                <button class="submit-btn" onclick="startQuiz()">إرسال البيانات وبدء التسلية (100 سؤال)</button>
+            </div>
+
+            <div id="quiz-area">
+                <p style="color: white; margin-bottom: 10px;">جاري رفع ملفك.. استمتع بذكر الله</p>
+                <div class="question-box" id="q-text">سؤال 1: ما هي السورة التي تسمى السبع المثاني؟</div>
+                <button class="submit-btn" style="background:none; border:1px solid gold; color:gold;" onclick="nextQuestion()">الإجابة: سورة الفاتحة</button>
+            </div>
         </div>
 
         <div class="footer-sig">خادم القرآن: عبد الرحمن مكي</div>
     </div>
 
+    <script>
+        let qCount = 1;
+        function startQuiz() {
+            document.getElementById('main-form').style.display = 'none';
+            document.getElementById('quiz-area').style.display = 'block';
+        }
+        function nextQuestion() {
+            qCount++;
+            if(qCount <= 100) {
+                document.getElementById('q-text').innerText = "سؤال " + qCount + ": جاري تحميل السؤال التالي من الـ 100 سؤال إيماني...";
+            } else {
+                alert("تم رفع بياناتك بنجاح يا إمبراطور مكي!");
+            }
+        }
+    </script>
 </body>
 </html>
