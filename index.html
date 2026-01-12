@@ -3,147 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية أهل القرآن | عبد الرحمن مكي</title>
+    <title>داعم المواهب للقرآن الكريم | عبد الرحمن مكي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* [1] الهوية البصرية الملكية */
         :root {
             --gold: #ffd700;
-            --gold-glow: 0 0 15px rgba(255, 215, 0, 0.6);
+            --gold-glow: 0 0 20px rgba(255, 215, 0, 0.6);
             --bg-black: #050505;
-            --card-bg: rgba(20, 20, 20, 0.9);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        
-        body { 
-            background: var(--bg-black); 
-            color: white; 
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://www.transparenttextures.com/patterns/black-linen.png');
+        /* [1] الخلفية والخطوط الذهبية المتوهجة */
+        body {
+            background-color: var(--bg-black);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            margin: 0; padding: 0;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255, 215, 0, 0.05) 100px, rgba(255, 215, 0, 0.05) 101px),
+                repeating-linear-gradient(-45deg, transparent, transparent 100px, rgba(255, 215, 0, 0.05) 100px, rgba(255, 215, 0, 0.05) 101px);
+            background-attachment: fixed; /* الخطوط ثابتة وتتحرك مع الاسكرول */
         }
 
-        .maki-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .maki-wrapper { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
 
-        /* تأثير الخطوط الذهبية المتوهجة */
-        .glow-text { color: var(--gold); text-shadow: var(--gold-glow); font-weight: 900; }
-        .gold-border { border: 1px solid var(--gold); box-shadow: var(--gold-glow); border-radius: 15px; }
-
-        /* [2] صفحة الدخول (الحساب) */
-        .auth-section { 
-            background: var(--card-bg); padding: 30px; margin-top: 50px; text-align: center;
-            border: 2px solid var(--gold); border-radius: 20px;
+        /* [2] اسم الصفحة الملكي */
+        .page-header-title {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            text-shadow: var(--gold-glow);
+            margin-top: 30px;
+            letter-spacing: 2px;
         }
-        .social-btn {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: bold; transition: 0.3s;
+
+        /* [3] رسائل الترحيب والتحفيز */
+        .spiritual-card {
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid var(--gold);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: var(--gold-glow);
         }
-        .google { background: white; color: #333; }
-        .fb { background: #1877f2; color: white; }
-        .phone { background: var(--gold); color: black; }
 
-        /* [3] نبذة عن الإمبراطورية */
-        .about-section { margin: 50px 0; line-height: 1.8; text-align: center; }
-        .about-card { background: rgba(255, 215, 0, 0.05); padding: 30px; border-radius: 20px; }
+        .motivation-text { color: var(--gold); font-style: italic; font-size: 1.3rem; line-height: 1.8; margin-bottom: 20px; }
 
-        /* [4] قسم الفيديو والروابط */
-        .video-box { margin: 40px 0; overflow: hidden; border-radius: 15px; border: 2px solid var(--gold); }
-        .links-box { display: flex; gap: 15px; margin-bottom: 40px; }
-        .link-btn { flex: 1; padding: 15px; background: transparent; border: 1px solid var(--gold); color: var(--gold); text-align: center; text-decoration: none; border-radius: 10px; transition: 0.3s; }
-        .link-btn:hover { background: var(--gold); color: black; }
+        /* [4] أيقونات المنصات بالشادو الملون */
+        .social-box { margin: 40px 0; }
+        .social-icons { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
+        .icon-btn {
+            width: 80px; height: 80px; background: #000; border: 2px solid var(--gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: var(--gold); text-decoration: none; transition: 0.4s;
+        }
+        .yt-shadow { box-shadow: 0 0 30px #ff0000; }
+        .fb-shadow { box-shadow: 0 0 30px #1877f2; }
+        .icon-btn:hover { transform: scale(1.1); background: var(--gold); color: black; }
 
-        /* [5] نظام المسابقات الذكي (أثناء الرفع) */
-        #quiz-engine { display: none; background: #111; padding: 30px; margin-top: 30px; text-align: center; }
-        .progress-bar { width: 100%; height: 10px; background: #333; border-radius: 5px; margin: 20px 0; }
-        .progress-fill { width: 0%; height: 100%; background: var(--gold); box-shadow: var(--gold-glow); transition: 0.5s; }
+        /* [5] استمارة التقديم */
+        .apply-form {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            border-top: 5px solid var(--gold);
+            text-align: right;
+        }
 
-        .maki-signature { margin-top: 50px; font-size: 1.5rem; text-align: center; font-style: italic; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; color: var(--gold); margin-bottom: 10px; font-weight: bold; }
+        .form-group input {
+            width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #333;
+            color: white; border-radius: 12px; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--gold); box-shadow: var(--gold-glow); }
+
+        .submit-btn {
+            width: 100%; padding: 20px; background: var(--gold); color: black;
+            border: none; border-radius: 15px; font-weight: 900; font-size: 1.3rem;
+            cursor: pointer; box-shadow: var(--gold-glow); transition: 0.3s;
+        }
+
+        /* [6] محرك المسابقات (50 سؤال) */
+        #quiz-section {
+            display: none; padding: 40px; background: #000; border: 2px solid var(--gold);
+            border-radius: 20px; margin-top: 30px; animation: fadeIn 1s;
+        }
+
+        .footer-signature {
+            margin: 60px 0; font-size: 1.8rem; color: var(--gold); text-shadow: var(--gold-glow);
+            font-family: 'Amiri', serif;
+        }
     </style>
 </head>
 <body>
 
-<div class="maki-container">
-    
-    <div class="auth-section">
-        <h1 class="glow-text">انضم إلى أهل القرآن</h1>
-        <p>ابدأ رحلتك الإيمانية مع عبد الرحمن مكي</p>
-        <button class="social-btn google"><i class="fab fa-google"></i> متابعة باستخدام Google</button>
-        <button class="social-btn fb"><i class="fab fa-facebook"></i> متابعة باستخدام Facebook</button>
-        <button class="social-btn phone" onclick="showRegistration()"><i class="fas fa-phone"></i> استخدام رقم الهاتف</button>
-    </div>
-
-    <section class="about-section">
-        <div class="about-card gold-border">
-            <h2 class="glow-text">لماذا "دعم مواهب أهل القرآن"؟</h2>
-            <p>نحن لا نبيع كلام الله، بل نسعى لنشره في قلوب جيلٍ صاعد. سمينا هذه الإمبراطورية بـ <strong>"دعم المواهب"</strong> لأننا نؤمن أن كل صوت جميل هو أمانة، وكل حافظ هو منارة. نحن هنا لندعمك مجاناً لأن القرآن للجميع، وخدمته هي شرفنا الأسمى.</p>
-        </div>
-    </section>
-
-    <div class="video-box">
-        <iframe width="100%" height="450" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="links-box">
-        <a href="URL_1" class="link-btn">ركن القراءات</a>
-        <a href="URL_2" class="link-btn">ديوان المنشدين</a>
-    </div>
-
-    <div id="registration-form" class="auth-section gold-border" style="display:none;">
-        <h2 class="glow-text">استمارة أهل القرآن</h2>
-        <input type="text" placeholder="الاسم الرباعي" style="width:100%; padding:12px; margin:10px 0; background:#222; color:white; border:1px solid gold;">
-        <button class="social-btn phone" onclick="startUpload()">إرسال البيانات والتحقق</button>
-    </div>
-
-    <div id="quiz-engine" class="gold-border">
-        <h3 class="glow-text">جاري رفع بياناتك للإمبراطورية...</h3>
-        <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
-        <hr style="border:0.5px solid #333; margin:20px 0;">
-        <div id="quiz-container">
-            <p id="question-text" style="font-size: 1.2rem; margin-bottom: 20px;">سؤال: ما هي أطول سورة في القرآن الكريم؟</p>
-            <div id="options">
-                <button onclick="checkAnswer(true)" class="link-btn" style="display:block; width:100%; margin:5px 0;">سورة البقرة</button>
-                <button onclick="checkAnswer(false)" class="link-btn" style="display:block; width:100%; margin:5px 0;">سورة آل عمران</button>
-            </div>
-            <p id="hint" style="color: #888; margin-top: 15px; display: none;">تلميح: السورة التي ذكر فيها البقرة!</p>
-        </div>
-    </div>
-
-    <div class="maki-signature glow-text">
-        خادم القرآن: عبد الرحمن مكي
-    </div>
-</div>
-
-<script>
-    function showRegistration() {
-        document.getElementById('registration-form').style.display = 'block';
-    }
-
-    let progress = 0;
-    function startUpload() {
-        document.getElementById('registration-form').style.display = 'none';
-        document.getElementById('quiz-engine').style.display = 'block';
+    <div class="maki-wrapper">
+        <h1 class="page-header-title">داعم المواهب للقرآن الكريم</h1>
         
-        let interval = setInterval(() => {
-            progress += 0.5;
-            document.getElementById('fill').style.width = progress + '%';
-            if (progress >= 100) {
-                clearInterval(interval);
-                alert("تم رفع بياناتك بنجاح! مرحباً بك في أهل القرآن.");
-            }
-        }, 200);
-    }
+        <div class="spiritual-card">
+            <p class="motivation-text">"إن الذي ملأ القلوب بنوره.. جعل القلوب بآيهِ تتفجرُ"<br>
+            أهلاً بك في رحاب أهل الله وخاصته، هنا نُعلي كلمة الحق وندعم أصوات الهدى مجاناً لوجه الله.</p>
+        </div>
 
-    function checkAnswer(isCorrect) {
-        if (isCorrect) {
-            alert("أحسنت يا خادم القرآن! إجابة صحيحة.");
-            // هنا نغير السؤال (من الـ 1000 سؤال المبرمجة)
-            document.getElementById('question-text').innerText = "سؤال: ما هي السورة التي تسمى عروس القرآن؟";
-            document.getElementById('hint').style.display = 'none';
-        } else {
-            document.getElementById('hint').style.display = 'block';
-            alert("إجابة خاطئة.. حاول مرة أخرى!");
+        <div class="social-box">
+            <p class="motivation-text" style="font-size: 1.1rem;">سارع بالانضمام إلينا لنشر الهدى في كل مكان</p>
+            <div class="social-icons">
+                <a href="#" class="icon-btn yt-shadow"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="icon-btn fb-shadow"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+
+        <div class="apply-form">
+            <h2 style="color:var(--gold); text-align:center; margin-bottom:30px;">استمارة الموهبة القرآنية</h2>
+            <p class="motivation-text" style="font-size: 0.9rem; text-align: center;">"صوتك أمانة.. وصورتك وقار.. ابدأ الآن رحلة العطاء"</p>
+            
+            <form id="talentForm">
+                <div class="form-group">
+                    <label>الاسم الثلاثي</label>
+                    <input type="text" placeholder="ادخل اسمك بالكامل" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف (واتساب)</label>
+                    <input type="tel" placeholder="01xxxxxxxxx" required>
+                </div>
+                <div class="form-group">
+                    <label>إرفاق صورتك الشخصية</label>
+                    <input type="file" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>إرفاق مقطع صوتي (تلاوة أو إنشاد)</label>
+                    <input type="file" accept="audio/*" required>
+                </div>
+                <button type="button" class="submit-btn" onclick="startQuiz()">إرسال البيانات وبدء المسابقة</button>
+            </form>
+        </div>
+
+        <div id="quiz-section">
+            <h2 style="color:var(--gold);">جاري رفع بياناتك.. استمتع بذكر الله</h2>
+            <p id="q-text" style="font-size: 1.4rem; margin: 20px 0;">سؤال 1: ما هي السورة التي تعدل ثلث القرآن؟</p>
+            <button class="submit-btn" style="background:none; border:1px solid gold; color:gold; margin-bottom:10px;" onclick="nextQ()">سورة الإخلاص</button>
+            <button class="submit-btn" style="background:none; border:1px solid gold; color:gold;" onclick="alert('تلميح: سورة التوحيد')">سورة الفاتحة</button>
+        </div>
+
+        <div class="footer-signature">
+            خادم القرآن: عبد الرحمن مكي
+        </div>
+    </div>
+
+    <script>
+        function startQuiz() {
+            document.querySelector('.apply-form').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'block';
+            window.scrollTo(0, 500);
         }
-    }
-</script>
 
+        let currentQ = 1;
+        function nextQ() {
+            currentQ++;
+            if(currentQ <= 50) {
+                document.getElementById('q-text').innerText = "سؤال " + currentQ + ": جاري تحميل السؤال التالي من الـ 50 سؤال...";
+                alert("إجابة صحيحة! بارك الله فيك.");
+            } else {
+                alert("تهانينا يا إمبراطور مكي! أتممت الـ 50 سؤال وتم رفع بياناتك بنجاح.");
+            }
+        }
+    </script>
 </body>
 </html>
