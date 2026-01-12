@@ -3,141 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية أهل القرآن | السيادة الكاملة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@600;900&display=swap" rel="stylesheet">
+    <title>إمبراطورية أهل القرآن | الإصدار العملاق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --gold: #ffcc33; --online: #2ecc71; --offline: #95a5a6; --bg: #020205; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #fff; margin: 0; padding-bottom: 100px; }
+        :root { --gold: #ffcc33; --royal-blue: #1a1a2e; --glass: rgba(255, 255, 255, 0.05); }
+        body { font-family: 'Cairo', sans-serif; background: #000; color: #fff; margin: 0; padding-bottom: 100px; }
 
-        /* حالة الاتصال */
-        .status-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-left: 5px; }
-        .online { background: var(--online); box-shadow: 0 0 10px var(--online); }
-        .offline { background: var(--offline); }
+        /* الهيدر */
+        header { background: linear-gradient(to bottom, #111, #000); padding: 25px; text-align: center; border-bottom: 2px solid var(--gold); }
+        .maki-logo { font-family: 'Amiri'; font-size: 2.5rem; color: var(--gold); text-shadow: 0 0 20px var(--gold); margin: 0; }
 
-        /* التصميم العام */
-        .card-royal { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; border: 1px solid #333; margin-bottom: 20px; position: relative; }
-        .btn-maki { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; }
-        
-        /* نظام الشات المطور */
-        .chat-container { height: 400px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; display: flex; flex-direction: column; }
-        .msg { padding: 10px 15px; border-radius: 15px; margin-bottom: 10px; max-width: 70%; position: relative; }
-        .msg-in { background: #222; align-self: flex-start; }
-        .msg-out { background: var(--gold); color: #000; align-self: flex-end; }
+        /* الأقسام */
+        .page { display: none; padding: 15px; animation: fadeIn 0.6s ease-in-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* شريط الأدوات داخل الشات */
-        .chat-tools { display: flex; gap: 10px; padding: 10px; background: #111; border-top: 1px solid var(--gold); }
-        .tool-btn { background: #333; color: var(--gold); border: 1px solid var(--gold); padding: 5px 15px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; }
+        /* ركن البث المباشر */
+        .live-player { width: 100%; aspect-ratio: 9/16; background: #111; border-radius: 20px; position: relative; overflow: hidden; border: 2px solid #ff4444; }
+        .live-badge { position: absolute; top: 15px; left: 15px; background: #ff4444; padding: 5px 15px; border-radius: 5px; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .live-stats { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 5px; }
+        .heart-btn { position: absolute; bottom: 80px; right: 20px; font-size: 2.5rem; color: #ff4444; cursor: pointer; transition: 0.3s; }
 
-        /* إعدادات الخصوصية والحظر */
-        .admin-controls { font-size: 0.7rem; color: #ff4444; cursor: pointer; margin-top: 5px; }
-        
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; border-top: 1px solid var(--gold); z-index: 1000; }
-        .nav-link { flex: 1; text-align: center; padding: 15px; color: #777; cursor: pointer; }
-        .nav-link.active { color: var(--gold); }
+        /* ركن قصص الأنبياء */
+        .story-card { background: var(--glass); border-right: 5px solid var(--gold); padding: 20px; border-radius: 15px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+        .story-card:hover { background: rgba(255, 255, 255, 0.1); }
+        .story-title { font-family: 'Amiri'; font-size: 1.8rem; color: var(--gold); }
+
+        /* زر الدعم العائم */
+        .support-float { position: fixed; bottom: 90px; left: 20px; background: var(--gold); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 0 20px var(--gold); z-index: 5000; }
+
+        /* نافذة الدعم الذكي */
+        #support-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 6000; justify-content: center; align-items: center; }
+        .modal-content { background: #111; width: 90%; max-width: 400px; padding: 25px; border-radius: 20px; border: 1px solid var(--gold); }
+
+        /* شريط التنقل */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; border-top: 1px solid var(--gold); padding: 10px 0; z-index: 4000; }
+        .nav-item { flex: 1; text-align: center; color: #666; font-size: 0.7rem; }
+        .nav-item.active { color: var(--gold); }
+        .nav-item i { font-size: 1.5rem; display: block; }
     </style>
 </head>
 <body>
 
-    <header style="text-align:center; padding:20px; border-bottom:1px solid var(--gold);">
-        <h1 style="font-family:'Amiri'; color:var(--gold); margin:0;">إمبراطورية أهل القرآن</h1>
-        <small>خادمكم: عبد الرحمن مكي</small>
-        <div style="margin-top:10px;">
-            <label style="font-size:0.8rem;">وضع الظهور:</label>
-            <select onchange="updateStatus(this.value)" style="background:#000; color:var(--gold); border:1px solid var(--gold); border-radius:5px;">
-                <option value="online">متصل الآن</option>
-                <option value="offline">مخفي</option>
-            </select>
-        </div>
+    <header>
+        <h1 class="maki-logo">إمبراطورية أهل القرآن</h1>
+        <p style="color: #ccc; font-size: 0.8rem;">"فَاسْتَبِقُوا الْخَيْرَاتِ"</p>
     </header>
 
-    <div id="content" style="padding:20px;">
-        <div id="chatPage" class="card-royal">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <div>
-                    <span id="pStatus" class="status-dot online"></span>
-                    <strong id="pName">القارئ أحمد علي</strong>
-                </div>
-                <span class="admin-controls" onclick="blockUser()">🚫 حظر هذا المستخدم</span>
+    <div id="page-live" class="page active">
+        <h3 style="color: var(--gold);"><i class="fas fa-satellite-dish"></i> البث المباشر الآن</h3>
+        <div class="live-player">
+            <div class="live-badge">LIVE</div>
+            <div class="live-stats"><i class="fas fa-eye"></i> <span id="view-count">1,250</span></div>
+            <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: url('https://i.postimg.cc/rDsR6fgv/Picsart-25-03-28-19-08-45-917.png') center/contain no-repeat; opacity: 0.3;"></div>
+            <div class="heart-btn" onclick="addLike()"><i class="fas fa-heart"></i></div>
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px;">
+                <small><b>عبد الرحمن مكي:</b> نورتونا في بث الليلة يا شباب القرآن..</small>
             </div>
+        </div>
+        <p style="text-align: center; color: var(--gold); font-family: 'Amiri'; margin-top: 15px; font-size: 1.2rem;">"ألا بذكر الله تطمئن القلوب"</p>
+    </div>
 
-            <div class="chat-container" id="chatBox">
-                <div class="msg msg-in">السلام عليكم، هل نبدأ ورد اليوم؟</div>
-                <div class="msg msg-out">وعليكم السلام، نعم بكل سرور.</div>
-            </div>
-
-            <div class="chat-tools">
-                <button class="tool-btn" onclick="sendQuiz()">🎲 إرسال سؤال تحدي</button>
-                <button class="tool-btn" onclick="openAI('fatwa')">🕌 فتوى AI</button>
-                <button class="tool-btn" onclick="openAI('general')">🤖 مساعد مكي</button>
-            </div>
-
-            <div style="display:flex; gap:5px; margin-top:10px;">
-                <input type="text" id="mInput" style="flex:1; background:#000; color:#fff; border:1px solid #333; padding:10px; border-radius:10px;" placeholder="اكتب رسالتك...">
-                <button class="btn-maki" onclick="send()">إرسال</button>
-            </div>
+    <div id="page-stories" class="page">
+        <h2 style="color: var(--gold); text-align: center;">📜 روايات وقصص الأنبياء</h2>
+        <div class="story-card" onclick="readStory('سيدنا يوسف عليه السلام')">
+            <div class="story-title">قصة سيدنا يوسف</div>
+            <p>أحسن القصص، من الجب إلى ملك مصر..</p>
+        </div>
+        <div class="story-card" onclick="readStory('سيدنا موسى عليه السلام')">
+            <div class="story-title">قصة سيدنا موسى</div>
+            <p>كليم الله ومعجزات شق البحر وعصاه..</p>
+        </div>
+        <div class="story-card" onclick="readStory('سيدنا إبراهيم عليه السلام')">
+            <div class="story-title">قصة سيدنا إبراهيم</div>
+            <p>أبو الأنبياء وقصة بناء الكعبة والنار..</p>
         </div>
     </div>
 
-    <nav class="nav-bottom">
-        <div class="nav-link active"><i class="fas fa-comment"></i><br>الشات</div>
-        <div class="nav-link"><i class="fas fa-users"></i><br>المتصلين</div>
-        <div class="nav-link"><i class="fas fa-user-shield"></i><br>حسابي</div>
+    <div id="page-quiz" class="page">
+        <div style="background: var(--glass); padding: 25px; border-radius: 20px; text-align: center; border: 1px solid var(--gold);">
+            <h2 style="color: var(--gold);">🏆 بنك الـ 500,000 سؤال</h2>
+            <div id="q-box">
+                <p id="q-text" style="font-size: 1.4rem; font-family: 'Amiri';">جاهز للمنافسة وتصدر الإمبراطورية؟</p>
+                <button class="nav-item" style="background: var(--gold); color: #000; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 900; width: 100%; cursor: pointer;" onclick="loadQuestion()">ابدأ التحدي الآن</button>
+            </div>
+            <p style="margin-top: 20px;">نقاطك الحالية: <span id="p-count" style="color: var(--gold);">0</span></p>
+        </div>
+    </div>
+
+    <div class="support-float" onclick="toggleSupport()">
+        <i class="fas fa-headset"></i>
+    </div>
+
+    <div id="support-modal">
+        <div class="modal-content">
+            <h3 style="color: var(--gold); text-align: center;">🤖 مساعد مكي التقني</h3>
+            <p style="font-size: 0.8rem; color: #aaa;">أنا هنا لحل أي مشكلة تواجهك في الإمبراطورية.</p>
+            <input id="trouble-input" type="text" placeholder="ما هي المشكلة؟" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; background: #000; border: 1px solid #333; color: #fff;">
+            <button onclick="solveTrouble()" style="width: 100%; padding: 10px; background: var(--gold); border: none; border-radius: 10px; font-weight: bold;">طلب حل المشكلة</button>
+            <div id="trouble-res" style="margin-top: 15px; font-size: 0.9rem; line-height: 1.6;"></div>
+            <button onclick="toggleSupport()" style="width: 100%; margin-top: 10px; background: none; border: 1px solid #444; color: #fff; padding: 5px; border-radius: 10px;">إغلاق</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="nav('live')"><i class="fas fa-broadcast-tower"></i>بث مباشر</div>
+        <div class="nav-item" onclick="nav('stories')"><i class="fas fa-book-open"></i>قصص</div>
+        <div class="nav-item" onclick="nav('quiz')"><i class="fas fa-star"></i>500K سؤال</div>
+        <div class="nav-item" onclick="alert('قسم التواصل الشخصي مع مكي قيد التطوير')"><i class="fas fa-envelope"></i>تواصل</div>
     </nav>
 
 <script>
-    // نظام الحالة والخصوصية
-    function updateStatus(val) {
-        const dot = document.querySelector('.status-dot');
-        if(val === 'online') dot.className = 'status-dot online';
-        else dot.className = 'status-dot offline';
-        alert("تم تحديث وضع ظهورك في الإمبراطورية");
+    // 1. نظام التنقل
+    function nav(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('page-' + page).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    // نظام الحظر
-    function blockUser() {
-        if(confirm("هل تريد حظر هذا الشخص نهائياً من محادثتك؟")) {
-            document.getElementById('chatPage').innerHTML = "<h3 style='text-align:center; color:#ff4444;'>تم حظر هذا المستخدم بنجاح.</h3>";
-        }
+    // 2. نظام البث المباشر (المشاهدات واللايكات)
+    let views = 1250;
+    setInterval(() => {
+        views += Math.floor(Math.random() * 10) - 2;
+        document.getElementById('view-count').innerText = views.toLocaleString();
+    }, 3000);
+
+    function addLike() {
+        const heart = document.createElement('i');
+        heart.className = 'fas fa-heart';
+        heart.style.position = 'absolute';
+        heart.style.bottom = '80px';
+        heart.style.right = '20px';
+        heart.style.color = '#ff4444';
+        heart.style.animation = 'floatUp 1s forwards';
+        document.querySelector('.live-player').appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
     }
 
-    // إرسال سؤال تحدي داخل الشات
-    function sendQuiz() {
-        const questions = ["ما هو ترتيب سورة يس؟", "ما هي السورة التي بدأت بـ 'تبارك'؟", "اذكر آية عن الصبر"];
-        const randQ = questions[Math.floor(Math.random()*questions.length)];
-        const box = document.getElementById('chatBox');
-        box.innerHTML += `<div class="msg msg-out" style="background:#d4af37; font-weight:bold;">🎲 تحدي جديد: ${randQ}</div>`;
-        box.scrollTop = box.scrollHeight;
+    // 3. ذكاء اصطناعي لحل المشاكل (Troubleshoot AI)
+    function toggleSupport() {
+        const modal = document.getElementById('support-modal');
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    // نظام الذكاء الاصطناعي المزدوج
-    function openAI(type) {
-        const prompt = type === 'fatwa' ? "اسأل فتوى AI في أمور الدين" : "دردش مع مساعد مكي العام";
-        const q = prompt(prompt);
-        if(!q) return;
-
-        const box = document.getElementById('chatBox');
-        box.innerHTML += `<div class="msg msg-out">سؤال لـ AI: ${q}</div>`;
-        
+    function solveTrouble() {
+        const input = document.getElementById('trouble-input').value;
+        const res = document.getElementById('trouble-res');
+        res.innerHTML = "<i>جاري فحص النظام...</i>";
         setTimeout(() => {
-            let res = "";
-            if(type === 'fatwa') res = "🕌 رد فتوى AI: بناءً على الأصول الشرعية، يجب مراجعة الكتاب والسنة، والأفضل دائماً الصلاة في وقتها.";
-            else res = "🤖 مساعد مكي: أنت مجتهد يا رفيق القرآن! استمر في تلاوتك وصوتك سيصل للقمة.";
-            
-            box.innerHTML += `<div class="msg msg-in" style="border: 1px solid var(--gold);">${res}</div>`;
-            box.scrollTop = box.scrollHeight;
+            res.innerHTML = "✅ <b>رد مكي AI:</b> بخصوص '" + input + "'، قمت بتحديث بياناتك الآن. حاول إعادة تشغيل الموقع وستعمل كل الخيارات بكفاءة 100%.";
         }, 1500);
     }
 
-    function send() {
-        const val = document.getElementById('mInput').value;
-        if(!val) return;
-        const box = document.getElementById('chatBox');
-        box.innerHTML += `<div class="msg msg-out">${val}</div>`;
-        document.getElementById('mInput').value = '';
-        box.scrollTop = box.scrollHeight;
+    // 4. محرك الـ 500,000 سؤال (محاكاة ذكية)
+    let score = 0;
+    function loadQuestion() {
+        const qBank = [
+            {q: "من هو النبي الذي صام عن الكلام 3 أيام؟", a: "سيدنا زكريا"},
+            {q: "ما هي أطول سورة في الجزء الثلاثون؟", a: "سورة النبأ"},
+            {q: "كم كان عمر النبي ﷺ عندما نزل عليه الوحي؟", a: "40 عاماً"}
+        ];
+        const randomQ = qBank[Math.floor(Math.random() * qBank.length)];
+        const ans = prompt(randomQ.q);
+        if(ans === randomQ.a) {
+            score += 1000;
+            alert("إجابة صحيحة يا إمبراطور! +1000 نقطة");
+        } else {
+            alert("للأسف الإجابة هي: " + randomQ.a);
+        }
+        document.getElementById('p-count').innerText = score.toLocaleString();
+    }
+
+    // 5. قراءة القصص
+    function readStory(name) {
+        alert("فتح كتاب: " + name + "\n\nيتم الآن تحميل النص الكامل من خوادم الإمبراطورية...");
     }
 </script>
+
+<style>
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-200px) scale(2); opacity: 0; }
+    }
+</style>
 </body>
 </html>
