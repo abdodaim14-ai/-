@@ -17,7 +17,6 @@
             min-height: 100vh; padding: 20px 0 120px 0;
         }
         
-        /* ذكاء التجاوب للكمبيوتر والهاتف */
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; }
         @media (min-width: 768px) {
             .container { max-width: 700px; }
@@ -179,7 +178,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // قاعدة بيانات ذكية تربط السور بالصفحات
     const quranMap = [
         ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
     ];
@@ -190,37 +188,25 @@
     function fillQuranData() {
         const selected = quranMap.find(s => s[0] === surahSelect.value);
         const [name, ayahs, startPage] = selected;
-        
         const populate = (id, max, start = 1) => {
             const el = document.getElementById(id); el.innerHTML = "";
             for(let i=start; i<=max; i++) { el.add(new Option(i, i)); }
         };
-
-        // تعبئة الآيات
         populate('ayahFrom', ayahs); populate('ayahTo', ayahs);
-        
-        // تعبئة الصفحات (ذكاء: يبدأ من صفحة السورة وينتهي بآخر المصحف)
-        populate('pageFrom', 604, startPage);
-        populate('pageTo', 604, startPage);
+        populate('pageFrom', 604, startPage); populate('pageTo', 604, startPage);
     }
 
-    // وظيفة ذكية لربط الآية بالصفحة فور الاختيار
     function smartPageLink(type) {
         const selectedSurah = quranMap.find(s => s[0] === surahSelect.value);
         const startPage = selectedSurah[2];
-        const totalAyahs = selectedSurah[1];
-        
         if(type === 'from') {
             const val = parseInt(document.getElementById('ayahFrom').value);
-            // حساب تقريبي للصفحة: كل 15 آية تقريباً صفحة
             let estimatedPage = startPage + Math.floor(val / 15);
-            if(estimatedPage > 604) estimatedPage = 604;
-            document.getElementById('pageFrom').value = estimatedPage;
+            document.getElementById('pageFrom').value = estimatedPage > 604 ? 604 : estimatedPage;
         } else {
             const val = parseInt(document.getElementById('ayahTo').value);
             let estimatedPage = startPage + Math.floor(val / 15);
-            if(estimatedPage > 604) estimatedPage = 604;
-            document.getElementById('pageTo').value = estimatedPage;
+            document.getElementById('pageTo').value = estimatedPage > 604 ? 604 : estimatedPage;
         }
     }
 
@@ -236,12 +222,33 @@
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
+    // إضافة 20 سؤالاً جديداً كما طلبت
     const questions = [
         {q: "ما هي أطول سورة في القرآن؟", a: "سورة البقرة"},
         {q: "ما هي السورة التي تسمى عروس القرآن؟", a: "سورة الرحمن"},
         {q: "كم عدد سور القرآن الكريم؟", a: "114 سورة"},
         {q: "ما هي السورة التي تعدل ثلث القرآن؟", a: "سورة الإخلاص"},
-        {q: "ما هي أعظم آية في القرآن؟", a: "آية الكرسي"}
+        {q: "ما هي أعظم آية في القرآن؟", a: "آية الكرسي"},
+        {q: "من هو أول من جهر بالقرآن في مكة؟", a: "عبد الله بن مسعود"},
+        {q: "ما هي السورة التي بدأت بـ (المر)؟", a: "سورة الرعد"},
+        {q: "ما هي أقصر سورة في القرآن الكريم؟", a: "سورة الكوثر"},
+        {q: "كم عدد أجزاء القرآن الكريم؟", a: "30 جزءاً"},
+        {q: "ما هي السورة التي تسمى (قلب القرآن)؟", a: "سورة يس"},
+        {q: "كم عدد السجدات في القرآن الكريم؟", a: "15 سجدة"},
+        {q: "ما هي السورة التي تسمى سورة النعم؟", a: "سورة النحل"},
+        {q: "بأي سورة لُقب علي بن أبي طالب بـ (أبو تراب)؟", a: "سورة النبأ"},
+        {q: "ما هي السورة التي ذكرت فيها البسملة مرتين؟", a: "سورة النمل"},
+        {q: "ما هي السورة التي تخلو من حرف الراء؟", a: "سورة الإخلاص"},
+        {q: "ما هي السورة التي تسمى الفاضحة؟", a: "سورة التوبة"},
+        {q: "ما هي السورة التي تسمى السبع المثاني؟", a: "سورة الفاتحة"},
+        {q: "من هو النبي الذي لُقب بـ (ذو النون)؟", a: "يونس عليه السلام"},
+        {q: "ما هي السورة التي تنتهي جميع آياتها بحرف الدال؟", a: "سورة الإخلاص"},
+        {q: "كم مكث جبريل عليه السلام ينزل بالقرآن؟", a: "23 عاماً"},
+        {q: "ما هي السورة التي ورد فيها ذكر (الذباب)؟", a: "سورة الحج"},
+        {q: "ما هي السورة التي تسمى سورة بني إسرائيل؟", a: "سورة الإسراء"},
+        {q: "ما هو الجبل الذي استوت عليه سفينة نوح؟", a: "جبل الجودي"},
+        {q: "من هو الصحابي الذي ذُكر اسمه في القرآن؟", a: "زيد بن حارثة"},
+        {q: "ما هي السورة التي بدأت باسم ثمرتين؟", a: "سورة التين"}
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzB51SO2lH2_Z_ZVyffxfgcZ-2Lr50CHpdygXQlswBynAC6DuC25RZsr8R6bMabLddKCQ/exec';
@@ -252,16 +259,8 @@
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
         overlay.style.display = 'flex';
-        
         let p = 0; 
-        const pInt = setInterval(() => { 
-            if(p < 98) { 
-                p += Math.floor(Math.random() * 5) + 1; 
-                if(p > 98) p = 98;
-                progText.innerText = p + "%"; 
-            } 
-        }, 400);
-
+        const pInt = setInterval(() => { if(p < 98) { p += Math.floor(Math.random() * 5) + 1; if(p > 98) p = 98; progText.innerText = p + "%"; } }, 400);
         let idx = 0;
         const qInterval = setInterval(() => {
             document.getElementById('quizQ').innerText = questions[idx].q;
@@ -283,17 +282,12 @@
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
-            
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
-            
             clearInterval(pInt);
             progText.innerText = "100%"; 
             alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
             location.reload();
-        } catch (err) { 
-            overlay.style.display = 'none'; 
-            alert("حدث خطأ، حاول مرة أخرى"); 
-        }
+        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ، حاول مرة أخرى"); }
     };
 
     const toBase64 = file => new Promise((resolve, reject) => {
