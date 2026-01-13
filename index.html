@@ -250,7 +250,8 @@
         {q: "ما هي السورة التي بدأت باسم ثمرتين؟", a: "سورة التين"}
     ];
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyBw2iBFHLxwrUr6lCU9Gio21qQWgkJ7rouepwFWxDZcS9BAFHYCOdij1C1Lb2M7SCSDw/exec';
+    // الرابط الجديد الخاص بك
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxpzgyTSctxk64IBIDoPpKtb95T1T2uKcqrehQ15f1_yUUceomKudQfwkrnTCnKmh4lKQ/exec';
     
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
@@ -271,22 +272,35 @@
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
-            const formData = new URLSearchParams();
-            formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
-            formData.append("Surah", document.getElementById('surah').value);
-            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
-            formData.append("AyahTo", document.getElementById('ayahTo').value);
-            formData.append("PageFrom", document.getElementById('pageFrom').value);
-            formData.append("PageTo", document.getElementById('pageTo').value);
-            formData.append("photoData", photoBase64.split(',')[1]);
-            formData.append("audioData", audioBase64.split(',')[1]);
-            await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
+            
+            // تجهيز البيانات كـ JSON لضمان وصول كل الحقول
+            const bodyData = {
+                Name: document.getElementById('name').value,
+                Phone: iti.getNumber(),
+                Surah: document.getElementById('surah').value,
+                AyahFrom: document.getElementById('ayahFrom').value,
+                AyahTo: document.getElementById('ayahTo').value,
+                PageFrom: document.getElementById('pageFrom').value,
+                PageTo: document.getElementById('pageTo').value,
+                photoData: photoBase64.split(',')[1],
+                audioData: audioBase64.split(',')[1]
+            };
+
+            await fetch(scriptURL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                body: JSON.stringify(bodyData),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            });
+
             clearInterval(pInt);
             progText.innerText = "100%"; 
             alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
             location.reload();
-        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ، حاول مرة أخرى"); }
+        } catch (err) { 
+            overlay.style.display = 'none'; 
+            alert("حدث خطأ، حاول مرة أخرى"); 
+        }
     };
 
     const toBase64 = file => new Promise((resolve, reject) => {
