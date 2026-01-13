@@ -222,7 +222,6 @@
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
-    // إضافة 20 سؤالاً جديداً كما طلبت
     const questions = [
         {q: "ما هي أطول سورة في القرآن؟", a: "سورة البقرة"},
         {q: "ما هي السورة التي تسمى عروس القرآن؟", a: "سورة الرحمن"},
@@ -251,7 +250,7 @@
         {q: "ما هي السورة التي بدأت باسم ثمرتين؟", a: "سورة التين"}
     ];
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzB51SO2lH2_Z_ZVyffxfgcZ-2Lr50CHpdygXQlswBynAC6DuC25RZsr8R6bMabLddKCQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyBw2iBFHLxwrUr6lCU9Gio21qQWgkJ7rouepwFWxDZcS9BAFHYCOdij1C1Lb2M7SCSDw/exec';
     
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
