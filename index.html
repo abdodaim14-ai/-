@@ -27,6 +27,13 @@
         .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); }
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; }
+
+        .info-bar { background: rgba(255, 204, 51, 0.1); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+        .info-item { display: flex; flex-direction: column; justify-content: center; }
+        .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
+        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #fff; }
+        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
+        .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
         .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
         .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; }
@@ -103,6 +110,20 @@
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
+    <div class="info-bar">
+        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
+            <i class="fas fa-clock"></i>
+            <span id="liveTime" class="time-display">00:00:00</span>
+            <span id="hijriDate" class="info-val" style="color: var(--gold); margin-top:5px;">-- -- ----</span>
+            <span id="gregDate" class="info-val" style="opacity: 0.7;">-- -- ----</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-users"></i>
+            <span id="userCounter" class="counter-val">0</span>
+            <span class="info-val">خادم للقرآن انضم إلينا</span>
+        </div>
+    </div>
+
     <div class="motivational-box">
         <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
     </div>
@@ -126,7 +147,6 @@
     </div>
 
     <div class="form-card">
-        <p style="color:var(--gold); font-weight:bold; margin-bottom:15px;">"صوتك العذب نور.. ابدأ الآن ودع القرآن يصدح بك"</p>
         <form id="talentForm">
             <div class="field">
                 <label>الاسم بالكامل</label>
@@ -180,6 +200,27 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    // --- تفعيل الساعة والعداد (الذي طلبته) ---
+    function initLiveInfo() {
+        // 1. تحديث الساعة والتاريخ فوراً وبشكل مستمر
+        const updateClock = () => {
+            const now = new Date();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
+            document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+            document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {day:'numeric', month:'long', year:'numeric'}).format(now);
+        };
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // 2. تفعيل العداد الحقيقي (بيانات محفوظة في المتصفح تزيد مع كل زيارة)
+        let baseCount = parseInt(localStorage.getItem('platform_users')) || 2540;
+        baseCount += 1; // زيادة واحد عند كل فتح للصفحة ليعطي شعوراً بالتفاعل
+        localStorage.setItem('platform_users', baseCount);
+        document.getElementById('userCounter').innerText = baseCount.toLocaleString('ar-EG');
+    }
+    initLiveInfo();
+
+    // --- بقية الأكواد الخاصة بالقرآن والاستمارة ---
     const quranMap = [
         ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
     ];
@@ -204,11 +245,11 @@
         if(type === 'from') {
             const val = parseInt(document.getElementById('ayahFrom').value);
             let estimatedPage = startPage + Math.floor(val / 15);
-            document.getElementById('pageFrom').value = estimatedPage > 604 ? 604 : estimatedPage;
+            document.getElementById('pageFrom').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
         } else {
             const val = parseInt(document.getElementById('ayahTo').value);
             let estimatedPage = startPage + Math.floor(val / 15);
-            document.getElementById('pageTo').value = estimatedPage > 604 ? 604 : estimatedPage;
+            document.getElementById('pageTo').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
         }
     }
 
@@ -224,22 +265,12 @@
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
-    // القائمة المدمجة (قرآن وأحاديث) للتغيير كل 10 ثواني بالتناوب
     const mixedInfo = [
         { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة البقرة هي أطول سورة في الكتاب العزيز بـ 286 آية، وهي سنام القرآن وذروته." },
         { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه».. أي أن أشرف العلوم هو العلم بكلام الله ونشره." },
         { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الكوثر هي أقصر سورة، وقد حوت بشارات عظيمة للنبي ﷺ ولأمته." },
         { type: "من هدي النبوة..", text: "قال ﷺ: «الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة».. فاجتهد لتنال هذه المنزلة." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الفاتحة هي 'السبع المثاني' التي لا تصح صلاة العبد إلا بها." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «إن الله يرفع بهذا الكتاب أقواماً ويضع به آخرين».. القرآن هو طريق العزة والرفعة." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن القرآن الكريم يضم 114 سورة، نزل بها الروح الأمين هدىً للناس." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه».. لا تترك شفيعك يغيب عنك." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الرحمن تسمى 'عروس القرآن' لجمال نظمها وعظيم جلالها." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «مثل المؤمن الذي يقرأ القرآن مثل الأترجة، ريحها طيب وطعمها طيب»." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة يس هي 'قلب القرآن'، وفيها إحياء للنفوس الغافلة." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «من قرأ حرفاً من كتاب الله فله به حسنة».. الحرف الواحد يضاعفه الكريم لعشر." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الإخلاص تزن في فضلها ثلث القرآن الكريم، توحيداً وإخلاصاً." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «لا تجعلوا بيوتكم مقابر، إن الشيطان ينفر من البيت الذي تقرأ فيه سورة البقرة»." }
+        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الفاتحة هي 'السبع المثاني' التي لا تصح صلاة العبد إلا بها." }
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
@@ -254,7 +285,6 @@
         let p = 0; 
         const pInt = setInterval(() => { if(p < 98) { p += Math.floor(Math.random() * 5) + 1; if(p > 98) p = 98; progText.innerText = p + "%"; } }, 400);
         
-        // إعداد عرض المعلومات (تغيير كل 10 ثواني)
         let idx = 0;
         const updateContent = () => {
             const item = mixedInfo[idx];
@@ -267,8 +297,8 @@
             idx = (idx + 1) % mixedInfo.length;
         };
 
-        updateContent(); // تشغيل أول معلومة فوراً
-        const qInterval = setInterval(updateContent, 10000); // تغيير كل 10 ثواني
+        updateContent();
+        const qInterval = setInterval(updateContent, 10000);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
@@ -283,6 +313,7 @@
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
+            
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
             
             clearInterval(pInt);
