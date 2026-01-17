@@ -161,3 +161,176 @@
                 <label>اسم السورة</label>
                 <div class="input-w-icon"><i class="fas fa-book-open"></i>
                 <select id="surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
+            </div>
+            <div class="flex-row">
+                <div class="field"><label>من آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahFrom" required onchange="smartPageLink('from')"></select></div></div>
+                <div class="field"><label>إلى آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahTo" required onchange="smartPageLink('to')"></select></div></div>
+            </div>
+            <div class="flex-row">
+                <div class="field"><label>من صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageFrom" required></select></div></div>
+                <div class="field"><label>إلى صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageTo" required></select></div></div>
+            </div>
+            
+            <div class="upload-grid">
+                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
+                    <i class="fas fa-camera"></i><br><span id="imgT">صورتك الموقرة</span>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="up(this,'imgT')">
+                </div>
+                <div class="upload-item" onclick="document.getElementById('fileIn').click()">
+                    <i class="fas fa-microphone"></i><br><span id="fileT">تلاوتك الندية</span>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="up(this,'fileT')">
+                </div>
+            </div>
+            
+            <button type="submit" id="btn" class="main-btn">انشر نور تلاوتك الآن (مجاناً)</button>
+        </form>
+    </div>
+
+    <div class="footer-credit">
+        <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
+        <span class="name">خادم القرآن/ عبد الرحمن مكي</span>
+        <span class="pray">نسألكم الدعاء بالقبول والإخلاص</span>
+    </div>
+</div>
+
+<a href="tel:01122783768" class="fixed-call-btn">
+    <i class="fas fa-phone-alt"></i>
+    <span>للاستفسار تواصل معنا</span>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    function initLiveInfo() {
+        const updateClock = () => {
+            const now = new Date();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
+            document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+            document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {day:'numeric', month:'long', year:'numeric'}).format(now);
+        };
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // جعل العداد يبدأ من الصفر الحقيقي المخزن
+        let currentCount = localStorage.getItem('real_users_count') || 0;
+        document.getElementById('userCounter').innerText = parseInt(currentCount).toLocaleString('ar-EG');
+    }
+    initLiveInfo();
+
+    const quranMap = [
+        ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
+    ];
+
+    const surahSelect = document.getElementById('surah');
+    quranMap.forEach(s => { let opt = new Option(s[0], s[0]); surahSelect.add(opt); });
+
+    function fillQuranData() {
+        const selected = quranMap.find(s => s[0] === surahSelect.value);
+        const [name, ayahs, startPage] = selected;
+        const populate = (id, max, start = 1) => {
+            const el = document.getElementById(id); el.innerHTML = "";
+            for(let i=start; i<=max; i++) { el.add(new Option(i, i)); }
+        };
+        populate('ayahFrom', ayahs); populate('ayahTo', ayahs);
+        populate('pageFrom', 604, startPage); populate('pageTo', 604, startPage);
+    }
+
+    function smartPageLink(type) {
+        const selectedSurah = quranMap.find(s => s[0] === surahSelect.value);
+        const startPage = selectedSurah[2];
+        if(type === 'from') {
+            const val = parseInt(document.getElementById('ayahFrom').value);
+            let estimatedPage = startPage + Math.floor(val / 15);
+            document.getElementById('pageFrom').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
+        } else {
+            const val = parseInt(document.getElementById('ayahTo').value);
+            let estimatedPage = startPage + Math.floor(val / 15);
+            document.getElementById('pageTo').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
+        }
+    }
+
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "auto",
+        geoIpLookup: function(success) {
+            fetch("https://ipapi.co/json").then(res => res.json()).then(data => success(data.country_code)).catch(() => success("eg"));
+        },
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
+
+    const mixedInfo = [
+        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة البقرة هي أطول سورة في الكتاب العزيز بـ 286 آية، وهي سنام القرآن وذروته." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه».. أي أن أشرف العلوم هو العلم بكلام الله ونشره." },
+        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الكوثر هي أقصر سورة، وقد حوت بشارات عظيمة للنبي ﷺ ولأمته." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: «الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة».. فاجتهد لتنال هذه المنزلة." },
+        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الفاتحة هي 'السبع المثاني' التي لا تصح صلاة العبد إلا بها." }
+    ];
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
+    
+    document.getElementById('talentForm').onsubmit = async function(e) {
+        e.preventDefault();
+        if (!iti.isValidNumber()) { alert("يرجى إدخال رقم هاتف صحيح"); return; }
+        const overlay = document.getElementById('loadingOverlay');
+        const progText = document.getElementById('progressText');
+        overlay.style.display = 'flex';
+        
+        let p = 0; 
+        const pInt = setInterval(() => { if(p < 98) { p += Math.floor(Math.random() * 5) + 1; if(p > 98) p = 98; progText.innerText = p + "%"; } }, 400);
+        
+        let idx = 0;
+        const updateContent = () => {
+            const item = mixedInfo[idx];
+            document.getElementById('quizQ').innerText = item.type;
+            document.getElementById('quizA').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('quizA').innerText = item.text;
+                document.getElementById('quizA').style.opacity = 1;
+            }, 500);
+            idx = (idx + 1) % mixedInfo.length;
+        };
+
+        updateContent();
+        const qInterval = setInterval(updateContent, 10000);
+
+        try {
+            const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
+            const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
+            const formData = new URLSearchParams();
+            formData.append("Name", document.getElementById('name').value);
+            formData.append("Phone", iti.getNumber());
+            formData.append("Surah", document.getElementById('surah').value);
+            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
+            formData.append("AyahTo", document.getElementById('ayahTo').value);
+            formData.append("PageFrom", document.getElementById('pageFrom').value);
+            formData.append("PageTo", document.getElementById('pageTo').value);
+            formData.append("photoData", photoBase64.split(',')[1]);
+            formData.append("audioData", audioBase64.split(',')[1]);
+            
+            await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
+            
+            // زيادة العداد عند الإرسال بنجاح
+            let count = parseInt(localStorage.getItem('real_users_count') || 0);
+            count++;
+            localStorage.setItem('real_users_count', count);
+            document.getElementById('userCounter').innerText = count.toLocaleString('ar-EG');
+
+            clearInterval(pInt);
+            clearInterval(qInterval);
+            progText.innerText = "100%"; 
+            alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
+            location.reload();
+        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ، حاول مرة أخرى"); }
+    };
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+</script>
+</body>
+</html>
