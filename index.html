@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خادم القرآن عبد الرحمن مكي</title>
+    <title>داعم المواهب للقران الكريم</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
@@ -13,7 +13,7 @@
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff; background: #000;
-            /* إضافة الألياف والخطوط المتموجة الذهبية في الخلفية هنا */
+            /* تأثير الألياف الذهبية المتموجة في الخلفية */
             background-color: #000;
             background-image: 
                 radial-gradient(circle at center, transparent 0%, #000 90%),
@@ -102,6 +102,7 @@
     </style>
 </head>
 <body>
+
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
     <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
@@ -146,6 +147,9 @@
     </div>
 
     <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+        <p style="color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1rem; margin-bottom: 10px;">
+            ✨ كُن جُزءاً مِن مَسِيرَةِ النُّور.. تَابِعنَا لِنَشْرِ الهُدَى ✨
+        </p>
         <div class="social-row" style="margin: 0;">
             <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
             <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
@@ -156,7 +160,7 @@
         <form id="talentForm">
             <div class="field">
                 <label>الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user"></i><input type="text" id="name" required placeholder="اسم القارئ المبارك"></div>
+                <div class="input-w-icon"><i class="fas fa-user"></i><input type="text" id="name" required placeholder="اكتب اسمك ثلاثي"></div>
             </div>
             <div class="field">
                 <label>رقم الواتساب</label>
@@ -255,9 +259,7 @@
     const phoneInput = document.querySelector("#phone");
     const iti = window.intlTelInput(phoneInput, {
         initialCountry: "auto",
-        geoIpLookup: function(success) {
-            fetch("https://ipapi.co/json").then(res => res.json()).then(data => success(data.country_code)).catch(() => success("eg"));
-        },
+        geoIpLookup: success => fetch("https://ipapi.co/json").then(res => res.json()).then(data => success(data.country_code)).catch(() => success("eg")),
         separateDialCode: true,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
@@ -295,8 +297,9 @@
             }, 500);
             idx = (idx + 1) % mixedInfo.length;
         };
+
         updateContent();
-        const qInterval = setInterval(updateContent, 10000);
+        setInterval(updateContent, 10000);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
@@ -311,13 +314,14 @@
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
+            
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
+            
             let count = parseInt(localStorage.getItem('real_users_count') || 0);
             count++;
             localStorage.setItem('real_users_count', count);
-            document.getElementById('userCounter').innerText = count.toLocaleString('ar-EG');
+            
             clearInterval(pInt);
-            clearInterval(qInterval);
             progText.innerText = "100%"; 
             alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
             location.reload();
