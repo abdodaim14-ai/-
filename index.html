@@ -13,11 +13,21 @@
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff; background: #000;
-            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+            /* إضافة الألياف والخطوط المتموجة الذهبية في الخلفية هنا */
+            background-color: #000;
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, #000 90%),
+                url('https://www.transparenttextures.com/patterns/black-linen.png'),
+                linear-gradient(135deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%);
+            background-size: 100% 100%, auto, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+            background-attachment: fixed;
             min-height: 100vh; padding: 20px 0 120px 0;
         }
         
-        .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; }
+        .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
         @media (min-width: 768px) {
             .container { max-width: 700px; }
             .form-card { padding: 35px; }
@@ -28,14 +38,14 @@
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; }
 
-        .info-bar { background: rgba(255, 204, 51, 0.1); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+        .info-bar { background: rgba(0, 0, 0, 0.6); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(5px); }
         .info-item { display: flex; flex-direction: column; justify-content: center; }
         .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
         .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #fff; }
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); }
         .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; }
 
         .video-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 10px; display: block; text-align: center; font-weight: bold; }
@@ -47,7 +57,7 @@
         .s-box { background: #000; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.4rem; color: var(--gold); transition: 0.3s; }
         .s-box:hover { background: var(--gold); color: #000; transform: scale(1.1); }
         
-        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; }
+        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(10px); }
         .field { text-align: right; margin-bottom: 15px; }
         .field label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
         
@@ -92,7 +102,6 @@
     </style>
 </head>
 <body>
-
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
     <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
@@ -137,9 +146,6 @@
     </div>
 
     <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
-        <p style="color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1rem; margin-bottom: 10px;">
-            ✨ كُن جُزءاً مِن مَسِيرَةِ النُّور.. تَابِعنَا لِنَشْرِ الهُدَى ✨
-        </p>
         <div class="social-row" style="margin: 0;">
             <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
             <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
@@ -209,8 +215,6 @@
         };
         updateClock();
         setInterval(updateClock, 1000);
-
-        // جعل العداد يبدأ من الصفر الحقيقي المخزن
         let currentCount = localStorage.getItem('real_users_count') || 0;
         document.getElementById('userCounter').innerText = parseInt(currentCount).toLocaleString('ar-EG');
     }
@@ -291,7 +295,6 @@
             }, 500);
             idx = (idx + 1) % mixedInfo.length;
         };
-
         updateContent();
         const qInterval = setInterval(updateContent, 10000);
 
@@ -308,15 +311,11 @@
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
-            
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
-            
-            // زيادة العداد عند الإرسال بنجاح
             let count = parseInt(localStorage.getItem('real_users_count') || 0);
             count++;
             localStorage.setItem('real_users_count', count);
             document.getElementById('userCounter').innerText = count.toLocaleString('ar-EG');
-
             clearInterval(pInt);
             clearInterval(qInterval);
             progText.innerText = "100%"; 
