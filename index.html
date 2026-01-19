@@ -13,7 +13,6 @@
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff; background: #000;
-            /* تأثير الألياف الذهبية المتموجة في الخلفية */
             background-color: #000;
             background-image: 
                 radial-gradient(circle at center, transparent 0%, #000 90%),
@@ -215,7 +214,11 @@
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
             document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
-            document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            
+            // تعديل التاريخ الهجري ليكون 30 رجب بناءً على الرؤية (إضافة يوم للتصحيح)
+            const options = {day:'numeric', month:'long', year:'numeric'};
+            let hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umaq', options).format(now);
+            document.getElementById('hijriDate').innerText = hijriDate;
         };
         updateClock();
         setInterval(updateClock, 1000);
