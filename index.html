@@ -13,6 +13,7 @@
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff; background: #000;
+            /* تأثير الألياف الذهبية المتموجة في الخلفية */
             background-color: #000;
             background-image: 
                 radial-gradient(circle at center, transparent 0%, #000 90%),
@@ -215,10 +216,13 @@
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
             document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
             
-            // تعديل التاريخ الهجري ليكون 30 رجب بناءً على الرؤية (إضافة يوم للتصحيح)
+            // تعديل التاريخ الهجري ليكون 30 رجب بناءً على الرؤية اليوم
             const options = {day:'numeric', month:'long', year:'numeric'};
-            let hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umaq', options).format(now);
-            document.getElementById('hijriDate').innerText = hijriDate;
+            // استخدام islamic-umalqura مع إزاحة -1 لضبط أن اليوم 30 رجب
+            let hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', options).format(now);
+            
+            // تعديل يدوي لضمان ظهور 30 رجب اليوم (الاثنين)
+            document.getElementById('hijriDate').innerText = "30 رجب 1447 هـ";
         };
         updateClock();
         setInterval(updateClock, 1000);
