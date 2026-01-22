@@ -212,9 +212,9 @@
         const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            // تم تعديل هذا الجزء لحذف حرف الهاء وتثبيت التاريخ المطلوب
+            // تم تعديل هذا الجزء لعرض التاريخ الهجري والميلادي مع السنة 2026
             const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
-            document.getElementById('combinedDate').innerHTML = hijri + "<br>22 يناير م";
+            document.getElementById('combinedDate').innerHTML = hijri + "<br>22 يناير 2026 م";
         };
         updateClock();
         setInterval(updateClock, 1000);
