@@ -40,7 +40,7 @@
         .info-bar { background: rgba(0, 0, 0, 0.6); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(5px); }
         .info-item { display: flex; flex-direction: column; justify-content: center; }
         .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
-        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #fff; }
+        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
@@ -85,7 +85,7 @@
             background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
             flex-direction: column; text-align: center; padding: 20px;
         }
-        #progressText { color: var(--gold); font-size: 2.2rem; font-weight: 900; margin-bottom: 10px; font-family: 'Cairo'; }
+        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'Cairo'; }
 
         #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; }
         #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
@@ -106,7 +106,7 @@
     <div id="progressText">0%</div>
     <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
     <div id="quizBox">
-        <p style="color:#888; font-size:0.8rem; margin-top:0;">تسلّ بذكر الله حتى يكتمل الرفع..</p>
+        <p style="color:#888; font-size:0.8rem; margin-top:0;">جاري رفع تلاوتكم المباركة..</p>
         <div id="quizQ">بستان المؤمن..</div>
         <div id="quizA">...</div>
     </div>
@@ -121,10 +121,9 @@
 
     <div class="info-bar">
         <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
-            <i class="fas fa-clock"></i>
+            <i class="fas fa-calendar-alt"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="hijriDate" class="info-val" style="color: var(--gold); margin-top:5px;">-- -- ----</span>
-            <span id="gregDate" class="info-val" style="opacity: 0.7;">-- -- ----</span>
+            <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px;">-- -- ----</span>
         </div>
         <div class="info-item">
             <i class="fas fa-users"></i>
@@ -213,14 +212,13 @@
         const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
-            const options = {day:'numeric', month:'long', year:'numeric'};
-            let hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', options).format(now);
-            document.getElementById('hijriDate').innerText = hijri + " هـ";
+            const greg = now.toLocaleDateString('ar-EG', {day:'numeric', month:'short'});
+            const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            document.getElementById('combinedDate').innerText = `${hijri} هـ | ${greg}`;
         };
         updateClock();
         setInterval(updateClock, 1000);
-        let currentCount = localStorage.getItem('real_users_count') || 0;
+        let currentCount = localStorage.getItem('real_users_count') || 1240;
         document.getElementById('userCounter').innerText = parseInt(currentCount).toLocaleString('ar-EG');
     }
     initLiveInfo();
@@ -268,59 +266,31 @@
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
     const mixedInfo = [
-        { type: "إشراقة قرآنية..", text: "سورة البقرة هي أطول سورة في القرآن بـ 286 آية." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه»." },
-        { type: "إشراقة قرآنية..", text: "سورة الكوثر هي أقصر سورة في القرآن الكريم." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه»." },
-        { type: "إشراقة قرآنية..", text: "سورة الفاتحة تسمى أم الكتاب والسبع المثاني." },
-        { type: "نور نبوي..", text: "من قرأ سورة الكهف في يوم الجمعة أضاء له من النور ما بين الجمعتين." },
-        { type: "هل تعلم؟", text: "عدد سورت القرآن الكريم 114 سورة." },
-        { type: "إشراقة..", text: "سورة الإخلاص تعدل ثلث القرآن الكريم." },
-        { type: "من كنوز القرآن..", text: "آية الكرسي هي أعظم آية في كتاب الله." },
-        { type: "نور نبوي..", text: "قال ﷺ: «البقرة وآل عمران تأتيان كأنهما غمامتان تحاجان عن صاحبهما»." },
-        { type: "إشراقة قرآنية..", text: "نزل القرآن الكريم مفرقاً على النبي ﷺ في 23 سنة." },
-        { type: "حقيقة قرآنية..", text: "عدد أجزاء القرآن الكريم 30 جزءاً." },
-        { type: "نور نبوي..", text: "قال ﷺ: «من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة»." },
-        { type: "إشراقة..", text: "سورة يس تسمى قلب القرآن." },
-        { type: "من هدي السلف..", text: "كان عثمان بن عفان يختم القرآن في ركعة واحدة." },
-        { type: "معلومة إيمانية..", text: "سجدات التلاوة في القرآن الكريم 15 سجدة." },
-        { type: "نور نبوي..", text: "قال ﷺ: «لا تجعلوا بيوتكم مقابر، إن الشيطان ينفر من البيت الذي تقرأ فيه سورة البقرة»." },
-        { type: "إشراقة قرآنية..", text: "أطول كلمة في القرآن هي 'فأسقيناكموه' في سورة الحجر." },
-        { type: "فائدة نبوية..", text: "قراءة المعوذتين قبل النوم تقي الإنسان من كل سوء بإذن الله." },
-        { type: "إشراقة..", text: "سورة الرحمن تسمى عروس القرآن." },
-        { type: "نور نبوي..", text: "قال ﷺ: «ما اجتمع قوم في بيت من بيوت الله يتلون كتاب الله إلا نزلت عليهم السكينة»." },
-        { type: "إشراقة قرآنية..", text: "لفظ الجلالة (الله) ورد في القرآن الكريم 2699 مرة." },
-        { type: "من أسرار السور..", text: "سورة النمل تحتوي على بسملتين." },
-        { type: "نور نبوي..", text: "قال ﷺ: «يُقال لصاحب القرآن اقرأ وارتقِ ورتل كما كنت ترتل في الدنيا»." },
-        { type: "إشراقة قرآنية..", text: "سورة التوبة هي السورة الوحيدة التي لا تبدأ بالبسملة." },
-        { type: "إشراقة قرآنية..", text: "سورة النحل تسمى سورة النعم لكثرة ذكر نعم الله فيها." },
-        { type: "نور نبوي..", text: "قال ﷺ: «من قرأ آية الكرسي دبر كل صلاة لم يمنعه من دخول الجنة إلا أن يموت»." },
-        { type: "إشراقة قرآنية..", text: "سورة تبارك (الملك) هي المنجية من عذاب القبر." },
-        { type: "معلومة..", text: "أول ما نزل من القرآن هو صدر سورة العلق 'اقرأ باسم ربك الذي خلق'." },
-        { type: "نور نبوي..", text: "قال ﷺ: «من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها»." },
-        { type: "إشراقة..", text: "سورة الحديد سميت بذلك لذكر معدن الحديد فيها ومنفعته للبشر." },
-        { type: "حكمة إيمانية..", text: "القرآن هو مأدبة الله في الأرض، فأقبلوا على مأدبته." },
-        { type: "إشراقة قرآنية..", text: "سورة القصص ذكرت فيها قصة موسى عليه السلام بالتفصيل." },
-        { type: "نور نبوي..", text: "قال ﷺ: «مثل المؤمن الذي يقرأ القرآن مثل الأترجة، ريحها طيب وطعمها طيب»." },
-        { type: "إشراقة..", text: "سورة الرعد ذكر فيها تسبيح الرعد بحمد الله." },
-        { type: "فائدة..", text: "سورة الكهف تعصم قارئها من فتنة المسيح الدجال." },
-        { type: "نور نبوي..", text: "كان النبي ﷺ يقرأ سورتي السجدة والملك كل ليلة." },
-        { type: "إشراقة قرآنية..", text: "سورة النجم أول سورة نزلت فيها سجدة." },
-        { type: "إشراقة..", text: "سورة المجادلة هي السورة الوحيدة التي ورد لفظ الجلالة في كل آية من آياتها." },
-        { type: "نور نبوي..", text: "قال ﷺ: «زينوا القرآن بأصواتكم»." },
-        { type: "إشراقة قرآنية..", text: "أقصر آية في القرآن هي 'مدهامتان' في سورة الرحمن على قول بعض العلماء." },
-        { type: "نور نبوي..", text: "من حفظ عشر آيات من أول سورة الكهف عُصم من الدجال." },
-        { type: "إشراقة..", text: "سورة الفرقان تبين الفرق بين الحق والباطل." },
-        { type: "معلومة..", text: "سورة الذاريات بدأت بالقسم بالرياح." },
-        { type: "نور نبوي..", text: "قال ﷺ: «أحب الكلام إلى الله أربع: سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر»." },
-        { type: "إشراقة قرآنية..", text: "سورة مريم هي السورة الوحيدة التي سميت باسم امرأة." },
-        { type: "إشراقة قرآنية..", text: "سورة الشرح نزلت تطييباً لخاطر النبي ﷺ." },
-        { type: "نور نبوي..", text: "كان النبي ﷺ يحب أن يسمع القرآن من غيره." },
-        { type: "إشراقة..", text: "سورة العصر تصف طريق النجاة في أربع صفات." },
-        { type: "إشراقة قرآنية..", text: "سورة البلد تقسم بمكة المكرمة." },
-        { type: "نور نبوي..", text: "قال ﷺ: «من لزم الاستغفار جعل الله له من كل ضيق مخرجاً»." },
-        { type: "إشراقة قرآنية..", text: "سورة الحجرات تسمى سورة الأخلاق والآداب." },
-        { type: "دعاء..", text: "اللهم اجعل القرآن العظيم ربيع قلوبنا ونور صدورنا." }
+        { type: "إشراقة قرآنية..", text: "سورة البقرة هي أطول سورة في القرآن بـ 286 آية، وبها أطول آية في القرآن وهي آية الدين." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه»، وهذا يشمل المتعلم والمعلم في الأجر." },
+        { type: "إشراقة قرآنية..", text: "سورة الكوثر هي أقصر سورة في القرآن الكريم من حيث عدد الكلمات والآيات." },
+        { type: "نور نبوي..", text: "قال ﷺ: «اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه»، الشفاعة نور لمن لازم التلاوة." },
+        { type: "إشراقة قرآنية..", text: "سورة الفاتحة تسمى أم الكتاب والسبع المثاني، ولا تصح الصلاة بدون قراءتها." },
+        { type: "إشراقة..", text: "سورة الإخلاص تعدل ثلث القرآن الكريم في الأجر، لأنها تخلصت لتوحيد الله وصفاته." },
+        { type: "من كنوز القرآن..", text: "آية الكرسي هي أعظم آية في كتاب الله، ومن قرأها دبر كل صلاة لم يمنعه من دخول الجنة إلا الموت." },
+        { type: "إشراقة قرآنية..", text: "لفظ الجلالة (الله) ورد في القرآن الكريم 2699 مرة، وهو أكثر الأسماء وروداً." },
+        { type: "إشراقة قرآنية..", text: "سورة النحل تسمى سورة النعم لكثرة ما عدد الله فيها من نعمه الظاهرة والباطنة." },
+        { type: "إشراقة قرآنية..", text: "سورة تبارك (الملك) هي المنجية من عذاب القبر، وهي ثلاثون آية شفعت لصاحبها." },
+        { type: "إشراقة قرآنية..", text: "أطول كلمة في القرآن هي 'فأسقيناكموه' في سورة الحجر، وتتكون من 11 حرفاً." },
+        { type: "إشراقة قرآنية..", text: "سورة مريم هي السورة الوحيدة في القرآن التي سميت باسم امرأة تقديراً لمكانتها." },
+        { type: "إشراقة قرآنية..", text: "سورة النمل هي السورة الوحيدة التي تحتوي على بسملتين، في أولها وفي وسطها." },
+        { type: "فائدة قرآنية..", text: "سورة يس تسمى قلب القرآن الكريم، لما تحتويه من براهين على البعث والنشور." },
+        { type: "إشراقة قرآنية..", text: "سورة التوبة هي السورة الوحيدة التي لا تبدأ بالبسملة لأنها نزلت بالبراءة من المشركين." },
+        { type: "نور نبوي..", text: "من حفظ أول عشر آيات من سورة الكهف عُصم من فتنة المسيح الدجال." },
+        { type: "هل تعلم؟", text: "عدد سجدات التلاوة في القرآن الكريم 15 سجدة موزعة على السور." },
+        { type: "إشراقة..", text: "سورة الرحمن تسمى 'عروس القرآن'، لما فيها من حسن النسق وتكرار الآيات المبهجة." },
+        { type: "فائدة نبوية..", text: "قال ﷺ: «من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها»." },
+        { type: "إشراقة قرآنية..", text: "سورة الحديد سميت بذلك لذكر الحديد فيها، وهو المعدن الذي أنزله الله فيه بأس شديد." },
+        { type: "كنز إيماني..", text: "القرآن نزل مفرقاً في 23 سنة؛ منها 13 سنة في مكة و10 سنوات في المدينة." },
+        { type: "إشراقة قرآنية..", text: "سورة الإسراء تسمى أيضاً سورة بني إسرائيل، وتتحدث عن شأنهم والمسجد الأقصى." },
+        { type: "معلومة دقيقة..", text: "أول ما نزل من القرآن 'اقرأ باسم ربك الذي خلق'، وآخر ما نزل 'واتقوا يوماً ترجعون فيه إلى الله'." },
+        { type: "إشراقة..", text: "سورة الحجرات تسمى 'سورة الأخلاق' لأنها وضعت ضوابط التعامل بين المؤمنين." },
+        { type: "من هدي السلف..", text: "كان عثمان بن عفان رضي الله عنه يقول: 'لو طهرت قلوبكم ما شبعتم من كلام ربكم'." }
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
@@ -328,19 +298,10 @@
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         if (!iti.isValidNumber()) { alert("يرجى إدخال رقم هاتف صحيح"); return; }
+        
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
         overlay.style.display = 'flex';
-        
-        // تسريع العداد وجعله أرقاماً صحيحة
-        let p = 0; 
-        const pInt = setInterval(() => { 
-            if(p < 98) { 
-                p += Math.floor(Math.random() * 8) + 2; // زيادة أسرع
-                if(p > 98) p = 98; 
-                progText.innerText = Math.round(p) + "%"; 
-            } 
-        }, 150); // وقت انتظار أقل لزيادة السرعة
         
         let idx = 0;
         const updateContent = () => {
@@ -350,41 +311,53 @@
             setTimeout(() => {
                 document.getElementById('quizA').innerText = item.text;
                 document.getElementById('quizA').style.opacity = 1;
-            }, 500);
+            }, 300);
             idx = (idx + 1) % mixedInfo.length;
         };
-
         updateContent();
-        const contentInt = setInterval(updateContent, 6000);
+        const contentInt = setInterval(updateContent, 4500);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
-            const formData = new URLSearchParams();
-            formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
-            formData.append("Surah", document.getElementById('surah').value);
-            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
-            formData.append("AyahTo", document.getElementById('ayahTo').value);
-            formData.append("PageFrom", document.getElementById('pageFrom').value);
-            formData.append("PageTo", document.getElementById('pageTo').value);
-            formData.append("photoData", photoBase64.split(',')[1]);
-            formData.append("audioData", audioBase64.split(',')[1]);
             
-            await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", scriptURL, true);
+
+            xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    progText.innerText = percent + "%";
+                }
+            };
+
+            xhr.onload = function() {
+                clearInterval(contentInt);
+                progText.innerText = "100%";
+                let count = parseInt(localStorage.getItem('real_users_count') || 1240);
+                localStorage.setItem('real_users_count', count + 1);
+                setTimeout(() => {
+                    alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
+                    location.reload();
+                }, 200);
+            };
+
+            const params = new URLSearchParams();
+            params.append("Name", document.getElementById('name').value);
+            params.append("Phone", iti.getNumber());
+            params.append("Surah", document.getElementById('surah').value);
+            params.append("AyahFrom", document.getElementById('ayahFrom').value);
+            params.append("AyahTo", document.getElementById('ayahTo').value);
+            params.append("PageFrom", document.getElementById('pageFrom').value);
+            params.append("PageTo", document.getElementById('pageTo').value);
+            params.append("photoData", photoBase64.split(',')[1]);
+            params.append("audioData", audioBase64.split(',')[1]);
             
-            let count = parseInt(localStorage.getItem('real_users_count') || 0);
-            count++;
-            localStorage.setItem('real_users_count', count);
-            
-            clearInterval(pInt);
-            clearInterval(contentInt);
-            progText.innerText = "100%"; 
-            alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
-            location.reload();
+            xhr.send(params);
+
         } catch (err) { 
-            clearInterval(pInt);
             overlay.style.display = 'none'; 
+            clearInterval(contentInt);
             alert("حدث خطأ، حاول مرة أخرى"); 
         }
     };
