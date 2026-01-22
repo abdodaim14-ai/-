@@ -13,7 +13,6 @@
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff; background: #000;
-            /* تأثير الألياف الذهبية المتموجة في الخلفية */
             background-color: #000;
             background-image: 
                 radial-gradient(circle at center, transparent 0%, #000 90%),
@@ -215,8 +214,6 @@
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
             document.getElementById('gregDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
-            
-            // تحديث التاريخ الهجري ليعمل تلقائياً بدقة
             const options = {day:'numeric', month:'long', year:'numeric'};
             let hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', options).format(now);
             document.getElementById('hijriDate').innerText = hijri + " هـ";
@@ -271,11 +268,16 @@
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
 
     const mixedInfo = [
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة البقرة هي أطول سورة في الكتاب العزيز بـ 286 آية، وهي سنام القرآن وذروته." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه».. أي أن أشرف العلوم هو العلم بكلام الله ونشره." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الكوثر هي أقصر سورة، وقد حوت بشارات عظيمة للنبي ﷺ ولأمته." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: «الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة».. فاجتهد لتنال هذه المنزلة." },
-        { type: "إشراقة قرآنية..", text: "هل تعلم أن سورة الفاتحة هي 'السبع المثاني' التي لا تصح صلاة العبد إلا بها." }
+        { type: "إشراقة قرآنية..", text: "سورة البقرة هي أطول سورة في القرآن بـ 286 آية." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: «خيركم من تعلم القرآن وعلمه»." },
+        { type: "إشراقة قرآنية..", text: "سورة الكوثر هي أقصر سورة في القرآن الكريم." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: «اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه»." },
+        { type: "إشراقة قرآنية..", text: "سورة الفاتحة تسمى أم الكتاب والسبع المثاني." },
+        { type: "نور نبوي..", text: "من قرأ سورة الكهف في يوم الجمعة أضاء له من النور ما بين الجمعتين." },
+        { type: "هل تعلم؟", text: "عدد سورت القرآن الكريم 114 سورة." },
+        { type: "إشراقة..", text: "سورة الإخلاص تعدل ثلث القرآن الكريم." },
+        { type: "من كنوز القرآن..", text: "آية الكرسي هي أعظم آية في كتاب الله." },
+        { type: "نور نبوي..", text: "قال ﷺ: «البقرة وآل عمران تأتيان كأنهما غمامتان تحاجان عن صاحبهما»." }
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
@@ -283,12 +285,10 @@
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         if (!iti.isValidNumber()) { alert("يرجى إدخال رقم هاتف صحيح"); return; }
+        
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
         overlay.style.display = 'flex';
-        
-        let p = 0; 
-        const pInt = setInterval(() => { if(p < 98) { p += Math.floor(Math.random() * 5) + 1; if(p > 98) p = 98; progText.innerText = p + "%"; } }, 400);
         
         let idx = 0;
         const updateContent = () => {
@@ -298,17 +298,17 @@
             setTimeout(() => {
                 document.getElementById('quizA').innerText = item.text;
                 document.getElementById('quizA').style.opacity = 1;
-            }, 500);
+            }, 300);
             idx = (idx + 1) % mixedInfo.length;
         };
-
         updateContent();
-        setInterval(updateContent, 10000);
+        const contentInt = setInterval(updateContent, 4000);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
-            const formData = new URLSearchParams();
+            
+            const formData = new FormData();
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", iti.getNumber());
             formData.append("Surah", document.getElementById('surah').value);
@@ -318,18 +318,50 @@
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
-            
-            await fetch(scriptURL, { method: "POST", mode: "no-cors", body: formData });
-            
-            let count = parseInt(localStorage.getItem('real_users_count') || 0);
-            count++;
-            localStorage.setItem('real_users_count', count);
-            
-            clearInterval(pInt);
-            progText.innerText = "100%"; 
-            alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
-            location.reload();
-        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ، حاول مرة أخرى"); }
+
+            // استخدام XMLHttpRequest لمراقبة التحميل الفعلي
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", scriptURL, true);
+
+            xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) {
+                    const percentComplete = Math.round((e.loaded / e.total) * 100);
+                    progText.innerText = percentComplete + "%";
+                }
+            };
+
+            xhr.onload = function() {
+                clearInterval(contentInt);
+                progText.innerText = "100%";
+                
+                let count = parseInt(localStorage.getItem('real_users_count') || 0);
+                count++;
+                localStorage.setItem('real_users_count', count);
+                
+                setTimeout(() => {
+                    alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
+                    location.reload();
+                }, 200);
+            };
+
+            xhr.onerror = function() {
+                overlay.style.display = 'none';
+                clearInterval(contentInt);
+                alert("حدث خطأ في الاتصال، حاول مرة أخرى");
+            };
+
+            // تحويل FormData إلى URLSearchParams ليتوافق مع Google Apps Script بدون مشاكل CORS معقدة
+            const params = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                params.append(pair[0], pair[1]);
+            }
+            xhr.send(params);
+
+        } catch (err) { 
+            overlay.style.display = 'none'; 
+            clearInterval(contentInt);
+            alert("حدث خطأ، حاول مرة أخرى"); 
+        }
     };
 
     const toBase64 = file => new Promise((resolve, reject) => {
