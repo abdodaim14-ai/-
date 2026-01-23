@@ -44,6 +44,15 @@
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
+        /* قسم معايير القبول الجديد */
+        .announcement-card { background: rgba(20, 20, 20, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
+        .criteria-list { list-style: none; padding: 0; margin: 0; }
+        .criteria-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
+        .criteria-list i { color: var(--gold); margin-top: 4px; font-size: 0.85rem; }
+        .ann-footer { border-top: 1px solid rgba(255,204,51,0.2); padding-top: 10px; margin-top: 10px; font-weight: bold; color: var(--gold); font-size: 0.9rem; text-align: center; }
+
         .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); }
         .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; }
 
@@ -129,6 +138,22 @@
             <i class="fas fa-users"></i>
             <span id="userCounter" class="counter-val">0</span>
             <span class="info-val">خادم للقرآن انضم إلينا</span>
+        </div>
+    </div>
+
+    <div class="announcement-card">
+        <div class="ann-title">
+            <i class="fas fa-bullhorn"></i>
+            <span>إعلان هام: معايير قبول التلاوات</span>
+        </div>
+        <p class="ann-text">تيسيراً على الجميع، نود التنويه بأن معايير قبول المقاطع الصوتية ترتكز حصراً على "قوة الإتقان"، ولن يتم اختيار إلا من استوفى الشروط التالية:</p>
+        <ul class="criteria-list">
+            <li><i class="fas fa-check-circle"></i> <span><strong>صحة المخارج:</strong> نطق الحروف بوضوح تام من منبعها الصحيح.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>إحكام التجويد:</strong> ضبط المدود والغُنن وسائر الأحكام بمهارة وعناية.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>جودة الأداء:</strong> القراءة برزانة وخشوع، مع مراعاة الوقف والابتداء.</span></li>
+        </ul>
+        <div class="ann-footer">
+            <i class="fas fa-star"></i> الخلاصة: الأولوية لمن جمع بين حُسن الصوت وضبط الأحكام.
         </div>
     </div>
 
@@ -296,7 +321,6 @@
             idx = (idx + 1) % mixedInfo.length;
         };
         updateContent();
-        // سرعة التبديل 7 ثواني كما طلبت
         const contentInt = setInterval(updateContent, 7000);
 
         try {
@@ -314,18 +338,16 @@
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
 
-            // محاكاة البروجرس بار لأن Google Apps Script لا يدعم Progress الحقيقي عبر XHR بسهولة
             let p = 0;
             const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
 
             const response = await fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // لضمان الإرسال في حال وجود مشاكل CORS مع Google
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: formData.toString()
             });
 
-            // بما أن وضع no-cors لا يعيد تفاصيل الاستجابة، سنعتبره نجح إذا لم يرمِ خطأ
             clearInterval(pInt);
             clearInterval(contentInt);
             progText.innerText = "100%";
