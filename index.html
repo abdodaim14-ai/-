@@ -158,7 +158,7 @@
         <form id="talentForm">
             <div class="field">
                 <label>الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user"></i><input type="text" id="name" required placeholder="اكتب اسمك ثلاثي"></div>
+                <div class="input-w-icon"><i class="fas fa-user"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي"></div>
             </div>
             <div class="field">
                 <label>رقم الواتساب</label>
@@ -168,15 +168,15 @@
             <div class="field">
                 <label>اسم السورة</label>
                 <div class="input-w-icon"><i class="fas fa-book-open"></i>
-                <select id="surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
+                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
             </div>
             <div class="flex-row">
-                <div class="field"><label>من آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahFrom" required onchange="smartPageLink('from')"></select></div></div>
-                <div class="field"><label>إلى آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahTo" required onchange="smartPageLink('to')"></select></div></div>
+                <div class="field"><label>من آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div></div>
+                <div class="field"><label>إلى آية</label><div class="input-w-icon"><i class="fas fa-list-ol"></i><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div></div>
             </div>
             <div class="flex-row">
-                <div class="field"><label>من صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageFrom" required></select></div></div>
-                <div class="field"><label>إلى صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageTo" required></select></div></div>
+                <div class="field"><label>من صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageFrom" name="PageFrom" required></select></div></div>
+                <div class="field"><label>إلى صفحة</label><div class="input-w-icon"><i class="fas fa-file-alt"></i><select id="pageTo" name="PageTo" required></select></div></div>
             </div>
             
             <div class="upload-grid">
@@ -212,13 +212,8 @@
         const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            
-            // التاريخ الهجري يتحدث تلقائياً
             const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
-            
-            // التاريخ الميلادي يسحب اليوم والشهر الحاليين ويثبت السنة 2026
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
-            
             document.getElementById('combinedDate').innerHTML = hijri + "<br>" + miladiDayMonth + " 2026 م";
         };
         updateClock();
@@ -276,17 +271,7 @@
         { type: "إشراقة قرآنية..", text: "آية الكرسي هي أعظم آية، وتفسير عظمها أنها تصف جلال الله وعلمه وقدرته المحيطة بكل شيء." },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'إنما الأعمال بالنيات'، وتفسيره أن قبول العمل وصحته متوقف على صدق القصد لله." },
         { type: "إشراقة قرآنية..", text: "سورة الإخلاص تعدل ثلث القرآن، لأن القرآن أحكام وأخبار وتوحيد، وهي أخلصت بالكامل للتوحيد." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'الدين النصيحة'، وتفسيرها أن قوام الدين وثباته يكمن في صدق التوجيه لله ولرسوله وللمؤمنين." },
-        { type: "إشراقة قرآنية..", text: "سورة الملك هي المانعة من عذاب القبر، وتفسير ذلك أنها تجادل عن صاحبها حتى يغفر الله له." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'تبسمك في وجه أخيك صدقة'، وتفسيرها أن المعروف لا يقتصر على المال بل يشمل الكلمة الطيبة." },
-        { type: "إشراقة قرآنية..", text: "سورة يس تسمى قلب القرآن، وتفسير ذلك أنها تقرر العقيدة والبعث بأسلوب يؤثر في أعماق النفس." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'اتق الله حيثما كنت'، وتفسير التقوى هو مراقبة الله في السر والعلن وفي كل مكان." },
-        { type: "إشراقة قرآنية..", text: "سورة الكهف نور بين الجمعتين، وتفسير النور هو الهداية والبصيرة التي يرزقها الله للقارئ." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'المرء مع من أحب'، وتفسيره أهمية اختيار الرفقة الصالحة لأنها تقود للجنة." },
-        { type: "إشراقة قرآنية..", text: "سورة النحل تسمى سورة النعم، وتفسير التسمية أنها عددت نعم الله الكثيرة لتذكير العباد بشكرها." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'الصلاة نور'، وتفسيره أنها تضيء قلب المؤمن في الدنيا وقبره في الآخرة." },
-        { type: "إشراقة قرآنية..", text: "سورة الشرح تيسر العسير، وتفسير 'إن مع العسر يسراً' أن الفرج يلازم الضيق دائماً." }
-        // ... يمكنك تكملة الـ 100 معلومة هنا بنفس النمط
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'الدين النصيحة'، وتفسيرها أن قوام الدين وثباته يكمن في صدق التوجيه لله ولرسوله وللمؤمنين." }
     ];
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
@@ -311,67 +296,52 @@
             idx = (idx + 1) % mixedInfo.length;
         };
         updateContent();
-        // تم التعديل إلى 7 ثواني (7000ms) كما طلبت
+        // سرعة التبديل 7 ثواني كما طلبت
         const contentInt = setInterval(updateContent, 7000);
 
         try {
-            const photoFile = document.getElementById('imgIn').files[0];
-            const audioFile = document.getElementById('fileIn').files[0];
+            const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
+            const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
             
-            const photoBase64 = await toBase64(photoFile);
-            const audioBase64 = await toBase64(audioFile);
+            const formData = new URLSearchParams();
+            formData.append("Name", document.getElementById('name').value);
+            formData.append("Phone", iti.getNumber());
+            formData.append("Surah", document.getElementById('surah').value);
+            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
+            formData.append("AyahTo", document.getElementById('ayahTo').value);
+            formData.append("PageFrom", document.getElementById('pageFrom').value);
+            formData.append("PageTo", document.getElementById('pageTo').value);
+            formData.append("photoData", photoBase64.split(',')[1]);
+            formData.append("audioData", audioBase64.split(',')[1]);
+
+            // محاكاة البروجرس بار لأن Google Apps Script لا يدعم Progress الحقيقي عبر XHR بسهولة
+            let p = 0;
+            const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
+
+            const response = await fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // لضمان الإرسال في حال وجود مشاكل CORS مع Google
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            });
+
+            // بما أن وضع no-cors لا يعيد تفاصيل الاستجابة، سنعتبره نجح إذا لم يرمِ خطأ
+            clearInterval(pInt);
+            clearInterval(contentInt);
+            progText.innerText = "100%";
             
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", scriptURL, true);
-            // ضبط الترويسة لضمان استلام البيانات بشكل صحيح
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            xhr.upload.onprogress = function(e) {
-                if (e.lengthComputable) {
-                    const percent = Math.round((e.loaded / e.total) * 100);
-                    progText.innerText = percent + "%";
-                }
-            };
-
-            xhr.onload = function() {
-                clearInterval(contentInt);
-                if (xhr.status === 200) {
-                    progText.innerText = "100%";
-                    let count = parseInt(localStorage.getItem('real_users_count') || 1240);
-                    localStorage.setItem('real_users_count', count + 1);
-                    setTimeout(() => {
-                        alert("✅ تم استلام تلاوتك بنجاح.. نفع الله بك !"); 
-                        location.reload();
-                    }, 200);
-                } else {
-                    overlay.style.display = 'none';
-                    alert("تعذر الإرسال: " + xhr.statusText);
-                }
-            };
-
-            xhr.onerror = function() {
-                overlay.style.display = 'none';
-                clearInterval(contentInt);
-                alert("حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.");
-            };
-
-            const params = new URLSearchParams();
-            params.append("Name", document.getElementById('name').value);
-            params.append("Phone", iti.getNumber());
-            params.append("Surah", document.getElementById('surah').value);
-            params.append("AyahFrom", document.getElementById('ayahFrom').value);
-            params.append("AyahTo", document.getElementById('ayahTo').value);
-            params.append("PageFrom", document.getElementById('pageFrom').value);
-            params.append("PageTo", document.getElementById('pageTo').value);
-            params.append("photoData", photoBase64.split(',')[1]);
-            params.append("audioData", audioBase64.split(',')[1]);
+            let count = parseInt(localStorage.getItem('real_users_count') || 1240);
+            localStorage.setItem('real_users_count', count + 1);
             
-            xhr.send(params.toString());
+            setTimeout(() => {
+                alert("✅ تم استلام تلاوتكم المباركة بنجاح.. نفع الله بكم !"); 
+                location.reload();
+            }, 500);
 
         } catch (err) { 
             overlay.style.display = 'none'; 
             clearInterval(contentInt);
-            alert("حدث خطأ، حاول مرة أخرى"); 
+            alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); 
         }
     };
 
