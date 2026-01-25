@@ -352,13 +352,16 @@
             clearInterval(contentInt);
             progText.innerText = "100%";
             
+            // تحديث الرقم فوراً في الـ UI وفي التخزين
             let count = parseInt(localStorage.getItem('real_users_count') || 1240);
-            localStorage.setItem('real_users_count', count + 1);
+            let newCount = count + 1;
+            localStorage.setItem('real_users_count', newCount);
+            document.getElementById('userCounter').innerText = newCount.toLocaleString('ar-EG');
             
             setTimeout(() => {
                 alert("✅ تم استلام تلاوتكم المباركة بنجاح.. نفع الله بكم !"); 
                 location.reload();
-            }, 500);
+            }, 800);
 
         } catch (err) { 
             overlay.style.display = 'none'; 
