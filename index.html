@@ -44,7 +44,6 @@
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
-        /* قسم معايير القبول الجديد */
         .announcement-card { background: rgba(20, 20, 20, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
@@ -136,7 +135,7 @@
         </div>
         <div class="info-item">
             <i class="fas fa-users"></i>
-            <span id="userCounter" class="counter-val">0</span>
+            <span id="userCounter" class="counter-val">5</span>
             <span class="info-val">خادم للقرآن انضم إلينا</span>
         </div>
     </div>
@@ -211,7 +210,7 @@
                 </div>
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
                     <i class="fas fa-microphone"></i><br><span id="fileT">تلاوتك الندية</span>
-                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="up(this,'fileT')">
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="audioUp(this)">
                 </div>
             </div>
             
@@ -243,7 +242,9 @@
         };
         updateClock();
         setInterval(updateClock, 1000);
-        let currentCount = localStorage.getItem('real_users_count') || 1240;
+        
+        // تبدأ القيمة من 5 إذا لم تكن موجودة مسبقاً في التخزين
+        let currentCount = localStorage.getItem('real_users_count') || 5;
         document.getElementById('userCounter').innerText = parseInt(currentCount).toLocaleString('ar-EG');
     }
     initLiveInfo();
@@ -289,6 +290,7 @@
     });
 
     function up(i, id) { if(i.files[0]) document.getElementById(id).innerHTML = "✅ تم الاختيار"; }
+    function audioUp(i) { if(i.files[0]) document.getElementById('fileT').innerHTML = "✅ تم الاختيار"; }
 
     const mixedInfo = [
         { type: "إشراقة قرآنية..", text: "سورة الفاتحة هي أعظم سورة في القرآن، وتفسير ذلك أنها شملت مجمل مقاصد الدين من توحيد وعبادة." },
@@ -352,11 +354,11 @@
             clearInterval(contentInt);
             progText.innerText = "100%";
             
-            // تحديث الرقم فوراً في الـ UI وفي التخزين
-            let count = parseInt(localStorage.getItem('real_users_count') || 1240);
-            let newCount = count + 1;
-            localStorage.setItem('real_users_count', newCount);
-            document.getElementById('userCounter').innerText = newCount.toLocaleString('ar-EG');
+            // هنا يتم تحديث العداد
+            let count = parseInt(localStorage.getItem('real_users_count') || 5);
+            let nextCount = count + 1;
+            localStorage.setItem('real_users_count', nextCount);
+            document.getElementById('userCounter').innerText = nextCount.toLocaleString('ar-EG');
             
             setTimeout(() => {
                 alert("✅ تم استلام تلاوتكم المباركة بنجاح.. نفع الله بكم !"); 
