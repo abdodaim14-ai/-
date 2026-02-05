@@ -48,8 +48,8 @@
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
-        /* تنسيق الحدث التاريخي الهجري */
-        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 2px 8px; border-radius: 4px; font-weight: 900; margin-top: 5px; display: inline-block; animation: flash 2s infinite; }
+        /* تنسيق الحدث التاريخي الهجري والميلادي */
+        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; line-height: 1.4; }
 
         .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
@@ -83,7 +83,7 @@
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
-        .operator-label-logo { height: 20px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; }
+        .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; border-radius: 3px; }
         
         /* تعديلات حقل الهاتف (العلم فقط) */
         .iti { width: 100%; direction: ltr; }
@@ -157,7 +157,7 @@
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
             <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
-            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
+            <span id="hijriEvent" class="hijri-event-tag">حدث اليوم التاريخي</span>
         </div>
         <div class="info-item">
             <i class="fas fa-heart"></i>
@@ -298,6 +298,7 @@
     const CLOUD_COUNTER_API = 'https://api.countapi.xyz/hit/quran-talent-abdomaki/submissions';
     const GET_COUNTER_API = 'https://api.countapi.xyz/get/quran-talent-abdomaki/submissions';
 
+    // تحديث روابط اللوجوهات للتأكد من ظهورها
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
         "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
@@ -306,10 +307,21 @@
     };
 
     document.getElementById('phone').addEventListener('input', function(e) {
-        const val = e.target.value;
+        const val = e.target.value.replace(/\s+/g, '');
         const opLogo = document.getElementById('opLogo');
-        const prefix = val.startsWith('0') ? val.substring(0, 3) : "0" + val.substring(0, 2);
-        if (opLogos[prefix]) { opLogo.src = opLogos[prefix]; opLogo.style.display = 'inline-block'; } else { opLogo.style.display = 'none'; }
+        let prefix = "";
+        
+        // التحقق من البريفيكس سواء بدأ بـ 0 أو 20 أو بدونهما
+        if (val.startsWith('01')) prefix = val.substring(0, 3);
+        else if (val.startsWith('201')) prefix = "0" + val.substring(2, 4);
+        else if (val.startsWith('1')) prefix = "0" + val.substring(0, 2);
+
+        if (opLogos[prefix]) { 
+            opLogo.src = opLogos[prefix]; 
+            opLogo.style.display = 'inline-block'; 
+        } else { 
+            opLogo.style.display = 'none'; 
+        }
     });
 
     function previewImage(input) {
@@ -344,17 +356,18 @@
         } catch (e) { document.getElementById('userCounter').innerText = (13).toLocaleString('ar-EG'); }
     }
 
-    // نظام التاريخ الهجري والحدث التاريخي
+    // نظام التاريخ الهجري والحدث التاريخي الميلادي والهجري
     function initLiveInfo() {
         const hijriEvents = {
-            "1/1": "رأس السنة الهجرية",
-            "10/1": "يوم عاشوراء",
-            "12/3": "المولد النبوي الشريف",
-            "27/7": "ذكرى الإسراء والمعراج",
-            "1/9": "أول أيام شهر رمضان",
-            "17/9": "ذكرى غزوة بدر الكبرى",
-            "1/10": "عيد الفطر المبارك",
-            "10/12": "عيد الأضحى المبارك"
+            "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف",
+            "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "17/9": "ذكرى غزوة بدر الكبرى",
+            "1/10": "عيد الفطر المبارك", "10/12": "عيد الأضحى المبارك"
+        };
+
+        const miladiEvents = {
+            "1/1": "بداية العام الميلادي", "7/1": "عيد الميلاد المجيد", "25/1": "عيد الشرطة المصرية",
+            "21/3": "يوم الأم", "25/4": "تحرير سيناء", "1/5": "عيد العمال", "30/6": "ذكرى ثورة 30 يونيو",
+            "23/7": "ذكرى ثورة 23 يوليو", "6/10": "انتصارات أكتوبر المجيدة", "18/12": "يوم اللغة العربية"
         };
 
         const updateClock = () => {
@@ -366,12 +379,22 @@
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
             document.getElementById('combinedDate').innerHTML = hijriFull + "<br>" + miladiDayMonth + " 2026 م";
 
-            // تحديد الحدث الهجري
+            // تحديد الحدث (ميلادي أو هجري)
+            const mDay = now.getDate();
+            const mMonth = now.getMonth() + 1;
+            const mKey = `${mDay}/${mMonth}`;
+
             const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
             const hDay = parts.find(p => p.type === 'day').value;
             const hMonth = parts.find(p => p.type === 'month').value;
-            const eventKey = `${hDay}/${hMonth}`;
-            document.getElementById('hijriEvent').innerText = hijriEvents[eventKey] || "يوم مبارك من أيام الله";
+            const hKey = `${hDay}/${hMonth}`;
+
+            let eventStr = "";
+            if (hijriEvents[hKey]) eventStr = "اليوم: " + hijriEvents[hKey];
+            else if (miladiEvents[mKey]) eventStr = "حدث اليوم: " + miladiEvents[mKey];
+            else eventStr = "يوم مبارك من أيام الله";
+            
+            document.getElementById('hijriEvent').innerText = eventStr;
         };
         updateClock(); setInterval(updateClock, 1000); updateGlobalCounter();
     }
@@ -414,7 +437,7 @@
         initialCountry: "eg",
         preferredCountries: ["eg", "sa", "ae", "kw", "om", "jo"],
         autoPlaceholder: "aggressive",
-        separateDialCode: false, // تم تغييرها لإخفاء الرمز الرقمي وإبقاء العلم فقط
+        separateDialCode: false,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
