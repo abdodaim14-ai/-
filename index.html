@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داعم المواهب للقران الكريم - المنصة الرسمية</title>
+    <title>داعم المواهب للقرآن الكريم - المنصة الاحترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
@@ -35,52 +35,64 @@
         
         @media (min-width: 768px) { .container { max-width: 750px; } .form-card { padding: 45px; } }
 
+        /* الهيدر */
         .header-section { text-align: center; margin-bottom: 35px; }
         .logo-main { width: 140px; filter: drop-shadow(0 0 20px var(--gold-glow)); animation: float 4s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.5rem; margin-top: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .quran-verse { font-family: 'Cairo'; font-size: 2rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 15px var(--gold-glow); }
 
-        .info-bar { background: rgba(10, 10, 10, 0.8); border: 1px solid var(--gold); border-radius: 25px; padding: 20px; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .info-item i { color: var(--gold); font-size: 1.5rem; margin-bottom: 8px; transition: 0.3s; }
+        /* بار المعلومات */
+        .info-bar { background: rgba(10, 10, 10, 0.8); border: 1px solid var(--gold); border-radius: 25px; padding: 20px; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; backdrop-filter: blur(10px); }
+        .info-item i { color: var(--gold); font-size: 1.5rem; margin-bottom: 8px; }
         .time-display { font-size: 1.3rem; color: var(--gold); font-weight: 900; }
-        .counter-val { font-size: 1.5rem; color: #fff; font-weight: 900; display: block; }
 
-        .announcement-card { background: var(--dark-card); border-right: 5px solid var(--gold); border-radius: 15px; padding: 25px; margin-bottom: 30px; position: relative; overflow: hidden; }
-        .announcement-card::before { content: "\f621"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; left: -10px; bottom: -10px; font-size: 5rem; opacity: 0.05; color: var(--gold); }
+        /* كلمات تحفيزية */
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 5px solid var(--gold); padding: 20px; margin-bottom: 30px; border-radius: 0 20px 20px 0; }
+        .motivational-box p { font-size: 1.1rem; line-height: 1.7; margin: 0; }
 
-        .form-card { background: var(--dark-card); border: 1px solid rgba(255, 204, 51, 0.3); padding: 30px; border-radius: 30px; backdrop-filter: blur(15px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        /* فورم التسجيل */
+        .form-card { background: var(--dark-card); border: 1px solid var(--gold); padding: 30px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .field { text-align: right; margin-bottom: 20px; position: relative; }
-        .field label { display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 0.95rem; }
+        .field label { display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; }
         
-        .operator-badge { position: absolute; left: 10px; top: 40px; font-size: 0.75rem; background: var(--gold); color: #000; padding: 2px 8px; border-radius: 10px; display: none; font-weight: bold; z-index: 10; }
-
         .input-w-icon { position: relative; }
-        .input-w-icon i { position: absolute; right: 15px; top: 15px; color: var(--gold); font-size: 1rem; transition: 0.3s; z-index: 2; }
-
+        .input-w-icon i { position: absolute; right: 15px; top: 15px; color: var(--gold); font-size: 1rem; z-index: 2; }
         .field input, .field select { width: 100%; padding: 14px 45px 14px 15px; background: rgba(0,0,0,0.5); border: 1px solid #333; color: #fff; border-radius: 12px; outline: none; font-family: 'Almarai'; transition: 0.3s; box-sizing: border-box; }
-        .field input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(255,204,51,0.2); }
+        .field input:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); }
 
-        /* ميزات الرفع الجديدة */
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .upload-item { background: rgba(255,255,255,0.03); border: 2px dashed rgba(255,204,51,0.4); padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: center; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .upload-item:hover { border-color: var(--gold); background: rgba(255, 204, 51, 0.05); }
+        /* علامة شركة الاتصالات */
+        #operator-display { font-size: 0.8rem; color: var(--gold); margin-top: 5px; font-weight: bold; display: none; align-items: center; gap: 5px; }
+
+        /* شبكة الرفع (الصور والصوت) */
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .upload-item { 
+            background: rgba(255,255,255,0.03); border: 2px dashed rgba(255,204,51,0.4); 
+            padding: 20px; border-radius: 20px; cursor: pointer; transition: 0.3s; 
+            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 140px;
+        }
+        .upload-item:hover { border-color: var(--gold); background: rgba(255, 204, 51, 0.1); transform: scale(1.02); }
+        .upload-item i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
         
-        #imgPreview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); display: none; margin-bottom: 10px; }
-        #audioPlayer { width: 100%; margin-top: 10px; height: 30px; display: none; filter: sepia(100%) saturate(500%) hue-rotate(10deg); }
+        #img-preview-el { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); display: none; }
+        #audio-preview-el { width: 100%; margin-top: 10px; display: none; filter: sepia(1) saturate(5) hue-rotate(10deg); }
 
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #ffb300); color: #000; padding: 20px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.3rem; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .main-btn:hover { letter-spacing: 1px; box-shadow: 0 15px 30px var(--gold-glow); transform: translateY(-3px); }
+        /* الزر الرئيسي */
+        .main-btn { 
+            width: 100%; background: linear-gradient(45deg, #ffcc33, #ffb300); 
+            color: #000; padding: 20px; border: none; border-radius: 50px; 
+            font-family: 'Cairo'; font-weight: 900; font-size: 1.3rem; 
+            cursor: pointer; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+        }
+        .main-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px var(--gold-glow); }
 
-        #loadingOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; }
-        .loader-ring { width: 150px; height: 150px; border: 3px solid transparent; border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; position: relative; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* شاشة التحميل */
+        #loadingOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; }
+        #progressText { font-size: 4rem; color: var(--gold); font-weight: 900; }
 
-        .fixed-call-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; background: #111; border: 2px solid var(--gold); border-radius: 50px; padding: 18px; display: flex; align-items: center; justify-content: center; gap: 15px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: 0.3s; }
-
-        .iti { width: 100%; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: right; border: 1px solid var(--gold); }
+        .fixed-call-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 18px; display: flex; align-items: center; justify-content: center; gap: 15px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body>
@@ -88,223 +100,212 @@
 <div id="particles-js"></div>
 
 <div id="loadingOverlay">
-    <div class="loader-ring"></div>
-    <div id="progressText" style="position: absolute; top: 40%; transform: translateY(-50%); font-size: 2rem; color: var(--gold); font-weight: 900;">0%</div>
-    <div id="quizBox" class="animate__animated animate__fadeInUp" style="text-align: center; margin-top: 20px;">
-        <p style="color:var(--gold); font-size:1.2rem;"><i class="fas fa-quran fa-beat"></i></p>
-        <div id="quizQ" style="font-family: 'Cairo';">أجمل الأصوات..</div>
-        <div id="quizA" style="margin-top:10px; color: #ccc;">جاري معالجة تلاوتكم المباركة</div>
+    <div id="progressText">0%</div>
+    <div class="animate__animated animate__pulse animate__infinite" style="color:var(--gold); margin: 20px;"><i class="fas fa-quran fa-3x"></i></div>
+    <div id="quizBox" style="text-align:center; padding: 20px;">
+        <div id="quizQ" style="color:var(--gold); font-family:'Cairo'; font-size:1.2rem;">نور على نور..</div>
+        <div id="quizA" style="color:#ccc; margin-top:10px;">جاري رفع التلاوة إلى سحابة القرآن</div>
     </div>
 </div>
 
 <div class="container">
     <div class="header-section animate__animated animate__fadeInDown">
-        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main" alt="Logo">
-        <div class="site-name">المنصة الرسمية | داعم المواهب للقرآن الكريم</div>
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
+        <div class="site-name"><i class="fas fa-star"></i> داعم المواهب للقرآن الكريم <i class="fas fa-star"></i></div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
     <div class="info-bar animate__animated animate__zoomIn">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.2)">
+        <div class="info-item" style="border-left: 1px solid var(--gold)">
             <i class="fas fa-clock"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="combinedDate" class="info-val" style="color: var(--gold); display: block; font-size: 0.75rem; margin-top: 5px;">-- -- ----</span>
         </div>
         <div class="info-item">
-            <i class="fas fa-star"></i>
-            <span id="userCounter" class="counter-val">13</span>
-            <span class="info-val" style="font-size: 0.8rem;">موهبة قرآنية مسجلة</span>
+            <i class="fas fa-heart"></i>
+            <span id="userCounter" style="font-size:1.3rem; font-weight:900;">13</span>
+            <span style="font-size:0.7rem;">موهبة مسجلة</span>
         </div>
     </div>
 
     <div class="motivational-box animate__animated animate__fadeInRight">
-        <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
-    </div>
-
-    <div class="announcement-card animate__animated animate__fadeInUp">
-        <div class="ann-title" style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">
-            <i class="fas fa-bullhorn"></i> معايير القبول الاحترافية
-        </div>
-        <ul class="criteria-list" style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.8;">
-            <li><i class="fas fa-check-circle" style="color: var(--gold);"></i> ضبط مخارج الحروف والصفات.</li>
-            <li><i class="fas fa-check-circle" style="color: var(--gold);"></i> مراعاة أحكام التجويد والوقف.</li>
-        </ul>
+        <p><i class="fas fa-quote-right" style="color:var(--gold); margin-left:10px;"></i> "صوتك العذب بالقرآن هو أعظم وسيلة لنشر السلام والهداية في قلوب الناس.. بادر بالتسجيل الآن ليكون صوتك نوراً للعامين."</p>
     </div>
 
     <div class="form-card animate__animated animate__fadeInUp">
         <form id="talentForm">
             <div class="field">
-                <label>الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك الثلاثي"></div>
+                <label><i class="fas fa-user-circle"></i> الاسم الثلاثي</label>
+                <div class="input-w-icon"><i class="fas fa-pen-nib"></i><input type="text" id="name" name="Name" required placeholder="مثال: محمد أحمد علي"></div>
             </div>
             
             <div class="field">
-                <label>رقم الواتساب</label>
-                <div id="operatorType" class="operator-badge"></div>
-                <input type="tel" id="phone" required oninput="detectOperator()">
+                <label><i class="fas fa-phone-alt"></i> رقم الواتساب</label>
+                <input type="tel" id="phone" required oninput="checkOperator()">
+                <div id="operator-display"><i class="fas fa-signal"></i> <span id="op-name"></span></div>
             </div>
 
             <div class="field">
-                <label>اختر السورة</label>
-                <div class="input-w-icon"><i class="fas fa-scroll"></i>
-                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>قائمة السور..</option></select></div>
+                <label><i class="fas fa-book-open"></i> اختر السورة</label>
+                <div class="input-w-icon"><i class="fas fa-chevron-down"></i>
+                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>قائمة السور المتاحة..</option></select></div>
             </div>
             
-            <div class="flex-row" style="display: flex; gap: 10px;">
-                <div class="field" style="flex: 1;"><label>من آية</label><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div>
-                <div class="field" style="flex: 1;"><label>إلى آية</label><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div>
+            <div class="flex-row">
+                <div class="field"><label><i class="fas fa-arrow-right"></i> من آية</label><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div>
+                <div class="field"><label><i class="fas fa-arrow-left"></i> إلى آية</label><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div>
             </div>
             
             <div class="upload-grid">
                 <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <img id="imgPreview" alt="Preview">
-                    <div id="imgPlaceholder">
-                        <i class="fas fa-camera" style="font-size: 1.5rem; color: var(--gold);"></i>
-                        <p id="imgT" style="font-size: 0.8rem; margin-top: 5px;">أرفق صورتك</p>
+                    <img id="img-preview-el">
+                    <div id="img-meta">
+                        <i class="fas fa-camera-retro"></i>
+                        <p id="imgT">صورتك الشخصية</p>
                     </div>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImage(this)">
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImg(this)">
                 </div>
-                
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i class="fas fa-microphone-alt" id="audioIcon" style="font-size: 1.5rem; color: var(--gold);"></i>
-                    <p id="fileT" style="font-size: 0.8rem; margin-top: 5px;">أرفق تلاوتك</p>
-                    <audio id="audioPlayer" controls></audio>
+                    <i class="fas fa-microphone-alt" id="audio-icon"></i>
+                    <p id="fileT">تسجيل التلاوة</p>
+                    <audio id="audio-preview-el" controls></audio>
                     <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="previewAudio(this)">
                 </div>
             </div>
             
-            <button type="submit" id="btn" class="main-btn">إرسال التلاوة للمراجعة</button>
+            <button type="submit" id="btn" class="main-btn">
+                <span>تأكيد الإرسال الآن</span>
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </form>
     </div>
 
-    <div class="footer-credit" style="text-align: center; margin-top: 40px;">
+    <div style="text-align:center; margin-top:30px;">
+        <div class="social-row">
+            <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
+        </div>
         <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
-        <span class="name" style="color: var(--gold); display: block; margin-top: 10px;">خادم القرآن: عبد الرحمن مكي</span>
     </div>
 </div>
 
 <a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-phone-alt"></i>
-    <span>للاستفسار المباشر اضغط هنا</span>
+    <i class="fas fa-headset"></i>
+    <span>للمساعدة والدعم الفني المباشر</span>
 </a>
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <script>
-    // تهيئة الخلفية
-    particlesJS('particles-js', { particles: { number: { value: 60 }, color: { value: "#ffcc33" }, opacity: { value: 0.2 }, size: { value: 2 }, move: { speed: 1.5 } } });
+    // الجزيئات الخلفية
+    particlesJS('particles-js', { particles: { number: { value: 50 }, color: { value: "#ffcc33" }, opacity: { value: 0.3 }, size: { value: 3 }, move: { speed: 2 } } });
 
     // ميزة التعرف على شركة الاتصالات
-    function detectOperator() {
-        const phone = document.getElementById('phone').value;
-        const badge = document.getElementById('operatorType');
+    function checkOperator() {
+        const val = document.getElementById('phone').value;
+        const opDisplay = document.getElementById('operator-display');
+        const opName = document.getElementById('op-name');
         
-        if (phone.startsWith('010')) { badge.innerText = "Vodafone"; badge.style.display = "block"; }
-        else if (phone.startsWith('011')) { badge.innerText = "Etisalat"; badge.style.display = "block"; }
-        else if (phone.startsWith('012')) { badge.innerText = "Orange"; badge.style.display = "block"; }
-        else if (phone.startsWith('015')) { badge.innerText = "WE"; badge.style.display = "block"; }
-        else { badge.style.display = "none"; }
+        if(val.startsWith('010')) { opName.innerText = "فودافون مصر"; opDisplay.style.display = "flex"; }
+        else if(val.startsWith('011')) { opName.innerText = "اتصالات مصر"; opDisplay.style.display = "flex"; }
+        else if(val.startsWith('012')) { opName.innerText = "أورانج مصر"; opDisplay.style.display = "flex"; }
+        else if(val.startsWith('015')) { opName.innerText = "المصرية للاتصالات (WE)"; opDisplay.style.display = "flex"; }
+        else { opDisplay.style.display = "none"; }
     }
 
-    // ميزة معاينة الصورة
-    function previewImage(input) {
+    // معاينة الصورة الحية
+    function previewImg(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('imgPreview').src = e.target.result;
-                document.getElementById('imgPreview').style.display = "block";
-                document.getElementById('imgPlaceholder').style.display = "none";
+                document.getElementById('img-preview-el').src = e.target.result;
+                document.getElementById('img-preview-el').style.display = "block";
+                document.getElementById('img-meta').style.display = "none";
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    // ميزة معاينة الصوت
+    // معاينة الصوت الحي
     function previewAudio(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const player = document.getElementById('audioPlayer');
+                const player = document.getElementById('audio-preview-el');
                 player.src = e.target.result;
                 player.style.display = "block";
-                document.getElementById('audioIcon').style.display = "none";
+                document.getElementById('audio-icon').style.display = "none";
                 document.getElementById('fileT').style.display = "none";
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
-    
-    // بيانات القرآن الكريم
-    const quranMap = [["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]];
+    // تهيئة رقم الهاتف الدولي
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "eg",
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 
-    const surahSelect = document.getElementById('surah');
-    quranMap.forEach(s => { let opt = new Option(s[0], s[0]); surahSelect.add(opt); });
+    // بيانات السور (كاملة كما هي في الكود الأصلي)
+    const quranMap = [["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]];
+    const sSel = document.getElementById('surah');
+    quranMap.forEach(s => { sSel.add(new Option(s[0], s[0])); });
 
     function fillQuranData() {
-        const selected = quranMap.find(s => s[0] === surahSelect.value);
-        const [name, ayahs, startPage] = selected;
+        const sel = quranMap.find(s => s[0] === sSel.value);
         const populate = (id, max) => {
             const el = document.getElementById(id); el.innerHTML = "";
             for(let i=1; i<=max; i++) { el.add(new Option(i, i)); }
         };
-        populate('ayahFrom', ayahs); populate('ayahTo', ayahs);
+        populate('ayahFrom', sel[1]); populate('ayahTo', sel[1]);
     }
 
-    const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", separateDialCode: true, utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" });
-
-    function initLiveInfo() {
-        const updateClock = () => {
-            const now = new Date();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            document.getElementById('combinedDate').innerHTML = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'}) + " م";
-        };
-        updateClock(); setInterval(updateClock, 1000);
-    }
-    initLiveInfo();
-
+    // وظيفة الإرسال
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
+    
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        if (!iti.isValidNumber()) { alert("يرجى التأكد من رقم الهاتف"); return; }
+        if (!iti.isValidNumber()) { alert("يرجى إدخال رقم صحيح"); return; }
         
-        const overlay = document.getElementById('loadingOverlay');
-        const progText = document.getElementById('progressText');
-        overlay.style.display = 'flex';
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        const prog = document.getElementById('progressText');
         
         try {
-            const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
-            const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
+            const p64 = await toB64(document.getElementById('imgIn').files[0]);
+            const a64 = await toB64(document.getElementById('fileIn').files[0]);
             
-            const formData = new URLSearchParams();
-            formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
-            formData.append("Surah", document.getElementById('surah').value);
-            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
-            formData.append("AyahTo", document.getElementById('ayahTo').value);
-            formData.append("photoData", photoBase64.split(',')[1]);
-            formData.append("audioData", audioBase64.split(',')[1]);
+            const fd = new URLSearchParams();
+            fd.append("Name", document.getElementById('name').value);
+            fd.append("Phone", iti.getNumber());
+            fd.append("Surah", document.getElementById('surah').value);
+            fd.append("AyahFrom", document.getElementById('ayahFrom').value);
+            fd.append("AyahTo", document.getElementById('ayahTo').value);
+            fd.append("photoData", p64.split(',')[1]);
+            fd.append("audioData", a64.split(',')[1]);
 
-            let p = 0;
-            const pInt = setInterval(() => { if(p < 95) { p += 5; progText.innerText = p + "%"; } }, 200);
+            let val = 0;
+            const intv = setInterval(() => { if(val < 90) { val += 5; prog.innerText = val + "%"; } }, 200);
 
-            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData });
+            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: fd });
             
-            clearInterval(pInt);
-            progText.innerText = "100%";
-            setTimeout(() => { alert("بارك الله فيكم.. تم استلام تلاوتكم بنجاح"); location.reload(); }, 1000);
-
-        } catch (err) { overlay.style.display = 'none'; alert("خطأ في الإرسال، حاول مرة أخرى"); }
+            clearInterval(intv);
+            prog.innerText = "100%";
+            setTimeout(() => { alert("تم الإرسال بنجاح يا حامل القرآن!"); location.reload(); }, 1000);
+        } catch (err) { 
+            document.getElementById('loadingOverlay').style.display = 'none';
+            alert("حدث خطأ.. تأكد من الإنترنت وحجم الملفات"); 
+        }
     };
 
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+    const toB64 = file => new Promise((res, rej) => {
+        const r = new FileReader(); r.readAsDataURL(file);
+        r.onload = () => res(r.result); r.onerror = e => rej(e);
     });
+
+    setInterval(() => { document.getElementById('liveTime').innerText = new Date().toLocaleTimeString('ar-EG'); }, 1000);
 </script>
 </body>
 </html>
