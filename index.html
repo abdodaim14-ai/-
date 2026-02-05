@@ -72,14 +72,16 @@
         /* تنسيق الأزرار الاجتماعية المحفزة */
         .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
         .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
-        .social-row { display: flex; justify-content: center; gap: 20px; }
-        .s-box { background: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
-        .s-box i { font-size: 1.6rem; color: var(--gold); }
-        .s-box span { font-size: 0.6rem; color: #fff; margin-top: 2px; font-weight: bold; }
+        .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
+        .s-box i { font-size: 1.4rem; color: var(--gold); }
+        .s-box span { font-size: 0.55rem; color: #fff; margin-top: 2px; font-weight: bold; }
         .s-box:hover { background: var(--gold); transform: translateY(-5px); }
         .s-box:hover i, .s-box:hover span { color: #000; }
         .s-box.youtube:hover { box-shadow: 0 0 20px #ff0000; border-color: #ff0000; }
         .s-box.facebook:hover { box-shadow: 0 0 20px #1877f2; border-color: #1877f2; }
+        .s-box.tiktok:hover { box-shadow: 0 0 20px #ff0050; border-color: #ff0050; }
+        .s-box.telegram:hover { box-shadow: 0 0 20px #0088cc; border-color: #0088cc; }
         
         .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
         .form-card:hover { border-color: #fff; box-shadow: 0 0 30px var(--gold-glow); }
@@ -190,11 +192,19 @@
         <div class="social-row">
             <a href="https://facebook.com" class="s-box facebook" target="_blank">
                 <i class="fab fa-facebook-f"></i>
-                <span>متابعة</span>
+                <span>فيسبوك</span>
             </a>
             <a href="https://youtube.com" class="s-box youtube" target="_blank">
                 <i class="fab fa-youtube"></i>
-                <span>اشترك</span>
+                <span>يوتيوب</span>
+            </a>
+            <a href="https://tiktok.com" class="s-box tiktok" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span>تيك توك</span>
+            </a>
+            <a href="https://t.me" class="s-box telegram" target="_blank">
+                <i class="fab fa-telegram-plane"></i>
+                <span>تليجرام</span>
             </a>
         </div>
         <p style="font-size: 0.75rem; color: #aaa; margin-top: 10px;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
