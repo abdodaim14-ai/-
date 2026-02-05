@@ -48,6 +48,9 @@
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
+        /* تنسيق الحدث التاريخي الهجري */
+        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 2px 8px; border-radius: 4px; font-weight: 900; margin-top: 5px; display: inline-block; animation: flash 2s infinite; }
+
         .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
@@ -125,6 +128,7 @@
 
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     </style>
 </head>
 <body>
@@ -152,7 +156,8 @@
         <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px;">-- -- ----</span>
+            <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
+            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
         </div>
         <div class="info-item">
             <i class="fas fa-heart"></i>
@@ -339,13 +344,34 @@
         } catch (e) { document.getElementById('userCounter').innerText = (13).toLocaleString('ar-EG'); }
     }
 
+    // نظام التاريخ الهجري والحدث التاريخي
     function initLiveInfo() {
+        const hijriEvents = {
+            "1/1": "رأس السنة الهجرية",
+            "10/1": "يوم عاشوراء",
+            "12/3": "المولد النبوي الشريف",
+            "27/7": "ذكرى الإسراء والمعراج",
+            "1/9": "أول أيام شهر رمضان",
+            "17/9": "ذكرى غزوة بدر الكبرى",
+            "1/10": "عيد الفطر المبارك",
+            "10/12": "عيد الأضحى المبارك"
+        };
+
         const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            
+            // التاريخ الهجري
+            const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
-            document.getElementById('combinedDate').innerHTML = hijri + "<br>" + miladiDayMonth + " 2026 م";
+            document.getElementById('combinedDate').innerHTML = hijriFull + "<br>" + miladiDayMonth + " 2026 م";
+
+            // تحديد الحدث الهجري
+            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
+            const hDay = parts.find(p => p.type === 'day').value;
+            const hMonth = parts.find(p => p.type === 'month').value;
+            const eventKey = `${hDay}/${hMonth}`;
+            document.getElementById('hijriEvent').innerText = hijriEvents[eventKey] || "يوم مبارك من أيام الله";
         };
         updateClock(); setInterval(updateClock, 1000); updateGlobalCounter();
     }
