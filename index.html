@@ -166,6 +166,11 @@
         </div>
     </div>
 
+    <div class="social-row animate__animated animate__fadeInUp">
+        <a href="https://facebook.com" class="s-box" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com" class="s-box" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+
     <div class="motivational-box animate__animated animate__fadeInLeft">
         <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
     </div>
@@ -238,8 +243,8 @@
 </div>
 
 <a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-phone-volume"></i>
-    <span>للاستفسار تواصل معنا عبر الهاتف</span>
+    <i class="fas fa-tools"></i>
+    <span>للمشاكل الفنية اضغط هنا</span>
 </a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
@@ -298,7 +303,6 @@
     const CLOUD_COUNTER_API = 'https://api.countapi.xyz/hit/quran-talent-abdomaki/submissions';
     const GET_COUNTER_API = 'https://api.countapi.xyz/get/quran-talent-abdomaki/submissions';
 
-    // تحديث روابط اللوجوهات للتأكد من ظهورها
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
         "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
@@ -311,7 +315,6 @@
         const opLogo = document.getElementById('opLogo');
         let prefix = "";
         
-        // التحقق من البريفيكس سواء بدأ بـ 0 أو 20 أو بدونهما
         if (val.startsWith('01')) prefix = val.substring(0, 3);
         else if (val.startsWith('201')) prefix = "0" + val.substring(2, 4);
         else if (val.startsWith('1')) prefix = "0" + val.substring(0, 2);
@@ -356,7 +359,6 @@
         } catch (e) { document.getElementById('userCounter').innerText = (13).toLocaleString('ar-EG'); }
     }
 
-    // نظام التاريخ الهجري والحدث التاريخي الميلادي والهجري
     function initLiveInfo() {
         const hijriEvents = {
             "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف",
@@ -374,12 +376,10 @@
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
             
-            // التاريخ الهجري
             const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
             document.getElementById('combinedDate').innerHTML = hijriFull + "<br>" + miladiDayMonth + " 2026 م";
 
-            // تحديد الحدث (ميلادي أو هجري)
             const mDay = now.getDate();
             const mMonth = now.getMonth() + 1;
             const mKey = `${mDay}/${mMonth}`;
