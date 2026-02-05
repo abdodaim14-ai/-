@@ -78,8 +78,8 @@
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
-        /* إضافة لوجو الشركة */
-        .operator-badge { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); height: 25px; display: none; z-index: 5; animation: bounceIn 0.5s; }
+        /* التعديل الجديد: لوجو الشركة بجانب العنوان */
+        .operator-label-logo { height: 20px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; }
         
         .flex-row { display: flex; gap: 10px; }
         .flex-row .field { flex: 1; }
@@ -199,11 +199,14 @@
                 <label><i class="fas fa-id-card"></i> الاسم بالكامل</label>
                 <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي كما تحب أن يظهر"></div>
             </div>
+            
             <div class="field">
-                <label><i class="fas fa-phone-alt"></i> رقم الواتساب (يرجى كتابة الـ 0)</label>
+                <label>
+                    <i class="fas fa-phone-alt"></i> رقم الواتساب (يرجى كتابة الـ 0)
+                    <img id="opLogo" class="operator-label-logo" src="" alt="operator">
+                </label>
                 <div class="input-w-icon">
                     <input type="tel" id="phone" required placeholder="0112278xxxx">
-                    <img id="opLogo" class="operator-badge" src="" alt="operator">
                 </div>
             </div>
 
@@ -271,10 +274,12 @@
     document.getElementById('phone').addEventListener('input', function(e) {
         const val = e.target.value;
         const opLogo = document.getElementById('opLogo');
-        const prefix = val.substring(0, 3);
+        // البحث عن أول 3 أرقام
+        const prefix = val.startsWith('0') ? val.substring(0, 3) : "0" + val.substring(0, 2);
+        
         if (opLogos[prefix]) {
             opLogo.src = opLogos[prefix];
-            opLogo.style.display = 'block';
+            opLogo.style.display = 'inline-block';
         } else {
             opLogo.style.display = 'none';
         }
