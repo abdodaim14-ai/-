@@ -12,35 +12,23 @@
     <style>
         :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
         
-        /* الخلفية الذهبية المتحركة الجديدة */
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
-            background: linear-gradient(135deg, #000000, #1a1a1a, #2c2401, #000000);
-            background-size: 400% 400%;
-            animation: goldenFlow 15s ease infinite;
-            background-attachment: fixed;
+            background: #000;
             min-height: 100vh; padding: 20px 0 120px 0;
             overflow-x: hidden;
+            position: relative;
         }
 
-        @keyframes goldenFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* إضافة لمسة بريق ذهبي خفيفة */
-        body::after {
-            content: "";
+        /* حاوية الخلفية المتحركة التفاعلية */
+        #interactive-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.2;
+            z-index: 0;
             pointer-events: none;
-            z-index: 1;
         }
-        
+
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
         @media (min-width: 768px) {
             .container { max-width: 700px; }
@@ -52,7 +40,7 @@
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
-        .info-bar { background: rgba(0, 0, 0, 0.7); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); }
+        .info-bar { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); }
         .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
         .info-item:hover { transform: scale(1.05); }
         .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
@@ -82,18 +70,24 @@
         .s-box { background: #000; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); font-size: 1.4rem; color: var(--gold); transition: 0.4s; }
         .s-box:hover { background: var(--gold); color: #000; transform: translateY(-5px) rotate(360deg); }
         
-        .form-card { background: rgba(10, 10, 10, 0.9); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
+        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
         .form-card:hover { border-color: #fff; box-shadow: 0 0 30px var(--gold-glow); }
         .field { text-align: right; margin-bottom: 15px; position: relative; }
         .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
         
         .input-w-icon { position: relative; }
-        .input-w-icon i { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
+        .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
         .operator-label-logo { height: 20px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; }
         
+        /* تعديلات حقل الهاتف (العلم فقط) */
+        .iti { width: 100%; direction: ltr; }
+        .iti__selected-dial-code { display: none !important; } /* إخفاء الكود الرقمي */
+        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
+        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
+
         .flex-row { display: flex; gap: 10px; }
         .flex-row .field { flex: 1; }
 
@@ -129,16 +123,13 @@
         .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
 
-        /* تعديلات مكتبة الهاتف للعلم */
-        .iti { width: 100%; direction: ltr; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
-        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
-
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
+
+<canvas id="interactive-bg"></canvas>
 
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
@@ -191,7 +182,7 @@
             
             <div class="field">
                 <label>
-                    <i class="fab fa-whatsapp"></i> بتاع دياتي (رقم الواتساب)
+                    <i class="fab fa-whatsapp"></i> رقم الواتساب
                     <img id="opLogo" class="operator-label-logo" src="" alt="operator">
                 </label>
                 <div class="input-w-icon">
@@ -248,6 +239,56 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    // كود الخلفية التفاعلية Particles
+    const canvas = document.getElementById('interactive-bg');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let mouse = { x: null, y: null, radius: (canvas.height/80) * (canvas.width/80) };
+    window.addEventListener('mousemove', function(event) { mouse.x = event.x; mouse.y = event.y; });
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+        }
+        draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#ffcc33'; ctx.fill();
+        }
+        update() {
+            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+            this.x += this.directionX; this.y += this.directionY;
+            this.draw();
+        }
+    }
+
+    function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * 2) - 1;
+            let directionY = (Math.random() * 2) - 1;
+            let color = '#ffcc33';
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0,0,innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+    }
+
+    window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; init(); });
+    init(); animate();
+
+    // بقية كود المشروع
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
     const CLOUD_COUNTER_API = 'https://api.countapi.xyz/hit/quran-talent-abdomaki/submissions';
     const GET_COUNTER_API = 'https://api.countapi.xyz/get/quran-talent-abdomaki/submissions';
@@ -347,7 +388,7 @@
         initialCountry: "eg",
         preferredCountries: ["eg", "sa", "ae", "kw", "om", "jo"],
         autoPlaceholder: "aggressive",
-        separateDialCode: true,
+        separateDialCode: false, // تم تغييرها لإخفاء الرمز الرقمي وإبقاء العلم فقط
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
