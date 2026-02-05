@@ -11,20 +11,34 @@
     
     <style>
         :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
+        
+        /* الخلفية الذهبية المتحركة الجديدة */
         body {
             font-family: 'Almarai', sans-serif;
-            margin: 0; color: #fff; background: #000;
-            background-color: #000;
-            background-image: 
-                radial-gradient(circle at center, transparent 0%, #000 90%),
-                url('https://www.transparenttextures.com/patterns/black-linen.png'),
-                linear-gradient(135deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
-                linear-gradient(225deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
-                linear-gradient(45deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%),
-                linear-gradient(315deg, rgba(255, 204, 51, 0.08) 25%, transparent 25%);
-            background-size: 100% 100%, auto, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+            margin: 0; color: #fff;
+            background: linear-gradient(135deg, #000000, #1a1a1a, #2c2401, #000000);
+            background-size: 400% 400%;
+            animation: goldenFlow 15s ease infinite;
             background-attachment: fixed;
             min-height: 100vh; padding: 20px 0 120px 0;
+            overflow-x: hidden;
+        }
+
+        @keyframes goldenFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* إضافة لمسة بريق ذهبي خفيفة */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 1;
         }
         
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
@@ -38,7 +52,7 @@
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
-        .info-bar { background: rgba(0, 0, 0, 0.6); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(5px); }
+        .info-bar { background: rgba(0, 0, 0, 0.7); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); }
         .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
         .info-item:hover { transform: scale(1.05); }
         .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
@@ -46,7 +60,7 @@
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
-        .announcement-card { background: rgba(20, 20, 20, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
         .criteria-list { list-style: none; padding: 0; margin: 0; }
@@ -54,7 +68,7 @@
         .criteria-list i { color: var(--gold); margin-top: 4px; font-size: 0.85rem; }
         .ann-footer { border-top: 1px solid rgba(255,204,51,0.2); padding-top: 10px; margin-top: 10px; font-weight: bold; color: var(--gold); font-size: 0.9rem; text-align: center; }
 
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; }
         .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; z-index: 2; position: relative; }
         .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255,204,51,0.05); }
 
@@ -78,14 +92,13 @@
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
-        /* التعديل الجديد: لوجو الشركة بجانب العنوان */
         .operator-label-logo { height: 20px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; }
         
         .flex-row { display: flex; gap: 10px; }
         .flex-row .field { flex: 1; }
 
         .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.02); min-height: 100px; position: relative; overflow: hidden; }
+        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.05); min-height: 100px; position: relative; overflow: hidden; }
         .upload-item:hover { background: rgba(255, 204, 51, 0.1); transform: translateY(-3px); border-style: solid; }
         .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; }
         
@@ -115,12 +128,14 @@
         .fixed-call-btn:hover { background: #111; transform: translateX(-50%) scale(1.02); }
         .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
+
+        /* تعديلات مكتبة الهاتف للعلم */
+        .iti { width: 100%; direction: ltr; }
+        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
+        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
+
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        .iti { width: 100%; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: right; }
-        .iti__selected-flag { border-radius: 10px 0 0 10px; }
     </style>
 </head>
 <body>
@@ -167,32 +182,6 @@
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
-        <p style="color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1rem; margin-bottom: 10px;">
-            ✨ كُن جُزءاً مِن مَسِيرَةِ النُّور.. تَابِعنَا لِنَشْرِ الهُدَى ✨
-        </p>
-        <div class="social-row" style="margin: 0;">
-            <a href="https://www.facebook.com/share/18aVe6P3xy/" target="_blank" class="s-box"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://youtube.com/@abdomaki17" target="_blank" class="s-box"><i class="fab fa-youtube"></i></a>
-        </div>
-    </div>
-
-    <div class="announcement-card">
-        <div class="ann-title">
-            <i class="fas fa-bullhorn animate__animated animate__tada animate__infinite"></i>
-            <span>إعلان هام: معايير قبول التلاوات</span>
-        </div>
-        <p class="ann-text">تيسيراً على الجميع، نود التنويه بأن جميع الأصوات يتم مراجعتها بعناية من قبل <strong>مشايخ كبار</strong> متخصصين، وترتكز معايير القبول حصراً على "قوة الإتقان"، ولن يتم اختيار إلا من استوفى الشروط التالية:</p>
-        <ul class="criteria-list">
-            <li><i class="fas fa-check-circle"></i> <span><strong>صحة المخارج:</strong> نطق الحروف بوضوح تام من منبعها الصحيح.</span></li>
-            <li><i class="fas fa-check-circle"></i> <span><strong>إحكام التجويد:</strong> ضبط المدود والغُنن وسائر الأحكام بمهارة وعناية.</span></li>
-            <li><i class="fas fa-check-circle"></i> <span><strong>جودة الأداء:</strong> القراءة برزانة وخشوع، مع مراعاة الوقف والابتداء.</span></li>
-        </ul>
-        <div class="ann-footer">
-            <i class="fas fa-certificate"></i> الخلاصة: الأولوية لمن جمع بين حُسن الصوت وضبط الأحكام.
-        </div>
-    </div>
-
     <div class="form-card animate__animated animate__fadeInUp">
         <form id="talentForm">
             <div class="field">
@@ -202,12 +191,11 @@
             
             <div class="field">
                 <label>
-                    <i class="fab fa-whatsapp"></i> رقم الواتساب (يرجى كتابة الـ 0)
+                    <i class="fab fa-whatsapp"></i> بتاع دياتي (رقم الواتساب)
                     <img id="opLogo" class="operator-label-logo" src="" alt="operator">
                 </label>
                 <div class="input-w-icon">
-                    <i class="fab fa-whatsapp"></i>
-                    <input type="tel" id="phone" required placeholder="0112278xxxx">
+                    <input type="tel" id="phone" required>
                 </div>
             </div>
 
@@ -264,7 +252,6 @@
     const CLOUD_COUNTER_API = 'https://api.countapi.xyz/hit/quran-talent-abdomaki/submissions';
     const GET_COUNTER_API = 'https://api.countapi.xyz/get/quran-talent-abdomaki/submissions';
 
-    // كاشف شركات الاتصالات
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
         "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
@@ -275,39 +262,28 @@
     document.getElementById('phone').addEventListener('input', function(e) {
         const val = e.target.value;
         const opLogo = document.getElementById('opLogo');
-        // البحث عن أول 3 أرقام
         const prefix = val.startsWith('0') ? val.substring(0, 3) : "0" + val.substring(0, 2);
-        
-        if (opLogos[prefix]) {
-            opLogo.src = opLogos[prefix];
-            opLogo.style.display = 'inline-block';
-        } else {
-            opLogo.style.display = 'none';
-        }
+        if (opLogos[prefix]) { opLogo.src = opLogos[prefix]; opLogo.style.display = 'inline-block'; } else { opLogo.style.display = 'none'; }
     });
 
-    // وظيفة معاينة الصورة المحدثة
     function previewImage(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('imgIcon').style.display = 'none';
                 const preview = document.getElementById('imgPreview');
-                preview.src = e.target.result;
-                preview.style.display = 'block';
+                preview.src = e.target.result; preview.style.display = 'block';
                 document.getElementById('imgT').innerHTML = "✅ تم استلام صورتك";
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    // وظيفة معاينة الصوت المحدثة
     function previewAudio(input) {
         if (input.files && input.files[0]) {
             const audioPreview = document.getElementById('audioPreview');
             const fileURL = URL.createObjectURL(input.files[0]);
-            audioPreview.src = fileURL;
-            audioPreview.style.display = 'block';
+            audioPreview.src = fileURL; audioPreview.style.display = 'block';
             document.getElementById('audioIcon').style.display = 'none';
             document.getElementById('fileT').innerHTML = "🎧 استمع لتسجيلك الآن";
         }
@@ -319,9 +295,7 @@
             const data = await res.json();
             let total = 13 + (data.value || 0);
             document.getElementById('userCounter').innerText = total.toLocaleString('ar-EG');
-        } catch (e) {
-            document.getElementById('userCounter').innerText = (13).toLocaleString('ar-EG');
-        }
+        } catch (e) { document.getElementById('userCounter').innerText = (13).toLocaleString('ar-EG'); }
     }
 
     function initLiveInfo() {
@@ -332,9 +306,7 @@
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
             document.getElementById('combinedDate').innerHTML = hijri + "<br>" + miladiDayMonth + " 2026 م";
         };
-        updateClock();
-        setInterval(updateClock, 1000);
-        updateGlobalCounter();
+        updateClock(); setInterval(updateClock, 1000); updateGlobalCounter();
     }
     initLiveInfo();
 
@@ -394,32 +366,24 @@
 
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        
         let fullNumber = iti.getNumber();
         if (!iti.isValidNumber()) { alert("يرجى التأكد من كتابة رقم هاتف صحيح"); return; }
-        
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
         overlay.style.display = 'flex';
-        
         let idx = 0;
         const updateContent = () => {
             const item = mixedInfo[idx];
             document.getElementById('quizQ').innerText = item.type;
             document.getElementById('quizA').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('quizA').innerText = item.text;
-                document.getElementById('quizA').style.opacity = 1;
-            }, 300);
+            setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
             idx = (idx + 1) % mixedInfo.length;
         };
-        updateContent();
-        const contentInt = setInterval(updateContent, 6000);
+        updateContent(); const contentInt = setInterval(updateContent, 6000);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
-            
             const formData = new URLSearchParams();
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", fullNumber);
@@ -431,39 +395,17 @@
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
 
-            let p = 0;
-            const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
-
-            const response = await fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData.toString()
-            });
-            
+            let p = 0; const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
+            const response = await fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
             try { await fetch(CLOUD_COUNTER_API); } catch(errCounter) {}
-
-            clearInterval(pInt);
-            clearInterval(contentInt);
-            progText.innerText = "100%";
-            
-            setTimeout(() => {
-                alert("✅ تم استلام تلاوتكم المباركة بنجاح.. نفع الله بكم !"); 
-                location.reload();
-            }, 800);
-
-        } catch (err) { 
-            overlay.style.display = 'none'; 
-            clearInterval(contentInt);
-            alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); 
-        }
+            clearInterval(pInt); clearInterval(contentInt); progText.innerText = "100%";
+            setTimeout(() => { alert("✅ تم استلام تلاوتكم المباركة بنجاح.. نفع الله بكم !"); location.reload(); }, 800);
+        } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
     };
 
     const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
     });
 </script>
 </body>
