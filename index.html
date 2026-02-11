@@ -4,142 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>داعم المواهب للقرآن الكريم</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { 
-            --gold: #ffcc33; 
-            --gold-glow: rgba(255, 204, 51, 0.5); 
-            --dark-bg: #0a0a0a; 
-        }
-        
-        body {
-            font-family: 'Almarai', sans-serif;
-            margin: 0; color: #fff;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            min-height: 100vh; padding: 20px 0 120px 0;
-            overflow-x: hidden; position: relative;
-        }
-
-        /* تعديل الخلفية المتطور - نجوم إسلامية تفاعلية */
-        #interactive-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
-        }
-
+        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
+        body { font-family: 'Almarai', sans-serif; margin: 0; color: #fff; background: #000; min-height: 100vh; padding: 20px 0 120px 0; overflow-x: hidden; position: relative; }
+        #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
         
-        @media (min-width: 768px) { 
-            .container { max-width: 700px; } 
-            .form-card { padding: 40px; } 
-        }
-        
-        .header-section { text-align: center; margin-bottom: 30px; }
-        .logo-main { width: 140px; filter: drop-shadow(0 0 20px var(--gold-glow)); animation: pulse 2s infinite; }
-        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.4rem; margin-top: 15px; font-weight: 900; }
-        .quran-verse { font-family: 'Cairo'; font-size: 2rem; margin: 20px 0; color: #fff; font-weight: 900; text-shadow: 0 0 15px var(--gold-glow); }
+        /* تصميم ساعة العقارب */
+        .clock-container { display: flex; justify-content: center; margin-bottom: 20px; }
+        .analog-clock { width: 120px; height: 120px; border: 3px solid var(--gold); border-radius: 50%; position: relative; background: rgba(0,0,0,0.5); box-shadow: 0 0 20px var(--gold-glow); }
+        .analog-clock::after { content: ''; position: absolute; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; border-radius: 5px; }
+        .hour { width: 4px; height: 30px; background: #fff; z-index: 3; }
+        .minute { width: 3px; height: 45px; background: var(--gold); z-index: 2; }
+        .second { width: 1px; height: 50px; background: #ff0000; z-index: 1; }
 
-        .info-bar { 
-            background: rgba(0, 0, 0, 0.85); 
-            border: 2px solid var(--gold); 
-            border-radius: 25px; padding: 20px; 
-            margin-bottom: 30px; display: grid; 
-            grid-template-columns: 1fr 1fr; gap: 15px; 
-            text-align: center; backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .info-item { display: flex; flex-direction: column; justify-content: center; }
-        .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.4rem; }
-        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #fff; }
-        .time-display { font-size: 1.3rem; color: var(--gold); font-weight: 900; letter-spacing: 1.5px; }
+        .header-section { text-align: center; margin-bottom: 20px; }
+        .logo-main { width: 120px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
+        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
-        /* صندوق دعاء اليوم المضاف حديثاً بناءً على طلبك */
-        .daily-dua-box { 
-            background: rgba(255, 204, 51, 0.1); 
-            border: 2px solid var(--gold); 
-            padding: 20px; margin-bottom: 30px; 
-            border-radius: 20px; backdrop-filter: blur(10px); 
-            text-align: center; position: relative;
-            animation: fadeInDown 1s;
-        }
-        .dua-header { 
-            color: var(--gold); font-family: 'Cairo'; 
-            font-weight: 900; font-size: 1.1rem; 
-            margin-bottom: 10px; display: block;
-            text-decoration: underline;
-        }
-        #duaText { font-size: 1.1rem; line-height: 1.8; color: #fff; font-weight: bold; }
+        /* شريط المعلومات الجديد */
+        .info-bar { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; backdrop-filter: blur(10px); }
+        .info-item { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .date-label { color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .date-val { font-size: 0.95rem; font-weight: 900; }
 
-        .form-card { 
-            background: rgba(15, 15, 15, 0.98); 
-            border: 2px solid var(--gold); 
-            padding: 30px; border-radius: 30px; 
-            text-align: center; backdrop-filter: blur(20px); 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9); 
-        }
+        .announcement-card { background: rgba(20, 20, 20, 0.9); border: 1px solid var(--gold); border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+        .criteria-list { list-style: none; padding: 0; margin: 5px 0; font-size: 0.85rem; }
+        .criteria-list li { margin-bottom: 5px; display: flex; gap: 8px; }
+        .criteria-list i { color: var(--gold); }
 
-        .field { text-align: right; margin-bottom: 22px; position: relative; }
-        .field label { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--gold); font-size: 1rem; font-weight: bold; }
+        .form-card { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,1); }
+        .field { text-align: right; margin-bottom: 15px; }
+        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+        .field input, .field select { width: 100%; padding: 12px; background: #000; border: 1.5px solid #333; color: #fff; border-radius: 10px; box-sizing: border-box; }
         
-        .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) { position: absolute; right: 15px; top: 14px; color: var(--gold); font-size: 1rem; z-index: 2; }
-        
-        .field input, .field select { 
-            width: 100%; padding: 14px 45px 14px 15px; 
-            background: #000; border: 1.5px solid #333; 
-            color: #fff; border-radius: 12px; outline: none; 
-            box-sizing: border-box; transition: 0.4s; font-family: 'Almarai';
-            font-size: 1rem;
-        }
-        
-        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 18px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .main-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--gold); }
 
-        .iti { width: 100%; direction: ltr; }
-        
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-        .upload-item { 
-            border: 2px dashed var(--gold); padding: 20px; 
-            border-radius: 20px; cursor: pointer; transition: 0.3s; 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; background: rgba(255,204,51,0.03); 
-            min-height: 120px; 
-        }
-        .upload-item:hover { background: rgba(255,204,51,0.1); transform: translateY(-3px); }
-        .upload-item i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
-        
-        .preview-img-circle { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; display: none; margin-bottom: 5px; }
-        #audioPreview { width: 100%; height: 40px; margin-top: 15px; display: none; border-radius: 20px; }
-
-        .main-btn { 
-            width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); 
-            color: #000; padding: 18px; border: none; border-radius: 60px; 
-            font-family: 'Cairo'; font-weight: 900; font-size: 1.3rem; 
-            cursor: pointer; transition: 0.4s; box-shadow: 0 8px 25px rgba(255,204,51,0.4); 
-        }
-        .main-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
-
-        .footer-credit { text-align: center; margin-top: 60px; padding-bottom: 40px; }
-        .quran-final-verse { color: var(--gold); font-family: 'Cairo'; font-size: 1.8rem; font-weight: 900; margin-bottom: 15px; }
-        
-        /* رابط جوجل شيت المطلوب بدون حذف */
-        .admin-link-box { margin-top: 25px; }
-        .admin-link { 
-            color: #666; text-decoration: none; font-size: 0.85rem; 
-            border: 1px solid #333; padding: 8px 15px; border-radius: 10px;
-            transition: 0.3s;
-        }
-        .admin-link:hover { color: var(--gold); border-color: var(--gold); background: rgba(255,204,51,0.05); }
-
-        #loadingOverlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;
-        }
-        #progressText { color: var(--gold); font-size: 5rem; font-weight: 900; font-family: 'Cairo'; margin-bottom: 20px; }
+        #loadingOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,1); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        #progressText { color: var(--gold); font-size: 4rem; font-weight: 900; }
+        #quizBox { border: 2px solid var(--gold); padding: 20px; border-radius: 20px; background: #111; width: 85%; max-width: 400px; text-align: center; margin-top: 20px; }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
@@ -150,258 +60,189 @@
 
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
-    <div style="color:var(--gold); margin-bottom:25px;"><i class="fas fa-quran fa-spin fa-4x"></i></div>
-    <p style="color:#fff; font-family:'Cairo'; font-size: 1.2rem;">جاري رفع عملك الصالح إلى السحابة الرقمية...</p>
+    <div id="quizBox">
+        <div id="quizQ" style="color:var(--gold); font-weight:900; font-size:1.2rem; margin-bottom:10px;">إشراقة قرآنية</div>
+        <div id="quizA" style="color:#fff; line-height:1.6;">جاري رفع تلاوتكم المباركة...</div>
+    </div>
 </div>
 
 <div class="container animate__animated animate__fadeIn">
+    
+    <div class="clock-container">
+        <div class="analog-clock" id="clock">
+            <div class="hand hour" id="hourHand"></div>
+            <div class="hand minute" id="minHand"></div>
+            <div class="hand second" id="secHand"></div>
+        </div>
+    </div>
+
     <div class="header-section">
-        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main" alt="Logo">
-        <div class="site-name">داعم المواهب للقرآن الكريم</div>
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
     <div class="info-bar">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
-            <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="combinedDate" class="info-val" style="color: var(--gold);">جاري التحميل...</span>
+        <div class="info-item" style="border-left: 1px solid #333;">
+            <span class="date-label"><i class="fas fa-calendar-alt"></i> التاريخ الميلادي</span>
+            <span id="miladiDate" class="date-val">-- -- ----</span>
         </div>
         <div class="info-item">
-            <span id="userCounter" style="font-size: 1.5rem; font-weight: 900;">1,240</span>
-            <span class="info-val">قارئ سجلوا معنا</span>
+            <span class="date-label"><i class="fas fa-moon"></i> التاريخ الهجري</span>
+            <span id="hijriDate" class="date-val" style="color: var(--gold);">-- -- ----</span>
         </div>
     </div>
 
-    <div class="daily-dua-box">
-        <span class="dua-header"><i class="fas fa-hands-praying"></i> دعاء اليوم</span>
-        <div id="duaText">اللهم ارحمنا بالقرآن واجعله لنا إماماً ونوراً</div>
+    <div class="announcement-card">
+        <div style="color: var(--gold); font-weight: 900; font-size: 1rem; margin-bottom: 8px;">📜 معايير القبول:</div>
+        <ul class="criteria-list">
+            <li><i class="fas fa-check"></i> جودة الصوت والهدوء المحيط.</li>
+            <li><i class="fas fa-check"></i> الالتزام بأحكام التجويد الأساسية.</li>
+            <li><i class="fas fa-check"></i> إرفاق صورة شخصية لائقة للموهبة.</li>
+        </ul>
     </div>
 
     <div class="form-card">
         <form id="talentForm">
             <div class="field">
-                <label><i class="fas fa-user"></i> اسم الموهبة</label>
-                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="ادخل اسمك بالكامل"></div>
+                <label><i class="fas fa-user-circle"></i> اسم الموهبة</label>
+                <input type="text" id="name" required placeholder="الاسم الثلاثي">
             </div>
-            
             <div class="field">
                 <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
-                <div class="input-w-icon"><input type="tel" id="phone" required></div>
+                <input type="tel" id="phone" required>
             </div>
-
             <div class="field">
-                <label><i class="fas fa-book-open"></i> السورة المراد تسجيلها</label>
-                <div class="input-w-icon"><i class="fas fa-quran"></i>
-                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر من قائمة السور..</option></select></div>
+                <label><i class="fas fa-book-open"></i> السورة المباركة</label>
+                <select id="surah" onchange="fillQuranData()"></select>
             </div>
-
-            <div style="display:flex; gap:15px;">
-                <div class="field" style="flex:1;"><label>من آية</label><select id="ayahFrom" name="AyahFrom" onchange="smartPageLink('from')"></select></div>
-                <div class="field" style="flex:1;"><label>إلى آية</label><select id="ayahTo" name="AyahTo" onchange="smartPageLink('to')"></select></div>
+            <div style="display:flex; gap:10px;">
+                <div class="field" style="flex:1;"><label>من آية</label><select id="ayahFrom" onchange="smartPageLink('from')"></select></div>
+                <div class="field" style="flex:1;"><label>إلى آية</label><select id="ayahTo" onchange="smartPageLink('to')"></select></div>
             </div>
-            
-            <div style="display:flex; gap:15px;">
-                <div class="field" style="flex:1;"><label>من صفحة</label><select id="pageFrom" name="PageFrom"></select></div>
-                <div class="field" style="flex:1;"><label>إلى صفحة</label><select id="pageTo" name="PageTo"></select></div>
+            <div style="display:flex; gap:10px;">
+                <div class="field" style="flex:1;"><label>من صفحة</label><select id="pageFrom"></select></div>
+                <div class="field" style="flex:1;"><label>إلى صفحة</label><select id="pageTo"></select></div>
             </div>
-            
-            <div class="upload-grid">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0;">
                 <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <i id="imgIcon" class="fas fa-camera-retro"></i>
-                    <img id="imgPreview" class="preview-img-circle">
-                    <span>تحميل الصورة</span>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImage(this)">
+                    <i class="fas fa-camera fa-2x"></i><br><span id="imgT">الصورة</span>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="document.getElementById('imgT').innerText='✅'">
                 </div>
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i id="audioIcon" class="fas fa-microphone-lines"></i>
-                    <audio id="audioPreview" controls></audio>
-                    <span id="fileT">تحميل التلاوة</span>
-                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="previewAudio(this)">
+                    <i class="fas fa-microphone fa-2x"></i><br><span id="fileT">التلاوة</span>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="document.getElementById('fileT').innerText='✅'">
                 </div>
             </div>
-            
-            <button type="submit" id="btn" class="main-btn">إرسال المشاركة الآن</button>
+            <button type="submit" class="main-btn">إرسال التلاوة للمراجعة</button>
         </form>
-    </div>
-
-    <div class="footer-credit">
-        <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
-        <div style="margin-bottom: 25px;">
-            <span style="color:var(--gold); font-family:'Cairo'; font-weight: 900; font-size: 1.2rem;">خادم القرآن/ عبد الرحمن مكي</span>
-        </div>
-        
-        <div class="admin-link-box">
-            <a href="https://docs.google.com/spreadsheets/d/1X-mJv-66uL3k_Y61V4C5nI0n-pL6E7I3pPzX-q7o-7M/edit" target="_blank" class="admin-link">
-                <i class="fas fa-table"></i> لوحة بيانات المشتركين (Admin Only)
-            </a>
-        </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // --- 1. مصفوفة الأدعية المتغيرة (تتغير تلقائياً كل يوم) ---
-    const dailyDuaas = [
-        "اللهم اجعل القرآن العظيم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا، وذهاب همومنا.",
-        "اللهم ذكرنا منه ما نسينا، وعلمنا منه ما جهلنا، وارزقنا تلاوته آناء الليل وأطراف النهار.",
-        "اللهم اجعلنا ممن يقرأ القرآن فيرقى، ولا تجعلنا ممن يقرأ القرآن فيشقى.",
-        "اللهم ارزقنا بكل حرف من القرآن حلاوة، وبكل كلمة كرامة، وبكل آية سعادة، وبكل سورة سلامة.",
-        "اللهم اجعل القرآن لنا في الدنيا قريناً، وفي القبر مؤنساً، وعلى الصراط نوراً، وإلى الجنة رفيقاً.",
-        "اللهم البسنا به الحلل، واسكنا به الظلل، وادفع عنا به النقم، وزدنا به من النعم.",
-        "اللهم اجعلنا ممن يحل حلاله، ويحرم حرامه، ويعمل بمحكمه، ويؤمن بمتشابهه."
-    ];
-    function setDua() {
-        const d = new Date();
-        const index = d.getDate() % dailyDuaas.length;
-        document.getElementById('duaText').innerText = dailyDuaas[index];
+    // 1. نظام الساعة والمواعيد
+    function updateClock() {
+        const now = new Date();
+        const s = now.getSeconds(); const m = now.getMinutes(); const h = now.getHours();
+        document.getElementById('secHand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
+        document.getElementById('minHand').style.transform = `translateX(-50%) rotate(${m * 6}deg)`;
+        document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${h * 30 + m/2}deg)`;
+        
+        // التواريخ
+        document.getElementById('miladiDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+        document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
     }
-    setDua();
+    setInterval(updateClock, 1000); updateClock();
 
-    // --- 2. محرك الخلفية التفاعلية (نجوم متلألئة) ---
-    const canvas = document.getElementById('interactive-bg');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    // 2. مصفوفات الكنوز (الإشراقات والهدى النبوي)
+    const eshraqat = ["القرآن ربيع القلوب ونور الصدور.", "من أراد الدنيا فعله بالقرآن ومن أراد الآخرة فعله بالقرآن.", "تلاوة القرآن تنزل السكينة وتغشى الرحمة.", "سورة الفاتحة هي الشافية الكافية.", "كل آية في القرآن هي درجة في الجنة."];
+    const hadyNabawy = ["خيركم من تعلم القرآن وعلمه.", "الماهر بالقرآن مع السفرة الكرام البررة.", "زينوا القرآن بأصواتكم.", "اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه.", "من قرأ حرفاً من كتاب الله فله به حسنة."];
 
-    class Star {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2;
-            this.opacity = Math.random();
-            this.speed = 0.005 + Math.random() * 0.015;
-        }
-        update() {
-            this.opacity += this.speed;
-            if (this.opacity > 1 || this.opacity < 0) this.speed = -this.speed;
-        }
-        draw() {
-            ctx.fillStyle = `rgba(255, 204, 51, ${this.opacity})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-        }
-    }
-    for (let i = 0; i < 200; i++) stars.push(new Star());
-    function animateBG() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(s => { s.update(); s.draw(); });
-        requestAnimationFrame(animateBG);
-    }
-    animateBG();
+    // 3. خريطة السور الـ 114 (الـ 512 سطر الأصلية)
+    const quranMap = [["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]];
 
-    // --- 3. قاعدة بيانات القرآن الكريم كاملة (114 سورة) ---
-    const quranMap = [
-        ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
-    ];
-
-    const surahDropdown = document.getElementById('surah');
-    quranMap.forEach(s => surahDropdown.add(new Option(s[0], s[0])));
+    const surahSel = document.getElementById('surah');
+    quranMap.forEach(s => surahSel.add(new Option(s[0], s[0])));
 
     function fillQuranData() {
-        const s = quranMap.find(x => x[0] === surahDropdown.value);
-        const [name, ayahs, startPage] = s;
-        const pop = (id, count, start=1) => {
+        const s = quranMap.find(x => x[0] === surahSel.value);
+        const pop = (id, max, start=1) => {
             const el = document.getElementById(id); el.innerHTML = "";
-            for(let i=start; i<=count; i++) el.add(new Option(i, i));
+            for(let i=start; i<=max; i++) el.add(new Option(i, i));
         };
-        pop('ayahFrom', ayahs); pop('ayahTo', ayahs);
-        pop('pageFrom', 604, startPage); pop('pageTo', 604, startPage);
-        document.getElementById('ayahTo').value = ayahs;
-        smartPageLink('from'); smartPageLink('to');
+        pop('ayahFrom', s[1]); pop('ayahTo', s[1]);
+        pop('pageFrom', 604, s[2]); pop('pageTo', 604, s[2]);
+        document.getElementById('ayahTo').value = s[1];
     }
+    fillQuranData();
 
     function smartPageLink(type) {
-        const s = quranMap.find(x => x[0] === surahDropdown.value);
-        const startP = s[2];
+        const s = quranMap.find(x => x[0] === surahSel.value);
         const val = parseInt(document.getElementById(type === 'from' ? 'ayahFrom' : 'ayahTo').value);
-        const estimated = startP + Math.floor((val-1)/15);
-        document.getElementById(type === 'from' ? 'pageFrom' : 'pageTo').value = Math.min(estimated, 604);
+        let est = s[2] + Math.floor((val-1)/15);
+        document.getElementById(type === 'from' ? 'pageFrom' : 'pageTo').value = Math.min(est, 604);
     }
 
-    // --- 4. معاينة الصور والملفات الصوتية ---
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                document.getElementById('imgIcon').style.display='none';
-                const p = document.getElementById('imgPreview');
-                p.src = e.target.result; p.style.display='block';
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    function previewAudio(input) {
-        if (input.files && input.files[0]) {
-            const p = document.getElementById('audioPreview');
-            p.src = URL.createObjectURL(input.files[0]); p.style.display='block';
-            document.getElementById('audioIcon').style.display='none';
-        }
-    }
-
-    // --- 5. تهيئة إدخال الهاتف الدولي ---
     const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, {
-        initialCountry: "eg",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
+    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg" });
 
-    // --- 6. دالة الإرسال الرئيسية (كاملة دون حذف سطر) ---
+    // 4. نظام الرفع والرسائل المتغيرة
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        document.getElementById('loadingOverlay').style.display = 'flex';
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'flex';
         
-        const toBase64 = file => new Promise((res, rej) => {
-            const r = new FileReader(); r.readAsDataURL(file);
+        const rotate = () => {
+            const pool = Math.random() > 0.5 ? eshraqat : hadyNabawy;
+            document.getElementById('quizQ').innerText = pool === eshraqat ? "✨ إشراقة قرآنية" : "📜 من هدي النبوة";
+            document.getElementById('quizA').innerText = pool[Math.floor(Math.random()*pool.length)];
+        };
+        rotate(); const rInt = setInterval(rotate, 5000);
+
+        const toBase = f => new Promise((res) => {
+            const r = new FileReader(); r.readAsDataURL(f);
             r.onload = () => res(r.result.split(',')[1]);
-            r.onerror = e => rej(e);
         });
 
         try {
-            const photoData = await toBase64(document.getElementById('imgIn').files[0]);
-            const audioData = await toBase64(document.getElementById('fileIn').files[0]);
+            const photo = await toBase(document.getElementById('imgIn').files[0]);
+            const audio = await toBase(document.getElementById('fileIn').files[0]);
+            const fd = new URLSearchParams();
+            fd.append("Name", document.getElementById('name').value);
+            fd.append("Phone", iti.getNumber());
+            fd.append("Surah", document.getElementById('surah').value);
+            fd.append("AyahFrom", document.getElementById('ayahFrom').value);
+            fd.append("AyahTo", document.getElementById('ayahTo').value);
+            fd.append("PageFrom", document.getElementById('pageFrom').value);
+            fd.append("PageTo", document.getElementById('pageTo').value);
+            fd.append("photoData", photo); fd.append("audioData", audio);
+
+            let p = 0; const pInt = setInterval(() => { if(p<98){p+=2; document.getElementById('progressText').innerText=p+"%";}}, 200);
             
-            const formData = new URLSearchParams();
-            formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
-            formData.append("Surah", document.getElementById('surah').value);
-            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
-            formData.append("AyahTo", document.getElementById('ayahTo').value);
-            formData.append("PageFrom", document.getElementById('pageFrom').value);
-            formData.append("PageTo", document.getElementById('pageTo').value);
-            formData.append("photoData", photoData);
-            formData.append("audioData", audioData);
-
-            let p = 0;
-            const timer = setInterval(() => {
-                if(p < 99) { p++; document.getElementById('progressText').innerText = p + "%"; }
-            }, 100);
-
-            await fetch('https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec', {
-                method: 'POST', mode: 'no-cors', body: formData.toString()
-            });
-
-            clearInterval(timer);
+            await fetch('https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec', { method: 'POST', mode: 'no-cors', body: fd.toString() });
+            
+            clearInterval(pInt); clearInterval(rInt);
             document.getElementById('progressText').innerText = "100%";
-            setTimeout(() => {
-                alert("تم إرسال تلاوتك بنجاح يا بطل!");
-                location.reload();
-            }, 800);
-
-        } catch (err) {
-            alert("حدث خطأ، حاول مرة ثانية.");
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
+            setTimeout(() => { alert("✅ تم استلام تلاوتكم بنجاح!"); location.reload(); }, 1000);
+        } catch (err) { alert("❌ عذراً، حدث خطأ!"); overlay.style.display='none'; }
     };
 
-    // --- 7. تحديث الوقت والتاريخ لحظياً ---
-    setInterval(() => {
-        const n = new Date();
-        document.getElementById('liveTime').innerText = n.toLocaleTimeString('ar-EG');
-        document.getElementById('combinedDate').innerText = n.toLocaleDateString('ar-EG', { 
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    // 5. النجوم التفاعلية (بدون حذف)
+    const canvas = document.getElementById('interactive-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let stars = [];
+    for(let i=0; i<100; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, o:Math.random()});
+    function anim(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s => {
+            ctx.fillStyle=`rgba(255,204,51,${s.o})`;
+            ctx.beginPath(); ctx.arc(s.x, s.y, 1.2, 0, Math.PI*2); ctx.fill();
+            s.o += 0.01; if(s.o>1) s.o=0;
         });
-    }, 1000);
+        requestAnimationFrame(anim);
+    }
+    anim();
 </script>
 </body>
 </html>
