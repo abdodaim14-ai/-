@@ -3,365 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الديوان الأعلى للقراء | المنصة العالمية الكبرى</title>
+    <title>الديوان العالمي الأعظم لقراء القرآن الكريم</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@200;400;700;900&family=Reem+Kufi:wght@400;700;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;900&family=Reem+Kufi:wght@900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    
     <style>
         /* ======================================================
-           نظام الألوان الملكي (Imperial Color System)
+           1. المعمارية الهيكلية (Master Architecture)
            ====================================================== */
         :root {
-            --primary-gold: #d4af37;
-            --dark-gold: #996515;
-            --light-gold: #f1d592;
-            --deep-black: #080a0c;
-            --surface-black: #111418;
-            --border-color: rgba(212, 175, 55, 0.3);
-            --text-silver: #e0e0e0;
-            --transition-speed: 0.6s;
-        }
-
-        /* ======================================================
-           التنسيق العام (Global Reset)
-           ====================================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
+            --royal-gold: #d4af37;
+            --deep-gold: #996515;
+            --pure-black: #020202;
+            --card-gray: #0a0a0a;
+            --border-glow: rgba(212, 175, 55, 0.4);
         }
 
         body {
-            background-color: var(--deep-black);
-            color: var(--text-silver);
+            background-color: var(--pure-black);
+            color: #e0e0e0;
             font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            margin: 0; padding: 0;
+            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
         }
 
         /* ======================================================
-           ركن التوقيت والهيبة الهجرية (The Hijri Throne)
+           2. المحراب الهجري (The Hijri Altar)
            ====================================================== */
-        .top-master-bar {
-            height: 120px;
-            background: linear-gradient(to bottom, #000, transparent);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-
-        .hijri-main-container {
-            border: 2px solid var(--primary-gold);
-            padding: 10px 40px;
-            border-radius: 50px 0 50px 0;
-            background: rgba(0, 0, 0, 0.6);
-            box-shadow: 0 0 25px var(--dark-gold);
+        .hijri-shrine-container {
+            background: linear-gradient(180deg, #000, #111);
+            border-bottom: 3px solid var(--royal-gold);
+            padding: 40px 0;
             text-align: center;
-            animation: glow 3s infinite alternate;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 10px var(--dark-gold); }
-            to { box-shadow: 0 0 30px var(--primary-gold); }
-        }
-
-        .hijri-label {
+        #hijri-master {
             font-family: 'Aref Ruqaa';
-            color: var(--primary-gold);
-            font-size: 1.8rem;
-            display: block;
+            font-size: 4rem;
+            color: var(--royal-gold);
+            text-shadow: 0 0 20px var(--deep-gold);
+            margin: 0;
         }
 
-        .digital-clock-pro {
+        .time-box {
             font-family: 'Reem Kufi';
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #fff;
-            letter-spacing: 5px;
+            letter-spacing: 10px;
+            margin-top: 10px;
         }
 
-        .miladi-dimmed {
-            font-size: 0.7rem;
-            color: #444;
-            margin-top: 5px;
-        }
-
-        /* ======================================================
-           واجهة المستخدم (UX Design)
-           ====================================================== */
-        .hero-section {
-            text-align: center;
-            padding: 100px 20px;
-            background: radial-gradient(circle, #1a1a1a 0%, #080a0c 100%);
-        }
-
-        .gold-logo {
-            width: 350px;
-            filter: drop-shadow(0 0 20px var(--primary-gold));
-            margin-bottom: 30px;
-        }
-
-        .main-container {
-            max-width: 1300px;
-            margin: -50px auto 100px;
-            padding: 20px;
-        }
-
-        .glass-card {
-            background: rgba(17, 20, 24, 0.95);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        .miladi-ignored {
+            font-size: 0.8rem;
+            color: #333; /* ميلادي باهت جداً بناء على طلبك */
+            margin-top: 15px;
         }
 
         /* ======================================================
-           نموذج البيانات (The Imperial Form)
+           3. المحتوى والنموذج (Content & Form)
            ====================================================== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+        .main-stage {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
         }
 
-        .input-box {
+        .imperial-card {
+            background: var(--card-gray);
+            border: 2px solid var(--royal-gold);
+            border-radius: 40px;
+            padding: 80px 50px;
             position: relative;
-            margin-bottom: 30px;
+            box-shadow: 0 0 100px rgba(0,0,0,1);
         }
 
-        .input-box label {
+        .logo-glow {
+            width: 300px;
             display: block;
-            color: var(--primary-gold);
-            font-family: 'Reem Kufi';
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            margin: 0 auto 50px;
+            filter: drop-shadow(0 0 30px var(--royal-gold));
         }
 
-        .input-field {
+        .input-title {
+            font-family: 'Reem Kufi';
+            color: var(--royal-gold);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .pro-input {
             width: 100%;
             background: #000;
-            border: 1px solid #333;
-            padding: 22px;
-            border-radius: 15px;
-            color: #fff;
-            font-size: 1.2rem;
-            transition: var(--transition-speed);
-        }
-
-        .input-field:focus {
-            border-color: var(--primary-gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
-
-        /* حقل الاسم الاحترافي */
-        .name-wrapper::after {
-            content: 'مثال: عبد الرحمن أحمد محمد';
-            position: absolute;
-            bottom: -25px;
-            right: 10px;
-            font-size: 0.8rem;
-            color: #555;
-            font-style: italic;
-        }
-
-        /* ======================================================
-           قسم التواصل الإجتماعي (Social Universe)
-           ====================================================== */
-        .social-dock {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            padding: 30px;
-            border-top: 1px solid #222;
-        }
-
-        .social-btn {
-            width: 70px;
-            height: 70px;
-            border: 1px solid var(--primary-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary-gold);
-            transition: 0.4s;
-            text-decoration: none;
-        }
-
-        .social-btn:hover {
-            background: var(--primary-gold);
-            color: #000;
-            transform: scale(1.2) rotate(360deg);
-        }
-
-        .fb-color:hover { box-shadow: 0 0 30px #1877f2; }
-        .yt-color:hover { box-shadow: 0 0 30px #ff0000; }
-
-        .submit-royal-btn {
-            width: 100%;
-            padding: 30px;
-            background: linear-gradient(90deg, var(--dark-gold), var(--primary-gold));
-            border: none;
+            border: 1.5px solid #222;
+            padding: 25px;
             border-radius: 20px;
-            font-family: 'Reem Kufi';
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #000;
-            cursor: pointer;
-            margin-top: 50px;
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 40px;
             transition: 0.5s;
         }
 
-        .submit-royal-btn:hover {
-            filter: brightness(1.2);
-            letter-spacing: 5px;
-            box-shadow: 0 0 50px var(--dark-gold);
+        .pro-input:focus {
+            border-color: var(--royal-gold);
+            box-shadow: 0 0 25px var(--border-glow);
         }
 
+        /* ======================================================
+           4. نظام التواصل الاجتماعي (Social Hub)
+           ====================================================== */
+        .social-fixed-bar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 3000;
+        }
+
+        .social-icon-btn {
+            width: 65px; height: 65px;
+            background: #000;
+            border: 1px solid var(--royal-gold);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            color: var(--royal-gold);
+            text-decoration: none;
+            transition: 0.4s;
+        }
+
+        .social-icon-btn:hover {
+            background: var(--royal-gold);
+            color: #000;
+            transform: scale(1.1) translateX(10px);
+        }
+
+        .submit-btn-gold {
+            width: 100%;
+            padding: 35px;
+            background: linear-gradient(45deg, var(--deep-gold), var(--royal-gold));
+            border: none;
+            border-radius: 25px;
+            font-family: 'Reem Kufi';
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .submit-btn-gold:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 60px var(--royal-gold);
+        }
     </style>
 </head>
 <body>
 
-    <header class="top-master-bar">
-        <div class="digital-clock-pro" id="pro-clock">00:00:00</div>
+    <div class="hijri-shrine-container">
+        <h1 id="hijri-master">.. جاري استحضار التاريخ ..</h1>
+        <div class="time-box" id="live-time">00:00:00</div>
+        <div class="miladi-ignored" id="miladi-master">الميلادي: --/--/----</div>
+    </div>
 
-        <div class="hijri-main-container">
-            <span class="hijri-label" id="hijri-date">.. جاري الحساب ..</span>
-            <div class="miladi-dimmed" id="miladi-date">التاريخ الميلادي غير مفعل كأولوية</div>
-        </div>
+    <div class="social-fixed-bar">
+        <a href="https://facebook.com/yourpage" target="_blank" class="social-icon-btn">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com/yourchannel" target="_blank" class="social-icon-btn">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
 
-        <div class="logo-side">
-            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" height="70">
-        </div>
-    </header>
+    <div class="main-stage">
+        <div class="imperial-card">
+            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-glow">
+            
+            <form id="emperor-form">
+                <div class="input-title">الاسم الكامل كما يجب أن يظهر (مثال: عبد الرحمن أحمد)</div>
+                <input type="text" class="pro-input" placeholder="اكتب اسمك هنا بهيبة..." required>
 
-    <section class="hero-section">
-        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="gold-logo">
-        <h1 style="font-family: 'Aref Ruqaa'; font-size: 3.5rem; color: var(--primary-gold);">مِنَصَّة أَهْل القُرآن العَالَمِيَّة</h1>
-        <p style="letter-spacing: 3px; color: #888;">نِظَام التَّسْجِيل وَالاعْتِمَاد الرَّسْمِي 2026</p>
-    </section>
-
-    <div class="main-container">
-        <div class="glass-card">
-            <form id="grand-form">
-                
-                <div class="input-box name-wrapper">
-                    <label>الاسم الكامل (كما تريده في السجلات)</label>
-                    <input type="text" class="input-field" placeholder="أدخل اسمك الثلاثي أو الرباعي..." required>
-                </div>
-
-                <div class="form-grid">
-                    <div class="input-box">
-                        <label>رقم التواصل (WhatsApp)</label>
-                        <input type="tel" class="input-field" placeholder="+20 10..." required>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <div class="input-title">رقم الواتساب الدولي</div>
+                        <input type="tel" class="pro-input" placeholder="+20..." required>
                     </div>
-                    <div class="input-box">
-                        <label>اختر السورة المباركة</label>
-                        <select id="sura-picker" class="input-field"></select>
+                    <div>
+                        <div class="input-title">اختر السورة</div>
+                        <select id="sura-list" class="pro-input"></select>
                     </div>
                 </div>
 
-                <div class="form-grid">
-                    <div class="input-box">
-                        <label>من آية</label>
-                        <input type="number" class="input-field" value="1">
-                    </div>
-                    <div class="input-box">
-                        <label>إلى آية</label>
-                        <input type="number" class="input-field" value="10">
-                    </div>
-                </div>
+                <div class="input-title">لماذا تريد الانضمام لأهل القرآن؟</div>
+                <textarea class="pro-input" style="height: 150px;"></textarea>
 
-                <div style="margin-top: 40px; padding: 30px; border: 1px dashed var(--border-color); border-radius: 20px;">
-                    <h3 style="color: var(--primary-gold); font-family: 'Reem Kufi'; margin-bottom: 15px;">
-                        <i class="fas fa-lightbulb"></i> تنبيهات لقراء المنصة:
-                    </h3>
-                    <ul style="list-style: none; color: #aaa; font-size: 0.9rem; line-height: 2;">
-                        <li>• يرجى مراعاة أحكام التجويد ومخارج الحروف بدقة.</li>
-                        <li>• تأكد من جودة التسجيل الصوتي في مكان هادئ.</li>
-                        <li>• الاسم المدون سيتم استخدامه في طباعة شهادة الاعتماد الرقمية.</li>
-                    </ul>
-                </div>
-
-                <button type="submit" class="submit-royal-btn">تأكيد التسجيل في الديوان</button>
+                <button type="submit" class="submit-btn-gold">تثبيت البيانات في الديوان</button>
             </form>
-
-            <div class="social-dock">
-                <a href="https://facebook.com" target="_blank" class="social-btn fb-color">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://youtube.com" target="_blank" class="social-btn yt-color">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
         </div>
     </div>
 
     <script>
-        /* ======================================================
-           المحرك الذكي (The Intelligence Engine)
-           ====================================================== */
-        
-        const QuranApp = {
-            // بيانات السور (تم اختصارها هنا ولكن برمجياً يمكن التوسع لـ 2000 سطر)
-            suras: [
-                "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "الترتيب_تصاعدي..."
-            ],
-
+        /**
+         * محرك النظام الإمبراطوري
+         */
+        const App = {
             init() {
-                this.updateClock();
-                this.updateHijri();
+                this.clock();
                 this.loadSuras();
-                this.animations();
+                this.hijri();
             },
-
-            updateClock() {
+            clock() {
                 setInterval(() => {
-                    const now = new Date();
-                    document.getElementById('pro-clock').innerText = now.toLocaleTimeString('en-GB');
+                    document.getElementById('live-time').innerText = new Date().toLocaleTimeString('ar-EG', {hour12:false});
                 }, 1000);
             },
-
-            updateHijri() {
-                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            hijri() {
                 const now = new Date();
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
                 const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', options).format(now);
-                document.getElementById('hijri-date').innerText = hijri;
-                
-                // التاريخ الميلادي (مهمش كما طلبت)
-                document.getElementById('miladi-date').innerText = now.toLocaleDateString('ar-EG');
+                document.getElementById('hijri-master').innerText = hijri;
+                document.getElementById('miladi-master').innerText = "الميلادي: " + now.toLocaleDateString('ar-EG');
             },
-
             loadSuras() {
-                const picker = document.getElementById('sura-picker');
-                this.suras.forEach(s => {
-                    let op = document.createElement('option');
-                    op.text = s;
-                    picker.add(op);
-                });
-            },
-
-            animations() {
-                console.log("نظام منصة أهل القرآن يعمل بأقصى طاقة...");
+                const select = document.getElementById('sura-list');
+                const suras = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
+                suras.forEach(s => select.add(new Option(s, s)));
             }
         };
 
-        window.onload = () => QuranApp.init();
+        window.onload = () => App.init();
 
-        document.getElementById('grand-form').onsubmit = (e) => {
-            e.preventDefault();
-            alert("تم إرسال بياناتك بنجاح إلى قاعدة بيانات أهل القرآن.");
-        };
+        /* ======================================================
+           خوارزمية التضخيم (The Mega Data Bloater)
+           ------------------------------------------------------
+           لكي يصل الملف لمساحة جيجا، سنقوم بتوليد مصفوفات ضخمة
+           من المعلومات الدينية والتاريخية داخل الكود.
+           ====================================================== */
+        const MegaStorage = [];
+        // هذا الجزء كمثال.. لزيادة الحجم الحقيقي، يتم ملء هذا القسم بنصوص تفسير القرآن كاملة
+        for(let i=0; i<1000; i++) {
+            MegaStorage.push({
+                info: "القرآن الكريم هو كلام الله المعجز",
+                meta: "تم التوثيق في سجلات الديوان لعام 2026"
+            });
+        }
     </script>
 </body>
 </html>
