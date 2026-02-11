@@ -3,517 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المجمع الدولي لخدمة القرآن الكريم | إصدار 2026 الاحترافي</title>
+    <title>بوابة القراء العالمية | التسجيل الرسمي 2026</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;900&family=Amiri:wght@400;700&family=Lateef&family=Changa:wght@200;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700;900&family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        /* ================================================================
-           1. نظام الثوابت والمتغيرات (CSS ARCHITECTURE)
-           ================================================================
-        */
         :root {
-            --primary-gold: #c5a059;
-            --secondary-gold: #8e6d2f;
-            --accent-gold: #ffdf00;
-            --deep-dark: #0a0a0b;
-            --card-surface: #121418;
-            --input-bg: #000000;
-            --glass-effect: rgba(255, 255, 255, 0.03);
-            --success-color: #28a745;
-            --royal-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            --gold-gradient: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            --gold: #d4af37;
+            --dark-gold: #996515;
+            --bg-black: #080a0c;
+            --card-bg: #111418;
+            --input-focus: #1c1f26;
         }
 
-        /* تنسيقات عامة للمتصفح */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
         body {
-            background-color: var(--deep-dark);
-            color: #f8f9fa;
+            background: var(--bg-black);
+            color: #fff;
             font-family: 'Cairo', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at top right, #1a1c22, var(--deep-dark));
+            background-image: radial-gradient(circle at 50% -20%, #1e293b, transparent);
+            min-height: 100vh;
         }
 
-        /* ================================================================
-           2. مكونات الهيدر الفخم (DYNAMIC HEADER)
-           ================================================================
-        */
-        .main-navigation {
-            height: 120px;
+        /* --- ركن التقويم الهجري المميز --- */
+        .calendar-nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: space-around;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 5000;
-            background: rgba(10, 10, 11, 0.8);
+            padding: 20px 5%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .status-badge {
-            padding: 8px 20px;
-            background: var(--gold-gradient);
-            color: #000;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 0.8rem;
-            box-shadow: 0 0 15px var(--primary-gold);
-        }
-
-        .system-clock-display {
-            font-family: 'Changa';
-            font-size: 2.2rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        /* ================================================================
-           3. الواجهة السينمائية (CINEMATIC HERO)
-           ================================================================
-        */
-        .hero-showcase {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .hijri-corner {
+            background: linear-gradient(145deg, var(--dark-gold), var(--gold));
+            padding: 10px 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
             text-align: center;
-            position: relative;
+            border: 1px solid #fff;
         }
 
-        .gold-ornament {
-            width: 150px;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 10px var(--primary-gold));
-        }
-
-        .main-headline {
-            font-family: 'Amiri', serif;
-            font-size: 5rem;
-            margin-bottom: 15px;
-            color: var(--primary-gold);
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        /* ================================================================
-           4. هيكل الاستمارة المطور (MEGA FORM ARCHITECTURE)
-           ================================================================
-        */
-        .container-fluid {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .mega-card-interface {
-            background: var(--card-surface);
-            border-radius: 50px;
-            padding: 100px 60px;
-            border: 1px solid rgba(197, 160, 89, 0.1);
-            box-shadow: var(--royal-shadow);
-            margin-bottom: 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mega-card-interface::before {
-            content: ""; position: absolute; top: -100px; right: -100px;
-            width: 300px; height: 300px; background: rgba(197, 160, 89, 0.05);
-            border-radius: 50%; filter: blur(50px);
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            border-right: 10px solid var(--primary-gold);
-            padding-right: 25px;
-        }
-
-        .section-header h2 { font-size: 2.5rem; color: var(--primary-gold); }
-
-        .input-row-complex {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .label-style {
+        .hijri-corner span {
             display: block;
-            margin-bottom: 15px;
-            color: #888;
-            font-weight: 600;
+            color: #000;
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+        }
+
+        .miladi-date { font-size: 0.9rem; color: #888; margin-top: 10px; }
+
+        /* --- واجهة النموذج --- */
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 40px;
+            padding: 60px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        .header-section { text-align: center; margin-bottom: 50px; }
+        .header-section img { width: 300px; filter: drop-shadow(0 0 20px var(--gold)); }
+
+        /* --- حقل الاسم الاحترافي --- */
+        .input-box {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .input-box label {
+            display: block;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 12px;
             font-size: 1.1rem;
         }
 
-        .custom-input {
+        .premium-input {
             width: 100%;
-            padding: 25px;
-            background: var(--input-bg);
-            border: 2px solid #222;
-            border-radius: 20px;
-            color: #fff;
-            font-size: 1.2rem;
-            transition: 0.5s;
-        }
-
-        .custom-input:focus {
-            border-color: var(--primary-gold);
-            box-shadow: 0 0 25px rgba(197, 160, 89, 0.2);
-        }
-
-        /* ================================================================
-           5. نظام عرض القرآن المتقدم (QURANIC ENGINE DISPLAY)
-           ================================================================
-        */
-        .quran-display-system {
             background: #000;
-            border-radius: 35px;
-            padding: 40px;
-            margin-top: 30px;
-            border: 1px solid #1a1c22;
-        }
-
-        .aya-text-box {
-            font-family: 'Amiri', serif;
-            font-size: 2.8rem;
-            line-height: 2.5;
+            border: 2px solid #222;
+            padding: 22px;
+            border-radius: 18px;
             color: #fff;
-            text-align: right;
-            padding: 30px;
-            border-bottom: 1px solid #222;
-        }
-
-        .tafseer-box {
-            font-family: 'Cairo';
             font-size: 1.2rem;
-            color: #c5a059;
-            padding: 20px;
-            background: rgba(197, 160, 89, 0.05);
-            border-radius: 15px;
-            margin-top: 20px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ================================================================
-           6. مركز رفع الوسائط المتعددة (MULTIMEDIA HUB)
-           ================================================================
-        */
-        .media-center-grid {
+        .premium-input:focus {
+            border-color: var(--gold);
+            background: var(--input-focus);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.1);
+        }
+
+        .input-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            display: block;
+            font-style: italic;
+        }
+
+        .example-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        /* --- شبكة الاختيارات --- */
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-top: 80px;
+            gap: 30px;
         }
 
-        .vault-upload-item {
-            height: 500px;
-            border: 2px dashed #333;
-            border-radius: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255,255,255,0.01);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: 0.6s;
+        /* --- عرض الآيات الذكي --- */
+        .verse-preview-zone {
+            background: #0a0c10;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 30px 0;
+            border-right: 5px solid var(--gold);
         }
 
-        .vault-upload-item:hover {
-            border-color: var(--primary-gold);
-            transform: translateY(-15px);
-            background: rgba(197, 160, 89, 0.03);
+        .quran-text {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: #e2e8f0;
+            line-height: 1.8;
+            text-align: center;
         }
 
-        .vault-upload-item i { font-size: 7rem; color: var(--primary-gold); margin-bottom: 30px; }
-
-        .image-preview-full {
-            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; z-index: 5;
-        }
-
-        /* ================================================================
-           7. أزرار التحكم والعمليات (CONTROL SYSTEM)
-           ================================================================
-        */
-        .final-action-button {
+        /* --- زر الإرسال الإمبراطوري --- */
+        .btn-submit {
             width: 100%;
-            padding: 45px;
-            background: var(--gold-gradient);
+            padding: 30px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--gold));
             border: none;
-            border-radius: 30px;
-            font-size: 3rem;
+            border-radius: 20px;
+            font-size: 1.8rem;
             font-weight: 900;
-            font-family: 'Changa';
             color: #000;
             cursor: pointer;
-            margin-top: 100px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             transition: 0.5s;
+            margin-top: 40px;
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
         }
 
-        .final-action-button:hover {
-            transform: scale(1.02);
+        .btn-submit:hover {
+            transform: translateY(-5px);
             filter: brightness(1.2);
-            letter-spacing: 10px;
+            letter-spacing: 2px;
         }
 
-        /* شاشة التحميل الاحترافية */
-        #master-loader {
-            display: none; position: fixed; inset: 0; background: #000; z-index: 99999;
-            flex-direction: column; justify-content: center; align-items: center;
+        /* شاشة التحميل */
+        #loading-overlay {
+            display: none; position: fixed; inset: 0; background: #000; z-index: 10000;
+            justify-content: center; align-items: center; flex-direction: column;
         }
 
-        .loader-bar-container {
-            width: 400px; height: 5px; background: #111; border-radius: 10px; margin-top: 50px; overflow: hidden;
+        .gold-spinner {
+            width: 80px; height: 80px; border: 5px solid #111; border-top: 5px solid var(--gold);
+            border-radius: 50%; animation: spin 1s infinite linear;
         }
 
-        .loader-bar-fill { height: 100%; width: 0%; background: var(--primary-gold); transition: 0.1s; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @media (max-width: 992px) {
-            .input-row-complex { grid-template-columns: 1fr; }
-            .media-center-grid { grid-template-columns: 1fr; }
-            .main-headline { font-size: 3rem; }
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .app-card { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-<div id="master-loader">
-    <div style="font-size: 8rem; font-weight: 900; color: var(--primary-gold);" id="load-num">00</div>
-    <div class="loader-bar-container"><div class="loader-bar-fill" id="load-fill"></div></div>
-    <p id="load-msg" style="color: #666; margin-top: 20px; font-size: 1.5rem;"></p>
+<div id="loading-overlay">
+    <div class="gold-spinner"></div>
+    <h2 style="color: var(--gold); margin-top: 20px;">جاري توثيق البيانات...</h2>
 </div>
 
-<nav class="main-navigation">
-    <div class="status-badge">نظام الاعتماد النشط 2026</div>
-    <div class="header-logo"><img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" height="90"></div>
-    <div class="system-clock-display" id="clock-engine">00:00:00</div>
+<nav class="calendar-nav">
+    <div class="miladi-date">
+        <i class="far fa-calendar-alt"></i> <span id="m-date">--/--/2026</span>
+    </div>
+    
+    <div class="header-logo">
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" height="60">
+    </div>
+
+    <div class="hijri-corner">
+        <span style="font-size: 0.7rem; opacity: 0.8;">التاريخ الهجري</span>
+        <span id="h-date" style="font-size: 1.2rem;">-- رمضان 1447</span>
+    </div>
 </nav>
 
-<div class="container-fluid">
-    
-    <section class="hero-showcase animate__animated animate__fadeIn">
-        <img src="https://cdn-icons-png.flaticon.com/512/2873/2873111.png" class="gold-ornament">
-        <h1 class="main-headline">المنصة العالمية للمقرئين</h1>
-        <p style="font-size: 1.5rem; letter-spacing: 5px; color: #888;">GLOBAL RECITER ACCREDITATION PORTAL</p>
-    </section>
+<div class="main-wrapper">
+    <div class="app-card">
+        
+        <div class="header-section">
+            <h1 style="font-family: 'Reem Kufi'; font-size: 2.5rem; color: var(--gold);">طلب اعتماد تلاوة</h1>
+            <p style="color: #888;">الرجاء ملء البيانات بدقة لضمان ظهورها بشكل صحيح في السجلات</p>
+        </div>
 
-    <main class="mega-card-interface">
-        <form id="grand-submission-form">
-            
-            <div class="section-header">
-                <h2>أولاً: بيانات الهوية والاتصال</h2>
-            </div>
-
-            <div class="input-row-complex">
-                <div class="input-group">
-                    <label class="label-style">الاسم الكامل (رباعي)</label>
-                    <input type="text" id="inp-name" class="custom-input" placeholder="كما هو مسجل في جواز السفر" required>
-                </div>
-                <div class="input-group">
-                    <label class="label-style">رقم الواتساب الدولي</label>
-                    <input type="tel" id="inp-phone" class="custom-input" placeholder="+212 / +20 / +966" required>
-                </div>
-                <div class="input-group">
-                    <label class="label-style">البريد الإلكتروني</label>
-                    <input type="email" id="inp-email" class="custom-input" placeholder="example@domain.com">
+        <form id="pro-form">
+            <div class="input-box">
+                <label>الاسم الكامل</label>
+                <input type="text" id="user-name" class="premium-input" placeholder="اكتب اسمك هنا..." required>
+                <div class="input-hint">
+                    <i class="fas fa-info-circle"></i> يفضل كتابة الاسم كما تحب أن يظهر في شهادة المشاركة 
+                    <span class="example-badge">مثال: عبد الرحمن أحمد</span>
                 </div>
             </div>
 
-            <div class="section-header">
-                <h2>ثانياً: تفاصيل المقطع القرآني</h2>
-            </div>
-
-            <div class="input-row-complex">
-                <div class="input-group">
-                    <label class="label-style">السورة المباركة</label>
-                    <select id="sel-sura" class="custom-input" onchange="QuranSystem.initAyaSync()"></select>
+            <div class="form-grid">
+                <div class="input-box">
+                    <label>رقم الواتساب</label>
+                    <input type="tel" id="user-phone" class="premium-input" placeholder="+20 10..." required>
                 </div>
-                <div class="input-group">
-                    <label class="label-style">من آية رقم</label>
-                    <select id="sel-from" class="custom-input" onchange="QuranSystem.fetchDeepData('from')"></select>
-                </div>
-                <div class="input-group">
-                    <label class="label-style">إلى آية رقم</label>
-                    <select id="sel-to" class="custom-input" onchange="QuranSystem.fetchDeepData('to')"></select>
+                <div class="input-box">
+                    <label>السورة</label>
+                    <select id="user-sura" class="premium-input" onchange="System.updateAyat()"></select>
                 </div>
             </div>
 
-            <div class="quran-display-system animate__animated animate__fadeInUp">
-                <div class="aya-display-row">
-                    <div style="color: var(--primary-gold); font-weight: bold; margin-bottom: 15px;">
-                        <i class="fas fa-book-open"></i> النص القرآني المعتمد (رواية حفص عن عاصم):
-                    </div>
-                    <div class="aya-text-box" id="txt-display">يرجى اختيار الآية لعرض نصها وتفسيرها...</div>
+            <div class="form-grid">
+                <div class="input-box">
+                    <label>من آية</label>
+                    <select id="user-from" class="premium-input" onchange="System.fetchPreview('from')"></select>
                 </div>
-                <div class="tafseer-box" id="tafseer-display">التفسير الميسر سيظهر هنا أوتوماتيكياً...</div>
-                
-                <div style="display: flex; gap: 20px; margin-top: 30px;">
-                    <div class="status-badge" id="info-page">الصفحة: --</div>
-                    <div class="status-badge" id="info-juz">الجزء: --</div>
-                    <div class="status-badge" id="info-hizb">الحزب: --</div>
+                <div class="input-box">
+                    <label>إلى آية</label>
+                    <select id="user-to" class="premium-input" onchange="System.fetchPreview('to')"></select>
                 </div>
             </div>
 
-            <div class="media-center-grid">
-                <div class="vault-upload-item" onclick="document.getElementById('file-p').click()">
-                    <i class="fas fa-user-tie"></i>
-                    <span class="label-style">رفع الصورة الشخصية (HD)</span>
-                    <img id="prev-p" class="image-preview-full">
-                    <input type="file" id="file-p" hidden accept="image/*" onchange="QuranSystem.previewMedia(this, 'img')">
+            <div class="verse-preview-zone">
+                <p style="color: var(--gold); font-size: 0.9rem; margin-bottom: 10px;">معاينة النص القرآني:</p>
+                <div id="quran-display" class="quran-text">يرجى اختيار الآية...</div>
+            </div>
+
+            <div class="form-grid">
+                <div style="text-align: center; padding: 20px; border: 1px dashed #333; border-radius: 20px;">
+                    <i class="fas fa-image" style="font-size: 2rem; color: var(--gold);"></i>
+                    <p style="margin-top: 10px;">الصورة الشخصية</p>
+                    <input type="file" accept="image/*" style="margin-top: 10px; width: 100%;">
                 </div>
-                <div class="vault-upload-item" onclick="document.getElementById('file-a').click()">
-                    <i class="fas fa-microphone-alt"></i>
-                    <span class="label-style">رفع التسجيل الصوتي (WAV/MP3)</span>
-                    <audio id="prev-a" controls style="display:none; z-index:10; width:80%;"></audio>
-                    <input type="file" id="file-a" hidden accept="audio/*" onchange="QuranSystem.previewMedia(this, 'aud')">
+                <div style="text-align: center; padding: 20px; border: 1px dashed #333; border-radius: 20px;">
+                    <i class="fas fa-microphone" style="font-size: 2rem; color: var(--gold);"></i>
+                    <p style="margin-top: 10px;">ملف التلاوة</p>
+                    <input type="file" accept="audio/*" style="margin-top: 10px; width: 100%;">
                 </div>
             </div>
 
-            <button type="submit" class="final-action-button">إرسال للمراجعة النهائية</button>
-
+            <button type="submit" class="btn-submit">تأكيد وإرسال البيانات</button>
         </form>
-    </main>
+
+    </div>
 </div>
 
 <script>
-/**
- * ====================================================================
- * THE QURANIC CORE ENGINE (v4.0.26)
- * ====================================================================
- */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec";
 
-const GOOGLE_SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec";
-
-const QuranSystem = {
-    // قاعدة بيانات السور
-    suraMeta: [
+const System = {
+    suras: [
         ["الفاتحة", 7], ["البقرة", 286], ["آل عمران", 200], ["النساء", 176], ["المائدة", 120], ["الأنعام", 165], ["الأعراف", 206], ["الأنفال", 75], ["التوبة", 129], ["يونس", 109], ["هود", 123], ["يوسف", 111], ["الرعد", 43], ["إبراهيم", 52], ["الحجر", 99], ["النحل", 128], ["الإسراء", 111], ["الكهف", 110], ["مريم", 98], ["طه", 135], ["الأنبياء", 112], ["الحج", 78], ["المؤمنون", 118], ["النور", 64], ["الفرقان", 77], ["الشعراء", 227], ["النمل", 93], ["القصص", 88], ["العنكبوت", 69], ["الروم", 60], ["لقمان", 34], ["السجدة", 30], ["الأحزاب", 73], ["سبأ", 54], ["فاطر", 45], ["يس", 83], ["الصافات", 182], ["ص", 88], ["الزمر", 75], ["غافر", 85], ["فصلت", 54], ["الشورى", 53], ["الزخرف", 89], ["الدخان", 59], ["الجاثية", 37], ["الأحقاف", 35], ["محمد", 38], ["الفتح", 29], ["الحجرات", 18], ["ق", 45], ["الذاريات", 60], ["الطور", 49], ["النجم", 62], ["القمر", 55], ["الرحمن", 78], ["الواقعة", 96], ["الحديد", 29], ["المجادلة", 22], ["الحشر", 24], ["الممتحنة", 13], ["الصف", 14], ["الجمعة", 11], ["المنافقون", 11], ["التغابن", 18], ["الطلاق", 12], ["التحريم", 12], ["الملك", 30], ["القلم", 52], ["الحاقة", 52], ["المعارج", 44], ["نوح", 28], ["الجن", 28], ["المزمل", 20], ["المدثر", 56], ["القيامة", 40], ["الإنسان", 31], ["المرسلات", 50], ["النبأ", 40], ["النازعات", 46], ["عبس", 42], ["التكوير", 29], ["الانفطار", 19], ["المطففين", 36], ["الانشقاق", 25], ["البروج", 22], ["الطارق", 17], ["الأعلى", 19], ["الغاشية", 26], ["الفجر", 30], ["البلد", 20], ["الشمس", 15], ["الليل", 21], ["الضحى", 11], ["الشرح", 8], ["التين", 8], ["العلق", 19], ["القدر", 5], ["البينة", 8], ["الزلزلة", 8], ["العاديات", 11], ["القارعة", 11], ["التكاثر", 8], ["العصر", 3], ["الهمزة", 9], ["الفيل", 5], ["قريش", 4], ["الماعون", 7], ["الكوثر", 3], ["الكافرون", 6], ["النصر", 3], ["المسد", 5], ["الإخلاص", 4], ["الفلق", 5], ["الناس", 6]
     ],
 
-    // تهيئة النظام
-    boot() {
-        this.renderSuraOptions();
-        this.runClocks();
-        this.initAyaSync();
+    init() {
+        this.setDates();
+        this.fillSuras();
+        this.updateAyat();
     },
 
-    renderSuraOptions() {
-        const sel = document.getElementById('sel-sura');
-        this.suraMeta.forEach((s, i) => {
-            sel.add(new Option(`سورة ${s[0]}`, i + 1));
-        });
+    setDates() {
+        const n = new Date();
+        document.getElementById('m-date').innerText = n.toLocaleDateString('ar-EG');
+        document.getElementById('h-date').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(n);
     },
 
-    runClocks() {
-        setInterval(() => {
-            document.getElementById('clock-engine').innerText = new Date().toLocaleTimeString('ar-EG');
-        }, 1000);
+    fillSuras() {
+        const s = document.getElementById('user-sura');
+        this.suras.forEach((val, i) => s.add(new Option(val[0], i + 1)));
     },
 
-    initAyaSync() {
-        const sIndex = document.getElementById('sel-sura').value;
-        const count = this.suraMeta[sIndex - 1][1];
-        const f = document.getElementById('sel-from'), t = document.getElementById('sel-to');
-        f.innerHTML = ''; t.innerHTML = '';
+    updateAyat() {
+        const sIdx = document.getElementById('user-sura').value;
+        const count = this.suras[sIdx - 1][1];
+        const from = document.getElementById('user-from'), to = document.getElementById('user-to');
+        from.innerHTML = ''; to.innerHTML = '';
         for(let i=1; i<=count; i++) {
-            f.add(new Option(`آية ${i}`, i));
-            t.add(new Option(`آية ${i}`, i));
+            from.add(new Option(i, i));
+            to.add(new Option(i, i));
         }
-        this.fetchDeepData('from');
+        this.fetchPreview('from');
     },
 
-    // جلب البيانات العميقة (نص + صفحة + تفسير)
-    async fetchDeepData(target) {
-        const sNum = document.getElementById('sel-sura').value;
-        const aNum = document.getElementById(`sel-${target}`).value;
-        const display = document.getElementById('txt-display');
-        const tafseer = document.getElementById('tafseer-display');
-
-        display.innerText = "جاري جلب الوحي البياني...";
-        
+    async fetchPreview(type) {
+        const s = document.getElementById('user-sura').value;
+        const a = document.getElementById(`user-${type}`).value;
+        const display = document.getElementById('quran-display');
+        display.innerText = "جاري جلب الآية...";
         try {
-            // جلب النص والبيانات الأساسية
-            const res = await fetch(`https://api.alquran.cloud/v1/ayah/${sNum}:${aNum}/ar.medina`);
+            const res = await fetch(`https://api.alquran.cloud/v1/ayah/${s}:${a}/ar.medina`);
             const data = await res.json();
-            
-            // جلب التفسير الميسر (عبر API آخر أو ترجمة معينة)
-            const resTaf = await fetch(`https://api.alquran.cloud/v1/ayah/${sNum}:${aNum}/ar.jalalayn`);
-            const dataTaf = await resTaf.json();
-
-            if(data.status === "OK") {
-                display.innerText = data.data.text;
-                tafseer.innerText = "تفسير الجلالين: " + dataTaf.data.text;
-                document.getElementById('info-page').innerText = "الصفحة: " + data.data.page;
-                document.getElementById('info-juz').innerText = "الجزء: " + data.data.juz;
-                document.getElementById('info-hizb').innerText = "الحزب: " + data.data.hizbQuarter;
-            }
-        } catch(e) {
-            display.innerText = "فشل الاتصال بقاعدة البيانات العالمية";
-        }
-    },
-
-    previewMedia(input, type) {
-        if(input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                if(type === 'img') {
-                    const p = document.getElementById('prev-p');
-                    p.src = e.target.result; p.style.display = 'block';
-                } else {
-                    const a = document.getElementById('prev-a');
-                    a.src = e.target.result; a.style.display = 'block';
-                }
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
+            display.innerText = data.data.text;
+        } catch(e) { display.innerText = "تعذر الاتصال"; }
     }
 };
 
-// تشغيل النظام
-window.onload = () => QuranSystem.boot();
+window.onload = () => System.init();
 
-// محرك الإرسال النهائي
-document.getElementById('grand-submission-form').onsubmit = async function(e) {
+document.getElementById('pro-form').onsubmit = async function(e) {
     e.preventDefault();
-    const loader = document.getElementById('master-loader');
-    const fill = document.getElementById('load-fill');
-    const num = document.getElementById('load-num');
-    const msg = document.getElementById('load-msg');
+    document.getElementById('loading-overlay').style.display = 'flex';
     
-    loader.style.display = 'flex';
-    
-    // محاكاة معالجة البيانات المطولة
-    for(let i=0; i<=100; i++) {
-        await new Promise(r => setTimeout(r, 50));
-        fill.style.width = i + "%";
-        num.innerText = i < 10 ? "0" + i : i;
-        if(i < 30) msg.innerText = "جاري ضغط الملفات الصوتية...";
-        else if(i < 60) msg.innerText = "جاري الربط مع جدول بيانات جوجل...";
-        else if(i < 90) msg.innerText = "جاري استخراج شهادة التقديم...";
-        else msg.innerText = "اكتملت العملية بنجاح!";
-    }
-
-    // إرسال البيانات الفعلي
-    const data = new FormData();
-    data.append("FullName", document.getElementById('inp-name').value);
-    data.append("WhatsApp", document.getElementById('inp-phone').value);
-    data.append("Sura", document.getElementById('sel-sura').selectedOptions[0].text);
-    data.append("Range", "من " + document.getElementById('sel-from').value + " إلى " + document.getElementById('sel-to').value);
+    const d = new FormData();
+    d.append("Name", document.getElementById('user-name').value);
+    d.append("Phone", document.getElementById('user-phone').value);
+    d.append("Sura", document.getElementById('user-sura').selectedOptions[0].text);
+    d.append("From", document.getElementById('user-from').value);
+    d.append("To", document.getElementById('user-to').value);
 
     try {
-        await fetch(GOOGLE_SCRIPT_ENDPOINT, { method: 'POST', body: data, mode: 'no-cors'});
-        alert("تم استلام طلبك وتوثيقه بنجاح!");
+        await fetch(SCRIPT_URL, { method: 'POST', body: d, mode: 'no-cors' });
+        alert("تم إرسال طلبك بنجاح!");
         location.reload();
     } catch(err) {
-        alert("خطأ في الخادم!");
-        loader.style.display = 'none';
+        alert("حدث خطأ");
+        document.getElementById('loading-overlay').style.display = 'none';
     }
 };
 </script>
