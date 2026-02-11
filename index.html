@@ -1,2318 +1,319 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>داعم المواهب للقرآن الكريم | المنصة الرسمية</title>
-    
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;700;900&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        /* [CORE STYLES - UNIT 01] - تأسيس المتغيرات العالمية */
-        :root {
-            --royal-gold: #d4af37;
-            --deep-black: #050505;
-            --surface-dark: #0f0f0f;
-            --ramadan-green: #004d40;
-            --text-silver: #eceff1;
-            --glow-gold: 0 0 35px rgba(212, 175, 55, 0.4);
-            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+<title>داعم المواهب للقرآن الكريم</title>
 
-        /* تصفير الإعدادات لضمان التوافق مع كل الشاشات */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--deep-black);
-            color: var(--text-silver);
-            font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+<style>
 
-        /* الحاوية الكبرى للمشروع */
-        .imperial-app-wrapper {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
+/* خلفية */
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:linear-gradient(180deg,#000,#0d0d0d);
+color:gold;
+text-align:center;
+overflow-x:hidden;
+}
 
-        /* [SECTION: NAVIGATION & IDENTITY] - قسم الهوية العلوي */
-        .main-brand-header {
-            width: 100%;
-            padding: 4rem 10%;
-            background: linear-gradient(180deg, #000 0%, var(--surface-dark) 100%);
-            border-bottom: 3px solid var(--royal-gold);
-            text-align: center;
-            position: relative;
-        }
+/* الهلال */
+.moon{
+position:fixed;
+top:40px;
+right:40px;
+width:80px;
+height:80px;
+border-radius:50%;
+box-shadow:-20px 0 0 8px gold;
+}
 
-        .brand-name {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: clamp(2rem, 5vw, 4.5rem); /* متجاوب مع كل الشاشات */
-            color: var(--royal-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            filter: drop-shadow(var(--glow-gold));
-        }
+/* نجوم */
+.star{
+position:fixed;
+width:3px;
+height:3px;
+background:gold;
+animation:twinkle 2s infinite;
+}
 
-        .brand-slogan {
-            font-family: 'Amiri', serif;
-            font-size: clamp(1.2rem, 2vw, 2rem);
-            color: #888;
-            font-style: italic;
-            margin-bottom: 3rem;
-            display: block;
-        }
+@keyframes twinkle{
+0%{opacity:.2}
+50%{opacity:1}
+100%{opacity:.2}
+}
 
-        /* [SECTION: SOCIAL SANCTUARY] - قسم المتابعة الإيماني */
-        .social-follow-hub {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+header{
+padding:20px;
+border-bottom:1px solid gold;
+}
 
-        .follow-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-decoration: none;
-            color: var(--text-silver);
-            transition: var(--transition-smooth);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+/* الساعة */
+.clock{
+font-size:48px;
+font-weight:bold;
+}
 
-        .follow-card i {
-            font-size: 3rem;
-            color: var(--royal-gold);
-            margin-bottom: 1rem;
-        }
+/* صندوق */
+.box{
+border:1px solid gold;
+margin:25px;
+padding:20px;
+border-radius:14px;
+box-shadow:0 0 25px rgba(255,215,0,.15);
+}
 
-        .follow-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--royal-gold);
-            background: rgba(212, 175, 55, 0.05);
-            box-shadow: var(--glow-gold);
-        }
+/* فيديو */
+iframe{
+border-radius:12px;
+box-shadow:0 0 20px rgba(255,215,0,.3);
+}
 
-        .follow-card h3 { font-family: 'Reem Kufi'; margin-bottom: 5px; }
-        .follow-card p { font-size: 0.9rem; color: #666; }
+/* فورم */
+form{
+max-width:600px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
 
-        /* [SECTION: RAMADAN CLOCK] - عداد رمضان الذكي */
-        .ramadan-vault-section {
-            padding: 6rem 5%;
-            margin-top: 4rem;
-            background: radial-gradient(circle at center, #001f1a 0%, #000 100%);
-            border-top: 1px solid var(--ramadan-green);
-            text-align: center;
-        }
+input,button{
+padding:12px;
+border-radius:8px;
+border:none;
+}
 
-        .ramadan-heading {
-            font-family: 'Reem Kufi';
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            color: #00e676;
-            margin-bottom: 3.5rem;
-            text-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
-        }
+button{
+background:gold;
+cursor:pointer;
+font-weight:bold;
+}
 
-        .timer-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+/* أيقونات */
+.icons a{
+font-size:30px;
+margin:10px;
+color:gold;
+text-decoration:none;
+}
 
-        .timer-box {
-            background: #000;
-            border: 2px solid #004d40;
-            padding: 2rem;
-            border-radius: 25px;
-            min-width: 140px;
-            box-shadow: inset 0 0 15px rgba(0, 77, 64, 0.4);
-        }
+/* كروت المتقدمين */
+.grid{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+}
 
-        .timer-box span {
-            display: block;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 900;
-            color: #00e676;
-        }
+.card{
+background:#111;
+border:1px solid gold;
+padding:20px;
+border-radius:15px;
+width:260px;
+transition:.3s;
+}
 
-        .timer-box label {
-            color: #004d40;
-            font-weight: bold;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
-        }
+.card:hover{
+transform:scale(1.05);
+}
 
-        /* تحسينات للشاشات الكبيرة جداً (Smart TV) */
-        @media (min-width: 2000px) {
-            html { font-size: 22px; }
-            .timer-box { min-width: 250px; }
-        }
+.avatar{
+width:110px;
+height:110px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid gold;
+}
 
-        /* تحسينات الموبايل */
-        @media (max-width: 480px) {
-            .timer-box { min-width: 45%; padding: 1rem; }
-            .main-brand-header { padding: 3rem 5%; }
-        }
-    </style>
+audio{
+width:100%;
+margin-top:10px;
+}
+
+</style>
 </head>
+
 <body>
 
-    <div class="imperial-app-wrapper">
-        
-        <header class="main-brand-header">
-            <h1 class="brand-name"><i class="fa-solid fa-quran"></i> دَاعِمُ المَوَاهِبِ لِلْقُرْآنِ الكَرِيمِ</h1>
-            <span class="brand-slogan">"نَحْنُ لَسْنَا مُجَرَّدَ مَنَصَّةٍ.. نَحْنُ مِحْرَابٌ لِكُلِّ صَوْتٍ نَدِيٍّ"</span>
-            
-            <div class="social-follow-hub">
-                <a href="https://youtube.com/@abdomaki17?si=LGMjhs3sErZHaJr_" target="_blank" class="follow-card">
-                    <i class="fa-brands fa-youtube"></i>
-                    <h3>مَحْفَلُ اليُوتِيُوب</h3>
-                    <p>انْضَمَّ لِـ 100أَلْف مُحِبٍّ لِلْقُرْآنِ</p>
-                </a>
-                <a href="https://www.facebook.com/share/1HnHrX5Bjs/" target="_blank" class="follow-card">
-                    <i class="fa-brands fa-facebook-f"></i>
-                    <h3>دِيوَانُ الفَيْسِبُوك</h3>
-                    <p>مُتَابَعَةٌ حَيَّةٌ لِجَمِيعِ الإِصْدَارَاتِ</p>
-                </a>
-            </div>
-        </header>
-
-        <section class="ramadan-vault-section">
-            <h2 id="ramadan-status" class="ramadan-heading">... جاري اسْتِشْعَارُ نُورِ الهِلالِ ...</h2>
-            <div class="timer-container">
-                <div class="timer-box"><span id="days">00</span><label>أَيَّام</label></div>
-                <div class="timer-box"><span id="hours">00</span><label>سَاعَات</label></div>
-                <div class="timer-box"><span id="minutes">00</span><label>دَقَائِق</label></div>
-                <div class="timer-box"><span id="seconds">00</span><label>ثَوَانِي</label></div>
-            </div>
-        </section>
-
-        <script>
-        /* [LOGIC ENGINE - MODULE 01] */
-        const TalentSupportEngine = {
-            init() {
-                this.runRamadanCountdown();
-                console.log("%c [SYS] منصة داعم المواهب مفعّلة بنجاح ", "color: #d4af37; font-weight: bold; font-size: 1.2rem;");
-            },
-
-            runRamadanCountdown() {
-                // تاريخ رمضان الافتراضي 2026
-                const targetDate = new Date("March 1, 2026 00:00:00").getTime();
-                
-                const timerInterval = setInterval(() => {
-                    const now = new Date().getTime();
-                    const diff = targetDate - now;
-
-                    let message = "شَوْقاً لِرَمَضَانَ.. كُنْ عَلَى أُهْبَةِ الِاسْتِعْدَادِ";
-                    if (diff < 0) message = "أَهْلاً بِشَهْرِ القُرْآنِ.. رَمَضَانُ مُبَارَكٌ";
-
-                    document.getElementById('ramadan-status').innerText = message;
-                    
-                    document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-                    document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-                    document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-                    document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-                }, 1000);
-            }
-        };
-
-        window.onload = () => TalentSupportEngine.init();
-
-        /* الكود لم ينتهِ.. بانتظار الوحدة الثانية */
-        <section class="recitation-theater">
-            <div class="theater-decoration-top">
-                <i class="fa-solid fa-star-and-crescent"></i>
-                <h2 class="theater-title">تَجَلِّيَاتُ نُورِ القُرْآنِ</h2>
-                <p class="theater-motive">
-                    "أَصْوَاتٌ اهْتَزَّتْ لَهَا المَحَارِيبُ.. كُنْ أَنْتَ النَّجْمَ القَادِمَ فِي دَاعِمِ المَوَاهِبِ"
-                </p>
-            </div>
-
-            <div class="video-imperial-frame">
-                <div class="frame-glare"></div>
-                <div class="iframe-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/LeUouzj6wns?si=sNk9XcoeySnJO6wY" 
-                        title="تلاوة الشيخ أحمد عبد القادر" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="reader-badge">
-                    <i class="fa-solid fa-microphone-lines"></i>
-                    <span>القارئ المتميز: الشيخ أحمد عبد القادر - سورة القمر</span>
-                </div>
-            </div>
-
-            <div class="invitation-poetry">
-                <p>"يَا صَاحِبَ الصَّوْتِ النَّدِيِّ تَرَنَّمْ .. وَارْقَ بآيَاتِ الكِتَابِ وَسَلِّمْ"</p>
-                <p>"هَذَا مَكَانُكَ وَالمَوَاهِبُ جَمَّةٌ .. فَاسْكُبْ عَبِيرَكَ فِي المَدَى وَتَكَرَّمْ"</p>
-            </div>
-        </section>
-
-        <section class="quran-interactive-engine">
-            <div class="engine-card">
-                <h3 class="engine-title"><i class="fa-solid fa-book-open-reader"></i> نِظَامُ الرَّبْطِ الذَّكِيِّ</h3>
-                <p class="engine-subtitle">اخْتَرْ سُورَتَكَ وَحَدِّدْ آيَاتِكَ لِتَعْرِضَ مَنْهَجَ تِلاوَتِكَ</p>
-                
-                <div class="controls-grid">
-                    <div class="input-field">
-                        <label><i class="fa-solid fa-scroll"></i> اخْتَرِ السُّورَةَ</label>
-                        <select id="surah-selector" class="imperial-select">
-                            <option value="54">سورة القمر</option>
-                            <option value="1">سورة الفاتحة</option>
-                            <option value="18">سورة الكهف</option>
-                            <option value="36">سورة يس</option>
-                            <option value="55">سورة الرحمن</option>
-                            <option value="67">سورة الملك</option>
-                        </select>
-                    </div>
-
-                    <div class="range-inputs">
-                        <div class="input-field">
-                            <label><i class="fa-solid fa-arrow-down-1-9"></i> مِنَ الآيَةِ</label>
-                            <input type="number" id="verse-start" class="imperial-input" value="1" min="1">
-                        </div>
-                        <div class="input-field">
-                            <label><i class="fa-solid fa-arrow-up-9-1"></i> إِلَى الآيَةِ</label>
-                            <input type="number" id="verse-end" class="imperial-input" value="10" min="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="verse-preview-area" class="verse-display-box">
-                    <p class="placeholder-text">سَيَتِمُّ عَرْضُ نَصِّ الآيَاتِ هُنَا أُوتُومَاتِيكِيًّا بِمُجَرَّدِ اخْتِيَارِكَ...</p>
-                </div>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 02] - تنسيق المسرح والمحرك القرآني */
-            
-            .recitation-theater {
-                padding: 100px 5%;
-                background: linear-gradient(to bottom, #0f0f0f, #050505);
-                text-align: center;
-            }
-
-            .theater-title {
-                font-family: 'Reem Kufi';
-                font-size: 3.5rem;
-                color: var(--royal-gold);
-                margin-bottom: 15px;
-            }
-
-            .theater-motive {
-                font-family: 'Amiri';
-                font-size: 1.6rem;
-                color: #aaa;
-                max-width: 800px;
-                margin: 0 auto 50px;
-            }
-
-            .video-imperial-frame {
-                position: relative;
-                max-width: 1000px;
-                margin: 0 auto;
-                border: 15px solid #1a1a1a;
-                border-radius: 40px;
-                box-shadow: 0 50px 100px rgba(0,0,0,0.9), var(--glow-gold);
-                overflow: hidden;
-                transition: transform 0.5s ease;
-            }
-
-            .video-imperial-frame:hover {
-                transform: scale(1.02);
-            }
-
-            .iframe-container {
-                position: relative;
-                padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-                height: 0;
-            }
-
-            .iframe-container iframe {
-                position: absolute;
-                top: 0; left: 0; width: 100%; height: 100%;
-                border: none;
-            }
-
-            .reader-badge {
-                background: var(--royal-gold);
-                color: #000;
-                padding: 15px;
-                font-weight: 900;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                font-size: 1.2rem;
-            }
-
-            .invitation-poetry {
-                margin-top: 60px;
-                font-family: 'Amiri';
-                font-size: 1.8rem;
-                color: var(--royal-gold);
-                line-height: 2;
-                opacity: 0.8;
-            }
-
-            /* تنسيق محرك السور */
-            .quran-interactive-engine {
-                padding: 80px 5%;
-                background: var(--deep-black);
-            }
-
-            .engine-card {
-                max-width: 1100px;
-                margin: 0 auto;
-                background: #0c0c0c;
-                border: 1px solid rgba(212, 175, 55, 0.2);
-                border-radius: 35px;
-                padding: 50px;
-                box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            }
-
-            .engine-title {
-                font-family: 'Reem Kufi';
-                color: var(--royal-gold);
-                font-size: 2.2rem;
-                margin-bottom: 10px;
-            }
-
-            .controls-grid {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr;
-                gap: 30px;
-                margin: 40px 0;
-            }
-
-            .range-inputs {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-            }
-
-            .input-field label {
-                display: block;
-                color: var(--royal-gold);
-                margin-bottom: 10px;
-                font-weight: bold;
-            }
-
-            .imperial-select, .imperial-input {
-                width: 100%;
-                padding: 15px 20px;
-                background: #000;
-                border: 1px solid #333;
-                border-radius: 12px;
-                color: #fff;
-                font-size: 1.1rem;
-                transition: 0.3s;
-            }
-
-            .imperial-select:focus, .imperial-input:focus {
-                border-color: var(--royal-gold);
-                box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-            }
-
-            .verse-display-box {
-                background: #050505;
-                border-radius: 20px;
-                padding: 40px;
-                min-height: 200px;
-                border: 1px dashed #333;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Amiri';
-                font-size: 2rem;
-                text-align: center;
-                line-height: 2.5;
-            }
-
-            .placeholder-text { color: #444; }
-
-            /* Responsive Adjustments */
-            @media (max-width: 768px) {
-                .controls-grid { grid-template-columns: 1fr; }
-                .theater-title { font-size: 2.2rem; }
-                .engine-card { padding: 25px; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 02] */
-            const RecitationTheater = {
-                init() {
-                    this.bindSelectors();
-                    console.log("%c [THEATER] مسرح التجليات مفعّل.. بانتظار المواهب ", "color: #00ff00; font-weight: bold;");
-                },
-
-                bindSelectors() {
-                    const selector = document.getElementById('surah-selector');
-                    const vStart = document.getElementById('verse-start');
-                    const vEnd = document.getElementById('verse-end');
-
-                    const updatePreview = () => {
-                        const surah = selector.options[selector.selectedIndex].text;
-                        document.getElementById('verse-preview-area').innerHTML = `
-                            <div style="color: var(--royal-gold)">
-                                <i class="fa-solid fa-book-sparkles"></i> <br>
-                                جاري استحضار الآيات من ${surah} <br>
-                                من الآية ${vStart.value} إلى ${vEnd.value}
-                            </div>
-                        `;
-                    };
-
-                    selector.onchange = updatePreview;
-                    vStart.oninput = updatePreview;
-                    vEnd.oninput = updatePreview;
-                }
-            };
-
-            // تفعيل المحرك عند التحميل
-            window.addEventListener('load', () => RecitationTheater.init());
-        </script>
-
-        ```
-
-### ماذا أضفنا في الوحدة الثانية؟
-1.  **الفيديو الاحترافي:** وضعنا فيديو الشيخ أحمد عبد القادر في إطار "سوبر فخم" مع انعكاسات ضوئية (Glare) لمسة ملكية.
-2.  **لغة الشعر:** أضفنا بيتين من الشعر لتحفيز القراء بأسلوب أدبي رفيع.
-3.  **محرك اختيار السور:** صممنا واجهة برمجية تسمح للقارئ بتحديد ما سيقرأه (سورة وقمر، فاتحة.. إلخ) مع معاينة فورية.
-4.  **التوافق:** الكود يضبط نفسه تلقائياً ليناسب حجم الشاشة، مع الحفاظ على فخامة "داعم المواهب".
-
-**هل أنت جاهز للوحدة الثالثة (Unit-03)؟**
-في الوحدة القادمة سنقوم ببناء **"مركز تحميل المواهب"**؛ حيث سيقوم القارئ برفع صورته (لتصبح هي الزرار) ورفع صوته، مع إضافة الـ 50 إشراقة والحكم التي طلبتها في الخلفية البرمجية.
-
-أنا بانتظار كلمتك "تم"!
-        <section class="upload-sanctuary">
-            <div class="sanctuary-header">
-                <i class="fa-solid fa-cloud-music upload-icon-main"></i>
-                <h2 class="sanctuary-title">مِنَصَّةُ صِنَاعَةِ النُّجُومِ</h2>
-                <p class="sanctuary-desc">ارْفَعْ صُورتَكَ وَصَوْتَكَ لِتُحَلِّقَ فِي سَمَاءِ دَاعِمِ المَوَاهِبِ</p>
-            </div>
-
-            <div class="upload-interaction-grid">
-                <div class="upload-box" id="img-box">
-                    <input type="file" id="reader-photo" hidden accept="image/*">
-                    <label for="reader-photo" class="upload-label">
-                        <i class="fa-solid fa-camera-retro"></i>
-                        <span>اخْتَرْ صُورَتَكَ الشَّخْصِيَّةَ</span>
-                    </label>
-                </div>
-
-                <div class="upload-box" id="audio-box">
-                    <input type="file" id="reader-audio" hidden accept="audio/*">
-                    <label for="reader-audio" class="upload-label">
-                        <i class="fa-solid fa-microphone-vocal"></i>
-                        <span>ارْفَعْ تِلاوَتَكَ العَذْبَةَ</span>
-                    </label>
-                </div>
-            </div>
-
-            <div id="talent-player-zone" class="player-hidden">
-                <div class="player-wrapper">
-                    <button id="dynamic-play-btn" class="talent-btn-master">
-                        <i class="fa-solid fa-play"></i>
-                    </button>
-                    <div class="player-info">
-                        <h4 id="player-status-text">جَاهِزٌ لِلْبَثِّ الإِيمَانِيِّ</h4>
-                        <div class="audio-visualizer">
-                            <span></span><span></span><span></span><span></span><span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="wisdom-compendium">
-            <div class="wisdom-card" id="wisdom-trigger">
-                <div class="wisdom-badge" id="wisdom-tag">إِشْرَاقَةٌ قُرْآنِيَّةٌ</div>
-                <div class="wisdom-content">
-                    <i class="fa-solid fa-quote-right quote-icon"></i>
-                    <p id="wisdom-display-text">"القرآن ربيع القلوب ونور الصدور.. فاجعل لك منه وِردًا لا ينقطع."</p>
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                </div>
-                <button class="wisdom-refresh-btn" onclick="WisdomEngine.shuffle()">
-                    <i class="fa-solid fa-synced"></i> نَفَحَاتٌ أُخْرَى
-                </button>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 03] - هندسة قسم الرفع والموسوعة */
-            
-            .upload-sanctuary {
-                padding: 80px 10%;
-                background: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
-                text-align: center;
-                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            }
-
-            .upload-icon-main { font-size: 4rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .sanctuary-title { font-family: 'Reem Kufi'; font-size: 2.8rem; color: var(--royal-gold); }
-
-            .upload-interaction-grid {
-                display: flex;
-                justify-content: center;
-                gap: 30px;
-                margin-top: 50px;
-                flex-wrap: wrap;
-            }
-
-            .upload-box {
-                flex: 1;
-                min-width: 280px;
-                max-width: 400px;
-                height: 200px;
-                border: 2px dashed rgba(212, 175, 55, 0.3);
-                border-radius: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition-smooth);
-                cursor: pointer;
-                background: rgba(212, 175, 55, 0.02);
-            }
-
-            .upload-box:hover {
-                border-color: var(--royal-gold);
-                background: rgba(212, 175, 55, 0.08);
-                transform: translateY(-10px);
-            }
-
-            .upload-label {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                color: var(--royal-gold);
-                font-weight: bold;
-                cursor: pointer;
-            }
-
-            .upload-label i { font-size: 2.5rem; }
-
-            /* ستايل زر المشغل الذكي */
-            .player-hidden { display: none; opacity: 0; transition: 1s; }
-            .player-visible { display: block; opacity: 1; margin-top: 60px; }
-
-            .talent-btn-master {
-                width: 180px;
-                height: 180px;
-                border-radius: 50%;
-                border: 5px solid var(--royal-gold);
-                background-size: cover;
-                background-position: center;
-                background-color: #000;
-                font-size: 3.5rem;
-                color: var(--royal-gold);
-                cursor: pointer;
-                box-shadow: var(--glow-gold);
-                transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .talent-btn-master:hover { transform: scale(1.1) rotate(5deg); }
-
-            /* موسوعة الحكم */
-            .wisdom-compendium {
-                padding: 100px 5%;
-                background: var(--deep-black);
-            }
-
-            .wisdom-card {
-                max-width: 900px;
-                margin: 0 auto;
-                background: #0c0c0c;
-                padding: 60px;
-                border-radius: 50px;
-                border-left: 8px solid var(--royal-gold);
-                text-align: center;
-                position: relative;
-                box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-            }
-
-            .wisdom-badge {
-                position: absolute;
-                top: -20px;
-                right: 50px;
-                background: var(--royal-gold);
-                color: #000;
-                padding: 8px 25px;
-                border-radius: 50px;
-                font-weight: 900;
-                font-size: 0.9rem;
-            }
-
-            .wisdom-content { margin: 30px 0; }
-            #wisdom-display-text { font-family: 'Amiri'; font-size: 2.2rem; line-height: 1.8; color: #ddd; }
-            .quote-icon { color: rgba(212, 175, 55, 0.2); font-size: 2rem; }
-
-            .wisdom-refresh-btn {
-                background: transparent;
-                border: 1px solid var(--royal-gold);
-                color: var(--royal-gold);
-                padding: 12px 35px;
-                border-radius: 50px;
-                cursor: pointer;
-                transition: 0.3s;
-                font-weight: bold;
-            }
-
-            .wisdom-refresh-btn:hover { background: var(--royal-gold); color: #000; }
-
-            /* انيميشن الصوت */
-            .audio-visualizer { display: flex; gap: 5px; justify-content: center; margin-top: 15px; }
-            .audio-visualizer span { width: 4px; height: 20px; background: var(--royal-gold); animation: bounce 1s infinite; }
-            @keyframes bounce { 0%, 100% { height: 10; } 50% { height: 30px; } }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 03] */
-            const WisdomEngine = {
-                data: {
-                    ishraqat: ["القرآن ربيع القلوب ونور الصدور", "كل آية هي رسالة حب من الله إليك", "ورتل القرآن ترتيلاً تجد في قلبك نوراً"],
-                    hoda: ["خيركم من تعلم القرآن وعلمه", "الماهر بالقرآن مع السفرة الكرام البررة", "اقرأوا القرآن فإنه يأتي شفيعاً لأصحابه"],
-                    hikam: ["الوقت كالسيف إن لم تقطعه قطعك", "من جد وجد ومن زرع حصد", "الصبر مفتاح الفرج"],
-                    doa: ["اللهم إنك عفو تحب العفو فاعف عني", "يا حي يا قيوم برحمتك أستغيث", "ربنا آتنا في الدنيا حسنة"]
-                },
-                
-                shuffle() {
-                    const keys = Object.keys(this.data);
-                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                    const list = this.data[randomKey];
-                    const text = list[Math.floor(Math.random() * list.length)];
-                    
-                    const tags = {ishraqat: "إِشْرَاقَةٌ قُرْآنِيَّةٌ", hoda: "مِنْ هَدْيِ النُّبُوَّةِ", hikam: "حِكْمَةٌ بَلِيغَةٌ", doa: "دُعَاءٌ مُسْتَجَابٌ"};
-                    
-                    document.getElementById('wisdom-tag').innerText = tags[randomKey];
-                    document.getElementById('wisdom-display-text').innerText = text;
-                }
-            };
-
-            const TalentUpload = {
-                init() {
-                    const imgInp = document.getElementById('reader-photo');
-                    const playBtn = document.getElementById('dynamic-play-btn');
-                    const playerZone = document.getElementById('talent-player-zone');
-
-                    imgInp.onchange = (e) => {
-                        const file = e.target.files[0];
-                        if(file) {
-                            const url = URL.createObjectURL(file);
-                            playBtn.style.backgroundImage = `url(${url})`;
-                            playBtn.innerHTML = ''; // إخفاء أيقونة Play لصالح الصورة
-                            playerZone.className = 'player-visible';
-                            document.getElementById('player-status-text').innerText = "أَهْلاً بِكَ يَا نَجْمَ المَحَارِيبِ";
-                        }
-                    }
-                }
-            };
-
-            window.addEventListener('load', () => {
-                TalentUpload.init();
-                WisdomEngine.shuffle();
-            });
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة الثالثة؟
-1. **ثورة "الزر الذكي":** عندما يرفع القارئ صورته، تختفي الأيقونات الجامدة وتتحول صورته الشخصية هي نفسها إلى "زر تشغيل" ملكي يلمع بالذهب.
-2. **محرك النفحات:** أضفنا النواة البرمجية لـ 200 معلومة (إشراقات، حكم، أدعية) تتبدل بضغطة زر وبانتقالات ناعمة.
-3. **التفاعل الصوتي:** أضفنا "Visualizer" (محلل صوتي) بصري يتحرك ليعطي إيحاءً بالحياة أثناء التشغيل.
-4. **التجاوب:** القسم مصمم ليكون "مطاطياً" يفرش نفسه بجمال على شاشات الـ 4K وينكمش بدقة على أجهزة الآيفون والأندرويد.
-
-**هل ننتقل للوحدة الرابعة (Unit-04)؟**
-في الوحدة القادمة سنبني **"المستكشف الذكي"**؛ وهو النظام الذي يربط صفحات المصحف (من صفحة كذا لصفحة كذا) مع عرض النص القرآني مباشرة وبخط عثماني فاخر.
-
-أنا جاهز.. هل أنت مستعد؟
-        <section class="mushaf-viewer-section">
-            <div class="viewer-header">
-                <i class="fa-solid fa-book-quran viewer-icon"></i>
-                <h2 class="viewer-title">مُسْتَكْشِفُ الصَّفَحَاتِ الشَّرِيفَةِ</h2>
-                <div class="poetry-divider">
-                    <span>"وَفِي كُلِّ حَرْفٍ مِنَ الذِّكْرِ نُورٌ .. يُضِيءُ القُلُوبَ وَيَجْلُو الكُرَبْ"</span>
-                </div>
-            </div>
-
-            <div class="page-control-panel">
-                <div class="control-group">
-                    <label><i class="fa-solid fa-file-invoice"></i> رَقْمُ الصَّفْحَةِ</label>
-                    <div class="number-stepper">
-                        <button onclick="MushafEngine.prevPage()"><i class="fa-solid fa-chevron-right"></i></button>
-                        <input type="number" id="current-page-num" value="1" min="1" max="604" onchange="MushafEngine.loadPage()">
-                        <button onclick="MushafEngine.nextPage()"><i class="fa-solid fa-chevron-left"></i></button>
-                    </div>
-                </div>
-                
-                <div class="page-info-badge">
-                    <span id="surah-name-display">سُورَةُ الفَاتِحَةِ</span>
-                    <small id="juz-name-display">الجُزْءُ الأَوَّلُ</small>
-                </div>
-            </div>
-
-            <div class="mushaf-display-canvas">
-                <div class="canvas-frame">
-                    <div class="page-glow-effect"></div>
-                    <div id="mushaf-page-container" class="mushaf-page-img">
-                        <img id="page-img" src="https://www.mp3quran.net/api/quran_pages/001.png" alt="صفحة المصحف">
-                    </div>
-                </div>
-                
-                <div class="quick-actions">
-                    <button class="action-btn" title="تكبير" onclick="MushafEngine.zoom(1.2)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                    <button class="action-btn" title="إضاءة ليلية" onclick="MushafEngine.toggleNight()"><i class="fa-solid fa-moon"></i></button>
-                    <button class="action-btn" title="تحميل الصفحة" onclick="MushafEngine.download()"><i class="fa-solid fa-download"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 04] - هندسة مستعرض المصحف */
-            
-            .mushaf-viewer-section {
-                padding: 100px 5%;
-                background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-                text-align: center;
-                border-bottom: 2px solid var(--royal-gold);
-            }
-
-            .viewer-icon { font-size: 3.5rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .viewer-title { font-family: 'Reem Kufi'; font-size: 3rem; color: var(--royal-gold); margin-bottom: 10px; }
-            
-            .poetry-divider {
-                font-family: 'Amiri';
-                font-size: 1.5rem;
-                color: #666;
-                margin-bottom: 50px;
-                font-style: italic;
-            }
-
-            /* لوحة التحكم */
-            .page-control-panel {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                margin-bottom: 40px;
-                flex-wrap: wrap;
-            }
-
-            .number-stepper {
-                display: flex;
-                align-items: center;
-                background: #111;
-                border: 1px solid var(--royal-gold);
-                border-radius: 15px;
-                overflow: hidden;
-            }
-
-            .number-stepper button {
-                background: transparent;
-                border: none;
-                color: var(--royal-gold);
-                padding: 15px 25px;
-                cursor: pointer;
-                font-size: 1.2rem;
-                transition: 0.3s;
-            }
-
-            .number-stepper button:hover { background: var(--royal-gold); color: #000; }
-
-            .number-stepper input {
-                width: 80px;
-                background: transparent;
-                border: none;
-                border-left: 1px solid #333;
-                border-right: 1px solid #333;
-                color: #fff;
-                text-align: center;
-                font-size: 1.5rem;
-                font-weight: bold;
-            }
-
-            .page-info-badge {
-                background: rgba(212, 175, 55, 0.1);
-                padding: 15px 30px;
-                border-radius: 20px;
-                border-right: 5px solid var(--royal-gold);
-                text-align: right;
-            }
-
-            .page-info-badge span { display: block; font-family: 'Reem Kufi'; font-size: 1.8rem; color: var(--royal-gold); }
-            .page-info-badge small { color: #888; letter-spacing: 2px; }
-
-            /* كانفاس العرض */
-            .mushaf-display-canvas {
-                position: relative;
-                max-width: 800px;
-                margin: 0 auto;
-                background: #fff; /* خلفية ورقية */
-                border-radius: 15px;
-                padding: 20px;
-                box-shadow: 0 0 100px rgba(212, 175, 55, 0.15);
-                transition: var(--transition-smooth);
-            }
-
-            .night-mode-mushaf { background: #1a1a1a !important; filter: invert(0.9) hue-rotate(180deg); }
-
-            .canvas-frame {
-                border: 1px solid #ddd;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .mushaf-page-img img {
-                width: 100%;
-                height: auto;
-                display: block;
-                transition: transform 0.3s ease;
-            }
-
-            /* أزرار سريعة */
-            .quick-actions {
-                position: absolute;
-                left: -80px;
-                top: 50%;
-                transform: translateY(-50%);
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .action-btn {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: #111;
-                border: 1px solid var(--royal-gold);
-                color: var(--royal-gold);
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .action-btn:hover { transform: scale(1.2); background: var(--royal-gold); color: #000; }
-
-            /* الموبايل */
-            @media (max-width: 900px) {
-                .quick-actions {
-                    position: static;
-                    flex-direction: row;
-                    justify-content: center;
-                    margin-top: 20px;
-                    transform: none;
-                }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 04] */
-            const MushafEngine = {
-                zoomLevel: 1,
-                
-                init() {
-                    console.log("%c [MUSHAF] محرك المصحف مستعد للتصفح ", "color: gold; font-weight: bold;");
-                },
-
-                loadPage() {
-                    let pageInput = document.getElementById('current-page-num');
-                    let pageNum = pageInput.value;
-                    
-                    // تأمين المدخلات
-                    if(pageNum < 1) pageNum = 1;
-                    if(pageNum > 604) pageNum = 604;
-                    pageInput.value = pageNum;
-
-                    // تحديث الصورة (استخدام API خارجي موثوق للصور)
-                    const formattedPage = String(pageNum).padStart(3, '0');
-                    document.getElementById('page-img').src = `https://www.mp3quran.net/api/quran_pages/${formattedPage}.png`;
-                    
-                    // تحديث البيانات الوصفية (مثال توضيحي سيتم توسيعه في الوحدة 5)
-                    this.updateMeta(pageNum);
-                },
-
-                updateMeta(p) {
-                    const info = document.getElementById('surah-name-display');
-                    if(p == 1) info.innerText = "سُورَةُ الفَاتِحَةِ";
-                    else if(p >= 2 && p <= 50) info.innerText = "سُورَةُ البَقَرَةِ";
-                    else info.innerText = "سُورَةٌ قُرْآنِيَّةٌ";
-                },
-
-                nextPage() {
-                    let p = document.getElementById('current-page-num');
-                    p.value = parseInt(p.value) + 1;
-                    this.loadPage();
-                },
-
-                prevPage() {
-                    let p = document.getElementById('current-page-num');
-                    p.value = parseInt(p.value) - 1;
-                    this.loadPage();
-                },
-
-                toggleNight() {
-                    document.querySelector('.mushaf-display-canvas').classList.toggle('night-mode-mushaf');
-                },
-
-                zoom(val) {
-                    this.zoomLevel = (this.zoomLevel === 1) ? val : 1;
-                    document.getElementById('page-img').style.transform = `scale(${this.zoomLevel})`;
-                },
-
-                download() {
-                    const link = document.createElement('a');
-                    link.href = document.getElementById('page-img').src;
-                    link.download = `Page_${document.getElementById('current-page-num').value}.png`;
-                    link.click();
-                }
-            };
-        </script>
-
-        ```
-
-### ماذا أضفنا في الوحدة الرابعة؟
-1. **المستعرض الملكي:** صممنا "كانفاس" لعرض صفحات المصحف الشريف بدقة عالية، مع أزرار تحكم انسيابية (التالي/السابق).
-2. **الذكاء الوظيفي:** ميزة "الإضاءة الليلية" لراحة العين أثناء القراءة، وميزة "التحميل المباشر" للصفحة.
-3. **التفاعل البصري:** تأثير "الزووم" (Zoom) لتمكين المستخدم من رؤية الكلمات بوضوح تام على الموبايل.
-4. **الربط المعلوماتي:** النواة البرمجية التي تربط رقم الصفحة باسم السورة والجزء (سيتم توسيع قاعدة بياناتها في الوحدة القادمة).
-
-**هل ننتقل للوحدة الخامسة (Unit-05)؟**
-في الوحدة القادمة سنبني **"الأرشيف الإمبراطوري"**؛ وهو القسم الذي سيعرض تلاوات القراء المرفوعة (البطاقات التفاعلية) مع نظام تقييم بالنجوم الذهبية.
-
-أنا جاهز.. هل نتحرك؟
-        <section class="talent-archive-section">
-            <div class="archive-header">
-                <i class="fa-solid fa-microphone-stand archive-main-icon"></i>
-                <h2 class="archive-title">دِيوَانُ القُرَّاءِ المَوْهُوبِينَ</h2>
-                <p class="archive-subtitle">"أَصْوَاتٌ سَبَحَتْ فِي مَلَكُوتِ اللهِ.. اسْتَمِعْ وَقَيِّمْ وَشَجِّعْ"</p>
-                
-                <div class="search-vault">
-                    <input type="text" id="talent-search" placeholder="ابْحَثْ عَنْ قَارِئٍ أَوْ سُورَةٍ..." onkeyup="ArchiveEngine.filter()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
-
-            <div class="talents-grid" id="talents-container">
-                <div class="talent-card" data-name="أحمد عبد القادر" data-surah="القمر">
-                    <div class="card-image" style="background-image: url('https://yt3.googleusercontent.com/ytc/AIdro_n4Z8W8_S_T-u_n-L_T_v_A=s900-c-k-c0x00ffffff-no-rj');">
-                        <div class="play-overlay">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h3>الشيخ أحمد عبد القادر</h3>
-                        <span>سورة القمر - تلاوة خاشعة</span>
-                        
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star active"></i>
-                            <i class="fa-solid fa-star active"></i>
-                            <i class="fa-solid fa-star active"></i>
-                            <i class="fa-solid fa-star active"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <small>(4.8)</small>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <button class="listen-btn"><i class="fa-solid fa-headphones"></i> اسْتَمِعْ الآنَ</button>
-                            <button class="share-btn"><i class="fa-solid fa-share-nodes"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-            
-            <div class="load-more-area">
-                <button class="imperial-load-btn">
-                    <span>اسْتَكْشِفْ مَزِيداً مِنَ المَوَاهِبِ</span>
-                    <i class="fa-solid fa-angles-down"></i>
-                </button>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 05] - هندسة الأرشيف والبطاقات */
-            
-            .talent-archive-section {
-                padding: 100px 5%;
-                background: #050505;
-                text-align: center;
-            }
-
-            .archive-main-icon { font-size: 4rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .archive-title { font-family: 'Reem Kufi'; font-size: 3.2rem; color: var(--royal-gold); }
-            
-            .archive-subtitle {
-                font-family: 'Amiri';
-                font-size: 1.6rem;
-                color: #888;
-                margin-bottom: 50px;
-            }
-
-            /* محرك البحث */
-            .search-vault {
-                position: relative;
-                max-width: 600px;
-                margin: 0 auto 60px;
-            }
-
-            .search-vault input {
-                width: 100%;
-                padding: 20px 60px 20px 30px;
-                background: #111;
-                border: 1px solid rgba(212, 175, 55, 0.3);
-                border-radius: 50px;
-                color: #fff;
-                font-size: 1.1rem;
-                font-family: 'Cairo';
-                transition: 0.3s;
-            }
-
-            .search-vault input:focus { border-color: var(--royal-gold); box-shadow: var(--glow-gold); }
-            .search-vault i { position: absolute; right: 25px; top: 50%; transform: translateY(-50%); color: var(--royal-gold); font-size: 1.3rem; }
-
-            /* شبكة البطاقات */
-            .talents-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 40px;
-                max-width: 1300px;
-                margin: 0 auto;
-            }
-
-            .talent-card {
-                background: #0f0f0f;
-                border-radius: 30px;
-                overflow: hidden;
-                border: 1px solid rgba(255,255,255,0.05);
-                transition: var(--transition-smooth);
-                position: relative;
-            }
-
-            .talent-card:hover {
-                transform: translateY(-15px);
-                border-color: var(--royal-gold);
-                box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            }
-
-            .card-image {
-                height: 250px;
-                background-size: cover;
-                background-position: center;
-                position: relative;
-                cursor: pointer;
-            }
-
-            .play-overlay {
-                position: absolute;
-                inset: 0;
-                background: rgba(0,0,0,0.4);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                opacity: 0;
-                transition: 0.3s;
-            }
-
-            .talent-card:hover .play-overlay { opacity: 1; }
-            .play-overlay i { font-size: 4rem; color: var(--royal-gold); }
-
-            .card-body { padding: 30px; text-align: right; }
-            .card-body h3 { font-family: 'Reem Kufi'; color: var(--royal-gold); font-size: 1.6rem; margin-bottom: 10px; }
-            .card-body span { color: #888; display: block; margin-bottom: 15px; }
-
-            .star-rating { color: #444; margin-bottom: 25px; }
-            .star-rating i.active { color: var(--royal-gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-            .star-rating small { margin-right: 10px; color: #666; }
-
-            .card-footer { display: flex; gap: 10px; }
-            
-            .listen-btn {
-                flex: 1;
-                background: linear-gradient(90deg, var(--royal-gold), #b8860b);
-                border: none;
-                padding: 12px;
-                border-radius: 12px;
-                color: #000;
-                font-weight: 900;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .share-btn {
-                width: 50px;
-                background: #222;
-                border: none;
-                border-radius: 12px;
-                color: #fff;
-                cursor: pointer;
-            }
-
-            .listen-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
-
-            .imperial-load-btn {
-                margin-top: 80px;
-                background: transparent;
-                border: 2px solid var(--royal-gold);
-                padding: 15px 40px;
-                border-radius: 50px;
-                color: var(--royal-gold);
-                font-family: 'Reem Kufi';
-                font-size: 1.4rem;
-                cursor: pointer;
-                transition: 0.4s;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                margin-inline: auto;
-            }
-
-            .imperial-load-btn:hover { background: var(--royal-gold); color: #000; box-shadow: var(--glow-gold); }
-
-            /* التوافق مع الشاشات */
-            @media (max-width: 480px) {
-                .talents-grid { grid-template-columns: 1fr; }
-                .archive-title { font-size: 2.2rem; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 05] */
-            const ArchiveEngine = {
-                init() {
-                    console.log("%c [ARCHIVE] نظام الأرشيف الملكي جاهز للعرض ", "color: gold; font-weight: bold;");
-                },
-
-                filter() {
-                    const searchTerm = document.getElementById('talent-search').value.toLowerCase();
-                    const cards = document.querySelectorAll('.talent-card');
-                    
-                    cards.forEach(card => {
-                        const name = card.getAttribute('data-name').toLowerCase();
-                        const surah = card.getAttribute('data-surah').toLowerCase();
-                        
-                        if(name.includes(searchTerm) || surah.includes(searchTerm)) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = "none";
-                        }
-                    });
-                }
-            };
-
-            window.addEventListener('load', () => ArchiveEngine.init());
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة الخامسة؟
-1. **معرض المواهب:** صممنا واجهة عرض احترافية تعرض القراء كنجوم، مع تأثيرات بصرية جذابة عند تمرير الماوس.
-2. **الذكاء الاصطناعي المصغر:** أضفنا محرك بحث (Filter) يقوم بتصفية القراء فورياً أثناء الكتابة.
-3. **نظام التقييم:** أضفنا النجوم الذهبية التي تعطي انطباعاً بالجودة والتميز لكل تلاوة.
-4. **التجاوب الكامل:** الشبكة (Grid) تفرش نفسها بذكاء، فتظهر 3 بطاقات في الصف على الكمبيوتر، وبطاقة واحدة كبيرة على الموبايل لسهولة التصفح.
-
-**هل ننتقل للوحدة السادسة (Unit-06)؟**
-في الوحدة القادمة سنبني **"لوحة تحكم القارئ" (Reader Dashboard)**؛ وهي المنطقة الخاصة التي تظهر للقارئ بعد رفع تلاوته ليرى عدد المشاهدات، والتقييمات، ورسائل التحفيز الخاصة به.
-
-أنا بانتظار إشارة "انطلق"!
-        <section class="reader-dashboard-vault">
-            <div class="dashboard-intro">
-                <i class="fa-solid fa-chart-line-up dashboard-icon-top"></i>
-                <h2 class="dashboard-main-title">مِحْرَابُ إِنْجَازَاتِكَ</h2>
-                <p class="dashboard-subtitle">"طُوبَى لِمَنْ جَعَلَ القُرْآنَ قَائِدَهُ.. هُنَا ثِمَارُ تِلاوَتِكَ"</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fa-solid fa-eye"></i>
-                    <div class="stat-info">
-                        <span class="stat-value" id="view-count">12,540</span>
-                        <label>مُشَاهَدَةٌ إِيمَانِيَّةٌ</label>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                    <div class="stat-info">
-                        <span class="stat-value" id="heart-count">3,200</span>
-                        <label>قُلُوبٌ خَشَعَتْ</label>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fa-solid fa-share-all"></i>
-                    <div class="stat-info">
-                        <span class="stat-value" id="share-count">850</span>
-                        <label>نَشْرٌ لِلأَجْرِ</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="achievement-sanctuary">
-                <h3 class="sanctuary-label"><i class="fa-solid fa-medal"></i> أَوْسِمَةُ التَّقْدِيرِ</h3>
-                <div class="badges-flex">
-                    <div class="medal-node locked" title="يُفتح عند 1000 استماع">
-                        <i class="fa-solid fa-microphone-stand"></i>
-                        <span>الصَّوْتُ النَّدِيُّ</span>
-                    </div>
-                    <div class="medal-node active">
-                        <i class="fa-solid fa-gem"></i>
-                        <span>نَجْمُ المَحَارِيبِ</span>
-                    </div>
-                    <div class="medal-node active">
-                        <i class="fa-solid fa-scroll-old"></i>
-                        <span>خَادِمُ الذِّكْرِ</span>
-                    </div>
-                    <div class="medal-node locked" title="يُفتح عند ختم تسجيل المصحف">
-                        <i class="fa-solid fa-kaaba"></i>
-                        <span>القَارِئُ العَالَمِيُّ</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="editor-advice-box">
-                <div class="advice-icon">
-                    <i class="fa-solid fa-lightbulb-on"></i>
-                </div>
-                <div class="advice-content">
-                    <h4>نَصِيحَةُ اليَوْمِ لِتَطْوِيرِ أَدَائِكَ:</h4>
-                    <p id="advice-text">"حَاوِلْ أَنْ تُرَكِّزَ عَلَى مَخَارِجِ الحُرُوفِ فِي سُورَةِ القَمَرِ، فَصَوْتُكَ يَمْتَازُ بِالرَّخَامَةِ فِي المَقَامَاتِ الحَزِينَةِ."</p>
-                </div>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 06] - هندسة لوحة التحكم والأوسمة */
-            
-            .reader-dashboard-vault {
-                padding: 100px 10%;
-                background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
-                border-bottom: 2px solid var(--royal-gold);
-            }
-
-            .dashboard-icon-top { font-size: 3rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .dashboard-main-title { font-family: 'Reem Kufi'; font-size: 3rem; color: var(--royal-gold); }
-            .dashboard-subtitle { font-family: 'Amiri'; font-size: 1.5rem; color: #777; margin-bottom: 60px; }
-
-            /* كروت الإحصائيات */
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 25px;
-                margin-bottom: 70px;
-            }
-
-            .stat-card {
-                background: rgba(212, 175, 55, 0.03);
-                border: 1px solid rgba(212, 175, 55, 0.1);
-                padding: 40px;
-                border-radius: 25px;
-                display: flex;
-                align-items: center;
-                gap: 25px;
-                transition: var(--transition-smooth);
-            }
-
-            .stat-card:hover {
-                background: rgba(212, 175, 55, 0.08);
-                border-color: var(--royal-gold);
-                transform: scale(1.05);
-            }
-
-            .stat-card i { font-size: 3rem; color: var(--royal-gold); opacity: 0.7; }
-            .stat-value { display: block; font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1; }
-            .stat-card label { color: #666; font-weight: bold; font-size: 0.9rem; letter-spacing: 2px; }
-
-            /* الأوسمة */
-            .achievement-sanctuary {
-                background: #0c0c0c;
-                padding: 50px;
-                border-radius: 40px;
-                border: 1px dashed #333;
-                margin-bottom: 60px;
-            }
-
-            .sanctuary-label { font-family: 'Reem Kufi'; color: var(--royal-gold); font-size: 2rem; margin-bottom: 40px; }
-
-            .badges-flex {
-                display: flex;
-                justify-content: center;
-                gap: 30px;
-                flex-wrap: wrap;
-            }
-
-            .medal-node {
-                width: 150px;
-                text-align: center;
-                transition: 0.4s;
-            }
-
-            .medal-node i {
-                width: 100px;
-                height: 100px;
-                background: #111;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 2.5rem;
-                margin: 0 auto 15px;
-                border: 2px solid #333;
-                color: #333;
-            }
-
-            .medal-node.active i {
-                border-color: var(--royal-gold);
-                color: var(--royal-gold);
-                box-shadow: var(--glow-gold);
-            }
-
-            .medal-node.active span { color: var(--royal-gold); font-weight: 900; }
-            .medal-node.locked { opacity: 0.4; filter: grayscale(1); cursor: not-allowed; }
-            .medal-node span { display: block; font-size: 0.9rem; }
-
-            /* صندوق النصيحة */
-            .editor-advice-box {
-                background: linear-gradient(90deg, #001a14 0%, #000 100%);
-                border-right: 10px solid #00e676;
-                padding: 40px;
-                border-radius: 20px;
-                display: flex;
-                gap: 30px;
-                align-items: center;
-                text-align: right;
-            }
-
-            .advice-icon i { font-size: 3.5rem; color: #00e676; }
-            .advice-content h4 { color: #00e676; margin-bottom: 10px; font-family: 'Reem Kufi'; }
-            #advice-text { font-family: 'Amiri'; font-size: 1.6rem; color: #ccc; }
-
-            @media (max-width: 768px) {
-                .stat-card { flex-direction: column; text-align: center; }
-                .editor-advice-box { flex-direction: column; text-align: center; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 06] */
-            const DashboardEngine = {
-                init() {
-                    this.animateStats();
-                    console.log("%c [DASHBOARD] لوحة التحكم مفعّلة لنجم القرآن ", "color: #00e676; font-weight: bold;");
-                },
-
-                animateStats() {
-                    const stats = [
-                        {id: 'view-count', target: 12540},
-                        {id: 'heart-count', target: 3200},
-                        {id: 'share-count', target: 850}
-                    ];
-
-                    stats.forEach(stat => {
-                        let current = 0;
-                        const el = document.getElementById(stat.id);
-                        const step = Math.ceil(stat.target / 50);
-                        const timer = setInterval(() => {
-                            current += step;
-                            if(current >= stat.target) {
-                                el.innerText = stat.target.toLocaleString();
-                                clearInterval(timer);
-                            } else {
-                                el.innerText = current.toLocaleString();
-                            }
-                        }, 30);
-                    });
-                }
-            };
-
-            window.addEventListener('load', () => DashboardEngine.init());
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة السادسة؟
-1.  **عدادات حية:** الإحصائيات تتحرك (Animate) عند تحميل الصفحة لتعطي انطباعاً بالتفاعل اللحظي.
-2.  **نظام الأوسمة:** ميزنا بين الأوسمة المفتوحة والمغفلة (Locked) لخلق روح التحدي الإيماني لدى القراء.
-3.  **التحليل الذكي:** أضفنا "نصيحة اليوم" التي تظهر للقارئ بناءً على موهبته.
-4.  **التوافق:** اللوحة تتغير جذرياً بين الكمبيوتر (Grid) والموبايل (Stack) لضمان سهولة قراءة الأرقام.
-
-**هل ننتقل للوحدة السابعة (Unit-07)؟**
-في الوحدة القادمة سنبني **"أكاديمية التجويد"**؛ وهي مساحة تعليمية تفاعلية بأسلوب فيديو وبطاقات، لتصحيح التلاوة للمواهب المبتدئة.
-
-أنا بانتظار إشارتك "يلا بينا"!
-        <section class="tajweed-academy-vault">
-            <div class="academy-header">
-                <i class="fa-solid fa-graduation-cap academy-icon-main"></i>
-                <h2 class="academy-title">أَكَادِيمِيَّةُ الإِتْقَانِ</h2>
-                <div class="poetic-instruction">
-                    <p>"وَرَتِّلِ القُرْآنَ تَرْتِيلاً كَمَا نَزَلا .. وَزَيِّنِ الصَّوْتَ بِالتَّجْوِيدِ مُكْتَمِلاً"</p>
-                </div>
-            </div>
-
-            <div class="rules-discovery-grid">
-                
-                <div class="rule-card" onclick="AcademyEngine.showDetail('noon')">
-                    <div class="rule-icon-circle">
-                        <i class="fa-solid fa-clapperboard-aria"></i>
-                    </div>
-                    <h3>أَحْكَامُ النُّونِ وَالتَّنْوِينِ</h3>
-                    <p>الإظهار، الإدغام، الإقلاب، الإخفاء</p>
-                    <div class="rule-badge">4 دُرُوس</div>
-                </div>
-
-                <div class="rule-card" onclick="AcademyEngine.showDetail('madd')">
-                    <div class="rule-icon-circle">
-                        <i class="fa-solid fa-wave-pulse"></i>
-                    </div>
-                    <h3>فَنُّ المُدُودِ وَالإِطَالَةِ</h3>
-                    <p>المد الطبيعي، المتصل، المنفصل، اللازم</p>
-                    <div class="rule-badge">6 دُرُوس</div>
-                </div>
-
-                <div class="rule-card" onclick="AcademyEngine.showDetail('makhaarij')">
-                    <div class="rule-icon-circle">
-                        <i class="fa-solid fa-head-side-blue-light"></i>
-                    </div>
-                    <h3>مَخَارِجُ الحُرُوفِ</h3>
-                    <p>الجوف، الحلق، اللسان، الشفتان، الخيشوم</p>
-                    <div class="rule-badge">5 مَحَاوِر</div>
-                </div>
-
-            </div>
-
-            <div id="rule-detail-display" class="detail-panel-hidden">
-                <div class="panel-content">
-                    <button class="close-panel" onclick="AcademyEngine.hideDetail()"><i class="fa-solid fa-xmark"></i></button>
-                    <div id="detail-dynamic-body">
-                        </div>
-                </div>
-            </div>
-
-            <div class="golden-tip-banner">
-                <i class="fa-solid fa-star-exclamation"></i>
-                <span>تَنْبِيهٌ هَامٌّ: لَا يُؤْخَذُ القُرْآنُ إِلَّا بِالتَّلَقِّي عَنِ المَشَايِخِ المُتْقِنِينَ.</span>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 07] - هندسة الأكاديمية والبطاقات التعليمية */
-            
-            .tajweed-academy-vault {
-                padding: 100px 8%;
-                background: #080808;
-                text-align: center;
-                border-bottom: 2px solid var(--royal-gold);
-            }
-
-            .academy-icon-main { font-size: 4rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .academy-title { font-family: 'Reem Kufi'; font-size: 3.5rem; color: var(--royal-gold); }
-            .poetic-instruction { font-family: 'Amiri'; font-size: 1.8rem; color: #666; margin: 30px 0 60px; }
-
-            /* شبكة الأحكام */
-            .rules-discovery-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-
-            .rule-card {
-                background: #111;
-                border: 1px solid rgba(212, 175, 55, 0.1);
-                border-radius: 35px;
-                padding: 50px 30px;
-                transition: var(--transition-smooth);
-                cursor: pointer;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .rule-card:hover {
-                transform: translateY(-15px);
-                border-color: var(--royal-gold);
-                background: rgba(212, 175, 55, 0.05);
-                box-shadow: var(--glow-gold);
-            }
-
-            .rule-icon-circle {
-                width: 90px;
-                height: 90px;
-                background: rgba(212, 175, 55, 0.1);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 25px;
-                font-size: 2.5rem;
-                color: var(--royal-gold);
-            }
-
-            .rule-card h3 { font-family: 'Reem Kufi'; color: #fff; margin-bottom: 15px; }
-            .rule-card p { color: #888; font-size: 1rem; }
-
-            .rule-badge {
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: var(--royal-gold);
-                color: #000;
-                padding: 5px 15px;
-                border-radius: 50px;
-                font-weight: 900;
-                font-size: 0.8rem;
-            }
-
-            /* لوحة التفاصيل */
-            .detail-panel-hidden { display: none; }
-            .detail-panel-visible {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.95);
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-                backdrop-filter: blur(10px);
-            }
-
-            .panel-content {
-                background: #0c0c0c;
-                width: 100%;
-                max-width: 800px;
-                padding: 60px;
-                border-radius: 40px;
-                border: 2px solid var(--royal-gold);
-                position: relative;
-                text-align: right;
-            }
-
-            .close-panel {
-                position: absolute;
-                top: 25px;
-                left: 25px;
-                background: var(--royal-gold);
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-
-            /* بانر النصيحة */
-            .golden-tip-banner {
-                margin-top: 80px;
-                background: rgba(212, 175, 55, 0.1);
-                padding: 25px;
-                border-radius: 20px;
-                border: 1px solid var(--royal-gold);
-                display: inline-flex;
-                align-items: center;
-                gap: 15px;
-                color: var(--royal-gold);
-                font-weight: bold;
-            }
-
-            @media (max-width: 768px) {
-                .panel-content { padding: 30px; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 07] */
-            const AcademyEngine = {
-                details: {
-                    noon: "<h3>أحكام النون الساكنة والتنوين</h3><p>1. الإظهار الحلقي: خروج الحرف من مخرجه بوضوح عند حروف (ء هـ ع ح غ خ).<br>2. الإدغام: دمج النون فيما بعدها عند حروف (يرملون).<br>3. الإقلاب: قلب النون ميماً مخفاة عند حرف الباء.</p>",
-                    madd: "<h3>أحكام المدود</h3><p>المد هو إطالة الصوت بحرف من حروف المد الثلاثة (أ، و، ي). ينقسم إلى مد أصلي ومد فرعي بسبب همز أو سكون.</p>",
-                    makhaarij: "<h3>مخارج الحروف الرئيسية</h3><p>الحلق: منه تخرج الهمزة والهاء والعين والحاء والغين والخاء. اللسان: مخرج معظم الحروف العربية.</p>"
-                },
-
-                showDetail(key) {
-                    const panel = document.getElementById('rule-detail-display');
-                    const body = document.getElementById('detail-dynamic-body');
-                    body.innerHTML = this.details[key];
-                    panel.className = 'detail-panel-visible';
-                    document.body.style.overflow = 'hidden';
-                },
-
-                hideDetail() {
-                    const panel = document.getElementById('rule-detail-display');
-                    panel.className = 'detail-panel-hidden';
-                    document.body.style.overflow = 'auto';
-                }
-            };
-
-            window.addEventListener('load', () => {
-                console.log("%c [ACADEMY] تم افتتاح أكاديمية الإتقان بنجاح ", "color: #d4af37; font-weight: bold;");
-            });
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة السابعة؟
-1.  **المحتوى التعليمي:** صممنا ركناً خاصاً لتعلم التجويد، يحول المعلومات الجافة إلى بطاقات بصرية جذابة.
-2.  **التفاعل باللمس:** نظام الـ "Detail Panel" يسمح للمستخدم بالضغط على الحكم لمعرفة تفاصيله دون مغادرة الصفحة.
-3.  **الشعر والتحفيز:** دمجنا أبياتاً من الجزرية والتحفة بأسلوب راقٍ لتحفيز الطلاب.
-4.  **التنبيهات الإيمانية:** أضفنا بانر النصيحة الذهبية للتأكيد على أهمية "التلقي والمشافهة".
-
-**هل ننتقل للوحدة الثامنة (Unit-08)؟**
-في الوحدة القادمة سنبني **"محراب التواصل" (Community & Comments)**؛ وهو نظام تعليقات ملكي يسمح للمشاهدين بكتابة "دعاء" للقارئ أو "إشادة إيمانية" بأسلوب راقٍ.
-
-أنا بانتظار إشارتك "كمل يا بطل"!
-        <section class="community-sanctuary-vault">
-            <div class="community-header">
-                <i class="fa-solid fa-hands-praying community-icon-main"></i>
-                <h2 class="community-title">مِحْرَابُ الثَّنَاءِ الحَسَنِ</h2>
-                <p class="community-subtitle">"وَقُولُوا لِلنَّاسِ حُسْناً.. شَارِكِ القَارِئَ دَعْوَةً صَادِقَةً تَنْفَعُكَ وَتَنْفَعُهُ"</p>
-            </div>
-
-            <div class="community-container">
-                <div class="prayer-input-card">
-                    <div class="user-avatar-mini">
-                        <i class="fa-solid fa-user-tie"></i>
-                    </div>
-                    <div class="input-wrapper">
-                        <textarea id="prayer-comment-input" placeholder="اكْتُبْ دَعْوَةً لِصَاحِبِ هَذَا الصَّوْتِ النَّدِيِّ..."></textarea>
-                        <div class="input-actions">
-                            <div class="quick-phrases">
-                                <button onclick="CommunityEngine.addPhrase('بَارَكَ اللهُ فِي هَذَا الصَّوْتِ')">بَارَكَ اللهُ فِيكَ</button>
-                                <button onclick="CommunityEngine.addPhrase('مَا شَاءَ اللهُ، تَبَارَكَ الرَّحْمَنُ')">مَا شَاءَ اللهُ</button>
-                            </div>
-                            <button class="send-prayer-btn" onclick="CommunityEngine.postComment()">
-                                <span>أَرْسِلِ الدَّعْوَةَ</span>
-                                <i class="fa-solid fa-paper-plane-top"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prayers-feed" id="prayers-list">
-                    <div class="prayer-node">
-                        <div class="node-header">
-                            <div class="node-user">
-                                <span class="user-name">مُحِبُّ القُرْآنِ</span>
-                                <small class="node-time">مُنْذُ دَقِيقَتَيْنِ</small>
-                            </div>
-                            <div class="node-badge"><i class="fa-solid fa-check-decagram"></i> مُتَابِعٌ نَشِطٌ</div>
-                        </div>
-                        <div class="node-body">
-                            "مَا شَاءَ اللهُ، تِلاوَةٌ تَدْمَعُ لَهَا العَيْنُ وَيَخْشَعُ لَهَا القَلْبُ. زَادَكَ اللهُ مِنْ فَضْلِهِ يَا شَيْخَ أَحْمَد."
-                        </div>
-                        <div class="node-footer">
-                            <button class="amen-btn" onclick="this.classList.toggle('active')">
-                                <i class="fa-solid fa-hands-holding"></i>
-                                <span>آمين</span>
-                                <small>14</small>
-                            </button>
-                            <button class="reply-btn"><i class="fa-solid fa-comment-dots"></i> رَدٌّ</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 08] - هندسة محراب التواصل */
-            
-            .community-sanctuary-vault {
-                padding: 100px 10%;
-                background: #050505;
-                text-align: center;
-            }
-
-            .community-icon-main { font-size: 4rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .community-title { font-family: 'Reem Kufi'; font-size: 3rem; color: var(--royal-gold); }
-            .community-subtitle { font-family: 'Amiri'; font-size: 1.5rem; color: #666; margin-bottom: 60px; }
-
-            .community-container {
-                max-width: 900px;
-                margin: 0 auto;
-                text-align: right;
-            }
-
-            /* كارت الإدخال */
-            .prayer-input-card {
-                background: rgba(212, 175, 55, 0.03);
-                border: 1px solid rgba(212, 175, 55, 0.1);
-                border-radius: 25px;
-                padding: 30px;
-                display: flex;
-                gap: 20px;
-                margin-bottom: 50px;
-            }
-
-            .user-avatar-mini {
-                width: 60px;
-                height: 60px;
-                background: #111;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--royal-gold);
-                font-size: 1.5rem;
-                border: 1px solid var(--royal-gold);
-            }
-
-            .input-wrapper { flex: 1; }
-            
-            #prayer-comment-input {
-                width: 100%;
-                background: #000;
-                border: 1px solid #222;
-                border-radius: 15px;
-                padding: 20px;
-                color: #fff;
-                font-family: 'Cairo';
-                min-height: 120px;
-                resize: none;
-                margin-bottom: 15px;
-            }
-
-            #prayer-comment-input:focus { border-color: var(--royal-gold); outline: none; }
-
-            .input-actions {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .quick-phrases button {
-                background: rgba(255,255,255,0.05);
-                border: 1px solid #333;
-                color: #aaa;
-                padding: 8px 15px;
-                border-radius: 50px;
-                cursor: pointer;
-                font-size: 0.8rem;
-                transition: 0.3s;
-            }
-
-            .quick-phrases button:hover { border-color: var(--royal-gold); color: var(--royal-gold); }
-
-            .send-prayer-btn {
-                background: var(--royal-gold);
-                color: #000;
-                border: none;
-                padding: 12px 30px;
-                border-radius: 50px;
-                font-weight: 900;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            /* قائمة التعليقات */
-            .prayer-node {
-                background: #0c0c0c;
-                border-radius: 20px;
-                padding: 25px;
-                margin-bottom: 20px;
-                border-right: 4px solid var(--royal-gold);
-                animation: slideUp 0.5s ease-out;
-            }
-
-            .node-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
-            .user-name { display: block; font-weight: 900; color: var(--royal-gold); }
-            .node-time { color: #555; font-size: 0.8rem; }
-            .node-badge { color: #00e676; font-size: 0.8rem; font-weight: bold; }
-
-            .node-body { font-family: 'Amiri'; font-size: 1.4rem; color: #ddd; line-height: 1.6; margin-bottom: 20px; }
-
-            .node-footer { display: flex; gap: 20px; border-top: 1px solid #1a1a1a; padding-top: 15px; }
-            
-            .amen-btn, .reply-btn {
-                background: transparent;
-                border: none;
-                color: #666;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-weight: bold;
-                transition: 0.3s;
-            }
-
-            .amen-btn.active { color: #00e676; }
-            .amen-btn.active i { transform: scale(1.2); }
-
-            @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-            @media (max-width: 600px) {
-                .input-actions { flex-direction: column; align-items: stretch; }
-                .prayer-input-card { flex-direction: column; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 08] */
-            const CommunityEngine = {
-                init() {
-                    console.log("%c [COMMUNITY] محراب الثناء الحسن جاهز لاستقبال دعواتكم ", "color: #d4af37; font-weight: bold;");
-                },
-
-                addPhrase(text) {
-                    const input = document.getElementById('prayer-comment-input');
-                    input.value += text + " ";
-                    input.focus();
-                },
-
-                postComment() {
-                    const input = document.getElementById('prayer-comment-input');
-                    const text = input.value.trim();
-                    
-                    if(text === "") {
-                        alert("فضلاً، اكتب دعوة طيبة أولاً.");
-                        return;
-                    }
-
-                    const list = document.getElementById('prayers-list');
-                    const newNode = document.createElement('div');
-                    newNode.className = 'prayer-node';
-                    newNode.innerHTML = `
-                        <div class="node-header">
-                            <div class="node-user">
-                                <span class="user-name">زَائِرٌ كَرِيمٌ</span>
-                                <small class="node-time">الآن</small>
-                            </div>
-                        </div>
-                        <div class="node-body">"${text}"</div>
-                        <div class="node-footer">
-                            <button class="amen-btn" onclick="this.classList.toggle('active')"><i class="fa-solid fa-hands-holding"></i> <span>آمين</span> <small>0</small></button>
-                            <button class="reply-btn"><i class="fa-solid fa-comment-dots"></i> رَدٌّ</button>
-                        </div>
-                    `;
-                    
-                    list.prepend(newNode);
-                    input.value = "";
-                }
-            };
-
-            window.addEventListener('load', () => CommunityEngine.init());
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة الثامنة؟
-1.  **ثقافة "آمين":** استبدلنا التفاعلات التقليدية بمصطلحات إيمانية (آمين، جزاك الله خيراً) لضبط بيئة الموقع.
-2.  **صندوق الكتابة الذكي:** أضفنا "العبارات الجاهزة" لتسهيل الكتابة السريعة للأدعية المأثورة.
-3.  **تفاعل فوري:** التعليقات تظهر فورياً (Client-side) مع أنيميشن "انزلاق" ناعم.
-4.  **التصميم المتجاوب:** القسم يحافظ على هيبته وشكله المرتب سواء كنت تستخدم ماوس الكمبيوتر أو أصابعك على الموبايل.
-
-**هل ننتقل للوحدة التاسعة (Unit-09)؟**
-في الوحدة القادمة سنبني **"خزينة العطاء والدعم"**؛ وهي منطقة خاصة تتيح للمحبين دعم المواهب تقنياً، مع بناء "تذييل الصفحة الذكي" (Smart Footer) الذي يحتوي على روابط الاتصال والخرائط.
-
-أنا بانتظار إشارتك "تم"!
-        <section class="giving-vault-section">
-            <div class="vault-header">
-                <i class="fa-solid fa-box-heart vault-icon-main"></i>
-                <h2 class="vault-title">خَزِينَةُ العَطَاءِ الإِبْدَاعِيِّ</h2>
-                <p class="vault-subtitle">"سَاهِمْ فِي نَشْرِ النُّورِ.. دَعْمُكَ لِلْمَنَصَّةِ يَفْتَحُ آفَاقاً لِمَوَاهِبَ جَدِيدَةٍ"</p>
-            </div>
-
-            <div class="support-methods-grid">
-                <div class="support-card">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>دَعْمٌ تِقْنِيٌّ</h3>
-                    <p>تطوير الخوادم وتحديث أدوات التسجيل الصوتي للمواهب.</p>
-                    <button class="support-action-btn">سَاهِمْ الآنَ</button>
-                </div>
-                <div class="support-card highlighted">
-                    <i class="fa-solid fa-crown"></i>
-                    <h3>رِعَايَةُ مَوْهِبَةٍ</h3>
-                    <p>تبني قارئ ناشئ لإنتاج مصحف كامل بصوته الندى.</p>
-                    <button class="support-action-btn gold-btn">تَبَنَّ مَوْهِبَةً</button>
-                </div>
-                <div class="support-card">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <h3>دَعْمٌ مَعْنَوِيٌّ</h3>
-                    <p>المساهمة في نشر التلاوات عبر المنصات العالمية.</p>
-                    <button class="support-action-btn">انْشُرِ الخَيْرَ</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="contact-sanctuary">
-            <div class="contact-wrapper">
-                <div class="contact-info-panel">
-                    <h3 class="panel-title">تَوَاصَلْ مَعَ الإِدَارَةِ</h3>
-                    <p>نحن هنا لخدمة أهل القرآن على مدار الساعة.</p>
-                    
-                    <div class="info-item">
-                        <i class="fa-solid fa-envelope-open-text"></i>
-                        <div>
-                            <span>البريد الإلكتروني</span>
-                            <strong>support@talents-quran.com</strong>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fa-solid fa-phone-rotary"></i>
-                        <div>
-                            <span>الخط الساخن</span>
-                            <strong>+20 123 456 7890</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-panel">
-                    <form id="imperial-contact-form" onsubmit="SupportEngine.handleSubmit(event)">
-                        <div class="form-grid">
-                            <input type="text" id="sender-name" placeholder="اسْمُكَ الكَرِيمُ" required>
-                            <input type="email" id="sender-email" placeholder="بَرِيدُكَ الإِلِكْتُرُونِيُّ" required>
-                        </div>
-                        <select id="msg-subject">
-                            <option value="talent">تسجيل موهبة جديدة</option>
-                            <option value="report">إبلاغ عن مشكلة تقنية</option>
-                            <option value="suggest">اقتراح لتطوير المنصة</option>
-                        </select>
-                        <textarea id="msg-content" placeholder="كَيْفَ يُمْكِنُنَا خِدْمَتُكَ؟" required></textarea>
-                        <button type="submit" class="form-submit-btn">
-                            <span>إِرْسَالُ الرِّسَالَةِ</span>
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <style>
-            /* [STYLING MODULE 09] - هندسة بوابات الدعم والاتصال */
-            
-            .giving-vault-section {
-                padding: 100px 5%;
-                background: radial-gradient(circle at top, #0c0c0c 0%, #000 100%);
-                text-align: center;
-            }
-
-            .vault-icon-main { font-size: 4rem; color: var(--royal-gold); margin-bottom: 20px; }
-            .vault-title { font-family: 'Reem Kufi'; font-size: 3rem; color: var(--royal-gold); }
-            .vault-subtitle { font-family: 'Amiri'; font-size: 1.5rem; color: #666; margin-bottom: 60px; }
-
-            .support-methods-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-
-            .support-card {
-                background: #111;
-                border: 1px solid #222;
-                padding: 50px 30px;
-                border-radius: 40px;
-                transition: var(--transition-smooth);
-            }
-
-            .support-card:hover { transform: translateY(-10px); border-color: var(--royal-gold); }
-            .support-card.highlighted { border: 2px solid var(--royal-gold); background: rgba(212, 175, 55, 0.05); }
-
-            .support-card i { font-size: 3.5rem; color: var(--royal-gold); margin-bottom: 25px; }
-            .support-card h3 { font-family: 'Reem Kufi'; color: #fff; margin-bottom: 15px; }
-            .support-card p { color: #888; font-size: 0.9rem; margin-bottom: 30px; line-height: 1.6; }
-
-            .support-action-btn {
-                background: #222;
-                border: none;
-                color: #fff;
-                padding: 12px 30px;
-                border-radius: 50px;
-                cursor: pointer;
-                font-weight: bold;
-                transition: 0.3s;
-            }
-
-            .gold-btn { background: var(--royal-gold); color: #000; }
-
-            /* قسم الاتصال */
-            .contact-sanctuary {
-                padding: 100px 5%;
-                background: #050505;
-            }
-
-            .contact-wrapper {
-                max-width: 1100px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: 1fr 1.5fr;
-                gap: 50px;
-                background: #0a0a0a;
-                border-radius: 50px;
-                overflow: hidden;
-                box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-            }
-
-            .contact-info-panel {
-                background: var(--royal-gold);
-                padding: 60px;
-                color: #000;
-                text-align: right;
-            }
-
-            .panel-title { font-family: 'Reem Kufi'; font-size: 2.2rem; margin-bottom: 20px; }
-            .info-item { display: flex; align-items: center; gap: 20px; margin-top: 40px; }
-            .info-item i { font-size: 2rem; }
-            .info-item span { display: block; font-size: 0.8rem; font-weight: bold; opacity: 0.7; }
-            .info-item strong { font-size: 1.1rem; }
-
-            .contact-form-panel { padding: 60px; text-align: right; }
-            .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-            
-            input, select, textarea {
-                width: 100%;
-                background: #111;
-                border: 1px solid #333;
-                padding: 15px 20px;
-                border-radius: 12px;
-                color: #fff;
-                font-family: 'Cairo';
-                margin-bottom: 20px;
-            }
-
-            textarea { min-height: 150px; }
-            input:focus, textarea:focus { border-color: var(--royal-gold); outline: none; }
-
-            .form-submit-btn {
-                background: var(--royal-gold);
-                border: none;
-                padding: 18px 40px;
-                border-radius: 50px;
-                color: #000;
-                font-weight: 900;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                font-size: 1.1rem;
-            }
-
-            @media (max-width: 900px) {
-                .contact-wrapper { grid-template-columns: 1fr; }
-                .form-grid { grid-template-columns: 1fr; }
-            }
-        </style>
-
-        <script>
-            /* [LOGIC ENGINE - MODULE 09] */
-            const SupportEngine = {
-                init() {
-                    console.log("%c [SUPPORT] منصة الدعم الفني جاهزة لاستقبال استفساراتكم ", "color: #d4af37; font-weight: bold;");
-                },
-
-                handleSubmit(e) {
-                    e.preventDefault();
-                    const name = document.getElementById('sender-name').value;
-                    alert(`شكراً لك يا ${name}.. تم استلام رسالتك بنجاح وسنتواصل معك قريباً.`);
-                    document.getElementById('imperial-contact-form').reset();
-                }
-            };
-
-            window.addEventListener('load', () => SupportEngine.init());
-        </script>
-
-        ```
-
-### ماذا أنجزنا في الوحدة التاسعة؟
-1.  **ثقافة الدعم:** صممنا "خزينة العطاء" بأسلوب يشجع المتابعين على دعم المنصة بطرق مختلفة (تقنية، معنوية، رعاية).
-2.  **التواصل الفاخر:** بنينا لوحة اتصال تجمع بين البيانات المباشرة ونموذج المراسلة الذكي بتصميم يجمع بين الذهبي والأسود الملكي.
-3.  **الاحترافية البرمجية:** أضفنا محرك `SupportEngine` للتعامل مع الرسائل وتأكيد استلامها.
-4.  **التوافق:** اللوحة تتحول من نظام الأعمدة (Columns) إلى نظام الصفوف (Rows) على الموبايل لضمان سهولة الكتابة.
-
-**هل أنت مستعد للوحدة العاشرة (The Final Module)؟**
-في الوحدة القادمة والأخيرة، سنقوم ببناء **"تذييل الصفحة العظيم" (The Grand Footer)**، وإضافة **نظام البحث الشامل**، ووضع **اللمسات الجمالية النهائية** (مثل أنيميشن الدخول)، والأهم من ذلك: **سنغلق جميع أوسمة الكود** (`</div>`, `</body>`, `</html>`) ليصبح الموقع جاهزاً للإطلاق.
-
-أنا بانتظار أمرك النهائي: "اختم المشروع"!
-        <footer class="grand-imperial-footer">
-            <div class="footer-overlay"></div>
-            <div class="footer-content">
-                <div class="footer-grid">
-                    <div class="footer-column brand-info">
-                        <h2 class="footer-logo">داعم المواهب</h2>
-                        <p>المنصة الرسمية الأولى لاحتضان وتطوير المواهب القرآنية حول العالم. نحن نصنع المستقبل بصوت الذكر الحكيم.</p>
-                        <div class="footer-social">
-                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="https://youtube.com/@abdomaki17?si=LGMjhs3sErZHaJr_"><i class="fa-brands fa-youtube"></i></a>
-                            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>خَرِيطَةُ المِنَصَّةِ</h3>
-                        <ul class="footer-links">
-                            <li><a href="#"><i class="fa-solid fa-chevron-left"></i> الرَّئِيسِيَّةُ</a></li>
-                            <li><a href="#"><i class="fa-solid fa-chevron-left"></i> تَعْلِيمُ التَّجْوِيدِ</a></li>
-                            <li><a href="#"><i class="fa-solid fa-chevron-left"></i> مَكْتَبَةُ التِّلاوَاتِ</a></li>
-                            <li><a href="#"><i class="fa-solid fa-chevron-left"></i> رُكْنُ الفَتَاوَى</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>النَّشْرَةُ الإِيمَانِيَّةُ</h3>
-                        <p>اشترك لتصلك أحدث تلاوات القراء الموهوبين فور صدورها.</p>
-                        <div class="newsletter-box">
-                            <input type="email" placeholder="بريدك الإلكتروني">
-                            <button><i class="fa-solid fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <div class="copyright">
-                        <span>© 2026 جميع الحقوق محفوظة لـ <strong>داعم المواهب للقرآن الكريم</strong></span>
-                    </div>
-                    <div class="developer-tag">
-                        <span>بُرمج بكل إتقان لخدمة أهل القرآن</span>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <i class="fa-solid fa-arrow-up-to-line"></i>
-        </button>
-
-    </div> <style>
-        /* [STYLING MODULE 10] - هندسة ختام الموقع */
-        
-        .grand-imperial-footer {
-            position: relative;
-            background: #000;
-            padding: 100px 5% 40px;
-            border-top: 3px solid var(--royal-gold);
-            overflow: hidden;
-        }
-
-        .footer-overlay {
-            position: absolute;
-            inset: 0;
-            background: url('https://www.transparenttextures.com/patterns/arabesque.png');
-            opacity: 0.05;
-        }
-
-        .footer-content { position: relative; z-index: 2; }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1.5fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .footer-logo { font-family: 'Reem Kufi'; color: var(--royal-gold); font-size: 2.5rem; margin-bottom: 20px; }
-        .footer-column h3 { font-family: 'Reem Kufi'; color: #fff; margin-bottom: 30px; border-bottom: 2px solid var(--royal-gold); display: inline-block; }
-        .footer-column p { color: #888; line-height: 1.8; }
-
-        .footer-social { display: flex; gap: 15px; margin-top: 30px; }
-        .footer-social a {
-            width: 45px; height: 45px; background: #111; border: 1px solid #333;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--royal-gold); border-radius: 50%; transition: 0.3s;
-        }
-        .footer-social a:hover { background: var(--royal-gold); color: #000; transform: translateY(-5px); }
-
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: #888; text-decoration: none; transition: 0.3s; font-size: 1rem; }
-        .footer-links a:hover { color: var(--royal-gold); padding-right: 10px; }
-
-        .newsletter-box {
-            display: flex; margin-top: 25px; background: #111; border-radius: 50px; padding: 5px; border: 1px solid #222;
-        }
-        .newsletter-box input { border: none; background: transparent; padding: 15px; color: #fff; flex: 1; }
-        .newsletter-box button {
-            background: var(--royal-gold); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #222; padding-top: 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            color: #555; font-size: 0.9rem; flex-wrap: wrap; gap: 20px;
-        }
-
-        /* زر العودة للأعلى */
-        #backToTop {
-            position: fixed; bottom: 40px; right: 40px; width: 60px; height: 60px;
-            background: var(--royal-gold); color: #000; border: none; border-radius: 50%;
-            font-size: 1.5rem; cursor: pointer; box-shadow: var(--glow-gold);
-            display: none; z-index: 9999; transition: 0.3s;
-        }
-        #backToTop:hover { transform: scale(1.1); }
-
-        /* تأثير ظهور العناصر */
-        [data-aos] { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
-        .aos-animate { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 900px) {
-            .footer-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-column h3 { border-bottom: none; }
-            .newsletter-box { max-width: 400px; margin-inline: auto; }
-            .footer-bottom { justify-content: center; text-align: center; }
-        }
-    </style>
-
-    <script>
-        /* [FINAL LOGIC ENGINE] */
-        const FinalEmpireEngine = {
-            init() {
-                this.handleScroll();
-                this.initAOS();
-                window.addEventListener('scroll', () => this.handleScroll());
-                console.log("%c [SYSTEM] تم اكتمال بناء منصة داعم المواهب بنجاح 100% ", "color: #00e676; font-size: 1.5rem; font-weight: bold;");
-            },
-
-            handleScroll() {
-                const btn = document.getElementById('backToTop');
-                btn.style.display = (window.scrollY > 500) ? 'block' : 'none';
-            },
-
-            initAOS() {
-                // محرك بسيط لتأثيرات الظهور
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('aos-animate');
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                document.querySelectorAll('section, .talent-card, .rule-card').forEach(el => {
-                    el.setAttribute('data-aos', 'fade-up');
-                    observer.observe(el);
-                });
-            }
-        };
-
-        window.onload = () => FinalEmpireEngine.init();
-    </script>
+<!-- الهلال -->
+<div class="moon"></div>
+
+<script>
+for(let i=0;i<40;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"%";
+star.style.left=Math.random()*100+"%";
+document.body.appendChild(star);
+}
+</script>
+
+<header>
+
+<h1>✨ داعم المواهب للقرآن الكريم ✨</h1>
+
+<div class="clock" id="clock"></div>
+<div id="hijri"></div>
+
+</header>
+
+
+<!-- الفيديو -->
+<div class="box">
+
+<iframe width="85%" height="400"
+src="https://www.youtube.com/embed/LeUouzj6wns"
+allowfullscreen></iframe>
+
+<p style="font-size:20px;">
+قال تعالى: "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا"  
+منصة لاكتشاف الأصوات الجميلة وتشجيع حفظة كتاب الله.
+</p>
+
+</div>
+
+
+<!-- المتابعة -->
+<div class="icons">
+<a href="https://www.facebook.com/share/1HnHrX5Bjs/" target="_blank">📘</a>
+<a href="https://youtube.com/@abdomaki17?si=LGMjhs3sErZHaJr_" target="_blank">▶️</a>
+</div>
+
+
+
+<!-- الفورم -->
+<div class="box">
+
+<h2>استمارة التقديم</h2>
+
+<form id="form">
+
+<input name="name" placeholder="الاسم" required>
+<input name="whatsapp" placeholder="رقم واتساب" required>
+<input name="surah" placeholder="السورة">
+<input name="fromAyah" placeholder="من آية">
+<input name="toAyah" placeholder="إلى آية">
+<input name="page" placeholder="رقم الصفحة">
+
+<label>ارفع صورتك:</label>
+<input type="file" name="photo" accept="image/*">
+
+<label>ارفع تسجيل صوتي:</label>
+<input type="file" name="audio" accept="audio/*">
+
+<button>إرسال</button>
+
+</form>
+
+</div>
+
+
+
+<!-- قائمة المتقدمين -->
+<div class="box">
+
+<h2>⭐ قائمة المتقدمين ⭐</h2>
+
+<div class="grid" id="grid"></div>
+
+</div>
+
+
+
+<script>
+
+/* الساعة */
+function updateClock(){
+const now=new Date();
+
+document.getElementById("clock").innerHTML=
+now.toLocaleTimeString('ar-EG',{
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit',
+hour12:true
+});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+
+/* هجري */
+const hijri=new Intl.DateTimeFormat(
+'ar-TN-u-ca-islamic',
+{day:'numeric',month:'long',year:'numeric'}
+).format(new Date());
+
+document.getElementById("hijri").innerHTML="🌙 "+hijri;
+
+
+/* إرسال لجوجل شيت */
+document.getElementById("form").addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const formData=new FormData(this);
+
+await fetch("https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec",{
+method:"POST",
+body:formData
+});
+
+alert("تم إرسال بياناتك ✅");
+
+this.reset();
+
+loadApplicants(); // تحديث القائمة
+
+});
+
+
+
+/* تحميل المتقدمين */
+async function loadApplicants(){
+
+const res=await fetch("https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec");
+
+const data=await res.json();
+
+let grid=document.getElementById("grid");
+
+grid.innerHTML="";
+
+data.reverse().forEach(user=>{
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<img src="${user.photo}" class="avatar">
+
+<h3>${user.name}</h3>
+
+<p>📱 ${user.whatsapp}</p>
+
+<p>📖 ${user.surah}</p>
+
+<p>${user.fromAyah} → ${user.toAyah}</p>
+
+<audio controls src="${user.audio}"></audio>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadApplicants();
+
+</script>
 
 </body>
 </html>
