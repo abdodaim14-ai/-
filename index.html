@@ -1,138 +1,142 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>داعم المواهب للقرآن الكريم</title>
+<title>داعم المواهب</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Cairo:wght@300;600&family=Reem+Kufi&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* خلفية */
-body{
+:root{
+--gold:#D4AF37;
+--dark:#0a0a0a;
+--gray:#121212;
+}
+
+*{
 margin:0;
-font-family:'Cairo',sans-serif;
-background:linear-gradient(180deg,#000,#0d0d0d);
-color:gold;
-text-align:center;
-overflow-x:hidden;
+padding:0;
+box-sizing:border-box;
 }
 
-/* الهلال */
-.moon{
+body{
+font-family:'Cairo';
+background:linear-gradient(135deg,#000,#111);
+color:white;
+overflow:hidden;
+}
+
+/* شاشة التحميل الأسطورية */
+
+#loader{
 position:fixed;
-top:40px;
-right:40px;
-width:80px;
-height:80px;
-border-radius:50%;
-box-shadow:-20px 0 0 8px gold;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
 }
 
-/* نجوم */
-.star{
-position:fixed;
-width:3px;
-height:3px;
-background:gold;
-animation:twinkle 2s infinite;
+.crescent{
+font-size:70px;
+color:var(--gold);
+animation:spin 4s linear infinite;
 }
 
-@keyframes twinkle{
-0%{opacity:.2}
-50%{opacity:1}
-100%{opacity:.2}
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+.loadingText{
+margin-top:20px;
+font-size:22px;
+color:var(--gold);
+font-family:'Reem Kufi';
+}
+
+/* الموقع */
+
+.container{
+display:none;
+padding:30px;
 }
 
 header{
-padding:20px;
-border-bottom:1px solid gold;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #333;
+padding-bottom:15px;
 }
 
-/* الساعة */
+.logo{
+font-family:'Reem Kufi';
+font-size:28px;
+color:var(--gold);
+}
+
 .clock{
-font-size:48px;
-font-weight:bold;
+font-size:18px;
 }
 
-/* صندوق */
-.box{
-border:1px solid gold;
-margin:25px;
-padding:20px;
-border-radius:14px;
-box-shadow:0 0 25px rgba(255,215,0,.15);
-}
+/* الكروت */
 
-/* فيديو */
-iframe{
-border-radius:12px;
-box-shadow:0 0 20px rgba(255,215,0,.3);
-}
-
-/* فورم */
-form{
-max-width:600px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-input,button{
-padding:12px;
-border-radius:8px;
-border:none;
-}
-
-button{
-background:gold;
-cursor:pointer;
-font-weight:bold;
-}
-
-/* أيقونات */
-.icons a{
-font-size:30px;
-margin:10px;
-color:gold;
-text-decoration:none;
-}
-
-/* كروت المتقدمين */
 .grid{
-display:flex;
-flex-wrap:wrap;
+margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:20px;
-justify-content:center;
 }
 
 .card{
-background:#111;
-border:1px solid gold;
+background:var(--gray);
 padding:20px;
-border-radius:15px;
-width:260px;
+border-radius:14px;
+border:1px solid #222;
 transition:.3s;
 }
 
 .card:hover{
-transform:scale(1.05);
+transform:translateY(-8px);
+border-color:var(--gold);
 }
 
-.avatar{
-width:110px;
-height:110px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid gold;
+.title{
+color:var(--gold);
+margin-bottom:10px;
+font-family:'Reem Kufi';
 }
 
-audio{
+/* الفورم */
+
+input,button{
 width:100%;
+padding:12px;
 margin-top:10px;
+border:none;
+border-radius:8px;
+}
+
+input{
+background:#1b1b1b;
+color:white;
+}
+
+button{
+background:var(--gold);
+font-weight:bold;
+cursor:pointer;
 }
 
 </style>
@@ -140,178 +144,138 @@ margin-top:10px;
 
 <body>
 
-<!-- الهلال -->
-<div class="moon"></div>
+<!-- شاشة التحميل -->
 
-<script>
-for(let i=0;i<40;i++){
-let star=document.createElement("div");
-star.className="star";
-star.style.top=Math.random()*100+"%";
-star.style.left=Math.random()*100+"%";
-document.body.appendChild(star);
-}
-</script>
+<div id="loader">
+<i class="fas fa-moon crescent"></i>
+<div class="loadingText" id="randomLoader"></div>
+</div>
+
+
+<div class="container" id="site">
 
 <header>
-
-<h1>✨ داعم المواهب للقرآن الكريم ✨</h1>
-
+<div class="logo">✨ داعم المواهب</div>
 <div class="clock" id="clock"></div>
-<div id="hijri"></div>
-
 </header>
 
+<div class="grid">
 
-<!-- الفيديو -->
-<div class="box">
+<div class="card">
+<div class="title">📅 التاريخ الهجري</div>
+<div id="hijri"></div>
+</div>
 
-<iframe width="85%" height="400"
-src="https://www.youtube.com/embed/LeUouzj6wns"
-allowfullscreen></iframe>
+<div class="card">
+<div class="title">🌟 إشراقة اليوم</div>
+<div id="ishraq"></div>
+</div>
 
-<p style="font-size:20px;">
-قال تعالى: "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا"  
-منصة لاكتشاف الأصوات الجميلة وتشجيع حفظة كتاب الله.
-</p>
+<div class="card">
+<div class="title">🕌 من هدي النبوة</div>
+<div id="hadith"></div>
+</div>
+
+<div class="card">
+<div class="title">📖 حكمة</div>
+<div id="wisdom"></div>
+</div>
+
+<div class="card">
+<div class="title">🤲 دعاء</div>
+<div id="dua"></div>
+</div>
+
+<div class="card">
+<div class="title">🚀 إرسال بيانات لجوجل شيت</div>
+
+<input id="name" placeholder="اسمك">
+<input id="talent" placeholder="موهبتك">
+
+<button onclick="sendData()">إرسال الآن</button>
+
+<div id="status"></div>
 
 </div>
 
-
-<!-- المتابعة -->
-<div class="icons">
-<a href="https://www.facebook.com/share/1HnHrX5Bjs/" target="_blank">📘</a>
-<a href="https://youtube.com/@abdomaki17?si=LGMjhs3sErZHaJr_" target="_blank">▶️</a>
 </div>
-
-
-
-<!-- الفورم -->
-<div class="box">
-
-<h2>استمارة التقديم</h2>
-
-<form id="form">
-
-<input name="name" placeholder="الاسم" required>
-<input name="whatsapp" placeholder="رقم واتساب" required>
-<input name="surah" placeholder="السورة">
-<input name="fromAyah" placeholder="من آية">
-<input name="toAyah" placeholder="إلى آية">
-<input name="page" placeholder="رقم الصفحة">
-
-<label>ارفع صورتك:</label>
-<input type="file" name="photo" accept="image/*">
-
-<label>ارفع تسجيل صوتي:</label>
-<input type="file" name="audio" accept="audio/*">
-
-<button>إرسال</button>
-
-</form>
-
 </div>
-
-
-
-<!-- قائمة المتقدمين -->
-<div class="box">
-
-<h2>⭐ قائمة المتقدمين ⭐</h2>
-
-<div class="grid" id="grid"></div>
-
-</div>
-
 
 
 <script>
 
-/* الساعة */
-function updateClock(){
-const now=new Date();
+/* موسوعة 200 عنصر */
 
-document.getElementById("clock").innerHTML=
-now.toLocaleTimeString('ar-EG',{
-hour:'2-digit',
-minute:'2-digit',
-second:'2-digit',
-hour12:true
-});
+function makeItems(prefix){
+let arr=[];
+for(let i=1;i<=50;i++){
+arr.push(prefix+" رقم "+i);
 }
-setInterval(updateClock,1000);
-updateClock();
+return arr;
+}
 
+const ishraqat = makeItems("إشراقة قرآنية");
+const hadith = makeItems("هدي نبوي");
+const wisdom = makeItems("حكمة عظيمة");
+const duas = makeItems("دعاء مبارك");
 
-/* هجري */
-const hijri=new Intl.DateTimeFormat(
-'ar-TN-u-ca-islamic',
-{day:'numeric',month:'long',year:'numeric'}
-).format(new Date());
+function random(arr){
+return arr[Math.floor(Math.random()*arr.length)];
+}
 
-document.getElementById("hijri").innerHTML="🌙 "+hijri;
+/* شاشة التحميل */
+
+document.getElementById("randomLoader").innerText =
+random([...ishraqat,...wisdom,...duas]);
+
+setTimeout(()=>{
+loader.style.display="none";
+site.style.display="block";
+document.body.style.overflow="auto";
+},3500);
+
+/* الساعة */
+
+setInterval(()=>{
+const now=new Date();
+clock.innerText=now.toLocaleTimeString('ar-EG');
+},1000);
+
+/* التاريخ الهجري */
+
+const hijriDate=new Intl.DateTimeFormat('ar-TN-u-ca-islamic',{
+day:'numeric',
+month:'long',
+year:'numeric'
+}).format(new Date());
+
+document.getElementById("hijri").innerText=hijriDate;
+
+/* عرض عشوائي */
+
+ishraq.innerText=random(ishraqat);
+hadith.innerText=random(hadith);
+wisdom.innerText=random(wisdom);
+dua.innerText=random(duas);
 
 
 /* إرسال لجوجل شيت */
-document.getElementById("form").addEventListener("submit", async function(e){
 
-e.preventDefault();
+function sendData(){
 
-const formData=new FormData(this);
+const data={
+name:document.getElementById("name").value,
+talent:document.getElementById("talent").value
+};
 
-await fetch("https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec",{
+fetch("YOUR_GOOGLE_SCRIPT_URL",{
 method:"POST",
-body:formData
-});
-
-alert("تم إرسال بياناتك ✅");
-
-this.reset();
-
-loadApplicants(); // تحديث القائمة
-
-});
-
-
-
-/* تحميل المتقدمين */
-async function loadApplicants(){
-
-const res=await fetch("https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec");
-
-const data=await res.json();
-
-let grid=document.getElementById("grid");
-
-grid.innerHTML="";
-
-data.reverse().forEach(user=>{
-
-grid.innerHTML+=`
-
-<div class="card">
-
-<img src="${user.photo}" class="avatar">
-
-<h3>${user.name}</h3>
-
-<p>📱 ${user.whatsapp}</p>
-
-<p>📖 ${user.surah}</p>
-
-<p>${user.fromAyah} → ${user.toAyah}</p>
-
-<audio controls src="${user.audio}"></audio>
-
-</div>
-
-`;
-
-});
+body:JSON.stringify(data)
+})
+.then(()=>status.innerHTML="✅ تم الإرسال بنجاح")
+.catch(()=>status.innerHTML="❌ فشل الاتصال");
 
 }
-
-loadApplicants();
 
 </script>
 
