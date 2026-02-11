@@ -10,13 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
+        :root { 
+            --gold: #ffcc33; 
+            --gold-dark: #b8860b;
+            --gold-glow: rgba(255, 204, 51, 0.4); 
+            --bg-dark: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+        }
         
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
-            background: #000;
-            min-height: 100vh; padding: 20px 0 120px 0;
+            background: var(--bg-dark);
+            min-height: 100vh; padding: 20px 0 140px 0;
             overflow-x: hidden;
             position: relative;
         }
@@ -27,115 +33,118 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
         @media (min-width: 768px) {
             .container { max-width: 700px; }
-            .form-card { padding: 35px; }
+            .form-card { padding: 40px; }
         }
         
-        .header-section { text-align: center; margin-bottom: 25px; }
-        .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
-        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
-        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
+        .header-section { text-align: center; margin-bottom: 35px; }
+        .logo-main { width: 140px; filter: drop-shadow(0 0 20px var(--gold-glow)); animation: pulse 2.5s infinite ease-in-out; }
+        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.4rem; margin-top: 15px; letter-spacing: 1px; }
+        .quran-verse { font-family: 'Cairo'; font-size: 2.2rem; margin: 20px 0; color: #fff; font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,1), 0 0 20px var(--gold-glow); }
 
-        .info-bar { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); }
-        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
-        .info-item:hover { transform: scale(1.05); }
-        .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
-        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
-        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
-        .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
+        .info-bar { 
+            background: linear-gradient(145deg, rgba(30,30,30,0.9), rgba(10,10,10,0.95)); 
+            border: 1px solid var(--gold-dark); 
+            border-radius: 25px; padding: 20px; margin-bottom: 30px; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
+            text-align: center; backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.4s; }
+        .info-item:hover { transform: translateY(-5px); }
+        .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.5rem; }
+        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #ccc; }
+        .time-display { font-size: 1.3rem; color: var(--gold); font-weight: 900; letter-spacing: 2px; text-shadow: 0 0 5px var(--gold-glow); }
+        .counter-val { font-size: 1.5rem; color: #fff; font-weight: 900; }
         
-        /* تنسيق الحدث التاريخي الهجري والميلادي */
-        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; line-height: 1.4; }
+        .hijri-event-tag { 
+            font-size: 0.8rem; color: #000; background: linear-gradient(90deg, var(--gold), #fff); 
+            padding: 5px 12px; border-radius: 8px; font-weight: 900; margin-top: 10px; 
+            display: inline-block; animation: flash 2s infinite; box-shadow: 0 4px 10px var(--gold-glow);
+        }
 
-        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
-        .criteria-list { list-style: none; padding: 0; margin: 0; }
-        .criteria-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
-        .criteria-list i { color: var(--gold); margin-top: 4px; font-size: 0.85rem; }
-        .ann-footer { border-top: 1px solid rgba(255,204,51,0.2); padding-top: 10px; margin-top: 10px; font-weight: bold; color: var(--gold); font-size: 0.9rem; text-align: center; }
-
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; }
-        .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; z-index: 2; position: relative; }
-        .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255,204,51,0.05); }
-
-        .video-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 10px; display: block; text-align: center; font-weight: bold; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.3s; }
-        .video-box:hover { transform: scale(1.02); }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
-        .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
+        .announcement-card { background: var(--card-bg); border: 1px solid var(--gold-dark); border-radius: 25px; padding: 25px; margin-bottom: 30px; text-align: right; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .ann-text { font-size: 1rem; line-height: 1.8; color: #eee; margin-bottom: 20px; }
         
-        /* تنسيق الأزرار الاجتماعية المحفزة */
-        .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
-        .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
-        .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
-        .s-box i { font-size: 1.4rem; color: var(--gold); }
-        .s-box span { font-size: 0.55rem; color: #fff; margin-top: 2px; font-weight: bold; }
-        .s-box:hover { background: var(--gold); transform: translateY(-5px); }
+        .motivational-box { 
+            text-align: center; background: linear-gradient(90deg, rgba(255,204,51,0.15), transparent); 
+            border-right: 5px solid var(--gold); padding: 20px; margin-bottom: 35px; 
+            border-radius: 0 20px 20px 0; backdrop-filter: blur(5px); position: relative; overflow: hidden; 
+        }
+        .motivational-box p { font-size: 1.1rem; color: #fff; line-height: 1.7; margin: 0; font-weight: bold; position: relative; z-index: 2; font-style: italic; }
+        .motivational-box::after { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 5rem; color: rgba(255,204,51,0.07); }
+
+        .video-label { color: var(--gold); font-size: 1rem; margin-bottom: 15px; display: block; text-align: center; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .video-box { border: 3px solid var(--gold-dark); border-radius: 25px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 30px var(--gold-glow); margin-bottom: 30px; position: relative; transition: 0.5s ease; }
+        .video-box:hover { transform: scale(1.03); border-color: var(--gold); }
+        
+        .social-call { text-align: center; margin: 30px 0; background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 25px; border: 1px dashed var(--gold-dark); }
+        .social-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+        .s-box { 
+            background: #000; width: 65px; height: 65px; border-radius: 20px; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            text-decoration: none; border: 2px solid var(--gold-dark); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .s-box:hover { background: var(--gold); transform: translateY(-10px) rotate(5deg); border-color: #fff; }
+        .s-box i { font-size: 1.6rem; color: var(--gold); transition: 0.3s; }
+        .s-box span { font-size: 0.65rem; color: #fff; margin-top: 4px; font-weight: bold; }
         .s-box:hover i, .s-box:hover span { color: #000; }
-        .s-box.youtube:hover { box-shadow: 0 0 20px #ff0000; border-color: #ff0000; }
-        .s-box.facebook:hover { box-shadow: 0 0 20px #1877f2; border-color: #1877f2; }
         
-        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
-        .form-card:hover { border-color: #fff; box-shadow: 0 0 30px var(--gold-glow); }
-        .field { text-align: right; margin-bottom: 15px; position: relative; }
-        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
-        
-        .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
-        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
-        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
-
-        .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; border-radius: 3px; }
-        
-        .iti { width: 100%; direction: ltr; }
-        .iti__selected-dial-code { display: none !important; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
-        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
-
-        .flex-row { display: flex; gap: 10px; }
-        .flex-row .field { flex: 1; }
-
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.05); min-height: 100px; position: relative; overflow: hidden; }
-        .upload-item:hover { background: rgba(255, 204, 51, 0.1); transform: translateY(-3px); border-style: solid; }
-        .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; }
-        
-        .preview-img-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 5px; }
-        #audioPreview { width: 100%; height: 30px; margin-top: 8px; display: none; }
-
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(255,204,51,0.3); }
-        .main-btn:hover { box-shadow: 0 0 30px var(--gold); transform: translateY(-2px) scale(1.02); letter-spacing: 1px; }
-
-        .footer-credit { text-align: center; margin-top: 40px; }
-        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.3rem; display: block; margin-bottom: 5px; }
-        .footer-credit .pray { color: #888; font-size: 0.9rem; }
-        .quran-final-verse { color: var(--gold); font-family: 'Cairo'; font-size: 1.5rem; font-weight: 900; margin-top: 30px; text-shadow: 0 0 10px var(--gold-glow); animation: fadeIn 3s infinite alternate; }
-
-        #loadingOverlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
-            flex-direction: column; text-align: center; padding: 20px;
+        .form-card { 
+            background: linear-gradient(180deg, rgba(20,20,20,0.98), rgba(5,5,5,1)); 
+            border: 1px solid rgba(255,204,51,0.3); padding: 30px; border-radius: 35px; 
+            text-align: center; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.9); transition: 0.4s; 
         }
-        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'Cairo'; }
+        .field { text-align: right; margin-bottom: 20px; }
+        .field label { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--gold); font-size: 0.95rem; font-weight: 700; }
+        
+        .field input, .field select { 
+            width: 100%; padding: 14px 45px 14px 15px; background: rgba(255,255,255,0.05); 
+            border: 1px solid #333; color: #fff; border-radius: 15px; outline: none; 
+            box-sizing: border-box; transition: 0.4s; font-family: 'Almarai';
+        }
+        .field input:focus, .field select:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); box-shadow: 0 0 15px var(--gold-glow); }
+        .input-w-icon i:not(.iti__icon) { position: absolute; right: 15px; top: 16px; color: var(--gold); font-size: 1rem; z-index: 2; }
 
-        #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; }
-        #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
-        #quizA { color: #fff; font-size: 1.1rem; opacity: 0; transition: 0.8s; line-height: 1.6; }
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .upload-item { 
+            border: 2px dashed rgba(255,204,51,0.4); padding: 20px; border-radius: 20px; 
+            background: rgba(255,204,51,0.03); transition: 0.4s; min-height: 120px;
+        }
+        .upload-item:hover { border-color: var(--gold); background: rgba(255,204,51,0.08); transform: scale(1.02); }
+        
+        .main-btn { 
+            width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800, #ffcc33); 
+            background-size: 200% auto; color: #000; padding: 18px; border: none; 
+            border-radius: 15px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; 
+            cursor: pointer; transition: 0.5s; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .main-btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 15px 30px var(--gold-glow); }
 
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; }
-        .fixed-call-btn:hover { background: #111; transform: translateX(-50%) scale(1.02); }
-        .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
-        .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
+        .quran-final-verse { color: var(--gold); font-family: 'Cairo'; font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; text-shadow: 0 0 15px var(--gold-glow); }
+        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.4rem; display: block; }
+        
+        #loadingOverlay { 
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%); 
+        }
+        #progressText { text-shadow: 0 0 30px var(--gold); font-size: 4.5rem; }
 
-        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .fixed-call-btn { 
+            bottom: 25px; background: rgba(0,0,0,0.85); border: 1.5px solid var(--gold); 
+            padding: 18px; backdrop-filter: blur(10px); width: 85%;
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 30px var(--gold-glow)); } }
+        
+        /* تحسينات إضافية للمكتبات الخارجية */
+        .iti__country-list { border-radius: 15px; margin-top: 10px; box-shadow: 0 10px 30px #000; }
+        .preview-img-circle { box-shadow: 0 0 15px var(--gold); }
     </style>
 </head>
 <body>
@@ -144,9 +153,9 @@
 
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
-    <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
+    <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-3x"></i></div>
     <div id="quizBox">
-        <p style="color:#888; font-size:0.8rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
+        <p style="color:#888; font-size:0.9rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
         <div id="quizQ">بستان المؤمن..</div>
         <div id="quizA">...</div>
     </div>
@@ -160,7 +169,7 @@
     </div>
 
     <div class="info-bar animate__animated animate__zoomIn">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
+        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.2)">
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
             <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
@@ -197,7 +206,7 @@
                 <span>يوتيوب</span>
             </a>
         </div>
-        <p style="font-size: 0.75rem; color: #aaa; margin-top: 10px;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
+        <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
     </div>
 
     <div class="form-card animate__animated animate__fadeInUp">
@@ -247,7 +256,7 @@
             </div>
             
             <button type="submit" id="btn" class="main-btn">
-                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن (مجاناً)
+                <i class="fas fa-paper-plane"></i> انشر نور تلاوتك الآن (مجاناً)
             </button>
         </form>
     </div>
@@ -260,7 +269,7 @@
 </div>
 
 <a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-tools"></i>
+    <i class="fas fa-headset"></i>
     <span>للمشاكل الفنية اضغط هنا</span>
 </a>
 
@@ -509,4 +518,4 @@
     });
 </script>
 </body>
-    </html>
+</html>
