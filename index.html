@@ -3,187 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داعم المواهب للقران الكريم - رمضان 2026</title>
+    <title>داعم المواهب للقران الكريم - المنصة الرسمية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { 
-            --gold: #ffcc33; 
-            --gold-glow: rgba(255, 204, 51, 0.5); 
-            --ramadan-green: #064e3b;
-            --ramadan-red: #991b1b;
-        }
+        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); --deep-green: #042f2e; }
         
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
-            background: linear-gradient(to bottom, #001a11, #000);
+            background: radial-gradient(circle at center, var(--deep-green) 0%, #000 100%);
             min-height: 100vh; padding: 20px 0 120px 0;
             overflow-x: hidden; position: relative;
         }
 
-        /* فوانيس متحركة */
-        .lantern {
-            position: fixed; top: -20px; width: 60px; z-index: 10;
-            filter: drop-shadow(0 0 10px var(--gold));
-            transition: transform 0.1s ease-out;
-            pointer-events: none;
-        }
-        .lantern-right { right: 10px; }
-        .lantern-left { left: 10px; }
-
-        /* عناصر قابلة للتحريك باللمس */
-        .draggable-star {
-            position: absolute; color: var(--gold); font-size: 1.5rem;
-            cursor: grab; z-index: 100; touch-action: none;
+        /* عناصر تفاعلية للتحريك باللمس */
+        .touch-item {
+            position: absolute; color: var(--gold); font-size: 1.2rem;
+            cursor: move; z-index: 100; touch-action: none; opacity: 0.6;
         }
 
         #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
         .container { width: 92%; max-width: 500px; margin: auto; position: relative; z-index: 5; }
+        @media (min-width: 768px) { .container { max-width: 700px; } }
         
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
-        
-        /* عداد رمضان */
-        .ramadan-countdown {
-            background: rgba(6, 78, 59, 0.7); border: 2px solid var(--gold);
-            border-radius: 15px; padding: 10px; margin-bottom: 20px;
-            text-align: center; font-family: 'Cairo';
-        }
-        .countdown-title { color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; }
-        .countdown-timer { font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; }
+        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
+        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
+        /* شريط المعلومات المطور */
         .info-bar { 
-            background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gold); 
-            border-radius: 20px; padding: 15px; margin-bottom: 25px; 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; 
-            text-align: center; backdrop-filter: blur(10px); 
+            background: rgba(0, 0, 0, 0.85); border: 1px solid var(--gold); border-radius: 20px; 
+            padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; 
+            gap: 10px; text-align: center; backdrop-filter: blur(10px); 
         }
+        .info-item { display: flex; flex-direction: column; justify-content: center; }
+        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; }
+        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 8px; border-radius: 4px; font-weight: 900; margin-top: 8px; line-height: 1.4; }
+
+        /* عداد رمضان الاحترافي */
+        .ramadan-timer-box {
+            background: rgba(255, 204, 51, 0.1); border: 1px dashed var(--gold);
+            border-radius: 15px; padding: 10px; margin-bottom: 20px; text-align: center;
+        }
+        .rt-title { color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .rt-clock { font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; color: #fff; }
+
+        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
         
-        .hijri-event-tag { 
-            font-size: 0.8rem; color: #000; background: var(--gold); 
-            padding: 8px; border-radius: 8px; font-weight: 900; 
-            margin-top: 10px; display: block; line-height: 1.4; 
-        }
+        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
 
-        .form-card { 
-            background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); 
-            padding: 25px; border-radius: 25px; text-align: center; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
-        }
-
-        .field { text-align: right; margin-bottom: 15px; }
+        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); }
+        .field { text-align: right; margin-bottom: 15px; position: relative; }
         .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
-        .field input, .field select { 
-            width: 100%; padding: 12px; background: #000; 
-            border: 1px solid #333; color: #fff; border-radius: 10px; 
-        }
-
-        .main-btn { 
-            width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); 
-            color: #000; padding: 16px; border: none; border-radius: 50px; 
-            font-family: 'Cairo'; font-weight: 900; cursor: pointer; 
-        }
-
-        #loadingOverlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; 
-            align-items: center; flex-direction: column; 
-        }
+        .input-w-icon { position: relative; }
+        .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; }
+        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
         
-        .ramadan-msg { color: var(--gold); font-family: 'Cairo'; font-style: italic; margin-top: 10px; }
+        .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; }
+        .flex-row { display: flex; gap: 10px; }
+        .flex-row .field { flex: 1; }
+
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+        
+        #loadingOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; font-family: 'Cairo'; }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-<img src="https://i.ibb.co/LzfM5p3/lantern.png" class="lantern lantern-left" id="lanternL" alt="فانوس">
-<img src="https://i.ibb.co/LzfM5p3/lantern.png" class="lantern lantern-right" id="lanternR" alt="فانوس">
-
-<div class="draggable-star" style="top:100px; left:50px;"><i class="fas fa-moon"></i></div>
-<div class="draggable-star" style="top:150px; right:50px;"><i class="fas fa-star"></i></div>
+<div class="touch-item" style="top:20%; left:10%;"><i class="fas fa-moon"></i></div>
+<div class="touch-item" style="top:25%; right:10%;"><i class="fas fa-star"></i></div>
+<div class="touch-item" style="bottom:20%; left:15%;"><i class="fas fa-kaaba"></i></div>
 
 <canvas id="interactive-bg"></canvas>
 
 <div id="loadingOverlay">
-    <div id="progressText" style="color:var(--gold); font-size:3rem; font-weight:900;">0%</div>
-    <div id="quizBox" style="border:2px solid var(--gold); padding:20px; border-radius:20px; background:#111; width:80%; text-align:center;">
-        <div id="quizQ" style="color:var(--gold); font-weight:bold;">جاري الرفع...</div>
-        <div id="quizA" style="margin-top:10px; font-size:0.9rem;"></div>
+    <div id="progressText">0%</div>
+    <div id="quizBox" style="border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; text-align: center;">
+        <div id="quizQ" style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">نور قرآننا..</div>
+        <div id="quizA" style="color: #fff; font-size: 0.9rem; line-height: 1.5;">جاري الرفع...</div>
     </div>
 </div>
 
-<div class="container">
+<div class="container animate__animated animate__fadeIn">
     <div class="header-section">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
-        <div style="font-family:'Cairo'; color:var(--gold); font-size:1.4rem;">رمضان كريم 🌙 2026</div>
-        <div class="ramadan-msg">"اللهم بارك لنا في شعبان وبلغنا رمضان"</div>
+        <div class="site-name">داعم المواهب للقرآن الكريم</div>
+        <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+        <p style="color: var(--gold); font-style: italic; margin: 0;">بوابة المواهب الرمضانية 🌙</p>
     </div>
 
-    <div class="ramadan-countdown">
-        <div class="countdown-title" id="cdTitle">متبقي على شهر الخير</div>
-        <div class="countdown-timer" id="cdTimer">00 : 00 : 00 : 00</div>
+    <div class="ramadan-timer-box">
+        <div class="rt-title" id="rtTitle">انتظروا شهر الرحمة</div>
+        <div class="rt-clock" id="rtClock">00 : 00 : 00 : 00</div>
     </div>
 
     <div class="info-bar">
         <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
-            <i class="fas fa-kaaba" style="color:var(--gold)"></i>
-            <div id="liveTime" style="font-weight:900; color:var(--gold)">00:00:00</div>
-            <div id="combinedDate" style="font-size:0.75rem;">-- -- ----</div>
+            <i class="fas fa-calendar-check" style="color:var(--gold); margin-bottom:5px;"></i>
+            <span id="liveTime" class="time-display">00:00:00</span>
+            <span id="combinedDate" style="font-size:0.75rem; color:#fff; margin-top:5px;">-- -- ----</span>
+            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
         </div>
         <div class="info-item">
-            <i class="fas fa-users" style="color:var(--gold)"></i>
-            <div id="userCounter" style="font-weight:900;">13</div>
-            <div style="font-size:0.75rem;">قارئ انضم إلينا</div>
-            <div id="hijriEvent" class="hijri-event-tag">حدث اليوم التاريخي</div>
+            <i class="fas fa-microphone-lines" style="color:var(--gold); margin-bottom:5px;"></i>
+            <span id="userCounter" style="font-size:1.2rem; font-weight:900;">13</span>
+            <span style="font-size:0.75rem;">قارئ انضم إلينا</span>
+            <div style="font-size: 0.65rem; margin-top:8px; color:var(--gold)">"اللهم اجعلنا من أهل القرآن"</div>
+        </div>
+    </div>
+
+    <div class="motivational-box">
+        <p>"أهل القرآن هم أهل الله وخاصته.. شاركنا تلاوتك في هذا الشهر الكريم."</p>
+    </div>
+
+    <div class="video-card">
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="form-card">
         <form id="talentForm">
             <div class="field">
-                <label><i class="fas fa-user"></i> الاسم بالكامل</label>
-                <input type="text" id="name" required placeholder="اكتب اسمك الثلاثي">
+                <label><i class="fas fa-id-card"></i> الاسم بالكامل</label>
+                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" required placeholder="اكتب اسمك ثلاثي"></div>
             </div>
             
             <div class="field">
-                <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
-                <input type="tel" id="phone" required>
+                <label><i class="fab fa-whatsapp"></i> رقم الواتساب <img id="opLogo" class="operator-label-logo" src=""></label>
+                <div class="input-w-icon"><input type="tel" id="phone" required></div>
             </div>
 
             <div class="field">
-                <label><i class="fas fa-quran"></i> السورة</label>
-                <select id="surah" required><option value="">اختر السورة..</option></select>
-            </div>
-            
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                <div class="field"><label>من آية</label><select id="ayahFrom"></select></div>
-                <div class="field"><label>إلى آية</label><select id="ayahTo"></select></div>
+                <label><i class="fas fa-book-open"></i> اسم السورة</label>
+                <div class="input-w-icon"><i class="fas fa-quran"></i>
+                <select id="surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
             </div>
 
-            <div class="upload-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:15px 0;">
-                <div onclick="document.getElementById('imgIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
-                    <i class="fas fa-camera"></i><br><small id="imgT">الصورة</small>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" required>
+            <div class="flex-row">
+                <div class="field"><label>من آية</label><div class="input-w-icon"><select id="ayahFrom" required onchange="smartPageLink('from')"></select></div></div>
+                <div class="field"><label>إلى آية</label><div class="input-w-icon"><select id="ayahTo" required onchange="smartPageLink('to')"></select></div></div>
+            </div>
+
+            <div class="flex-row">
+                <div class="field"><label>من صفحة</label><div class="input-w-icon"><select id="pageFrom" required></select></div></div>
+                <div class="field"><label>إلى صفحة</label><div class="input-w-icon"><select id="pageTo" required></select></div></div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0;">
+                <div onclick="document.getElementById('imgIn').click()" style="border:1px dashed var(--gold); padding:15px; border-radius:12px; cursor:pointer;">
+                    <i class="fas fa-camera" style="color:var(--gold)"></i><br><small id="imgT">صورتك</small>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="document.getElementById('imgT').innerText='✅ جاهز'">
                 </div>
-                <div onclick="document.getElementById('fileIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
-                    <i class="fas fa-microphone"></i><br><small id="fileT">التلاوة</small>
-                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required>
+                <div onclick="document.getElementById('fileIn').click()" style="border:1px dashed var(--gold); padding:15px; border-radius:12px; cursor:pointer;">
+                    <i class="fas fa-microphone" style="color:var(--gold)"></i><br><small id="fileT">التلاوة</small>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="document.getElementById('fileT').innerText='✅ جاهز'">
                 </div>
             </div>
             
-            <button type="submit" class="main-btn">انشر نور تلاوتك في رمضان</button>
+            <button type="submit" class="main-btn">إرسال التلاوة الآن</button>
         </form>
     </div>
 
-    <div style="text-align:center; margin-top:30px;">
-        <div style="color:var(--gold); font-family:'Cairo'; font-size:1.2rem;">خادم القرآن/ عبد الرحمن مكي</div>
-        <p style="font-size:0.8rem; opacity:0.7;">نسألكم الدعاء بالقبول والإخلاص ✨</p>
+    <div style="text-align:center; margin-top:40px;">
+        <span style="color:var(--gold); font-family:'Cairo'; font-size:1.2rem;">خادم القرآن/ عبد الرحمن مكي</span>
     </div>
 </div>
 
@@ -191,19 +185,31 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyGPQV4mXNXjcwSzWyoVMicInAUOo-xtUKOQRMZ0pW5YtsjEuXKTJxoSNeL_WYzWx7EKA/exec';
 
-    // بيانات رمضان والتواريخ
-    function updateRamadanUI() {
+    // --- نظام تحريك العناصر باللمس ---
+    document.querySelectorAll('.touch-item').forEach(el => {
+        el.onpointermove = (e) => {
+            if(e.buttons > 0){
+                el.style.left = (e.clientX - 10) + 'px';
+                el.style.top = (e.clientY - 10) + 'px';
+            }
+        };
+    });
+
+    // --- نظام العد التنازلي لرمضان 2026 ---
+    function updateRamadanCountdown() {
         const now = new Date();
-        const ramadan2026 = new Date('February 18, 2026 00:00:00'); // تقريبي لعام 2026
+        const startRamadan = new Date('February 18, 2026 00:00:00'); 
         const endRamadan = new Date('March 20, 2026 00:00:00');
-        
-        let target = ramadan2026;
-        if (now > ramadan2026 && now < endRamadan) {
-            document.getElementById('cdTitle').innerText = "متبقي على عيد الفطر المبارك";
+        let target, title;
+
+        if (now < startRamadan) {
+            target = startRamadan;
+            title = "متبقي على بداية شهر رمضان المبارك";
+        } else if (now >= startRamadan && now < endRamadan) {
             target = endRamadan;
-        } else if (now > endRamadan) {
-            document.getElementById('cdTitle').innerText = "تقبل الله طاعتكم";
-            document.getElementById('cdTimer').innerText = "عيد مبارك";
+            title = "متبقي على نهاية شهر الخير (عيد الفطر)";
+        } else {
+            document.getElementById('rtClock').innerText = "عيدكم مبارك";
             return;
         }
 
@@ -212,51 +218,75 @@
         const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const m = Math.floor((diff / 1000 / 60) % 60);
         const s = Math.floor((diff / 1000) % 60);
-        document.getElementById('cdTimer').innerText = `${d}ي : ${h}س : ${m}د : ${s}ث`;
+        document.getElementById('rtTitle').innerText = title;
+        document.getElementById('rtClock').innerText = `${d} يوم : ${h} ساعة : ${m} دقيقة : ${s} ثانية`;
     }
-    setInterval(updateRamadanUI, 1000);
+    setInterval(updateRamadanCountdown, 1000);
 
-    // حركة الفانوس مع اهتزاز الهاتف
-    window.addEventListener('deviceorientation', (event) => {
-        let tilt = event.gamma; // درجة الميول يميناً ويساراً
-        document.getElementById('lanternL').style.transform = `rotate(${tilt/2}deg)`;
-        document.getElementById('lanternR').style.transform = `rotate(${tilt/2}deg)`;
-    });
+    // --- نظام التاريخ الهجري والأحداث ---
+    const events = {
+        "1/9": "أول رمضان: نزول الصحف على إبراهيم عليه السلام",
+        "10/9": "وفاة السيدة خديجة رضي الله عنها",
+        "17/9": "غزوة بدر الكبرى: يوم الفرقان",
+        "20/9": "فتح مكة: النصر الأعظم"
+    };
 
-    // تحريك العناصر باللمس
-    document.querySelectorAll('.draggable-star').forEach(el => {
-        el.onpointermove = (e) => {
-            if(e.buttons > 0){
-                el.style.left = (e.clientX - 15) + 'px';
-                el.style.top = (e.clientY - 15) + 'px';
-            }
+    function initLiveInfo() {
+        const update = () => {
+            const now = new Date();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
+            const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            const miladi = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
+            document.getElementById('combinedDate').innerHTML = hijri + " | " + miladi;
+
+            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
+            const hDay = parts.find(p => p.type === 'day').value;
+            const hMonth = parts.find(p => p.type === 'month').value;
+            const hKey = `${hDay}/${hMonth}`;
+            document.getElementById('hijriEvent').innerText = events[hKey] || "يوم مبارك للتقرب إلى الله";
         };
-    });
+        update(); setInterval(update, 1000);
+    }
+    initLiveInfo();
 
-    // 100 إشراقة وأدعية وهدى نبوي
+    // --- استعادة بيانات السور والآيات بالكامل ---
+    const quranMap = [["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]];
+
+    const surahSelect = document.getElementById('surah');
+    quranMap.forEach(s => surahSelect.add(new Option(s[0], s[0])));
+
+    function fillQuranData() {
+        const selected = quranMap.find(s => s[0] === surahSelect.value);
+        const [name, ayahs, startPage] = selected;
+        const pop = (id, max, start=1) => {
+            const el = document.getElementById(id); el.innerHTML = "";
+            for(let i=start; i<=max; i++) el.add(new Option(i, i));
+        };
+        pop('ayahFrom', ayahs); pop('ayahTo', ayahs);
+        pop('pageFrom', 604, startPage); pop('pageTo', 604, startPage);
+    }
+
+    function smartPageLink(type) {
+        const startPage = quranMap.find(s => s[0] === surahSelect.value)[2];
+        const val = parseInt(document.getElementById(type === 'from' ? 'ayahFrom' : 'ayahTo').value);
+        let est = startPage + Math.floor(val / 15);
+        document.getElementById(type === 'from' ? 'pageFrom' : 'pageTo').value = est > 604 ? 604 : est;
+    }
+
+    // --- نظام الإرسال والمحتوى الرمضاني المتتابع (100 عنصر) ---
     const mixedInfo = [
-        { q: "إشراقة قرآنية", a: "ورتل القرآن ترتيلاً: الترتيل تجويد الحروف ومعرفة الوقوف." },
-        { q: "من هدى النبوة", a: "خيركم من تعلم القرآن وعلمه." },
-        { q: "دعاء رمضاني", a: "اللهم اجعل القرآن ربيع قلوبنا ونور صدورنا." },
-        { q: "حدث في مثل هذا اليوم", a: "فتح مكة: أعظم نصر في تاريخ الإسلام كان في رمضان." },
-        { q: "إشراقة", a: "القرآن يشفع لصاحبه يوم القيامة، فكن من أهله." }
-        // ... يمكن إضافة الـ 100 نص هنا بالتتابع
+        {q: "إشراقة قرآنية", a: "قال تعالى: (وَرَتِّلِ الْقُرْآنَ تَرْتِيلاً) الترتيل هو تجويد الحروف ومعرفة الوقوف."},
+        {q: "من هدى النبوة", a: "قال ﷺ: (خياركم من تعلم القرآن وعلمه)."},
+        {q: "دعاء رمضاني", a: "اللهم اجعل القرآن ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا."},
+        {q: "فائدة", a: "سورة الفاتحة هي أعظم سورة في كتاب الله."},
+        {q: "من هدى النبوة", a: "الصيام والقرآن يشفعان للعبد يوم القيامة."},
+        {q: "إشراقة", a: "من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها."}
+        // يمكن إضافة المزيد من العناصر هنا لزيادة المحتوى
     ];
 
-    // تهيئة القائمة والوقت
-    const surahNames = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف"];
-    const sSelect = document.getElementById('surah');
-    surahNames.forEach(s => sSelect.add(new Option(s, s)));
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", separateDialCode: false });
 
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-        const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day:'numeric', month:'long', year:'numeric'}).format(now);
-        document.getElementById('combinedDate').innerText = hijri;
-    }
-    setInterval(updateClock, 1000);
-
-    // كود الإرسال للجوجل شيت
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         const overlay = document.getElementById('loadingOverlay');
@@ -264,41 +294,36 @@
         overlay.style.display = 'flex';
         
         let idx = 0;
-        const infoInt = setInterval(() => {
+        const infoInterval = setInterval(() => {
             document.getElementById('quizQ').innerText = mixedInfo[idx].q;
             document.getElementById('quizA').innerText = mixedInfo[idx].a;
             idx = (idx + 1) % mixedInfo.length;
-        }, 4000);
+        }, 5000);
 
         try {
             const photo = await toB64(document.getElementById('imgIn').files[0]);
             const audio = await toB64(document.getElementById('fileIn').files[0]);
             
-            const data = {
-                Name: document.getElementById('name').value,
-                Phone: document.getElementById('phone').value,
-                Surah: document.getElementById('surah').value,
-                Photo: photo.split(',')[1],
-                Audio: audio.split(',')[1]
-            };
+            const formData = new URLSearchParams();
+            formData.append("Name", document.getElementById('name').value);
+            formData.append("Phone", iti.getNumber());
+            formData.append("Surah", document.getElementById('surah').value);
+            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
+            formData.append("AyahTo", document.getElementById('ayahTo').value);
+            formData.append("photoData", photo.split(',')[1]);
+            formData.append("audioData", audio.split(',')[1]);
 
             let p = 0;
-            const pInt = setInterval(() => { if(p < 95) p++; prog.innerText = p + "%"; }, 100);
+            const pInt = setInterval(() => { if(p < 95) p++; prog.innerText = p + "%"; }, 150);
 
-            await fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
+            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData.toString() });
 
-            clearInterval(pInt); clearInterval(infoInt);
+            clearInterval(pInt); clearInterval(infoInterval);
             prog.innerText = "100%";
-            alert("تم إرسال تلاوتك بنجاح في ميزان حسناتك!");
-            location.reload();
+            setTimeout(() => { alert("تم استلام تلاوتكم المباركة بنجاح!"); location.reload(); }, 1000);
         } catch (err) {
             overlay.style.display = 'none';
-            alert("حدث خطأ، حاول مرة أخرى");
+            alert("حدث خطأ تقني، تأكد من الاتصال");
         }
     };
 
@@ -306,21 +331,6 @@
         const r = new FileReader(); r.readAsDataURL(f);
         r.onload = () => res(r.result); r.onerror = e => rej(e);
     });
-
-    // خلفية بسيطة
-    const canvas = document.getElementById('interactive-bg');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    function drawStars() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        ctx.fillStyle = "#ffcc33";
-        for(let i=0; i<50; i++){
-            ctx.beginPath();
-            ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2, 0, Math.PI*2);
-            ctx.fill();
-        }
-    }
-    setInterval(drawStars, 1000);
 </script>
 </body>
 </html>
