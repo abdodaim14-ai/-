@@ -3,141 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داعم المواهب للقران الكريم - المنصة الرسمية</title>
+    <title>داعم المواهب للقران الكريم</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); --deep-green: #042f2e; }
+        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
         
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
-            background: radial-gradient(circle at center, var(--deep-green) 0%, #000 100%);
+            background: #000;
             min-height: 100vh; padding: 20px 0 120px 0;
-            overflow-x: hidden; position: relative;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* عناصر تفاعلية للتحريك باللمس */
-        .touch-item {
-            position: absolute; color: var(--gold); font-size: 1.2rem;
-            cursor: move; z-index: 100; touch-action: none; opacity: 0.6;
+        /* حاوية الخلفية المتحركة التفاعلية */
+        #interactive-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
-        .container { width: 92%; max-width: 500px; margin: auto; position: relative; z-index: 5; }
-        @media (min-width: 768px) { .container { max-width: 700px; } }
+        .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
+        @media (min-width: 768px) {
+            .container { max-width: 700px; }
+            .form-card { padding: 35px; }
+        }
         
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
         .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
         .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
-        /* شريط المعلومات المطور */
+        /* تعديل شريط المعلومات لعرض التاريخ الهجري والميلادي بشكل مميز بعد حذف العداد */
         .info-bar { 
-            background: rgba(0, 0, 0, 0.85); border: 1px solid var(--gold); border-radius: 20px; 
-            padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 10px; text-align: center; backdrop-filter: blur(10px); 
+            background: rgba(0, 0, 0, 0.8); 
+            border: 1px solid var(--gold); 
+            border-radius: 20px; 
+            padding: 15px; 
+            margin-bottom: 25px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 10px; 
+            text-align: center; 
+            backdrop-filter: blur(10px); 
         }
-        .info-item { display: flex; flex-direction: column; justify-content: center; }
-        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; }
-        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 8px; border-radius: 4px; font-weight: 900; margin-top: 8px; line-height: 1.4; }
-
-        /* عداد رمضان الاحترافي */
-        .ramadan-timer-box {
-            background: rgba(255, 204, 51, 0.1); border: 1px dashed var(--gold);
-            border-radius: 15px; padding: 10px; margin-bottom: 20px; text-align: center;
-        }
-        .rt-title { color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
-        .rt-clock { font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; color: #fff; }
-
-        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; }
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
+        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; width: 100%; }
+        .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.5rem; }
+        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 1.1rem; color: #fff; line-height: 1.6; }
+        .time-display { font-size: 1.3rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
+        /* تنسيق التاريخ الهجري المميز */
+        .hijri-special {
+            background: linear-gradient(45deg, rgba(255,204,51,0.2), transparent);
+            padding: 10px;
+            border-radius: 10px;
+            border-right: 4px solid var(--gold);
+            margin-top: 10px;
+            width: fit-content;
+            margin: 10px auto;
+        }
 
-        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); }
+        .hijri-event-tag { font-size: 0.85rem; color: #000; background: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; }
+
+        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
+        .criteria-list { list-style: none; padding: 0; margin: 0; }
+        .criteria-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
+        .criteria-list i { color: var(--gold); margin-top: 4px; font-size: 0.85rem; }
+        .ann-footer { border-top: 1px solid rgba(255,204,51,0.2); padding-top: 10px; margin-top: 10px; font-weight: bold; color: var(--gold); font-size: 0.9rem; text-align: center; }
+
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; }
+        .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; z-index: 2; position: relative; }
+        .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255,204,51,0.05); }
+
+        .video-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 10px; display: block; text-align: center; font-weight: bold; }
+        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.3s; }
+        .video-box:hover { transform: scale(1.02); }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
+        .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
+        
+        .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
+        .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
+        .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
+        .s-box i { font-size: 1.4rem; color: var(--gold); }
+        .s-box span { font-size: 0.55rem; color: #fff; margin-top: 2px; font-weight: bold; }
+        .s-box:hover { background: var(--gold); transform: translateY(-5px); }
+        .s-box:hover i, .s-box:hover span { color: #000; }
+        
+        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
         .field { text-align: right; margin-bottom: 15px; position: relative; }
         .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
+        
         .input-w-icon { position: relative; }
         .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; }
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; }
-        
+
         .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; }
+        .iti { width: 100%; direction: ltr; }
         .flex-row { display: flex; gap: 10px; }
         .flex-row .field { flex: 1; }
 
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.05); min-height: 100px; position: relative; }
         
-        #loadingOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
-        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; font-family: 'Cairo'; }
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+
+        #loadingOverlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
+            flex-direction: column;
+        }
+        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     </style>
 </head>
 <body>
-
-<div class="touch-item" style="top:20%; left:10%;"><i class="fas fa-moon"></i></div>
-<div class="touch-item" style="top:25%; right:10%;"><i class="fas fa-star"></i></div>
-<div class="touch-item" style="bottom:20%; left:15%;"><i class="fas fa-kaaba"></i></div>
 
 <canvas id="interactive-bg"></canvas>
 
 <div id="loadingOverlay">
     <div id="progressText">0%</div>
-    <div id="quizBox" style="border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; text-align: center;">
-        <div id="quizQ" style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">نور قرآننا..</div>
-        <div id="quizA" style="color: #fff; font-size: 0.9rem; line-height: 1.5;">جاري الرفع...</div>
+    <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
+    <div id="quizBox" style="border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%;">
+        <div id="quizQ" style="color:var(--gold); font-weight:bold;">جاري المعالجة...</div>
+        <div id="quizA" style="color:#fff; margin-top:10px; opacity:0; transition:0.8s;">...</div>
     </div>
 </div>
 
 <div class="container animate__animated animate__fadeIn">
     <div class="header-section">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
-        <div class="site-name">داعم المواهب للقرآن الكريم</div>
+        <div class="site-name"><i class="fas fa-star"></i> داعم المواهب للقرآن الكريم <i class="fas fa-star"></i></div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
-        <p style="color: var(--gold); font-style: italic; margin: 0;">بوابة المواهب الرمضانية 🌙</p>
     </div>
 
-    <div class="ramadan-timer-box">
-        <div class="rt-title" id="rtTitle">انتظروا شهر الرحمة</div>
-        <div class="rt-clock" id="rtClock">00 : 00 : 00 : 00</div>
-    </div>
-
-    <div class="info-bar">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
-            <i class="fas fa-calendar-check" style="color:var(--gold); margin-bottom:5px;"></i>
-            <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="combinedDate" style="font-size:0.75rem; color:#fff; margin-top:5px;">-- -- ----</span>
-            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
-        </div>
+    <div class="info-bar animate__animated animate__zoomIn">
         <div class="info-item">
-            <i class="fas fa-microphone-lines" style="color:var(--gold); margin-bottom:5px;"></i>
-            <span id="userCounter" style="font-size:1.2rem; font-weight:900;">13</span>
-            <span style="font-size:0.75rem;">قارئ انضم إلينا</span>
-            <div style="font-size: 0.65rem; margin-top:8px; color:var(--gold)">"اللهم اجعلنا من أهل القرآن"</div>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="liveTime" class="time-display">00:00:00</span>
+            <div class="hijri-special">
+                <span id="combinedDate" class="info-val">-- -- ----</span>
+            </div>
+            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك من أيام الله</span>
         </div>
     </div>
 
-    <div class="motivational-box">
-        <p>"أهل القرآن هم أهل الله وخاصته.. شاركنا تلاوتك في هذا الشهر الكريم."</p>
+    <div class="motivational-box animate__animated animate__fadeInLeft">
+        <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
     </div>
 
-    <div class="video-card">
+    <div class="video-card animate__animated animate__fadeInUp">
+        <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات القراء ✨</span>
         <div class="video-box">
+            <i class="fab fa-youtube v-icon"></i>
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
         </div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card animate__animated animate__fadeInUp">
         <form id="talentForm">
             <div class="field">
                 <label><i class="fas fa-id-card"></i> الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" required placeholder="اكتب اسمك ثلاثي"></div>
+                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي"></div>
             </div>
             
             <div class="field">
@@ -148,188 +186,171 @@
             <div class="field">
                 <label><i class="fas fa-book-open"></i> اسم السورة</label>
                 <div class="input-w-icon"><i class="fas fa-quran"></i>
-                <select id="surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
+                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة..</option></select></div>
             </div>
-
             <div class="flex-row">
-                <div class="field"><label>من آية</label><div class="input-w-icon"><select id="ayahFrom" required onchange="smartPageLink('from')"></select></div></div>
-                <div class="field"><label>إلى آية</label><div class="input-w-icon"><select id="ayahTo" required onchange="smartPageLink('to')"></select></div></div>
+                <div class="field"><label>من آية</label><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div>
+                <div class="field"><label>إلى آية</label><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div>
             </div>
-
             <div class="flex-row">
-                <div class="field"><label>من صفحة</label><div class="input-w-icon"><select id="pageFrom" required></select></div></div>
-                <div class="field"><label>إلى صفحة</label><div class="input-w-icon"><select id="pageTo" required></select></div></div>
+                <div class="field"><label>من صفحة</label><select id="pageFrom" name="PageFrom" required></select></div>
+                <div class="field"><label>إلى صفحة</label><select id="pageTo" name="PageTo" required></select></div>
             </div>
             
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0;">
-                <div onclick="document.getElementById('imgIn').click()" style="border:1px dashed var(--gold); padding:15px; border-radius:12px; cursor:pointer;">
-                    <i class="fas fa-camera" style="color:var(--gold)"></i><br><small id="imgT">صورتك</small>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="document.getElementById('imgT').innerText='✅ جاهز'">
+            <div class="upload-grid">
+                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
+                    <i id="imgIcon" class="fas fa-camera-retro"></i>
+                    <img id="imgPreview" style="width:50px; height:50px; border-radius:50%; display:none; object-fit:cover;" src="">
+                    <span id="imgT">صورتك الموقرة</span>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImage(this)">
                 </div>
-                <div onclick="document.getElementById('fileIn').click()" style="border:1px dashed var(--gold); padding:15px; border-radius:12px; cursor:pointer;">
-                    <i class="fas fa-microphone" style="color:var(--gold)"></i><br><small id="fileT">التلاوة</small>
-                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="document.getElementById('fileT').innerText='✅ جاهز'">
+                <div class="upload-item" onclick="document.getElementById('fileIn').click()">
+                    <i id="audioIcon" class="fas fa-microphone-alt"></i>
+                    <span id="fileT">تلاوتك الندية</span>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="previewAudio(this)">
                 </div>
             </div>
             
-            <button type="submit" class="main-btn">إرسال التلاوة الآن</button>
+            <button type="submit" id="btn" class="main-btn">
+                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن (مجاناً)
+            </button>
         </form>
     </div>
 
-    <div style="text-align:center; margin-top:40px;">
-        <span style="color:var(--gold); font-family:'Cairo'; font-size:1.2rem;">خادم القرآن/ عبد الرحمن مكي</span>
+    <div class="footer-credit" style="text-align: center; margin-top: 30px;">
+        <span class="name" style="color:var(--gold); font-family:'Cairo'; font-size:1.3rem; font-weight:900;">خادم القرآن/ عبد الرحمن مكي</span>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGPQV4mXNXjcwSzWyoVMicInAUOo-xtUKOQRMZ0pW5YtsjEuXKTJxoSNeL_WYzWx7EKA/exec';
+    // --- الخلفية التفاعلية (أصلية بدون تغيير) ---
+    const canvas = document.getElementById('interactive-bg');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+        }
+        draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#ffcc33'; ctx.fill(); }
+        update() {
+            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+            this.x += this.directionX; this.y += this.directionY;
+            this.draw();
+        }
+    }
+    function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * 2) - 1; let directionY = (Math.random() * 2) - 1;
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, '#ffcc33'));
+        }
+    }
+    function animate() { requestAnimationFrame(animate); ctx.clearRect(0,0,innerWidth, innerHeight); for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } }
+    init(); animate();
 
-    // --- نظام تحريك العناصر باللمس ---
-    document.querySelectorAll('.touch-item').forEach(el => {
-        el.onpointermove = (e) => {
-            if(e.buttons > 0){
-                el.style.left = (e.clientX - 10) + 'px';
-                el.style.top = (e.clientY - 10) + 'px';
-            }
-        };
+    // --- رابط الجوجل شيت الجديد ---
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz82kXs2YY_5AZxMqKbsVmejTh7L94t_S5-wu4TMtOwPP6ngFnb90FhsNojOEuSg5O8HA/exec';
+
+    // --- الوظائف التقنية الأصلية ---
+    const opLogos = { "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png", "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png", "012": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1024px-Orange_logo.svg.png", "015": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/WE_logo.svg/1200px-WE_logo.svg.png" };
+    document.getElementById('phone').addEventListener('input', function(e) {
+        const val = e.target.value; const opLogo = document.getElementById('opLogo');
+        let prefix = val.startsWith('01') ? val.substring(0, 3) : "";
+        if (opLogos[prefix]) { opLogo.src = opLogos[prefix]; opLogo.style.display = 'inline-block'; } else { opLogo.style.display = 'none'; }
     });
 
-    // --- نظام العد التنازلي لرمضان 2026 ---
-    function updateRamadanCountdown() {
-        const now = new Date();
-        const startRamadan = new Date('February 18, 2026 00:00:00'); 
-        const endRamadan = new Date('March 20, 2026 00:00:00');
-        let target, title;
-
-        if (now < startRamadan) {
-            target = startRamadan;
-            title = "متبقي على بداية شهر رمضان المبارك";
-        } else if (now >= startRamadan && now < endRamadan) {
-            target = endRamadan;
-            title = "متبقي على نهاية شهر الخير (عيد الفطر)";
-        } else {
-            document.getElementById('rtClock').innerText = "عيدكم مبارك";
-            return;
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) { 
+                document.getElementById('imgIcon').style.display = 'none';
+                const p = document.getElementById('imgPreview'); p.src = e.target.result; p.style.display = 'block';
+                document.getElementById('imgT').innerText = "✅ تم الاختيار";
+            };
+            reader.readAsDataURL(input.files[0]);
         }
-
-        const diff = target - now;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / 1000 / 60) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-        document.getElementById('rtTitle').innerText = title;
-        document.getElementById('rtClock').innerText = `${d} يوم : ${h} ساعة : ${m} دقيقة : ${s} ثانية`;
     }
-    setInterval(updateRamadanCountdown, 1000);
+    function previewAudio(input) { if (input.files && input.files[0]) { document.getElementById('audioIcon').style.color = "var(--gold)"; document.getElementById('fileT').innerText = "✅ تم تجهيز التلاوة"; } }
 
-    // --- نظام التاريخ الهجري والأحداث ---
-    const events = {
-        "1/9": "أول رمضان: نزول الصحف على إبراهيم عليه السلام",
-        "10/9": "وفاة السيدة خديجة رضي الله عنها",
-        "17/9": "غزوة بدر الكبرى: يوم الفرقان",
-        "20/9": "فتح مكة: النصر الأعظم"
-    };
-
+    // --- التاريخ الهجري والميلادي ---
     function initLiveInfo() {
-        const update = () => {
+        const hijriEvents = { "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف", "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "1/10": "عيد الفطر المبارك", "10/12": "عيد الأضحى المبارك" };
+        const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
-            const miladi = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
-            document.getElementById('combinedDate').innerHTML = hijri + " | " + miladi;
-
+            const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            const miladi = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+            document.getElementById('combinedDate').innerHTML = hijriFull + " هـ<br><span style='font-size:0.8rem; color:#aaa;'>" + miladi + " م</span>";
+            
             const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
-            const hDay = parts.find(p => p.type === 'day').value;
-            const hMonth = parts.find(p => p.type === 'month').value;
+            const hDay = parts.find(p => p.type === 'day').value; const hMonth = parts.find(p => p.type === 'month').value;
             const hKey = `${hDay}/${hMonth}`;
-            document.getElementById('hijriEvent').innerText = events[hKey] || "يوم مبارك للتقرب إلى الله";
+            document.getElementById('hijriEvent').innerText = hijriEvents[hKey] || "يوم مبارك من أيام الله";
         };
-        update(); setInterval(update, 1000);
+        updateClock(); setInterval(updateClock, 1000);
     }
     initLiveInfo();
 
-    // --- استعادة بيانات السور والآيات بالكامل ---
+    // --- خريطة القرآن الكريم (كاملة كما هي) ---
     const quranMap = [["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]];
-
     const surahSelect = document.getElementById('surah');
     quranMap.forEach(s => surahSelect.add(new Option(s[0], s[0])));
-
     function fillQuranData() {
-        const selected = quranMap.find(s => s[0] === surahSelect.value);
-        const [name, ayahs, startPage] = selected;
-        const pop = (id, max, start=1) => {
-            const el = document.getElementById(id); el.innerHTML = "";
-            for(let i=start; i<=max; i++) el.add(new Option(i, i));
-        };
-        pop('ayahFrom', ayahs); pop('ayahTo', ayahs);
-        pop('pageFrom', 604, startPage); pop('pageTo', 604, startPage);
+        const s = quranMap.find(x => x[0] === surahSelect.value);
+        const pop = (id, max, start=1) => { const el = document.getElementById(id); el.innerHTML = ""; for(let i=start; i<=max; i++) el.add(new Option(i, i)); };
+        pop('ayahFrom', s[1]); pop('ayahTo', s[1]); pop('pageFrom', 604, s[2]); pop('pageTo', 604, s[2]);
+    }
+    function smartPageLink(t) {
+        const s = quranMap.find(x => x[0] === surahSelect.value);
+        const v = parseInt(document.getElementById(t==='from'?'ayahFrom':'ayahTo').value);
+        let p = s[2] + Math.floor(v/15); document.getElementById(t==='from'?'pageFrom':'pageTo').value = p > 604 ? 604 : p;
     }
 
-    function smartPageLink(type) {
-        const startPage = quranMap.find(s => s[0] === surahSelect.value)[2];
-        const val = parseInt(document.getElementById(type === 'from' ? 'ayahFrom' : 'ayahTo').value);
-        let est = startPage + Math.floor(val / 15);
-        document.getElementById(type === 'from' ? 'pageFrom' : 'pageTo').value = est > 604 ? 604 : est;
-    }
+    const iti = window.intlTelInput(document.querySelector("#phone"), { initialCountry: "eg" });
 
-    // --- نظام الإرسال والمحتوى الرمضاني المتتابع (100 عنصر) ---
-    const mixedInfo = [
-        {q: "إشراقة قرآنية", a: "قال تعالى: (وَرَتِّلِ الْقُرْآنَ تَرْتِيلاً) الترتيل هو تجويد الحروف ومعرفة الوقوف."},
-        {q: "من هدى النبوة", a: "قال ﷺ: (خياركم من تعلم القرآن وعلمه)."},
-        {q: "دعاء رمضاني", a: "اللهم اجعل القرآن ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا."},
-        {q: "فائدة", a: "سورة الفاتحة هي أعظم سورة في كتاب الله."},
-        {q: "من هدى النبوة", a: "الصيام والقرآن يشفعان للعبد يوم القيامة."},
-        {q: "إشراقة", a: "من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها."}
-        // يمكن إضافة المزيد من العناصر هنا لزيادة المحتوى
-    ];
-
-    const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", separateDialCode: false });
-
+    // --- الإرسال والرفع (محدث بالرابط الجديد) ---
+    const mixedInfo = [ { q: "تنبيه..", a: "يتم الآن رفع تلاوتكم المباركة لقاعدة البيانات" }, { q: "بستان المؤمن..", a: "خيركم من تعلم القرآن وعلمه" } ];
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        const overlay = document.getElementById('loadingOverlay');
-        const prog = document.getElementById('progressText');
+        const overlay = document.getElementById('loadingOverlay'); const progText = document.getElementById('progressText');
         overlay.style.display = 'flex';
-        
-        let idx = 0;
-        const infoInterval = setInterval(() => {
+        let idx = 0; setInterval(() => { 
             document.getElementById('quizQ').innerText = mixedInfo[idx].q;
-            document.getElementById('quizA').innerText = mixedInfo[idx].a;
+            document.getElementById('quizA').innerText = mixedInfo[idx].a; document.getElementById('quizA').style.opacity = 1;
             idx = (idx + 1) % mixedInfo.length;
-        }, 5000);
+        }, 3000);
 
         try {
-            const photo = await toB64(document.getElementById('imgIn').files[0]);
-            const audio = await toB64(document.getElementById('fileIn').files[0]);
-            
+            const photo = await toBase64(document.getElementById('imgIn').files[0]);
+            const audio = await toBase64(document.getElementById('fileIn').files[0]);
             const formData = new URLSearchParams();
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", iti.getNumber());
             formData.append("Surah", document.getElementById('surah').value);
             formData.append("AyahFrom", document.getElementById('ayahFrom').value);
             formData.append("AyahTo", document.getElementById('ayahTo').value);
+            formData.append("PageFrom", document.getElementById('pageFrom').value);
+            formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photo.split(',')[1]);
             formData.append("audioData", audio.split(',')[1]);
 
-            let p = 0;
-            const pInt = setInterval(() => { if(p < 95) p++; prog.innerText = p + "%"; }, 150);
-
+            let p = 0; const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
             await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData.toString() });
-
-            clearInterval(pInt); clearInterval(infoInterval);
-            prog.innerText = "100%";
-            setTimeout(() => { alert("تم استلام تلاوتكم المباركة بنجاح!"); location.reload(); }, 1000);
-        } catch (err) {
-            overlay.style.display = 'none';
-            alert("حدث خطأ تقني، تأكد من الاتصال");
-        }
+            progText.innerText = "100%";
+            setTimeout(() => { alert("✅ تم استلام تلاوتكم بنجاح!"); location.reload(); }, 800);
+        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ في الاتصال"); }
     };
 
-    const toB64 = f => new Promise((res, rej) => {
-        const r = new FileReader(); r.readAsDataURL(f);
-        r.onload = () => res(r.result); r.onerror = e => rej(e);
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
     });
 </script>
 </body>
