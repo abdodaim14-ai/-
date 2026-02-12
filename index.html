@@ -83,13 +83,14 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
         
-        .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
+        /* التعديل المطلوب على أزرار السوشيال ميديا */
+        .social-call { text-align: center; margin: 20px 0; background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 20px; border: 1px solid var(--gold); }
         .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
-        .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
-        .s-box i { font-size: 1.4rem; color: var(--gold); }
-        .s-box span { font-size: 0.55rem; color: #fff; margin-top: 2px; font-weight: bold; }
-        .s-box:hover { background: var(--gold); transform: translateY(-5px); }
+        .social-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .s-box { background: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; box-shadow: 0 0 10px rgba(255,204,51,0.1); }
+        .s-box i { font-size: 1.6rem; color: var(--gold); }
+        .s-box span { font-size: 0.6rem; color: var(--gold); margin-top: 3px; font-weight: bold; }
+        .s-box:hover { background: var(--gold); transform: translateY(-5px); box-shadow: 0 0 20px var(--gold); }
         .s-box:hover i, .s-box:hover span { color: #000; }
         
         .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
@@ -194,12 +195,12 @@
     <div class="social-call animate__animated animate__pulse animate__infinite">
         <h4><i class="fas fa-share-nodes"></i> 📢 كن أول من يشاهد تلاوتك وتلاوات المبدعين</h4>
         <div class="social-row">
-            <a href="https://facebook.com" class="s-box" style="border-color: #1877f2;" target="_blank">
-                <i class="fab fa-facebook-f" style="color: #1877f2;"></i>
+            <a href="https://facebook.com" class="s-box" target="_blank">
+                <i class="fab fa-facebook-f"></i>
                 <span>فيسبوك</span>
             </a>
-            <a href="https://youtube.com" class="s-box" style="border-color: #ff0000;" target="_blank">
-                <i class="fab fa-youtube" style="color: #ff0000;"></i>
+            <a href="https://youtube.com" class="s-box" target="_blank">
+                <i class="fab fa-youtube"></i>
                 <span>يوتيوب</span>
             </a>
         </div>
