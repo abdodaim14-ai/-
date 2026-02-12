@@ -3,326 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داعم المواهب للقران الكريم</title>
+    <title>داعم المواهب للقران الكريم - رمضان 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
+        :root { 
+            --gold: #ffcc33; 
+            --gold-glow: rgba(255, 204, 51, 0.5); 
+            --ramadan-green: #064e3b;
+            --ramadan-red: #991b1b;
+        }
         
         body {
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
-            background: #000;
+            background: linear-gradient(to bottom, #001a11, #000);
             min-height: 100vh; padding: 20px 0 120px 0;
-            overflow-x: hidden;
-            position: relative;
+            overflow-x: hidden; position: relative;
         }
 
-        #interactive-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
+        /* فوانيس متحركة */
+        .lantern {
+            position: fixed; top: -20px; width: 60px; z-index: 10;
+            filter: drop-shadow(0 0 10px var(--gold));
+            transition: transform 0.1s ease-out;
             pointer-events: none;
-            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-            opacity: 0.4;
+        }
+        .lantern-right { right: 10px; }
+        .lantern-left { left: 10px; }
+
+        /* عناصر قابلة للتحريك باللمس */
+        .draggable-star {
+            position: absolute; color: var(--gold); font-size: 1.5rem;
+            cursor: grab; z-index: 100; touch-action: none;
         }
 
-        .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
-        @media (min-width: 768px) {
-            .container { max-width: 700px; }
-            .form-card { padding: 35px; }
-        }
+        #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        .container { width: 92%; max-width: 500px; margin: auto; position: relative; z-index: 5; }
         
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
-        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
-        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
-
-        .info-bar { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 0 20px rgba(255, 204, 51, 0.2); }
-        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; padding: 5px; }
-        .info-item:hover { transform: scale(1.05); }
-        .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.4rem; }
-        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
-        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         
-        .hijri-gold-card { 
-            background: linear-gradient(135deg, rgba(255,204,51,0.2), rgba(0,0,0,0.5)); 
-            border-radius: 12px; 
-            padding: 10px; 
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
-            animation: glow-pulse 3s infinite;
+        /* عداد رمضان */
+        .ramadan-countdown {
+            background: rgba(6, 78, 59, 0.7); border: 2px solid var(--gold);
+            border-radius: 15px; padding: 10px; margin-bottom: 20px;
+            text-align: center; font-family: 'Cairo';
         }
-        @keyframes glow-pulse {
-            0% { box-shadow: 0 0 5px var(--gold-glow); }
-            50% { box-shadow: 0 0 20px var(--gold-glow); }
-            100% { box-shadow: 0 0 5px var(--gold-glow); }
+        .countdown-title { color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; }
+        .countdown-timer { font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; }
+
+        .info-bar { 
+            background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gold); 
+            border-radius: 20px; padding: 15px; margin-bottom: 25px; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; 
+            text-align: center; backdrop-filter: blur(10px); 
         }
-        .hijri-val { font-size: 1.2rem; color: var(--gold); font-weight: 900; text-shadow: 0 0 5px #000; font-family: 'Cairo'; }
-
-        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; line-height: 1.4; }
-
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; }
-        .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; z-index: 2; position: relative; }
-        .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255,204,51,0.05); }
-
-        .video-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 10px; display: block; text-align: center; font-weight: bold; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.3s; }
-        .video-box:hover { transform: scale(1.02); }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
-        .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
         
-        .social-call { text-align: center; margin: 20px 0; background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 20px; border: 1px solid var(--gold); }
-        .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
-        .social-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .s-box { background: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; box-shadow: 0 0 10px rgba(255,204,51,0.1); }
-        .s-box i { font-size: 1.6rem; color: var(--gold); }
-        .s-box span { font-size: 0.6rem; color: var(--gold); margin-top: 3px; font-weight: bold; }
-        .s-box:hover { background: var(--gold); transform: translateY(-5px); box-shadow: 0 0 20px var(--gold); }
-        .s-box:hover i, .s-box:hover span { color: #000; }
-        
-        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
-        .form-card:hover { border-color: #fff; box-shadow: 0 0 30px var(--gold-glow); }
-        .field { text-align: right; margin-bottom: 15px; position: relative; }
+        .hijri-event-tag { 
+            font-size: 0.8rem; color: #000; background: var(--gold); 
+            padding: 8px; border-radius: 8px; font-weight: 900; 
+            margin-top: 10px; display: block; line-height: 1.4; 
+        }
+
+        .form-card { 
+            background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); 
+            padding: 25px; border-radius: 25px; text-align: center; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
+        }
+
+        .field { text-align: right; margin-bottom: 15px; }
         .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
-        
-        .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
-        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
-        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
+        .field input, .field select { 
+            width: 100%; padding: 12px; background: #000; 
+            border: 1px solid #333; color: #fff; border-radius: 10px; 
+        }
 
-        .iti { width: 100%; direction: ltr; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
-        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
-
-        .flex-row { display: flex; gap: 10px; }
-        .flex-row .field { flex: 1; }
-
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.05); min-height: 100px; position: relative; overflow: hidden; }
-        .upload-item:hover { background: rgba(255, 204, 51, 0.1); transform: translateY(-3px); border-style: solid; }
-        .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; }
-        
-        .preview-img-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 5px; }
-        #audioPreview { width: 100%; height: 30px; margin-top: 8px; display: none; }
-
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(255,204,51,0.3); }
-        .main-btn:hover { box-shadow: 0 0 30px var(--gold); transform: translateY(-2px) scale(1.02); letter-spacing: 1px; }
-
-        .footer-credit { text-align: center; margin-top: 40px; }
-        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.3rem; display: block; margin-bottom: 5px; }
-        .footer-credit .pray { color: #888; font-size: 0.9rem; }
-        .quran-final-verse { color: var(--gold); font-family: 'Cairo'; font-size: 1.5rem; font-weight: 900; margin-top: 30px; text-shadow: 0 0 10px var(--gold-glow); animation: fadeIn 3s infinite alternate; }
+        .main-btn { 
+            width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); 
+            color: #000; padding: 16px; border: none; border-radius: 50px; 
+            font-family: 'Cairo'; font-weight: 900; cursor: pointer; 
+        }
 
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
-            flex-direction: column; text-align: center; padding: 20px;
+            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; 
+            align-items: center; flex-direction: column; 
         }
-        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'Cairo'; }
-
-        #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; }
-        #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
-        #quizA { color: #fff; font-size: 1rem; opacity: 0; transition: 0.8s; line-height: 1.6; }
-
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; }
         
-        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .ramadan-msg { color: var(--gold); font-family: 'Cairo'; font-style: italic; margin-top: 10px; }
+
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
+<img src="https://i.ibb.co/LzfM5p3/lantern.png" class="lantern lantern-left" id="lanternL" alt="فانوس">
+<img src="https://i.ibb.co/LzfM5p3/lantern.png" class="lantern lantern-right" id="lanternR" alt="فانوس">
+
+<div class="draggable-star" style="top:100px; left:50px;"><i class="fas fa-moon"></i></div>
+<div class="draggable-star" style="top:150px; right:50px;"><i class="fas fa-star"></i></div>
+
 <canvas id="interactive-bg"></canvas>
 
 <div id="loadingOverlay">
-    <div id="progressText">0%</div>
-    <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
-    <div id="quizBox">
-        <p style="color:#888; font-size:0.8rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
-        <div id="quizQ">بستان المؤمن..</div>
-        <div id="quizA">...</div>
+    <div id="progressText" style="color:var(--gold); font-size:3rem; font-weight:900;">0%</div>
+    <div id="quizBox" style="border:2px solid var(--gold); padding:20px; border-radius:20px; background:#111; width:80%; text-align:center;">
+        <div id="quizQ" style="color:var(--gold); font-weight:bold;">جاري الرفع...</div>
+        <div id="quizA" style="margin-top:10px; font-size:0.9rem;"></div>
     </div>
 </div>
 
-<div class="container animate__animated animate__fadeIn">
+<div class="container">
     <div class="header-section">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
-        <div class="site-name"><i class="fas fa-star"></i> داعم المواهب للقرآن الكريم <i class="fas fa-star"></i></div>
-        <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+        <div style="font-family:'Cairo'; color:var(--gold); font-size:1.4rem;">رمضان كريم 🌙 2026</div>
+        <div class="ramadan-msg">"اللهم بارك لنا في شعبان وبلغنا رمضان"</div>
     </div>
 
-    <div class="info-bar animate__animated animate__zoomIn">
+    <div class="ramadan-countdown">
+        <div class="countdown-title" id="cdTitle">متبقي على شهر الخير</div>
+        <div class="countdown-timer" id="cdTimer">00 : 00 : 00 : 00</div>
+    </div>
+
+    <div class="info-bar">
         <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
-            <i class="fas fa-clock"></i>
-            <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="miladiDate" class="info-val" style="color: #fff; margin-top:5px;">-- -- ----</span>
-            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
+            <i class="fas fa-kaaba" style="color:var(--gold)"></i>
+            <div id="liveTime" style="font-weight:900; color:var(--gold)">00:00:00</div>
+            <div id="combinedDate" style="font-size:0.75rem;">-- -- ----</div>
         </div>
         <div class="info-item">
-            <i class="fas fa-calendar-alt"></i>
-            <div class="hijri-gold-card">
-                <span id="hijriFullDate" class="hijri-val">-- -- ----</span>
-            </div>
-            <span class="info-val" style="margin-top: 5px; font-weight: 900; color: var(--gold);">التاريخ الهجري المبارك</span>
+            <i class="fas fa-users" style="color:var(--gold)"></i>
+            <div id="userCounter" style="font-weight:900;">13</div>
+            <div style="font-size:0.75rem;">قارئ انضم إلينا</div>
+            <div id="hijriEvent" class="hijri-event-tag">حدث اليوم التاريخي</div>
         </div>
     </div>
 
-    <div class="motivational-box animate__animated animate__fadeInLeft">
-        <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
-    </div>
-
-    <div class="video-card animate__animated animate__fadeInUp">
-        <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات القراء ✨</span>
-        <div class="video-box">
-            <i class="fab fa-youtube v-icon"></i>
-            <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <div class="form-card animate__animated animate__fadeInUp">
+    <div class="form-card">
         <form id="talentForm">
             <div class="field">
-                <label><i class="fas fa-id-card"></i> الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك كما تحب أن يظهر"></div>
+                <label><i class="fas fa-user"></i> الاسم بالكامل</label>
+                <input type="text" id="name" required placeholder="اكتب اسمك الثلاثي">
             </div>
             
             <div class="field">
                 <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
-                <div class="input-w-icon">
-                    <input type="tel" id="phone" required>
-                </div>
+                <input type="tel" id="phone" required>
             </div>
 
             <div class="field">
-                <label><i class="fas fa-book-open"></i> اسم السورة</label>
-                <div class="input-w-icon"><i class="fas fa-quran"></i>
-                <select id="surah" name="Surah" required onchange="fillQuranData()"><option value="" disabled selected>اختر السورة المباركة..</option></select></div>
-            </div>
-            <div class="flex-row">
-                <div class="field"><label><i class="fas fa-list-ol"></i> من آية</label><div class="input-w-icon"><i class="fas fa-hashtag"></i><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div></div>
-                <div class="field"><label><i class="fas fa-list-ol"></i> إلى آية</label><div class="input-w-icon"><i class="fas fa-hashtag"></i><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div></div>
-            </div>
-            <div class="flex-row">
-                <div class="field"><label><i class="fas fa-file-alt"></i> من صفحة</label><div class="input-w-icon"><i class="fas fa-pager"></i><select id="pageFrom" name="PageFrom" required></select></div></div>
-                <div class="field"><label><i class="fas fa-file-alt"></i> إلى صفحة</label><div class="input-w-icon"><i class="fas fa-pager"></i><select id="pageTo" name="PageTo" required></select></div></div>
+                <label><i class="fas fa-quran"></i> السورة</label>
+                <select id="surah" required><option value="">اختر السورة..</option></select>
             </div>
             
-            <div class="upload-grid">
-                <div class="upload-item" onclick="document.getElementById('imgIn').click()">
-                    <i id="imgIcon" class="fas fa-camera-retro"></i>
-                    <img id="imgPreview" class="preview-img-circle" src="">
-                    <span id="imgT">صورتك الموقرة</span>
-                    <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImage(this)">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div class="field"><label>من آية</label><select id="ayahFrom"></select></div>
+                <div class="field"><label>إلى آية</label><select id="ayahTo"></select></div>
+            </div>
+
+            <div class="upload-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:15px 0;">
+                <div onclick="document.getElementById('imgIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
+                    <i class="fas fa-camera"></i><br><small id="imgT">الصورة</small>
+                    <input type="file" id="imgIn" accept="image/*" style="display:none" required>
                 </div>
-                <div class="upload-item" onclick="document.getElementById('fileIn').click()">
-                    <i id="audioIcon" class="fas fa-microphone-alt"></i>
-                    <span id="fileT">تلاوتك الندية</span>
-                    <audio id="audioPreview" controls></audio>
-                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="previewAudio(this)">
+                <div onclick="document.getElementById('fileIn').click()" style="border:1px dashed var(--gold); padding:10px; border-radius:10px; cursor:pointer;">
+                    <i class="fas fa-microphone"></i><br><small id="fileT">التلاوة</small>
+                    <input type="file" id="fileIn" accept="audio/*" style="display:none" required>
                 </div>
             </div>
             
-            <button type="submit" id="btn" class="main-btn">
-                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن
-            </button>
+            <button type="submit" class="main-btn">انشر نور تلاوتك في رمضان</button>
         </form>
     </div>
 
-    <div class="footer-credit">
-        <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
-        <span class="name">خادم القرآن/ عبد الرحمن مكي</span>
+    <div style="text-align:center; margin-top:30px;">
+        <div style="color:var(--gold); font-family:'Cairo'; font-size:1.2rem;">خادم القرآن/ عبد الرحمن مكي</div>
+        <p style="font-size:0.8rem; opacity:0.7;">نسألكم الدعاء بالقبول والإخلاص ✨</p>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // Configuration - تم وضع الرابط الجديد هنا
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbww511w5etcytSffPwChr_pb0Lu2aX8kIUVU3nnkz3c0al-Y0NVRWRSgKo5ZrXwUUB0wQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGPQV4mXNXjcwSzWyoVMicInAUOo-xtUKOQRMZ0pW5YtsjEuXKTJxoSNeL_WYzWx7EKA/exec';
 
-    // 1. Background Particles
-    const canvas = document.getElementById('interactive-bg');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    let particles = [];
-    class P {
-        constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.vX = Math.random()*0.4-0.2; this.vY = Math.random()*0.4-0.2; this.s = Math.random()*2; }
-        draw() { ctx.fillStyle = '#ffcc33'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); }
-        update() { this.x += this.vX; this.y += this.vY; if(this.x<0||this.x>canvas.width) this.vX*=-1; if(this.y<0||this.y>canvas.height) this.vY*=-1; this.draw(); }
+    // بيانات رمضان والتواريخ
+    function updateRamadanUI() {
+        const now = new Date();
+        const ramadan2026 = new Date('February 18, 2026 00:00:00'); // تقريبي لعام 2026
+        const endRamadan = new Date('March 20, 2026 00:00:00');
+        
+        let target = ramadan2026;
+        if (now > ramadan2026 && now < endRamadan) {
+            document.getElementById('cdTitle').innerText = "متبقي على عيد الفطر المبارك";
+            target = endRamadan;
+        } else if (now > endRamadan) {
+            document.getElementById('cdTitle').innerText = "تقبل الله طاعتكم";
+            document.getElementById('cdTimer').innerText = "عيد مبارك";
+            return;
+        }
+
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        document.getElementById('cdTimer').innerText = `${d}ي : ${h}س : ${m}د : ${s}ث`;
     }
-    for(let i=0; i<60; i++) particles.push(new P());
-    function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.update()); requestAnimationFrame(anim); }
-    anim();
+    setInterval(updateRamadanUI, 1000);
 
-    // 2. Clock & Date
-    function updateInfo() {
+    // حركة الفانوس مع اهتزاز الهاتف
+    window.addEventListener('deviceorientation', (event) => {
+        let tilt = event.gamma; // درجة الميول يميناً ويساراً
+        document.getElementById('lanternL').style.transform = `rotate(${tilt/2}deg)`;
+        document.getElementById('lanternR').style.transform = `rotate(${tilt/2}deg)`;
+    });
+
+    // تحريك العناصر باللمس
+    document.querySelectorAll('.draggable-star').forEach(el => {
+        el.onpointermove = (e) => {
+            if(e.buttons > 0){
+                el.style.left = (e.clientX - 15) + 'px';
+                el.style.top = (e.clientY - 15) + 'px';
+            }
+        };
+    });
+
+    // 100 إشراقة وأدعية وهدى نبوي
+    const mixedInfo = [
+        { q: "إشراقة قرآنية", a: "ورتل القرآن ترتيلاً: الترتيل تجويد الحروف ومعرفة الوقوف." },
+        { q: "من هدى النبوة", a: "خيركم من تعلم القرآن وعلمه." },
+        { q: "دعاء رمضاني", a: "اللهم اجعل القرآن ربيع قلوبنا ونور صدورنا." },
+        { q: "حدث في مثل هذا اليوم", a: "فتح مكة: أعظم نصر في تاريخ الإسلام كان في رمضان." },
+        { q: "إشراقة", a: "القرآن يشفع لصاحبه يوم القيامة، فكن من أهله." }
+        // ... يمكن إضافة الـ 100 نص هنا بالتتابع
+    ];
+
+    // تهيئة القائمة والوقت
+    const surahNames = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف"];
+    const sSelect = document.getElementById('surah');
+    surahNames.forEach(s => sSelect.add(new Option(s, s)));
+
+    function updateClock() {
         const now = new Date();
         document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-        document.getElementById('miladiDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
-        document.getElementById('hijriFullDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+        const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day:'numeric', month:'long', year:'numeric'}).format(now);
+        document.getElementById('combinedDate').innerText = hijri;
     }
-    setInterval(updateInfo, 1000); updateInfo();
+    setInterval(updateClock, 1000);
 
-    // 3. Quran Selection Logic
-    const quranMap = [ ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604] ];
-    const sSel = document.getElementById('surah');
-    quranMap.forEach(s=>sSel.add(new Option(s[0],s[0])));
-    function fillQuranData() {
-        const s = quranMap.find(x=>x[0]===sSel.value);
-        const pop = (id,m,st=1)=>{const e=document.getElementById(id);e.innerHTML="";for(let i=st;i<=m;i++)e.add(new Option(i,i));};
-        pop('ayahFrom',s[1]); pop('ayahTo',s[1]); pop('pageFrom',604,s[2]); pop('pageTo',604,s[2]);
-    }
-    function smartPageLink(t){
-        const s = quranMap.find(x=>x[0]===sSel.value);
-        const val = parseInt(document.getElementById(t==='from'?'ayahFrom':'ayahTo').value);
-        const p = s[2] + Math.floor(val/15);
-        document.getElementById(t==='from'?'pageFrom':'pageTo').value = p>604?604:p;
-    }
-
-    // 4. File Handling
-    const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", separateDialCode: true });
-    function previewImage(i){ if(i.files[0]){ const r=new FileReader(); r.onload=e=>{ document.getElementById('imgIcon').style.display='none'; const p=document.getElementById('imgPreview'); p.src=e.target.result; p.style.display='block'; document.getElementById('imgT').innerText="✅ تم!"; }; r.readAsDataURL(i.files[0]); } }
-    function previewAudio(i){ if(i.files[0]){ const a=document.getElementById('audioPreview'); a.src=URL.createObjectURL(i.files[0]); a.style.display='block'; document.getElementById('audioIcon').style.display='none'; document.getElementById('fileT').innerText="🎧 جاهز"; } }
-
-    // 5. Submission
+    // كود الإرسال للجوجل شيت
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         const overlay = document.getElementById('loadingOverlay');
         const prog = document.getElementById('progressText');
-        overlay.style.display='flex';
+        overlay.style.display = 'flex';
+        
+        let idx = 0;
+        const infoInt = setInterval(() => {
+            document.getElementById('quizQ').innerText = mixedInfo[idx].q;
+            document.getElementById('quizA').innerText = mixedInfo[idx].a;
+            idx = (idx + 1) % mixedInfo.length;
+        }, 4000);
 
         try {
             const photo = await toB64(document.getElementById('imgIn').files[0]);
             const audio = await toB64(document.getElementById('fileIn').files[0]);
             
-            const params = new URLSearchParams();
-            params.append("Name", document.getElementById('name').value);
-            params.append("Phone", iti.getNumber());
-            params.append("Surah", sSel.value);
-            params.append("AyahFrom", document.getElementById('ayahFrom').value);
-            params.append("AyahTo", document.getElementById('ayahTo').value);
-            params.append("PageFrom", document.getElementById('pageFrom').value);
-            params.append("PageTo", document.getElementById('pageTo').value);
-            params.append("Photo", photo.split(',')[1]);
-            params.append("Audio", audio.split(',')[1]);
+            const data = {
+                Name: document.getElementById('name').value,
+                Phone: document.getElementById('phone').value,
+                Surah: document.getElementById('surah').value,
+                Photo: photo.split(',')[1],
+                Audio: audio.split(',')[1]
+            };
 
-            let pVal = 0;
-            const pInt = setInterval(()=>{ if(pVal<90){pVal+=2; prog.innerText=pVal+"%";} }, 100);
+            let p = 0;
+            const pInt = setInterval(() => { if(p < 95) p++; prog.innerText = p + "%"; }, 100);
 
-            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: params });
+            await fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-            clearInterval(pInt); prog.innerText="100%";
-            setTimeout(()=>{ alert("تم الرفع بنجاح!"); location.reload(); }, 500);
-        } catch(err) {
-            overlay.style.display='none';
-            alert("حدث خطأ، حاول مرة أخرى.");
+            clearInterval(pInt); clearInterval(infoInt);
+            prog.innerText = "100%";
+            alert("تم إرسال تلاوتك بنجاح في ميزان حسناتك!");
+            location.reload();
+        } catch (err) {
+            overlay.style.display = 'none';
+            alert("حدث خطأ، حاول مرة أخرى");
         }
     };
-    const toB64 = f => new Promise((res,rej)=>{ const r=new FileReader(); r.readAsDataURL(f); r.onload=()=>res(r.result); r.onerror=e=>rej(e); });
+
+    const toB64 = f => new Promise((res, rej) => {
+        const r = new FileReader(); r.readAsDataURL(f);
+        r.onload = () => res(r.result); r.onerror = e => rej(e);
+    });
+
+    // خلفية بسيطة
+    const canvas = document.getElementById('interactive-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    function drawStars() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "#ffcc33";
+        for(let i=0; i<50; i++){
+            ctx.beginPath();
+            ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2, 0, Math.PI*2);
+            ctx.fill();
+        }
+    }
+    setInterval(drawStars, 1000);
 </script>
 </body>
 </html>
