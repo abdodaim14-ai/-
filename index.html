@@ -21,14 +21,13 @@
             position: relative;
         }
 
-        /* تعديل الشفافية لتكون هادئة جداً */
         #interactive-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
             background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-            opacity: 0.4; /* تقليل الوضوح جداً كما طلبت */
+            opacity: 0.4;
         }
 
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
@@ -49,7 +48,6 @@
         .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         
-        /* تمييز التاريخ الهجري بشكل فخم جداً */
         .hijri-gold-card { 
             background: linear-gradient(135deg, rgba(255,204,51,0.2), rgba(0,0,0,0.5)); 
             border-radius: 12px; 
@@ -104,8 +102,6 @@
         .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
-        .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; border-radius: 3px; }
-        
         .iti { width: 100%; direction: ltr; }
         .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
         .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
@@ -207,7 +203,6 @@
                 <span>يوتيوب</span>
             </a>
         </div>
-        <p style="font-size: 0.75rem; color: #aaa; margin-top: 10px;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
     </div>
 
     <div class="form-card animate__animated animate__fadeInUp">
@@ -218,10 +213,7 @@
             </div>
             
             <div class="field">
-                <label>
-                    <i class="fab fa-whatsapp"></i> رقم الواتساب
-                    <img id="opLogo" class="operator-label-logo" src="" alt="operator">
-                </label>
+                <label><i class="fab fa-whatsapp"></i> رقم الواتساب</label>
                 <div class="input-w-icon">
                     <input type="tel" id="phone" required>
                 </div>
@@ -372,9 +364,7 @@
     function previewImage(input) { if (input.files && input.files[0]) { const reader = new FileReader(); reader.onload = function(e) { document.getElementById('imgIcon').style.display = 'none'; const preview = document.getElementById('imgPreview'); preview.src = e.target.result; preview.style.display = 'block'; document.getElementById('imgT').innerHTML = "✅ تم استلام الصورة"; }; reader.readAsDataURL(input.files[0]); } }
     function previewAudio(input) { if (input.files && input.files[0]) { const audioPreview = document.getElementById('audioPreview'); audioPreview.src = URL.createObjectURL(input.files[0]); audioPreview.style.display = 'block'; document.getElementById('audioIcon').style.display = 'none'; document.getElementById('fileT').innerHTML = "🎧 جاهز للرفع"; } }
 
-    // إضافة 100 إشراقة وهدي نبوي
     const mixedInfo = [
-        // 50 إشراقة قرآنية
         { type: "إشراقة قرآنية 1", text: "قال تعالى: {وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا}." },
         { type: "إشراقة قرآنية 2", text: "قال تعالى: {إِنَّ مَعَ الْعُسْرِ يُسْرًا}." },
         { type: "إشراقة قرآنية 3", text: "قال تعالى: {وَقُلْ رَبِّ زِدْنِي عِلْمًا}." },
@@ -416,7 +406,7 @@
         { type: "إشراقة قرآنية 39", text: "قال تعالى: {رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً}." },
         { type: "إشراقة قرآنية 40", text: "قال تعالى: {وَهُوَ مَعَكُمْ أَيْنَ مَا كُنْتُمْ}." },
         { type: "إشراقة قرآنية 41", text: "قال تعالى: {وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا}." },
-        { type: "إشراقة قرآنية 42", text: "قال تعالى: {وَمَنْ يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ}." },
+        { type: "إشراقة قرآنية 42", text: "قال تعالى: {وَمَنْ يَتَوَكَّلْ عَلَى اللَّهِ فَهو حَسْبُهُ}." },
         { type: "إشراقة قرآنية 43", text: "قال تعالى: {إِنَّ اللَّهَ اشْتَرَى مِنَ الْمُؤْمِنِينَ أَنْفُسَهُمْ}." },
         { type: "إشراقة قرآنية 44", text: "قال تعالى: {وَأَنَّ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى}." },
         { type: "إشراقة قرآنية 45", text: "قال تعالى: {وَسَارِعُوا إِلَى مَغْفِرَةٍ مِنْ رَبِّكُمْ}." },
@@ -425,8 +415,6 @@
         { type: "إشراقة قرآنية 48", text: "قال تعالى: {وَالَّذِينَ آمَنُوا أَشَدُّ حُبًّا لِلَّهِ}." },
         { type: "إشراقة قرآنية 49", text: "قال تعالى: {مَنْ جَاءَ بِالْحَسَنَةِ فَلَهُ عَشْرُ أَمْثَالِهَا}." },
         { type: "إشراقة قرآنية 50", text: "قال تعالى: {إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا}." },
-        
-        // 50 من هدي النبوة
         { type: "من هدي النبوة 1", text: "قال ﷺ: (خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ)." },
         { type: "من هدي النبوة 2", text: "قال ﷺ: (إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ)." },
         { type: "من هدي النبوة 3", text: "قال ﷺ: (الْبِرُّ حُسْنُ الْخُلُقِ)." },
@@ -442,7 +430,7 @@
         { type: "من هدي النبوة 13", text: "قال ﷺ: (من صلّى عليّ صلاة صلّى الله عليه بها عشراً)." },
         { type: "من هدي النبوة 14", text: "قال ﷺ: (لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه)." },
         { type: "من هدي النبوة 15", text: "قال ﷺ: (الكلمة الطيبة صدقة)." },
-        { type: "من هدي النبوة 16", text: "قال ﷺ: (أنا وزوجي في الجنة كالبنيان يشد بعضه بعضاً - في فضل كفالة اليتيم)." },
+        { type: "من هدي النبوة 16", text: "قال ﷺ: (أنا وكافل اليتيم في الجنة كهاتين)." },
         { type: "من هدي النبوة 17", text: "قال ﷺ: (المسلم من سلم المسلمون من لسانه ويده)." },
         { type: "من هدي النبوة 18", text: "قال ﷺ: (يسروا ولا تعسروا)." },
         { type: "من هدي النبوة 19", text: "قال ﷺ: (من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت)." },
@@ -493,7 +481,7 @@
             setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
             idx = (idx + 1) % mixedInfo.length;
         };
-        updateContent(); const contentInt = setInterval(updateContent, 5000); // تغيير كل 5 ثواني ليتسنى للمستخدم القراءة
+        updateContent(); const contentInt = setInterval(updateContent, 5000);
 
         try {
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
