@@ -160,7 +160,7 @@
             <i class="fas fa-clock"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
             <span id="miladiDate" class="info-val" style="color: #fff; margin-top:5px;">-- -- ----</span>
-            <span id="hijriEvent" class="hijri-event-tag">حدث اليوم التاريخي</span>
+            <span id="hijriEvent" class="hijri-event-tag">يوم مبارك</span>
         </div>
         <div class="info-item">
             <i class="fas fa-calendar-alt"></i>
@@ -183,25 +183,11 @@
         </div>
     </div>
 
-    <div class="social-call animate__animated animate__pulse animate__infinite">
-        <h4><i class="fas fa-share-nodes"></i> 📢 كن أول من يشاهد تلاوتك وتلاوات المبدعين</h4>
-        <div class="social-row">
-            <a href="https://facebook.com" class="s-box" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-                <span>فيسبوك</span>
-            </a>
-            <a href="https://youtube.com" class="s-box" target="_blank">
-                <i class="fab fa-youtube"></i>
-                <span>يوتيوب</span>
-            </a>
-        </div>
-    </div>
-
     <div class="form-card animate__animated animate__fadeInUp">
         <form id="talentForm">
             <div class="field">
                 <label><i class="fas fa-id-card"></i> الاسم بالكامل</label>
-                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي كما تحب أن يظهر"></div>
+                <div class="input-w-icon"><i class="fas fa-user-edit"></i><input type="text" id="name" name="Name" required placeholder="اكتب اسمك كما تحب أن يظهر"></div>
             </div>
             
             <div class="field">
@@ -241,197 +227,102 @@
             </div>
             
             <button type="submit" id="btn" class="main-btn">
-                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن (مجاناً)
+                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن
             </button>
         </form>
     </div>
 
     <div class="footer-credit">
         <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
-        <span class="name"><i class="fas fa-user-check"></i> خادم القرآن/ عبد الرحمن مكي</span>
-        <span class="pray">نسألكم الدعاء بالقبول والإخلاص <i class="fas fa-hands-praying"></i></span>
+        <span class="name">خادم القرآن/ عبد الرحمن مكي</span>
     </div>
 </div>
 
-<a href="tel:01122783768" class="fixed-call-btn">
-    <i class="fas fa-tools"></i>
-    <span>للمشاكل الفنية اضغط هنا</span>
-</a>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // 1. Interactive Background
+    // Configuration - تم وضع الرابط الجديد هنا
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbww511w5etcytSffPwChr_pb0Lu2aX8kIUVU3nnkz3c0al-Y0NVRWRSgKo5ZrXwUUB0wQ/exec';
+
+    // 1. Background Particles
     const canvas = document.getElementById('interactive-bg');
     const ctx = canvas.getContext('2d');
-    let particlesArray;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-            this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
-        }
-        draw() {
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
-            ctx.fillStyle = 'rgba(255, 204, 51, 0.3)'; ctx.fill();
-        }
-        update() {
-            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-            this.x += this.directionX; this.y += this.directionY;
-            this.draw();
-        }
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let particles = [];
+    class P {
+        constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.vX = Math.random()*0.4-0.2; this.vY = Math.random()*0.4-0.2; this.s = Math.random()*2; }
+        draw() { ctx.fillStyle = '#ffcc33'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); }
+        update() { this.x += this.vX; this.y += this.vY; if(this.x<0||this.x>canvas.width) this.vX*=-1; if(this.y<0||this.y>canvas.height) this.vY*=-1; this.draw(); }
     }
+    for(let i=0; i<60; i++) particles.push(new P());
+    function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.update()); requestAnimationFrame(anim); }
+    anim();
 
-    function initParticles() {
-        particlesArray = [];
-        let numberOfParticles = 80;
-        for (let i = 0; i < numberOfParticles; i++) {
-            let size = Math.random() * 3 + 1;
-            let x = Math.random() * innerWidth;
-            let y = Math.random() * innerHeight;
-            let directionX = (Math.random() * 0.4) - 0.2;
-            let directionY = (Math.random() * 0.4) - 0.2;
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, '#ffcc33'));
-        }
+    // 2. Clock & Date
+    function updateInfo() {
+        const now = new Date();
+        document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
+        document.getElementById('miladiDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+        document.getElementById('hijriFullDate').innerText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
     }
+    setInterval(updateInfo, 1000); updateInfo();
 
-    function animateParticles() {
-        requestAnimationFrame(animateParticles);
-        ctx.clearRect(0,0,innerWidth, innerHeight);
-        for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
-    }
-    initParticles(); animateParticles();
-
-    // 2. Dates & Clock
-    function initLiveInfo() {
-        const hijriEvents = { "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف", "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "17/9": "ذكرى غزوة بدر الكبرى", "1/10": "عيد الفطر المبارك", "10/12": "عيد الأضحى المبارك" };
-        const updateClock = () => {
-            const now = new Date();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            document.getElementById('miladiDate').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
-            const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
-            document.getElementById('hijriFullDate').innerText = hijriFull;
-            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
-            const hDay = parts.find(p => p.type === 'day').value;
-            const hMonth = parts.find(p => p.type === 'month').value;
-            const hKey = `${hDay}/${hMonth}`;
-            document.getElementById('hijriEvent').innerText = hijriEvents[hKey] || "يوم مبارك مفعم بنور القرآن";
-        };
-        updateClock(); setInterval(updateClock, 1000);
-    }
-    initLiveInfo();
-
-    // 3. Quran Database & Logic
+    // 3. Quran Selection Logic
     const quranMap = [ ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604] ];
-
-    const surahSelect = document.getElementById('surah');
-    quranMap.forEach(s => { let opt = new Option(s[0], s[0]); surahSelect.add(opt); });
-
+    const sSel = document.getElementById('surah');
+    quranMap.forEach(s=>sSel.add(new Option(s[0],s[0])));
     function fillQuranData() {
-        const selected = quranMap.find(s => s[0] === surahSelect.value);
-        const [name, ayahs, startPage] = selected;
-        const populate = (id, max) => { const el = document.getElementById(id); el.innerHTML = ""; for(let i=1; i<=max; i++) { el.add(new Option(i, i)); } };
-        populate('ayahFrom', ayahs); populate('ayahTo', ayahs);
-        const popPage = (id) => { const el = document.getElementById(id); el.innerHTML = ""; for(let i=startPage; i<=604; i++) { el.add(new Option(i, i)); } };
-        popPage('pageFrom'); popPage('pageTo');
+        const s = quranMap.find(x=>x[0]===sSel.value);
+        const pop = (id,m,st=1)=>{const e=document.getElementById(id);e.innerHTML="";for(let i=st;i<=m;i++)e.add(new Option(i,i));};
+        pop('ayahFrom',s[1]); pop('ayahTo',s[1]); pop('pageFrom',604,s[2]); pop('pageTo',604,s[2]);
+    }
+    function smartPageLink(t){
+        const s = quranMap.find(x=>x[0]===sSel.value);
+        const val = parseInt(document.getElementById(t==='from'?'ayahFrom':'ayahTo').value);
+        const p = s[2] + Math.floor(val/15);
+        document.getElementById(t==='from'?'pageFrom':'pageTo').value = p>604?604:p;
     }
 
-    function smartPageLink(type) {
-        const selectedSurah = quranMap.find(s => s[0] === surahSelect.value);
-        const startPage = selectedSurah[2];
-        const val = parseInt(document.getElementById(type === 'from' ? 'ayahFrom' : 'ayahTo').value);
-        let estimatedPage = startPage + Math.floor(val / 15);
-        document.getElementById(type === 'from' ? 'pageFrom' : 'pageTo').value = estimatedPage > 604 ? 604 : estimatedPage;
-    }
-
-    // 4. Input Previews
+    // 4. File Handling
     const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", preferredCountries: ["eg", "sa"], separateDialCode: false, utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" });
+    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", separateDialCode: true });
+    function previewImage(i){ if(i.files[0]){ const r=new FileReader(); r.onload=e=>{ document.getElementById('imgIcon').style.display='none'; const p=document.getElementById('imgPreview'); p.src=e.target.result; p.style.display='block'; document.getElementById('imgT').innerText="✅ تم!"; }; r.readAsDataURL(i.files[0]); } }
+    function previewAudio(i){ if(i.files[0]){ const a=document.getElementById('audioPreview'); a.src=URL.createObjectURL(i.files[0]); a.style.display='block'; document.getElementById('audioIcon').style.display='none'; document.getElementById('fileT').innerText="🎧 جاهز"; } }
 
-    function previewImage(input) { 
-        if (input.files && input.files[0]) { 
-            const reader = new FileReader(); 
-            reader.onload = function(e) { 
-                document.getElementById('imgIcon').style.display = 'none'; 
-                const preview = document.getElementById('imgPreview'); 
-                preview.src = e.target.result; preview.style.display = 'block'; 
-                document.getElementById('imgT').innerHTML = "✅ تم استلام الصورة"; 
-            }; 
-            reader.readAsDataURL(input.files[0]); 
-        } 
-    }
-    function previewAudio(input) { 
-        if (input.files && input.files[0]) { 
-            const audioPreview = document.getElementById('audioPreview'); 
-            audioPreview.src = URL.createObjectURL(input.files[0]); 
-            audioPreview.style.display = 'block'; 
-            document.getElementById('audioIcon').style.display = 'none'; 
-            document.getElementById('fileT').innerHTML = "🎧 جاهز للرفع"; 
-        } 
-    }
-
-    // 5. Form Submission & INTEGRATED GOOGLE SCRIPT URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
-    
-    const mixedInfo = [
-        { type: "إشراقة قرآنية", text: "قال تعالى: {وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا}." },
-        { type: "من هدي النبوة", text: "قال ﷺ: (خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ)." },
-        { type: "إشراقة قرآنية", text: "قال تعالى: {أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ}." },
-        { type: "من هدي النبوة", text: "قال ﷺ: (إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ)." }
-    ];
-
+    // 5. Submission
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
-        if (!iti.isValidNumber()) { alert("يرجى كتابة رقم هاتف صحيح"); return; }
-        
         const overlay = document.getElementById('loadingOverlay');
-        const progText = document.getElementById('progressText');
-        overlay.style.display = 'flex';
-        
-        let idx = 0;
-        const updateContent = () => {
-            const item = mixedInfo[idx];
-            document.getElementById('quizQ').innerText = item.type;
-            document.getElementById('quizA').style.opacity = 0;
-            setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
-            idx = (idx + 1) % mixedInfo.length;
-        };
-        updateContent(); const contentInt = setInterval(updateContent, 4000);
+        const prog = document.getElementById('progressText');
+        overlay.style.display='flex';
 
         try {
-            const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
-            const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
-            const formData = new URLSearchParams();
-            formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
-            formData.append("Surah", document.getElementById('surah').value);
-            formData.append("AyahFrom", document.getElementById('ayahFrom').value);
-            formData.append("AyahTo", document.getElementById('ayahTo').value);
-            formData.append("PageFrom", document.getElementById('pageFrom').value);
-            formData.append("PageTo", document.getElementById('pageTo').value);
-            formData.append("photoData", photoBase64.split(',')[1]);
-            formData.append("audioData", audioBase64.split(',')[1]);
+            const photo = await toB64(document.getElementById('imgIn').files[0]);
+            const audio = await toB64(document.getElementById('fileIn').files[0]);
+            
+            const params = new URLSearchParams();
+            params.append("Name", document.getElementById('name').value);
+            params.append("Phone", iti.getNumber());
+            params.append("Surah", sSel.value);
+            params.append("AyahFrom", document.getElementById('ayahFrom').value);
+            params.append("AyahTo", document.getElementById('ayahTo').value);
+            params.append("PageFrom", document.getElementById('pageFrom').value);
+            params.append("PageTo", document.getElementById('pageTo').value);
+            params.append("Photo", photo.split(',')[1]);
+            params.append("Audio", audio.split(',')[1]);
 
-            let p = 0; const pInt = setInterval(() => { if(p < 95) { p += 1; progText.innerText = p + "%"; } }, 150);
-            
-            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData.toString() });
-            
-            clearInterval(pInt); progText.innerText = "100%";
-            setTimeout(() => { alert("✅ تم رفع تلاوتكم بنجاح.. جزاكم الله خيراً!"); location.reload(); }, 800);
-        } catch (err) { 
-            overlay.style.display = 'none'; 
-            clearInterval(contentInt); 
-            alert("حدث خطأ أثناء الرفع، يرجى المحاولة مرة أخرى."); 
+            let pVal = 0;
+            const pInt = setInterval(()=>{ if(pVal<90){pVal+=2; prog.innerText=pVal+"%";} }, 100);
+
+            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: params });
+
+            clearInterval(pInt); prog.innerText="100%";
+            setTimeout(()=>{ alert("تم الرفع بنجاح!"); location.reload(); }, 500);
+        } catch(err) {
+            overlay.style.display='none';
+            alert("حدث خطأ، حاول مرة أخرى.");
         }
     };
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
+    const toB64 = f => new Promise((res,rej)=>{ const r=new FileReader(); r.readAsDataURL(f); r.onload=()=>res(r.result); r.onerror=e=>rej(e); });
 </script>
 </body>
 </html>
