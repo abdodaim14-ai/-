@@ -1,0 +1,26 @@
+{
+  "name": "مسابقة داعم المواهب للقرآن الكريم",
+  "short_name": "داعم المواهب",
+  "description": "منصة للمشاركة في مسابقات تلاوة القرآن الكريم برعاية خادم القرآن عبد الرحمن مكي",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ffcc33",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
