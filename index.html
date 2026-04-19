@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مسابقة داعم المواهب للقران الكريم</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffcc33">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
@@ -177,8 +183,9 @@
     <div class="sponsors-section animate__animated animate__fadeInDown">
         <span class="sponsors-title">هذه المسابقة برعاية</span>
         <div class="sponsors-logos">
-            <img src="https://ibb.co/fY15QqQT" alt="Sponsor 1" onerror="this.src='https://i.ibb.co/fY15QqQT/logo1.png'">
-            <img src="https://ibb.co/LDxX15Tt" alt="Sponsor 2" onerror="this.src='https://i.ibb.co/LDxX15Tt/logo2.png'">
+            <img src="https://i.ibb.co/fY15QqQT/logo1.png" alt="Sponsor 1">
+            <img src="https://i.ibb.co/LDxX15Tt/logo2.png" alt="Sponsor 2">
+            <img src="https://i.ibb.co/8nBVN44V/sponsor3.png" alt="Sponsor 3" onerror="this.src='https://i.ibb.co/8nBVN44V/logo3.png'">
         </div>
     </div>
 
@@ -318,6 +325,26 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    // --- كود الربط المطور لملف sw.js والإشعارات ---
+    if ("Notification" in window) {
+        if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+            Notification.requestPermission();
+        }
+    }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+            .then(reg => {
+                console.log('SW Registered');
+                // تحديث السيرفس وركر كل دقيقة لضمان عمل setInterval داخله
+                setInterval(() => { reg.update(); }, 60000);
+            })
+            .catch(err => console.log('SW registration failed', err));
+        });
+    }
+    // --- نهاية كود الربط المطور ---
+
     const canvas = document.getElementById('interactive-bg');
     const ctx = canvas.getContext('2d');
     let particlesArray;
