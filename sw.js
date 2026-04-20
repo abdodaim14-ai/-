@@ -33,12 +33,23 @@ const makiMessages = [
     { t: "العد التنازلي ⏳", b: "اقترب موعد التنافس الشريف.. هل جهزت أفضل تلاوة عندك ليوم 10/5؟" }
 ];
 
+// تثبيت ملفات الكاش
 self.addEventListener("install", e => {
     e.waitUntil(caches.open(cacheName).then(cache => cache.addAll(assets)));
 });
 
+// تفعيل وتنظيف الكاش القديم
 self.addEventListener("activate", e => {
     e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== cacheName).map(key => caches.delete(key)))));
+});
+
+// استراتيجية التشغيل بدون إنترنت (الناقصة)
+self.addEventListener("fetch", e => {
+    e.respondWith(
+        caches.match(e.request).then(response => {
+            return response || fetch(e.request);
+        })
+    );
 });
 
 function sendMakiNotification() {
@@ -77,7 +88,7 @@ function sendMakiNotification() {
         body: body,
         icon: 'https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png',
         badge: 'https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png',
-        vibrate: [100, 50, 100, 50, 300], // نمط اهتزاز خفيف ومنتظم
+        vibrate: [100, 50, 100, 50, 300], 
         tag: 'maki-dynamic-msg',
         renotify: true,
         data: { url: '/' }
@@ -86,10 +97,16 @@ function sendMakiNotification() {
     self.registration.showNotification(title, options);
 }
 
-// التكرار كل دقيقة (60000 مللي ثانية)
+// التكرار ومعالجة توقف الـ SW
 setInterval(sendMakiNotification, 60000);
 
+// التعامل مع الضغط على التنبيه
 self.addEventListener('notificationclick', e => {
     e.notification.close();
     e.waitUntil(clients.openWindow('/'));
+});
+
+// التعامل مع التنبيهات القادمة من السيرفر (Push)
+self.addEventListener('push', e => {
+    sendMakiNotification();
 });
