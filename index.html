@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة داعم المواهب للقران الكريم</title>
+    <title>داعم المواهب للقرآن الكريم</title>
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="مسابقة داعم المواهب للقرآن الكريم">
-    <meta property="og:description" content="شاركنا تلاوتك الندية وانشر نور القرآن - خادم القرآن عبد الرحمن مكي">
+    <meta property="og:title" content="داعم المواهب للقرآن الكريم">
+    <meta property="og:description" content="نظهر نور القرآن بمواهبكم الندية - خادم القرآن عبد الرحمن مكي">
     <meta property="og:image" content="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png">
     <meta property="og:url" content="https://abmaki.com"> <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffcc33">
@@ -26,39 +26,43 @@
             font-family: 'Almarai', sans-serif;
             margin: 0; color: #fff;
             background: #000;
-            min-height: 100vh; padding: 20px 0 120px 0;
+            min-height: 100vh; padding: 20px 0 160px 0; /* تم زيادة الهامش السفلي لترك مساحة لزر التثبيت الجديد */
             overflow-x: hidden;
             position: relative;
         }
 
-        /* تنسيق زر التثبيت الذكي الجديد */
+        /* تنسيق زر التثبيت في مكان ثابت أسفل الشاشة لعدم إخفاء اللوجو */
         #pwa-install-banner {
             display: none;
             position: fixed;
-            top: 10px;
+            bottom: 85px; /* فوق زر المشاكل الفنية بقليل */
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
             max-width: 450px;
-            background: linear-gradient(45deg, #000, #222);
+            background: rgba(0, 0, 0, 0.9);
             border: 2px solid var(--gold);
             color: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 15px;
             text-align: center;
             z-index: 10001;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
         }
+        .pwa-flex-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .pwa-mini-logo { height: 30px; border-radius: 5px; }
+
         #pwa-install-banner button {
             background: var(--gold);
             color: #000;
             border: none;
-            padding: 8px 20px;
+            padding: 5px 15px;
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
             font-family: 'Cairo';
+            font-size: 0.8rem;
         }
 
         /* حاوية الخلفية المتحركة التفاعلية */
@@ -196,9 +200,11 @@
 <body>
 
 <div id="pwa-install-banner">
-    <i class="fas fa-mobile-alt" style="color: var(--gold); font-size: 1.5rem;"></i>
-    <p style="margin: 5px 0; font-family: 'Cairo'; font-weight: bold;">ثبت تطبيق المسابقة الآن لتجربة أسرع!</p>
-    <button id="pwa-btn">لتثبيت التطبيق اضغط هنا</button>
+    <div class="pwa-flex-container">
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="pwa-mini-logo" alt="logo">
+        <p style="margin: 0; font-family: 'Cairo'; font-size: 0.85rem; font-weight: bold;">تثبيت تطبيق داعم المواهب</p>
+        <button id="pwa-btn">تثبيت الآن</button>
+    </div>
 </div>
 
 <canvas id="interactive-bg"></canvas>
@@ -216,12 +222,12 @@
 <div class="container animate__animated animate__fadeIn">
     <div class="header-section">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main">
-        <div class="site-name"><i class="fas fa-star"></i> مسابقة داعم المواهب للقرآن الكريم <i class="fas fa-star"></i></div>
+        <div class="site-name"><i class="fas fa-star"></i> داعم المواهب للقرآن الكريم <i class="fas fa-star"></i></div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
     <div class="sponsors-section animate__animated animate__fadeInDown">
-        <span class="sponsors-title">هذه المسابقة برعاية</span>
+        <span class="sponsors-title">داعم المواهب برعاية</span>
         <div class="sponsors-logos">
             <img src="https://i.ibb.co/fY15QqQT/logo1.png" alt="Sponsor 1">
             <img src="https://i.ibb.co/LDxX15Tt/logo2.png" alt="Sponsor 2">
@@ -239,7 +245,7 @@
         <div class="info-item">
             <i class="fas fa-heart"></i>
             <span id="userCounter" class="counter-val"></span>
-            <span class="info-val"> صوتك نديّ فلا تحرمنا من سماعه، شاركنا تلاوتك الان </span>
+            <span class="info-val"> صوتك نديّ فلا تحرمنا من سماعه، ارفع تلاوتك الان </span>
         </div>
     </div>
 
@@ -248,7 +254,7 @@
     </div>
 
     <div class="video-card animate__animated animate__fadeInUp">
-        <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات القراء ✨</span>
+        <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات المبدعين ✨</span>
         <div class="video-box">
             <i class="fab fa-youtube v-icon"></i>
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
@@ -276,7 +282,7 @@
             <span>تنبيهات المشاركة الهامة</span>
         </div>
         <div class="ann-text">
-            يرجى العلم بضرورة الالتزام بمعايير الجودة لضمان قبول تلاوتك في المسابقة.
+            يرجى العلم بضرورة الالتزام بمعايير الجودة لضمان عرض تلاوتك بشكل لائق.
         </div>
         <ul class="criteria-list">
             <li><i class="fas fa-microphone"></i> <strong>يرجى إرسال الصوت بدون مؤثرات صوتية</strong> لضمان تقييم الأداء بشكل صحيح.</li>
@@ -341,12 +347,12 @@
                 </ul>
                 <span class="trust-tag">
                     <i class="fas fa-user-shield"></i> 
-                    يتم التحكيم بواسطة مشايخ مجازين بالقراءات العشر لضمان نزاهة التقييم الشرعي والفني.
+                    يتم المراجعة بواسطة مشايخ مجازين بالقراءات العشر لضمان جودة الأداء الفني.
                 </span>
             </div>
             
             <button type="submit" id="btn" class="main-btn">
-                <i class="fas fa-share-square"></i> انشر نور تلاوتك الآن (مجاناً)
+                <i class="fas fa-share-square"></i> اعرض موهبتك الآن (مجاناً)
             </button>
         </form>
     </div>
@@ -365,7 +371,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // --- كود الربط المطور لملف sw.js والإشعارات ---
     if ("Notification" in window) {
         if (Notification.permission !== "granted" && Notification.permission !== "denied") {
             Notification.requestPermission();
@@ -377,14 +382,12 @@
             navigator.serviceWorker.register('sw.js')
             .then(reg => {
                 console.log('SW Registered');
-                // تحديث السيرفس وركر كل دقيقة لضمان عمل setInterval داخله
                 setInterval(() => { reg.update(); }, 60000);
             })
             .catch(err => console.log('SW registration failed', err));
         });
     }
 
-    // --- كود تشغيل زر التثبيت الذكي ---
     let deferredPrompt;
     const pwaBanner = document.getElementById('pwa-install-banner');
     const pwaBtn = document.getElementById('pwa-btn');
@@ -392,7 +395,7 @@
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        pwaBanner.style.display = 'block'; // إظهار البانر فور دخول المستخدم وجاهزية الموقع
+        pwaBanner.style.display = 'block'; 
     });
 
     pwaBtn.addEventListener('click', async () => {
@@ -406,7 +409,6 @@
             deferredPrompt = null;
         }
     });
-    // --- نهاية كود التثبيت ---
 
     const canvas = document.getElementById('interactive-bg');
     const ctx = canvas.getContext('2d');
@@ -506,16 +508,11 @@
     }
 
     function initLiveInfo() {
+        // تم تصفية الأحداث لإبقاء المناسبات الإسلامية فقط
         const hijriEvents = {
             "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف",
             "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "17/9": "ذكرى غزوة بدر الكبرى",
             "1/10": "عيد الفطر المبارك", "10/12": "عيد الأضحى المبارك"
-        };
-
-        const miladiEvents = {
-            "1/1": "بداية العام الميلادي", "7/1": "عيد الميلاد المجيد", "25/1": "عيد الشرطة المصرية",
-            "21/3": "يوم الأم", "25/4": "تحرير سيناء", "1/5": "عيد العمال", "30/6": "ذكرى ثورة 30 يونيو",
-            "23/7": "ذكرى ثورة 23 يوليو", "6/10": "انتصارات أكتوبر المجيدة", "18/12": "يوم اللغة العربية"
         };
 
         const updateClock = () => {
@@ -526,10 +523,6 @@
             const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
             document.getElementById('combinedDate').innerHTML = hijriFull + "<br>" + miladiDayMonth + " 2026 م";
 
-            const mDay = now.getDate();
-            const mMonth = now.getMonth() + 1;
-            const mKey = `${mDay}/${mMonth}`;
-
             const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
             const hDay = parts.find(p => p.type === 'day').value;
             const hMonth = parts.find(p => p.type === 'month').value;
@@ -537,7 +530,6 @@
 
             let eventStr = "";
             if (hijriEvents[hKey]) eventStr = "اليوم: " + hijriEvents[hKey];
-            else if (miladiEvents[mKey]) eventStr = "حدث اليوم: " + miladiEvents[mKey];
             else eventStr = "يوم مبارك من أيام الله";
             
             document.getElementById('hijriEvent').innerText = eventStr;
@@ -589,7 +581,6 @@
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
-    // --- مصفوفة هدى النبوة والاشراقات القرآنية المطورة ---
     const mixedInfo = [
         { type: "من هدي النبوة..", text: "قال ﷺ: 'الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة'.. كن ماهراً باتباع قواعد التجويد." },
         { type: "إشراقة قرآنية..", text: "قال تعالى: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا'.. الترتيل هو تجويد الحروف ومعرفة الوقوف، فاحرص على الإتقان." },
@@ -597,8 +588,7 @@
         { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
         { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فالقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه إلى القلوب." },
-        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيتك خالصة لله عند إرسال تلاوتك." },
-        { type: "تنبيه هام..", text: "هل اشتركت في قناتنا؟ يتم نشر التلاوات المتقنة يومياً لتكون قدوة لغيرك في الإتقان." }
+        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيتك خالصة لله عند إرسال تلاوتك." }
     ];
 
     document.getElementById('talentForm').onsubmit = async function(e) {
@@ -636,7 +626,7 @@
             const response = await fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
             
             clearInterval(pInt); clearInterval(contentInt); progText.innerText = "100%";
-            setTimeout(() => { alert("✅ تم استلام تلاوتكم المباركة بنجاح.. تذكر أن الإتقان هو سر القبول!"); location.reload(); }, 800);
+            setTimeout(() => { alert("✅ تم استلام تلاوتكم المباركة بنجاح.. جزاكم الله خيراً!"); location.reload(); }, 800);
         } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
     };
 
