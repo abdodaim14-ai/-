@@ -1,112 +1,57 @@
-const cacheName = "v1";
-const assets = ["./", "./index.html", "./style.css"];
-
-// مصفوفة ضخمة جداً متنوعة (آيات، أحاديث، نصائح، تحفيز)
-const makiMessages = [
-    // --- آيات قرآنية ---
-    { t: "نور من القرآن ✨", b: "«إِنَّ هَذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ».. اجعل صوتك طريقاً للهداية." },
-    { t: "درر ربانية 💎", b: "«وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ».. يسّر الله لك النشر، فلا تتردد." },
-    { t: "آية وعبرة 📖", b: "«كِتَابٌ أَنزَلْنَاهُ إِلَيْكَ مُبَارَكٌ لِّيَدَّبَّرُوا آيَاتِهِ».. تدبرك يظهر في حسن ترتيلك." },
-    { t: "وعد الله 🕋", b: "«إِنَّ الَّذِينَ يَتْلُونَ كِتَابَ اللَّهِ.. يَرْجُونَ تِجَارَةً لَّن تَبُورَ».. تجارتك مع الله رابحة." },
-    
-    // --- أحاديث نبوية ---
-    { t: "هدي النبوة 🌿", b: "قال ﷺ: «زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ».. صوتك الحسن هو زينة لكلام الله." },
-    { t: "بشرى نبوية ﷺ", b: "«الماهر بالقرآن مع السفرة الكرام البررة».. كن منهم بإتقانك وترتيلك." },
-    { t: "شفاعة القرآن 🤲", b: "قال ﷺ: «اقرأوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه».. اجعله صاحبك." },
-    { t: "خيركم ﷺ", b: "«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ».. بمشاركتك أنت تُعلم غيرك جمال القرآن." },
-    
-    // --- رسائل تحفيزية للنشر المجاني ---
-    { t: "موهبتك أمانة 🎤", b: "صفحة مكي ترحب بك.. ارفع تلاوتك الآن ودعمنا عليك مجاني بالكامل." },
-    { t: "صدقة جارية 🌟", b: "صوتك قد يريح قلباً متعباً.. لا تبخل على الناس بنور تلاوتك." },
-    { t: "كن قدوة 🙌", b: "نشر المواهب القرآنية هو أفضل رد على محتويات اللهو.. كن أنت البداية." },
-    { t: "رسالة من مكي 💌", b: "نحن هنا لخدمة أهل القرآن.. أرسل اسمك وتلاوتك وسنتولى الباقي." },
-    { t: "لا تتردد 🚀", b: "الخوف عدو الموهبة.. القرآن يعز صاحبه، فارفع تلاوتك بكل فخر." },
-    { t: "صوتك نور ☀️", b: "اجعل العالم يستمع لعذوبة صوتك في كتاب الله.. النشر متاح للجميع." },
-    
-    // --- حكم وأقوال ---
-    { t: "قال السلف 🕊️", b: "«إذا أردت أن يكلمك الله فاقرأ القرآن».. فكيف بمن يقرأه ويسمعه للناس؟" },
-    { t: "طمأنينة ❤️", b: "«أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ».. طمئن قلوبنا بتلاوة من اختيارك." },
-    { t: "همة مؤمن 💪", b: "اجعل هدفك إيصال رسالة القرآن بصوتك.. الهمة العالية تبدأ بخطوة." },
-    
-    // --- تنبيهات المسابقة القادمة ---
-    { t: "تجهّز يا بطل! 🏆", b: "النشر مجاني دائماً، ولكن انتظر انطلاق المسابقة الكبرى يوم 10/5!" },
-    { t: "العد التنازلي ⏳", b: "اقترب موعد التنافس الشريف.. هل جهزت أفضل تلاوة عندك ليوم 10/5؟" }
+const CACHE_NAME = 'hemma-cache-v1';
+const assetsToCache = [
+  "./",
+  "./index.html",
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+  "https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
 ];
 
-// تثبيت ملفات الكاش
+// رسائل تحفيزية خاصة بطلاب منصة هِمة
+const hemmaMessages = [
+    { t: "همة مؤمن 💪", b: "استمر يا بطل، تذكر أن القمة لا يصلها إلا أصحاب الهمم العالية." },
+    { t: "وقت الدراسة 📚", b: "هل ألقيت نظرة على جدولك اليوم؟ تنظيم الوقت أول خطوات النجاح." },
+    { t: "إنجاز جديد ✨", b: "شارك زملائك إنجازاً حققته اليوم في قسم التحديثات." },
+    { t: "نصيحة هِمة 💡", b: "التركيز لمدة 25 دقيقة أفضل من المذاكرة لساعات مع التشتت." },
+    { t: "رسالة لك 💌", b: "أنت ذكي، أنت مثابر، أنت بطل منصة هِمة.. انطلق!" }
+];
+
+// التثبيت وحفظ الملفات
 self.addEventListener("install", e => {
-    e.waitUntil(caches.open(cacheName).then(cache => cache.addAll(assets)));
+    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(assetsToCache)));
 });
 
-// تفعيل وتنظيف الكاش القديم
+// التفعيل وتنظيف الملفات القديمة
 self.addEventListener("activate", e => {
-    e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== cacheName).map(key => caches.delete(key)))));
+    e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))));
 });
 
-// استراتيجية التشغيل بدون إنترنت (الناقصة)
+// العمل بدون إنترنت
 self.addEventListener("fetch", e => {
-    e.respondWith(
-        caches.match(e.request).then(response => {
-            return response || fetch(e.request);
-        })
-    );
+    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
 });
 
-function sendMakiNotification() {
-    const now = new Date();
-    const day = now.getDate();
-    const month = now.getMonth() + 1;
-
-    let title = "";
-    let body = "";
-
-    // منطق التواريخ (المسابقة)
-    if (day === 10 && month === 5) {
-        title = "🔥 اليوم الكبييير! 10/5";
-        body = "انطلقت مسابقة مكي للقرآن الكريم! الآن الكل يتنافس.. أرسل تلاوتك لدخول التقييم!";
-    } 
-    else if (day > 10 && day < 19 && month === 5) {
-        title = "🏆 التنافس على أشده!";
-        body = "مئات المواهب شاركت.. أين أنت؟ أرسل تلاوتك الآن في مسابقة القرآن الكبرى.";
-    }
-    else if (day === 19 && month === 5) {
-        title = "⚠️ تنبيه هام: غداً الإغلاق!";
-        body = "فرصتك للفوز في المسابقة تنتهي غداً! الحق قدم موهبتك قبل غلق باب التقديم.";
-    } 
-    else if (day === 20 && month === 5) {
-        title = "🔒 اليوم الأخير للمسابقة 20/5";
-        body = "ساعات قليلة وينتهي التقديم للمسابقة! بادر بالإرسال الآن قبل فوات الأوان.";
-    } 
-    else {
-        // الرسائل العشوائية (النشر المجاني الدائم)
-        const randomMsg = makiMessages[Math.floor(Math.random() * makiMessages.length)];
-        title = randomMsg.t;
-        body = randomMsg.b;
-    }
-
+// نظام التنبيهات التحفيزي
+function sendHemmaNotification() {
+    const randomMsg = hemmaMessages[Math.floor(Math.random() * hemmaMessages.length)];
+    
     const options = {
-        body: body,
-        icon: 'https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png',
-        badge: 'https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png',
-        vibrate: [100, 50, 100, 50, 300], 
-        tag: 'maki-dynamic-msg',
+        body: randomMsg.b,
+        icon: 'icons/icon-192x192.png',
+        badge: 'icons/icon-192x192.png',
+        vibrate: [200, 100, 200],
+        tag: 'hemma-motivation',
         renotify: true,
         data: { url: '/' }
     };
 
-    self.registration.showNotification(title, options);
+    self.registration.showNotification(randomMsg.t, options);
 }
 
-// التكرار ومعالجة توقف الـ SW
-setInterval(sendMakiNotification, 60000);
+// إرسال تنبيه تحفيزي كل ساعة (أو حسب رغبتك)
+setInterval(sendHemmaNotification, 3600000); 
 
-// التعامل مع الضغط على التنبيه
+// عند الضغط على التنبيه يفتح المنصة
 self.addEventListener('notificationclick', e => {
     e.notification.close();
     e.waitUntil(clients.openWindow('/'));
-});
-
-// التعامل مع التنبيهات القادمة من السيرفر (Push)
-self.addEventListener('push', e => {
-    sendMakiNotification();
 });
