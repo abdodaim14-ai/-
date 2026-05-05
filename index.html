@@ -31,22 +31,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
+        /* تعريف الخط الخاص بك هنا */
+        @font-face {
+            font-family: 'ThmanyahSerif';
+            src: url('thmanyahserifdisplay-Bold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
         :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
         
      body {
-            font-family: 'Almarai', sans-serif;
+            font-family: 'ThmanyahSerif', 'Almarai', sans-serif; /* تطبيق الخط كخيار أول */
             margin: 0; color: #fff;
             background: #000;
-            min-height: 100vh; padding: 20px 0 160px 0; /* تم زيادة الهامش السفلي لترك مساحة لزر التثبيت الجديد */
+            min-height: 100vh; padding: 20px 0 160px 0; 
             overflow-x: hidden;
             position: relative;
         }
 
-        /* تنسيق زر التثبيت في مكان ثابت أسفل الشاشة لعدم إخفاء اللوجو */
         #pwa-install-banner {
             display: none;
             position: fixed;
-            bottom: 85px; /* فوق زر المشاكل الفنية بقليل */
+            bottom: 85px; 
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -72,11 +79,10 @@
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            font-family: 'Cairo';
+            font-family: 'ThmanyahSerif', 'Cairo';
             font-size: 0.8rem;
         }
 
-        /* حاوية الخلفية المتحركة التفاعلية */
         #interactive-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -92,10 +98,9 @@
         
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
-        .site-name { font-family: 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
-        .quran-verse { font-family: 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
+        .site-name { font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
+        .quran-verse { font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
 
-        /* قسم الرعاة الجديد */
         .sponsors-section { text-align: center; margin-bottom: 25px; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px solid rgba(255, 204, 51, 0.3); }
         .sponsors-title { color: var(--gold); font-size: 0.85rem; margin-bottom: 10px; display: block; font-weight: bold; }
         .sponsors-logos { display: flex; justify-content: center; align-items: center; gap: 20px; }
@@ -106,15 +111,14 @@
         .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
         .info-item:hover { transform: scale(1.05); }
         .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
-        .info-val { font-family: 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
+        .info-val { font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
         .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
         .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
         
-        /* تنسيق الحدث التاريخي الهجري والميلادي */
         .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; line-height: 1.4; }
 
         .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .ann-title { color: var(--gold); font-family: 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .ann-title { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
         .criteria-list { list-style: none; padding: 0; margin: 0; }
         .criteria-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
@@ -131,9 +135,8 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
         
-        /* تنسيق الأزرار الاجتماعية المحفزة */
         .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
-        .social-call h4 { margin: 0 0 10px 0; font-family: 'Cairo'; color: var(--gold); font-size: 0.9rem; }
+        .social-call h4 { margin: 0 0 10px 0; font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 0.9rem; }
         .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
         .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
         .s-box i { font-size: 1.4rem; color: var(--gold); }
@@ -150,7 +153,7 @@
         
         .input-w-icon { position: relative; }
         .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
-        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; }
+        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: 'ThmanyahSerif', sans-serif; }
         .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); transform: translateY(-2px); }
 
         .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; border-radius: 3px; }
@@ -171,7 +174,6 @@
         .preview-img-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 5px; }
         #audioPreview { width: 100%; height: 30px; margin-top: 8px; display: none; }
 
-        /* قسم الشروط الجديد */
         .rules-box { background: rgba(255, 204, 51, 0.05); border: 1px solid var(--gold); border-radius: 15px; padding: 15px; margin-top: 20px; text-align: right; }
         .rules-title { color: var(--gold); font-weight: 900; font-size: 0.95rem; margin-bottom: 10px; display: block; }
         .rules-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #ccc; line-height: 1.5; }
@@ -179,20 +181,20 @@
         .rules-list i { color: var(--gold); font-size: 0.7rem; margin-top: 5px; }
         .trust-tag { color: var(--gold); font-weight: bold; font-size: 0.85rem; margin-top: 10px; display: block; text-align: center; border: 1px dashed var(--gold); padding: 5px; border-radius: 8px; }
 
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(255,204,51,0.3); margin-top: 20px; }
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(255,204,51,0.3); margin-top: 20px; }
         .main-btn:hover { box-shadow: 0 0 30px var(--gold); transform: translateY(-2px) scale(1.02); letter-spacing: 1px; }
 
         .footer-credit { text-align: center; margin-top: 40px; }
-        .footer-credit .name { color: var(--gold); font-family: 'Cairo'; font-size: 1.3rem; display: block; margin-bottom: 5px; }
+        .footer-credit .name { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.3rem; display: block; margin-bottom: 5px; }
         .footer-credit .pray { color: #888; font-size: 0.9rem; }
-        .quran-final-verse { color: var(--gold); font-family: 'Cairo'; font-size: 1.5rem; font-weight: 900; margin-top: 30px; text-shadow: 0 0 10px var(--gold-glow); animation: fadeIn 3s infinite alternate; }
+        .quran-final-verse { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.5rem; font-weight: 900; margin-top: 30px; text-shadow: 0 0 10px var(--gold-glow); animation: fadeIn 3s infinite alternate; }
 
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
             flex-direction: column; text-align: center; padding: 20px;
         }
-        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'Cairo'; }
+        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'ThmanyahSerif', 'Cairo'; }
 
         #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; }
         #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
@@ -200,7 +202,7 @@
 
         .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; }
         .fixed-call-btn:hover { background: #111; transform: translateX(-50%) scale(1.02); }
-        .fixed-call-btn span { color: #fff; font-family: 'Cairo'; font-size: 0.95rem; }
+        .fixed-call-btn span { color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 0.95rem; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
 
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
@@ -213,7 +215,7 @@
 <div id="pwa-install-banner">
     <div class="pwa-flex-container">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="pwa-mini-logo" alt="logo">
-        <p style="margin: 0; font-family: 'Cairo'; font-size: 0.85rem; font-weight: bold;">تثبيت تطبيق داعم المواهب</p>
+        <p style="margin: 0; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 0.85rem; font-weight: bold;">تثبيت تطبيق داعم المواهب</p>
         <button id="pwa-btn">تثبيت الآن</button>
     </div>
 </div>
@@ -519,7 +521,6 @@
     }
 
     function initLiveInfo() {
-        // تم تصفية الأحداث لإبقاء المناسبات الإسلامية فقط
         const hijriEvents = {
             "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف",
             "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "17/9": "ذكرى غزوة بدر الكبرى",
