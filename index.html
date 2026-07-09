@@ -430,6 +430,34 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    // جزء سحب عدد متابعين فيسبوك وتحديثه تلقائياً داخل خانة الـ userCounter
+    async function fetchFacebookFollowers() {
+        const PAGE_ID = '1027623416866396';
+        const ACCESS_TOKEN = 'EAAOmnji5plwBRx9ji7nXkmuF2ZAQvAH8BQ5N4JkwZAvUG9WgazuyLAL04zDU2Ih1g6QRElxHrpMP0OAnGP0MaL9sHjRJDIZA5VumiVkX13oZBfKDZAZBMLsh6fpzpYVpPo7ywdTpP8eLYZCjHNQJSxMxGVjvSSPipGYt4WVwIDpyZAfB52E0XZACQS1oTrFNPHMEPrpW2ZBYJtFGZBjq4npzC1A1ZAtVhixgmCieOQZDZD';
+        const counterElement = document.getElementById('userCounter');
+        
+        // وضع نص مؤقت لحين تحميل العدد
+        counterElement.innerText = "جاري جلب العدد...";
+
+        try {
+            const response = await fetch(`https://graph.facebook.com/v19.0/${PAGE_ID}?fields=followers_count&access_token=${ACCESS_TOKEN}`);
+            const data = await response.json();
+            
+            if (data && data.followers_count) {
+                // عرض عدد المتابعين بشكل منسق مع إضافة نص مناسب
+                counterElement.innerText = data.followers_count.toLocaleString() + " متابع";
+            } else {
+                counterElement.innerText = "+10K متابع";
+            }
+        } catch (error) {
+            console.error("خطأ في جلب بيانات المتابعين:", error);
+            counterElement.innerText = "+10K متابع"; // حل احتياطي في حال انقطاع الـ API
+        }
+    }
+
+    // تشغيل الدالة فور تحميل الصفحة بالكامل
+    window.addEventListener('DOMContentLoaded', fetchFacebookFollowers);
+
     // الجزء البرمجي الخاص بزر الإشعارات المضاف
     const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
 
@@ -670,7 +698,7 @@
         { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
         { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه إلى القلوب." },
-        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيتك خالصة لله عند إرسال تلاوتك." }
+        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيتك خالصتة لله عند إرسال تلاوتك." }
     ];
 
     document.getElementById('talentForm').onsubmit = async function(e) {
