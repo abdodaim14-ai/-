@@ -229,12 +229,43 @@
         .fixed-call-btn span { color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1rem; font-weight: bold; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
 
+        /* تنسيق زر الإشعارات العائم الجديد */
+        .floating-notification-btn {
+            position: fixed;
+            bottom: 95px;
+            right: 20px;
+            z-index: 1001;
+            background: linear-gradient(45deg, #ffcc33, #e6b800);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 204, 51, 0.5);
+            transition: all 0.3s ease;
+        }
+        .floating-notification-btn i {
+            color: #000;
+            font-size: 1.4rem;
+        }
+        .floating-notification-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--gold);
+        }
+
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(255, 204, 51, 0.6)); } 100% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } }
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     </style>
 </head>
 <body>
+
+<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
+    <i class="fas fa-bell"></i>
+</button>
 
 <div id="pwa-install-banner">
     <div class="pwa-flex-container">
@@ -399,9 +430,39 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    // الجزء البرمجي الخاص بزر الإشعارات المضاف
+    const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
+
+    function checkNotificationPermission() {
+        if ("Notification" in window) {
+            if (Notification.permission === "granted") {
+                floatingNotifyBtn.style.display = 'none';
+            } else {
+                floatingNotifyBtn.style.display = 'flex';
+            }
+        }
+    }
+
+    floatingNotifyBtn.addEventListener('click', () => {
+        if ("Notification" in window) {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    floatingNotifyBtn.classList.remove('animate__bounceIn');
+                    floatingNotifyBtn.classList.add('animate__fadeOutDown');
+                    setTimeout(() => {
+                        floatingNotifyBtn.style.display = 'none';
+                    }, 500);
+                }
+            });
+        }
+    });
+
+    // استدعاء فحص حالة الإشعارات عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', checkNotificationPermission);
+
     if ("Notification" in window) {
         if (Notification.permission !== "granted" && Notification.permission !== "denied") {
-            Notification.requestPermission();
+            Notification.requestPermission().then(() => { checkNotificationPermission(); });
         }
     }
 
