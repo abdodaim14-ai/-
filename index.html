@@ -39,15 +39,32 @@
             font-style: normal;
         }
 
-        :root { --gold: #ffcc33; --gold-glow: rgba(255, 204, 51, 0.5); }
+        :root { 
+            --gold: #ffcc33; 
+            --gold-glow: rgba(255, 204, 51, 0.4); 
+            --luxury-bg: #090b0e;
+            --card-bg: rgba(17, 20, 24, 0.85);
+        }
         
-     body {
+        body {
             font-family: 'ThmanyahSerif', 'Almarai', sans-serif; /* تطبيق الخط كخيار أول */
             margin: 0; color: #fff;
-            background: #000;
+            background: radial-gradient(circle at center, #131922 0%, var(--luxury-bg) 100%);
+            background-attachment: fixed;
             min-height: 100vh; padding: 20px 0 160px 0; 
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* إضافة لمسة زخرفية فخمة في الخلفية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255, 204, 51, 0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+            z-index: 0;
+            pointer-events: none;
         }
 
         #pwa-install-banner {
@@ -58,164 +75,160 @@
             transform: translateX(-50%);
             width: 90%;
             max-width: 450px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(9, 11, 14, 0.95);
             border: 2px solid var(--gold);
             color: white;
-            padding: 10px;
-            border-radius: 15px;
+            padding: 12px;
+            border-radius: 20px;
             text-align: center;
             z-index: 10001;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,204,51,0.1);
+            backdrop-filter: blur(15px);
             transition: all 0.4s ease-in-out;
         }
-        .pwa-flex-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .pwa-mini-logo { height: 30px; border-radius: 5px; }
+        .pwa-flex-container { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .pwa-mini-logo { height: 35px; border-radius: 8px; border: 1px solid var(--gold); }
 
         #pwa-install-banner button {
-            background: var(--gold);
+            background: linear-gradient(45deg, #ffcc33, #e6b800);
             color: #000;
             border: none;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 900;
             cursor: pointer;
             font-family: 'ThmanyahSerif', 'Cairo';
-            font-size: 0.8rem;
-            transition: transform 0.2s ease;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 10px rgba(255,204,51,0.3);
+            transition: all 0.3s ease;
         }
-        #pwa-install-banner button:hover { transform: scale(1.05); }
+        #pwa-install-banner button:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
 
         #interactive-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.75;
         }
 
         .container { width: 92%; max-width: 500px; margin: auto; transition: 0.3s; position: relative; z-index: 5; }
         @media (min-width: 768px) {
             .container { max-width: 700px; }
-            .form-card { padding: 35px; }
+            .form-card { padding: 40px 35px; }
         }
         
-        .header-section { text-align: center; margin-bottom: 25px; }
-        .logo-main { width: 130px; filter: drop-shadow(0 0 15px var(--gold-glow)); animation: pulse 2s infinite; }
-        .site-name { font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 1.3rem; margin-top: 10px; }
-        .quran-verse { font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.8rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
+        .header-section { text-align: center; margin-bottom: 30px; position: relative; }
+        .logo-main { width: 140px; filter: drop-shadow(0 0 20px var(--gold-glow)); animation: pulse 2.5s infinite ease-in-out; }
+        .site-name { font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 1.4rem; margin-top: 15px; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
+        .quran-verse { font-family: 'ThmanyahSerif', 'Cairo'; font-size: 2rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 15px var(--gold-glow), 0 2px 4px rgba(0,0,0,0.8); }
 
-        .sponsors-section { text-align: center; margin-bottom: 25px; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px solid rgba(255, 204, 51, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .sponsors-title { color: var(--gold); font-size: 0.85rem; margin-bottom: 10px; display: block; font-weight: bold; }
-        .sponsors-logos { display: flex; justify-content: center; align-items: center; gap: 20px; }
-        .sponsors-logos img { height: 60px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); transition: 0.3s; }
-        .sponsors-logos img:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--gold-glow)); }
-
-        .info-bar { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gold); border-radius: 20px; padding: 15px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(255,204,51,0.1); }
-        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
-        .info-item:hover { transform: scale(1.05); }
-        .info-item i { color: var(--gold); margin-bottom: 5px; font-size: 1.2rem; }
-        .info-val { font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 700; font-size: 0.85rem; color: #fff; }
-        .time-display { font-size: 1.1rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; }
-        .counter-val { font-size: 1.2rem; color: #fff; font-weight: 900; }
+        .info-bar { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.4); border-radius: 24px; padding: 20px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,204,51,0.05); }
+        .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; padding: 5px; }
+        .info-item:hover { transform: scale(1.03); }
+        .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.4rem; filter: drop-shadow(0 0 5px var(--gold-glow)); }
+        .info-val { font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 700; font-size: 0.9rem; color: #e1e1e1; line-height: 1.5; }
+        .time-display { font-size: 1.25rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,204,51,0.2); }
+        .counter-val { font-size: 1.3rem; color: #fff; font-weight: 900; }
         
-        .hijri-event-tag { font-size: 0.75rem; color: #000; background: var(--gold); padding: 4px 10px; border-radius: 4px; font-weight: 900; margin-top: 8px; display: inline-block; animation: flash 2s infinite; line-height: 1.4; box-shadow: 0 2px 8px var(--gold-glow); }
+        .hijri-event-tag { font-size: 0.8rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 5px 14px; border-radius: 6px; font-weight: 900; margin-top: 10px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.4; box-shadow: 0 4px 12px var(--gold-glow); }
 
-        .announcement-card { background: rgba(20, 20, 20, 0.85); border: 1px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: border-color 0.3s ease; }
-        .announcement-card:hover { border-color: #fff; }
-        .ann-title { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .ann-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 15px; }
+        .announcement-card { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 24px; padding: 25px; margin-bottom: 25px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.4); backdrop-filter: blur(15px); transition: all 0.3s ease; }
+        .announcement-card:hover { border-color: var(--gold); box-shadow: 0 10px 35px rgba(255,204,51,0.1); }
+        .ann-title { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .ann-text { font-size: 1rem; line-height: 1.7; color: #e0e0e0; margin-bottom: 18px; }
         .criteria-list { list-style: none; padding: 0; margin: 0; }
-        .criteria-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; transition: transform 0.2s ease; }
-        .criteria-list li:hover { transform: translateX(-3px); }
-        .criteria-list i { color: var(--gold); margin-top: 4px; font-size: 0.85rem; }
-        .ann-footer { border-top: 1px solid rgba(255,204,51,0.2); padding-top: 10px; margin-top: 10px; font-weight: bold; color: var(--gold); font-size: 0.9rem; text-align: center; }
+        .criteria-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #d5d5d5; transition: transform 0.2s ease; }
+        .criteria-list li:hover { transform: translateX(-5px); color: #fff; }
+        .criteria-list i { color: var(--gold); margin-top: 5px; font-size: 0.9rem; filter: drop-shadow(0 0 3px var(--gold-glow)); }
+        .ann-footer { border-top: 1px solid rgba(255,204,51,0.15); padding-top: 12px; margin-top: 12px; font-weight: bold; color: var(--gold); font-size: 0.95rem; text-align: center; }
 
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.08); border-right: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; border-radius: 0 15px 15px 0; backdrop-filter: blur(2px); position: relative; overflow: hidden; box-shadow: -5px 5px 15px rgba(0,0,0,0.3); }
-        .motivational-box p { font-size: 1.05rem; color: #eee; line-height: 1.6; margin: 0; font-weight: bold; z-index: 2; position: relative; }
-        .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255,204,51,0.05); }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.04); border-right: 4px solid var(--gold); border-left: 1px solid rgba(255,204,51,0.1); border-top: 1px solid rgba(255,204,51,0.1); border-bottom: 1px solid rgba(255,204,51,0.1); padding: 18px; margin-bottom: 25px; border-radius: 4px 20px 20px 4px; backdrop-filter: blur(10px); position: relative; overflow: hidden; box-shadow: -5px 8px 25px rgba(0,0,0,0.3); }
+        .motivational-box p { font-size: 1.1rem; color: #f0f0f0; line-height: 1.7; margin: 0; font-weight: bold; z-index: 2; position: relative; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); font-size: 4.5rem; color: rgba(255,204,51,0.03); }
 
-        .video-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 10px; display: block; text-align: center; font-weight: bold; }
-        .video-box { border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.3s; }
-        .video-box:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--gold); }
+        .video-label { color: var(--gold); font-size: 0.95rem; margin-bottom: 12px; display: block; text-align: center; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .video-box { border: 2px solid rgba(255, 204, 51, 0.6); border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.4s ease; }
+        .video-box:hover { transform: scale(1.02); border-color: var(--gold); box-shadow: 0 15px 35px rgba(255,204,51,0.3); }
         .video-box iframe { width: 100%; height: 100%; border: none; }
-        .v-icon { position: absolute; top: 10px; left: 10px; color: var(--gold); font-size: 1.2rem; }
+        .v-icon { position: absolute; top: 12px; left: 12px; color: var(--gold); font-size: 1.4rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
         
-        .social-call { text-align: center; margin: 20px 0; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--gold); }
-        .social-call h4 { margin: 0 0 10px 0; font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 0.9rem; }
-        .social-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .s-box { background: #000; width: 55px; height: 55px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; }
-        .s-box i { font-size: 1.4rem; color: var(--gold); }
-        .s-box span { font-size: 0.55rem; color: #fff; margin-top: 2px; font-weight: bold; }
-        .s-box:hover { background: var(--gold); transform: translateY(-5px); }
+        .social-call { text-align: center; margin: 25px 0; background: var(--card-bg); padding: 20px; border-radius: 24px; border: 1px dashed rgba(255, 204, 51, 0.4); backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .social-call h4 { margin: 0 0 15px 0; font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .social-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .s-box { background: #0c0f13; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+        .s-box i { font-size: 1.5rem; color: var(--gold); }
+        .s-box span { font-size: 0.6rem; color: #fff; margin-top: 3px; font-weight: bold; }
+        .s-box:hover { background: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 20px var(--gold-glow); }
         .s-box:hover i, .s-box:hover span { color: #000; }
-        .s-box.youtube:hover { box-shadow: 0 0 20px #ff0000; border-color: #ff0000; }
-        .s-box.facebook:hover { box-shadow: 0 0 20px #1877f2; border-color: #1877f2; }
+        .s-box.youtube:hover { box-shadow: 0 0 25px #ff0000; border-color: #ff0000; }
+        .s-box.facebook:hover { box-shadow: 0 0 25px #1877f2; border-color: #1877f2; }
         
-        .form-card { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--gold); padding: 25px; border-radius: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: 0.4s; }
-        .form-card:hover { border-color: #fff; box-shadow: 0 0 30px var(--gold-glow); }
-        .field { text-align: right; margin-bottom: 15px; position: relative; }
-        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
+        .form-card { background: var(--card-bg); border: 2px solid rgba(255, 204, 51, 0.5); padding: 30px; border-radius: 30px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 15px 45px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,204,51,0.02); transition: 0.4s; }
+        .form-card:hover { border-color: var(--gold); box-shadow: 0 15px 50px rgba(255,204,51,0.25); }
+        .field { text-align: right; margin-bottom: 18px; position: relative; }
+        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--gold); font-size: 0.95rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         
         .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) { position: absolute; right: 12px; top: 12px; color: var(--gold); font-size: 0.9rem; z-index: 2; transition: 0.3s; }
-        .field input, .field select { width: 100%; padding: 12px 35px 12px 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: 'ThmanyahSerif', sans-serif; }
-        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 12px var(--gold-glow); transform: translateY(-2px); }
+        .input-w-icon i:not(.iti__icon) { position: absolute; right: 14px; top: 14px; color: var(--gold); font-size: 1rem; z-index: 2; transition: 0.3s; }
+        .field input, .field select { width: 100%; padding: 14px 40px 14px 14px; background: #0c0f13; border: 1px solid #232a34; color: #fff; border-radius: 14px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: 'ThmanyahSerif', sans-serif; font-size: 0.95rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255,204,51,0.25); transform: translateY(-1px); background: #11161d; }
         .field input:focus + i, .field select:focus + i { color: #fff; filter: drop-shadow(0 0 5px var(--gold)); }
 
-        .operator-label-logo { height: 22px; display: none; vertical-align: middle; margin-right: 10px; animation: bounceIn 0.5s; border-radius: 3px; }
+        .operator-label-logo { height: 24px; display: none; vertical-align: middle; margin-right: 12px; animation: bounceIn 0.5s; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         
         .iti { width: 100%; direction: ltr; }
         .iti__selected-dial-code { display: none !important; }
-        .iti__country-list { background-color: #111; color: #fff; text-align: left; border: 1px solid var(--gold); }
-        .iti__selected-flag { background: rgba(255,255,255,0.1); border-radius: 10px 0 0 10px; }
+        .iti__country-list { background-color: #0c0f13; color: #fff; text-align: left; border: 1px solid var(--gold); border-radius: 10px; }
+        .iti__selected-flag { background: rgba(255,255,255,0.05); border-radius: 14px 0 0 14px; }
 
-        .flex-row { display: flex; gap: 10px; }
+        .flex-row { display: flex; gap: 12px; }
         .flex-row .field { flex: 1; }
 
-        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upload-item { border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.05); min-height: 100px; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .upload-item:hover { background: rgba(255, 204, 51, 0.1); transform: translateY(-3px); border-style: solid; box-shadow: 0 6px 15px var(--gold-glow); }
-        .upload-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 5px; transition: transform 0.3s ease; }
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
+        .upload-item { border: 1px dashed rgba(255, 204, 51, 0.6); padding: 15px; border-radius: 16px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.02); min-height: 110px; position: relative; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
+        .upload-item:hover { background: rgba(255, 204, 51, 0.08); transform: translateY(-3px); border-style: solid; border-color: var(--gold); box-shadow: 0 8px 20px var(--gold-glow); }
+        .upload-item i { font-size: 1.6rem; color: var(--gold); margin-bottom: 8px; transition: transform 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         .upload-item:hover i { transform: scale(1.15); }
         
-        .preview-img-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 5px; }
-        #audioPreview { width: 100%; height: 30px; margin-top: 8px; display: none; }
+        .preview-img-circle { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        #audioPreview { width: 100%; height: 32px; margin-top: 10px; display: none; }
 
-        .rules-box { background: rgba(255, 204, 51, 0.05); border: 1px solid var(--gold); border-radius: 15px; padding: 15px; margin-top: 20px; text-align: right; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
-        .rules-title { color: var(--gold); font-weight: 900; font-size: 0.95rem; margin-bottom: 10px; display: block; }
-        .rules-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #ccc; line-height: 1.5; }
-        .rules-list li { margin-bottom: 5px; display: flex; gap: 8px; transition: transform 0.2s ease; }
-        .rules-list li:hover { transform: translateX(-3px); color: #fff; }
-        .rules-list i { color: var(--gold); font-size: 0.7rem; margin-top: 5px; }
-        .trust-tag { color: var(--gold); font-weight: bold; font-size: 0.85rem; margin-top: 10px; display: block; text-align: center; border: 1px dashed var(--gold); padding: 5px; border-radius: 8px; background: rgba(0,0,0,0.4); }
+        .rules-box { background: rgba(255, 204, 51, 0.03); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 18px; padding: 18px; margin-top: 25px; text-align: right; box-shadow: inset 0 0 15px rgba(0,0,0,0.6); }
+        .rules-title { color: var(--gold); font-weight: 900; font-size: 1rem; margin-bottom: 12px; display: block; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .rules-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #cccccc; line-height: 1.6; }
+        .rules-list li { margin-bottom: 8px; display: flex; gap: 10px; transition: transform 0.2s ease; }
+        .rules-list li:hover { transform: translateX(-4px); color: #fff; }
+        .rules-list i { color: var(--gold); font-size: 0.75rem; margin-top: 6px; filter: drop-shadow(0 0 2px var(--gold-glow)); }
+        .trust-tag { color: var(--gold); font-weight: bold; font-size: 0.9rem; margin-top: 12px; display: block; text-align: center; border: 1px dashed rgba(255, 204, 51, 0.5); padding: 8px; border-radius: 10px; background: rgba(0,0,0,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 16px; border: none; border-radius: 50px; font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(255,204,51,0.3); margin-top: 20px; }
-        .main-btn:hover { box-shadow: 0 0 30px var(--gold); transform: translateY(-2px) scale(1.02); letter-spacing: 1px; }
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 18px; border: none; border-radius: 50px; font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; font-size: 1.25rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 6px 20px rgba(255,204,51,0.4); margin-top: 25px; }
+        .main-btn:hover { box-shadow: 0 0 35px var(--gold); transform: translateY(-3px) scale(1.01); }
 
-        .footer-credit { text-align: center; margin-top: 40px; }
-        .footer-credit .name { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.3rem; display: block; margin-bottom: 5px; }
-        .footer-credit .pray { color: #888; font-size: 0.9rem; }
-        .quran-final-verse { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.5rem; font-weight: 900; margin-top: 30px; text-shadow: 0 0 10px var(--gold-glow); animation: fadeIn 3s infinite alternate; }
+        .footer-credit { text-align: center; margin-top: 45px; position: relative; z-index: 5; }
+        .footer-credit .name { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.4rem; display: block; margin-bottom: 6px; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .footer-credit .pray { color: #aaaaaa; font-size: 0.95rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .quran-final-verse { color: var(--gold); font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.65rem; font-weight: 900; margin-top: 35px; text-shadow: 0 0 15px var(--gold-glow), 0 2px 4px rgba(0,0,0,0.6); animation: fadeIn 3s infinite alternate; }
 
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; 
-            flex-direction: column; text-align: center; padding: 20px;
+            background: rgba(9,11,14,0.98); z-index: 9999; justify-content: center; align-items: center; 
+            flex-direction: column; text-align: center; padding: 20px; backdrop-filter: blur(10px);
         }
-        #progressText { color: var(--gold); font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; font-family: 'ThmanyahSerif', 'Cairo'; }
+        #progressText { color: var(--gold); font-size: 4rem; font-weight: 900; margin-bottom: 12px; font-family: 'ThmanyahSerif', 'Cairo'; text-shadow: 0 0 20px var(--gold-glow); }
 
-        #quizBox { border: 2px solid var(--gold); padding: 25px; border-radius: 20px; background: #111; max-width: 320px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
-        #quizQ { color: var(--gold); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
-        #quizA { color: #fff; font-size: 1.1rem; opacity: 0; transition: 0.8s; line-height: 1.6; }
+        #quizBox { border: 2px solid var(--gold); padding: 30px; border-radius: 24px; background: #0c0f13; max-width: 350px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,204,51,0.05); }
+        #quizQ { color: var(--gold); font-size: 1.2rem; font-weight: bold; margin-bottom: 18px; }
+        #quizA { color: #f0f0f0; font-size: 1.15rem; opacity: 0; transition: 0.8s; line-height: 1.7; }
 
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #000; border: 2px solid var(--gold); border-radius: 50px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; }
-        .fixed-call-btn:hover { background: #111; transform: translateX(-50%) scale(1.02); box-shadow: 0 0 30px var(--gold); }
-        .fixed-call-btn span { color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 0.95rem; }
+        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #0c0f13; border: 2px solid var(--gold); border-radius: 50px; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow); transition: 0.3s; backdrop-filter: blur(10px); }
+        .fixed-call-btn:hover { background: #13181f; transform: translateX(-50%) scale(1.02); box-shadow: 0 0 35px var(--gold); border-color: #fff; }
+        .fixed-call-btn span { color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1rem; font-weight: bold; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
 
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        @keyframes pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(255,204,51,0.6)); } 100% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } }
+        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     </style>
 </head>
 <body>
@@ -247,17 +260,8 @@
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
-    <div class="sponsors-section animate__animated animate__fadeInDown">
-        <span class="sponsors-title">داعم المواهب برعاية</span>
-        <div class="sponsors-logos">
-            <img src="https://i.ibb.co/fY15QqQT/logo1.png" alt="Sponsor 1">
-            <img src="https://i.ibb.co/LDxX15Tt/logo2.png" alt="Sponsor 2">
-            <img src="https://i.ibb.co/8nBVN44V/sponsor3.png" alt="Sponsor 3" onerror="this.src='https://i.ibb.co/8nBVN44V/logo3.png'">
-        </div>
-    </div>
-
     <div class="info-bar animate__animated animate__zoomIn">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.3)">
+        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.2)">
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
             <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
@@ -306,7 +310,7 @@
             يرجى العلم بضرورة الالتزام بمعايير الجودة لضمان عرض تلاوتك بشكل لائق.
         </div>
         <ul class="criteria-list">
-            <li><i class="fas fa-microphone"></i> <strong>يرجى إرسال الصوت بدون مؤثرات صوتية</strong> لضنة تقييم الأداء بشكل صحيح.</li>
+            <li><i class="fas fa-microphone"></i> <strong>يرجى إرسال الصوت بدون مؤثرات صوتية</strong> لضمان تقييم الأداء بشكل صحيح.</li>
             <li><i class="fas fa-check-circle"></i> يرجى التأكد من وضوح مخارج الحروف والهدوء في مكان التسجيل.</li>
             <li><i class="fas fa-clock"></i> مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
         </ul>
@@ -604,7 +608,7 @@
     const mixedInfo = [
         { type: "من هدي النبوة..", text: "قال ﷺ: 'الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة'.. كن ماهراً باتباع قواعد التجويد." },
         { type: "إشراقة قرآنية..", text: "قال تعالى: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا'.. الترتيل هو تجويد الحروف ومعرفة الوقوف، فاحرص على الإتقان." },
-        { type: "من هدي النبوة..", text: "قال ﷺ: 'زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ'.. صوتك الحسن هو زينة لكلام الله، فأخرجه في أفضل صورة." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ'.. صوتك الحسن هو زينة لكلام الله, فأخرجه في أفضل صورة." },
         { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
         { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه إلى القلوب." },
