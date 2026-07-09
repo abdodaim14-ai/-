@@ -435,7 +435,7 @@
 
     function checkNotificationPermission() {
         if ("Notification" in window) {
-            if (Notification.permission === "granted") {
+            if (Notification.permission === "granted" || Notification.permission === "denied") {
                 floatingNotifyBtn.style.display = 'none';
             } else {
                 floatingNotifyBtn.style.display = 'flex';
@@ -446,7 +446,7 @@
     floatingNotifyBtn.addEventListener('click', () => {
         if ("Notification" in window) {
             Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
+                if (permission === "granted" || permission === "denied") {
                     floatingNotifyBtn.classList.remove('animate__bounceIn');
                     floatingNotifyBtn.classList.add('animate__fadeOutDown');
                     setTimeout(() => {
@@ -459,12 +459,6 @@
 
     // استدعاء فحص حالة الإشعارات عند تحميل الصفحة
     window.addEventListener('DOMContentLoaded', checkNotificationPermission);
-
-    if ("Notification" in window) {
-        if (Notification.permission !== "granted" && Notification.permission !== "denied") {
-            Notification.requestPermission().then(() => { checkNotificationPermission(); });
-        }
-    }
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -671,7 +665,7 @@
 
     const mixedInfo = [
         { type: "من هدي النبوة..", text: "قال ﷺ: 'الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة'.. كن ماهراً باتباع قواعد التجويد." },
-        { type: "إشراقة قرآنية..", text: "قال تعالى: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا'.. الترتيل هو تجويد الحروف ومعرفة الوقوف، فاحرص على الإتقان." },
+        { type: "إشراقة قرآنية..", text: "قال تعالى: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا'.. الترتيل هو تجويد الحروف ومعرفة الوقوف, فاحرص على الإتقان." },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ'.. صوتك الحسن هو زينة لكلام الله, فأخرجه في أفضل صورة." },
         { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
