@@ -302,7 +302,7 @@
     <div id="progressText">0%</div>
     <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
     <div id="quizBox">
-        <p style="color:#888; font-size:0.8rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
+        <p id="loadingStatusText" style="color:#888; font-size:0.8rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
         <div id="quizQ">بستان المؤمن..</div>
         <div id="quizA">...</div>
     </div>
@@ -756,6 +756,10 @@
         if (!iti.isValidNumber()) { alert("يرجى التأكد من كتابة رقم هاتف صحيح"); return; }
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
+        
+        // تعديل نص الـ overlay ليعبر عن الرفع الحقيقي للملفات
+        document.getElementById('loadingStatusText').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..';
+        
         overlay.style.display = 'flex';
         let idx = 0;
         const updateContent = () => {
@@ -792,6 +796,44 @@
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader(); reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
+    });
+
+    // --- كود إضافة شاشة التحميل التلقائية فور الدخول إلى الصفحة دون تعديل الباقي ---
+    window.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('loadingOverlay');
+        const progText = document.getElementById('progressText');
+        const statusText = document.getElementById('loadingStatusText');
+        
+        // تعديل مؤقت للنص ليناسب دخول المنصة لأول مرة
+        statusText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري فتح منصة داعم المواهب...';
+        overlay.style.display = 'flex';
+        
+        let count = 0;
+        let idx = 0;
+        
+        // تشغيل عرض النص القرآني المتغير أثناء تحميل الدخول
+        const updateContent = () => {
+            const item = mixedInfo[idx];
+            document.getElementById('quizQ').innerText = item.type;
+            document.getElementById('quizA').style.opacity = 0;
+            setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
+            idx = (idx + 1) % mixedInfo.length;
+        };
+        updateContent(); 
+        const contentInt = setInterval(updateContent, 2000);
+
+        // عدّاد التحميل للوصول إلى 100%
+        const entryLoader = setInterval(() => {
+            if (count < 100) {
+                count += 4; // سرعة العداد
+                progText.innerText = count + "%";
+            } else {
+                clearInterval(entryLoader);
+                clearInterval(contentInt);
+                // إخفاء القائمة وسحب الشاشة لفتح الموقع بالكامل
+                overlay.style.display = 'none'; 
+            }
+        }, 60);
     });
 </script>
 <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script></body>
