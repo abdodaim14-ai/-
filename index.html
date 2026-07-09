@@ -134,6 +134,24 @@
         .time-display { font-size: 1.25rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,204,51,0.2); }
         .counter-val { font-size: 1.3rem; color: #fff; font-weight: 900; }
         
+        /* قايمة مخصصة ومستقلة لعرض العدد الحقيقي بشكل فخم */
+        .real-followers-box {
+            background: linear-gradient(135deg, rgba(255, 204, 51, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 6px 12px;
+            margin-top: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .real-followers-count {
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-weight: 900;
+            font-family: 'ThmanyahSerif', 'Cairo', sans-serif;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
         .hijri-event-tag { font-size: 0.8rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 5px 14px; border-radius: 6px; font-weight: 900; margin-top: 10px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.4; box-shadow: 0 4px 12px var(--gold-glow); }
 
         .announcement-card { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 24px; padding: 25px; margin-bottom: 25px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.4); backdrop-filter: blur(15px); transition: all 0.3s ease; }
@@ -305,6 +323,9 @@
             <i class="fas fa-heart"></i>
             <span id="userCounter" class="counter-val"></span>
             <span class="info-val"> صوتك نديّ فلا تحرمنا من سماعه، ارفع تلاوتك الان </span>
+            <div class="real-followers-box">
+                <div id="realFollowersCount" class="real-followers-count">جاري الحساب...</div>
+            </div>
         </div>
     </div>
 
@@ -435,6 +456,7 @@
         const PAGE_ID = '1027623416866396';
         const ACCESS_TOKEN = 'EAAOmnji5plwBRx9ji7nXkmuF2ZAQvAH8BQ5N4JkwZAvUG9WgazuyLAL04zDU2Ih1g6QRElxHrpMP0OAnGP0MaL9sHjRJDIZA5VumiVkX13oZBfKDZAZBMLsh6fpzpYVpPo7ywdTpP8eLYZCjHNQJSxMxGVjvSSPipGYt4WVwIDpyZAfB52E0XZACQS1oTrFNPHMEPrpW2ZBYJtFGZBjq4npzC1A1ZAtVhixgmCieOQZDZD';
         const counterElement = document.getElementById('userCounter');
+        const realCountElement = document.getElementById('realFollowersCount');
         
         // وضع نص مؤقت لحين تحميل العدد
         counterElement.innerText = "جاري جلب العدد...";
@@ -446,12 +468,16 @@
             if (data && data.followers_count) {
                 // عرض عدد المتابعين بشكل منسق مع إضافة نص مناسب
                 counterElement.innerText = data.followers_count.toLocaleString() + " متابع";
+                // تحديث المكان والقايمة المستقلة بالعدد الدقيق الخام
+                realCountElement.innerText = "العدد الحقيقي: " + data.followers_count;
             } else {
                 counterElement.innerText = "+10K متابع";
+                realCountElement.innerText = "العدد الحقيقي: 10,000+";
             }
         } catch (error) {
             console.error("خطأ في جلب بيانات المتابعين:", error);
             counterElement.innerText = "+10K متابع"; // حل احتياطي في حال انقطاع الـ API
+            realCountElement.innerText = "العدد الحقيقي: غير متاح حالياً";
         }
     }
 
