@@ -1,13 +1,13 @@
 {
   "id": "/?source=pwa",
-  "name": " داعم المواهب للقرآن الكريم",
+  "name": "داعم المواهب للقرآن الكريم",
   "short_name": "داعم المواهب",
   "description": "منصة للمشاركة في مسابقات تلاوة القرآن الكريم برعاية خادم القرآن عبد الرحمن مكي",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#090b0e",
   "theme_color": "#ffcc33",
-  "orientation": "portrait",
+  "orientation": "any",
   "dir": "rtl",
   "lang": "ar",
   "categories": [
@@ -17,9 +17,39 @@
   "icons": [
     {
       "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
+      "sizes": "384x384",
+      "type": "image/png"
     },
     {
       "src": "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png",
@@ -41,7 +71,7 @@
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "واجهة مسابقة داعم المواهب"
+      "label": "واجهة مسابقة داعم المواهب للكمبيوتر"
     }
   ],
   "prefer_related_applications": false,
