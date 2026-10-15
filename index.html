@@ -44,13 +44,15 @@
 
         :root { 
             --gold: #ffcc33; 
-            --gold-glow: rgba(255, 204, 51, 0.4); 
+            --gold-glow: rgba(255, 204, 51, 0.45); 
             --luxury-bg: #07090c;
-            --card-bg: rgba(13, 17, 23, 0.9);
+            --card-bg: rgba(13, 17, 23, 0.94);
         }
         
         body {
             font-family: 'CustomZainFont', 'Almarai', sans-serif;
+            font-weight: 700;
+            font-size: 1.12rem;
             margin: 0; color: #fff;
             background: radial-gradient(circle at center, #101620 0%, var(--luxury-bg) 100%);
             background-attachment: fixed;
@@ -100,7 +102,7 @@
             font-weight: 900;
             cursor: pointer;
             font-family: 'CustomZainFont', 'Cairo';
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             box-shadow: 0 4px 10px rgba(255,204,51,0.3);
             transition: all 0.3s ease;
         }
@@ -121,128 +123,128 @@
         }
         
         .header-section { text-align: center; margin-bottom: 30px; position: relative; }
-        .logo-main { width: 140px; filter: drop-shadow(0 0 20px var(--gold-glow)); animation: pulse 2.5s infinite ease-in-out; }
-        .site-name { font-family: 'CustomZainFont', 'Cairo'; color: var(--gold); font-size: 1.5rem; margin-top: 15px; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.5px; }
-        .quran-verse { font-family: 'CustomZainFont', 'Cairo'; font-size: 2.1rem; margin: 15px 0; color: #fff; font-weight: 900; text-shadow: 0 0 20px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.9); }
+        .logo-main { width: 145px; filter: drop-shadow(0 0 22px var(--gold-glow)); animation: pulse 2.5s infinite ease-in-out; }
+        .site-name { font-family: 'CustomZainFont', 'Cairo'; color: var(--gold); font-size: 1.75rem; margin-top: 15px; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.85); letter-spacing: 0.5px; }
+        .quran-verse { font-family: 'CustomZainFont', 'Cairo'; font-size: 2.35rem; margin: 16px 0; color: #fff; font-weight: 900; text-shadow: 0 0 28px var(--gold-glow), 0 3px 8px rgba(0,0,0,0.95); }
 
-        .info-bar { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.4); border-radius: 24px; padding: 20px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,204,51,0.05); }
+        .info-bar { background: var(--card-bg); border: 1.5px solid rgba(255, 204, 51, 0.5); border-radius: 24px; padding: 22px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,204,51,0.05); }
         .info-item { display: flex; flex-direction: column; justify-content: center; transition: 0.3s; padding: 5px; }
         .info-item:hover { transform: scale(1.03); }
-        .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.4rem; filter: drop-shadow(0 0 5px var(--gold-glow)); }
-        .info-val { font-family: 'CustomZainFont', 'Cairo'; font-weight: 700; font-size: 0.95rem; color: #e1e1e1; line-height: 1.5; }
-        .time-display { font-size: 1.3rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,204,51,0.2); }
-        .counter-val { font-size: 1.3rem; color: #fff; font-weight: 900; }
+        .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.55rem; filter: drop-shadow(0 0 6px var(--gold-glow)); }
+        .info-val { font-family: 'CustomZainFont', 'Cairo'; font-weight: 700; font-size: 1.05rem; color: #f0f0f0; line-height: 1.6; }
+        .time-display { font-size: 1.45rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 12px rgba(255,204,51,0.3); }
+        .counter-val { font-size: 1.45rem; color: #fff; font-weight: 900; }
         
         .real-followers-box {
-            background: linear-gradient(135deg, rgba(255, 204, 51, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
-            border: 1px solid var(--gold);
-            border-radius: 12px;
-            padding: 6px 12px;
-            margin-top: 8px;
+            background: linear-gradient(135deg, rgba(255, 204, 51, 0.12) 0%, rgba(0, 0, 0, 0.5) 100%);
+            border: 1.5px solid var(--gold);
+            border-radius: 14px;
+            padding: 8px 14px;
+            margin-top: 10px;
             display: inline-block;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
         .real-followers-count {
             color: var(--gold);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 900;
             font-family: 'CustomZainFont', 'Cairo', sans-serif;
-            text-shadow: 0 0 10px var(--gold-glow);
+            text-shadow: 0 0 12px var(--gold-glow);
         }
 
-        .hijri-event-tag { font-size: 0.85rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 6px 14px; border-radius: 8px; font-weight: 900; margin-top: 10px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.4; box-shadow: 0 4px 12px var(--gold-glow); cursor: pointer; }
+        .hijri-event-tag { font-size: 0.95rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 7px 16px; border-radius: 10px; font-weight: 900; margin-top: 12px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.5; box-shadow: 0 4px 14px var(--gold-glow); cursor: pointer; }
 
-        .announcement-card { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 24px; padding: 25px; margin-bottom: 25px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.4); backdrop-filter: blur(15px); transition: all 0.3s ease; }
-        .announcement-card:hover { border-color: var(--gold); box-shadow: 0 10px 35px rgba(255,204,51,0.1); }
-        .ann-title { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; font-size: 1.25rem; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .ann-text { font-size: 1.05rem; line-height: 1.7; color: #e0e0e0; margin-bottom: 18px; }
+        .announcement-card { background: var(--card-bg); border: 1.5px solid rgba(255, 204, 51, 0.45); border-radius: 24px; padding: 25px; margin-bottom: 25px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.4); backdrop-filter: blur(15px); transition: all 0.3s ease; }
+        .announcement-card:hover { border-color: var(--gold); box-shadow: 0 10px 35px rgba(255,204,51,0.2); }
+        .ann-title { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; font-size: 1.35rem; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .ann-text { font-size: 1.15rem; line-height: 1.8; color: #ebebeb; margin-bottom: 18px; font-weight: 700; }
         .criteria-list { list-style: none; padding: 0; margin: 0; }
-        .criteria-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-size: 1rem; color: #d5d5d5; transition: transform 0.2s ease; }
+        .criteria-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-size: 1.1rem; color: #dedede; transition: transform 0.2s ease; font-weight: 700; }
         .criteria-list li:hover { transform: translateX(-5px); color: #fff; }
-        .criteria-list i { color: var(--gold); margin-top: 5px; font-size: 0.95rem; filter: drop-shadow(0 0 3px var(--gold-glow)); }
+        .criteria-list i { color: var(--gold); margin-top: 5px; font-size: 1.05rem; filter: drop-shadow(0 0 4px var(--gold-glow)); }
 
-        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.05); border-right: 4px solid var(--gold); border-left: 1px solid rgba(255,204,51,0.1); border-top: 1px solid rgba(255,204,51,0.1); border-bottom: 1px solid rgba(255,204,51,0.1); padding: 20px; margin-bottom: 25px; border-radius: 6px 22px 22px 6px; backdrop-filter: blur(10px); position: relative; overflow: hidden; box-shadow: -5px 8px 25px rgba(0,0,0,0.3); }
-        .motivational-box p { font-size: 1.15rem; color: #f0f0f0; line-height: 1.8; margin: 0; font-weight: bold; z-index: 2; position: relative; text-shadow: 0 1px 3px rgba(0,0,0,0.7); }
+        .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.06); border-right: 5px solid var(--gold); border-left: 1.5px solid rgba(255,204,51,0.2); border-top: 1.5px solid rgba(255,204,51,0.2); border-bottom: 1.5px solid rgba(255,204,51,0.2); padding: 22px; margin-bottom: 25px; border-radius: 8px 24px 24px 8px; backdrop-filter: blur(10px); position: relative; overflow: hidden; box-shadow: -5px 8px 25px rgba(0,0,0,0.3); }
+        .motivational-box p { font-size: 1.25rem; color: #ffffff; line-height: 1.9; margin: 0; font-weight: 900; z-index: 2; position: relative; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
         .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); font-size: 4.5rem; color: rgba(255,204,51,0.03); }
 
-        .video-label { color: var(--gold); font-size: 1rem; margin-bottom: 12px; display: block; text-align: center; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .video-box { border: 2px solid rgba(255, 204, 51, 0.6); border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.4s ease; background: #000; }
-        .video-box:hover { transform: scale(1.02); border-color: var(--gold); box-shadow: 0 15px 35px rgba(255,204,51,0.3); }
+        .video-label { color: var(--gold); font-size: 1.15rem; margin-bottom: 12px; display: block; text-align: center; font-weight: 900; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .video-box { border: 2.5px solid rgba(255, 204, 51, 0.7); border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 25px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.4s ease; background: #000; }
+        .video-box:hover { transform: scale(1.02); border-color: var(--gold); box-shadow: 0 15px 35px rgba(255,204,51,0.35); }
         .video-box iframe { width: 100%; height: 100%; border: none; }
-        .v-icon { position: absolute; top: 12px; left: 12px; color: var(--gold); font-size: 1.4rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); z-index: 10; pointer-events: none; }
+        .v-icon { position: absolute; top: 12px; left: 12px; color: var(--gold); font-size: 1.5rem; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6)); z-index: 10; pointer-events: none; }
         
-        .social-call { text-align: center; margin: 25px 0; background: var(--card-bg); padding: 20px; border-radius: 24px; border: 1px dashed rgba(255, 204, 51, 0.4); backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .social-call h4 { margin: 0 0 15px 0; font-family: 'CustomZainFont', 'Cairo'; color: var(--gold); font-size: 1.1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .social-call { text-align: center; margin: 25px 0; background: var(--card-bg); padding: 22px; border-radius: 24px; border: 1.5px dashed rgba(255, 204, 51, 0.5); backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .social-call h4 { margin: 0 0 15px 0; font-family: 'CustomZainFont', 'Cairo'; color: var(--gold); font-size: 1.25rem; font-weight: 900; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
         .social-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .s-box { background: #0c0f13; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--gold); transition: 0.4s; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
         .s-box i { font-size: 1.5rem; color: var(--gold); }
-        .s-box span { font-size: 0.65rem; color: #fff; margin-top: 3px; font-weight: bold; }
+        .s-box span { font-size: 0.75rem; color: #fff; margin-top: 3px; font-weight: 900; }
         .s-box:hover { background: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 20px var(--gold-glow); }
         .s-box:hover i, .s-box:hover span { color: #000; }
         .s-box.youtube:hover { box-shadow: 0 0 25px #ff0000; border-color: #ff0000; }
         .s-box.facebook:hover { box-shadow: 0 0 25px #1877f2; border-color: #1877f2; }
         
-        .form-card { background: var(--card-bg); border: 2px solid rgba(255, 204, 51, 0.5); padding: 30px; border-radius: 30px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 15px 45px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,204,51,0.02); transition: 0.4s; }
-        .form-card:hover { border-color: var(--gold); box-shadow: 0 15px 50px rgba(255,204,51,0.25); }
-        .field { text-align: right; margin-bottom: 20px; position: relative; }
-        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--gold); font-size: 1.05rem; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .form-card { background: var(--card-bg); border: 2.5px solid rgba(255, 204, 51, 0.6); padding: 32px; border-radius: 30px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 15px 45px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,204,51,0.03); transition: 0.4s; }
+        .form-card:hover { border-color: var(--gold); box-shadow: 0 15px 50px rgba(255,204,51,0.3); }
+        .field { text-align: right; margin-bottom: 22px; position: relative; }
+        .field label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--gold); font-size: 1.15rem; font-weight: 900; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
         
         .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) { position: absolute; right: 14px; top: 14px; color: var(--gold); font-size: 1.1rem; z-index: 2; transition: 0.3s; }
-        .field input, .field select { width: 100%; padding: 15px 45px 15px 15px; background: #0c0f13; border: 1px solid #232a34; color: #fff; border-radius: 16px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: 'CustomZainFont', sans-serif; font-size: 1.05rem; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6); }
-        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 18px rgba(255,204,51,0.3); transform: translateY(-1px); background: #131922; }
-        .field input:focus + i, .field select:focus + i { color: #fff; filter: drop-shadow(0 0 6px var(--gold)); }
+        .input-w-icon i:not(.iti__icon) { position: absolute; right: 14px; top: 16px; color: var(--gold); font-size: 1.2rem; z-index: 2; transition: 0.3s; }
+        .field input, .field select { width: 100%; padding: 16px 45px 16px 16px; background: #0c0f13; border: 1.5px solid #2a3442; color: #fff; border-radius: 16px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: 'CustomZainFont', sans-serif; font-weight: 700; font-size: 1.15rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); }
+        .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,204,51,0.35); transform: translateY(-1px); background: #131922; }
+        .field input:focus + i, .field select:focus + i { color: #fff; filter: drop-shadow(0 0 8px var(--gold)); }
 
-        .operator-label-logo { height: 24px; display: none; vertical-align: middle; margin-right: 12px; animation: bounceIn 0.5s; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .operator-label-logo { height: 26px; display: none; vertical-align: middle; margin-right: 12px; animation: bounceIn 0.5s; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         
         .iti { width: 100%; direction: ltr; }
         .iti__selected-dial-code { display: none !important; }
-        .iti__country-list { background-color: #0c0f13; color: #fff; text-align: left; border: 1px solid var(--gold); border-radius: 10px; }
+        .iti__country-list { background-color: #0c0f13; color: #fff; text-align: left; border: 1.5px solid var(--gold); border-radius: 10px; font-weight: 700; }
         .iti__selected-flag { background: rgba(255,255,255,0.05); border-radius: 16px 0 0 16px; }
 
         .flex-row { display: flex; gap: 12px; }
         .flex-row .field { flex: 1; }
 
         .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-        .upload-item { border: 1px dashed rgba(255, 204, 51, 0.6); padding: 18px; border-radius: 18px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.02); min-height: 120px; position: relative; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
-        .upload-item:hover { background: rgba(255, 204, 51, 0.08); transform: translateY(-3px); border-style: solid; border-color: var(--gold); box-shadow: 0 8px 22px var(--gold-glow); }
-        .upload-item i { font-size: 1.8rem; color: var(--gold); margin-bottom: 8px; transition: transform 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .upload-item { border: 1.5px dashed rgba(255, 204, 51, 0.7); padding: 20px; border-radius: 18px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,204,51,0.03); min-height: 130px; position: relative; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.4); font-weight: 900; }
+        .upload-item:hover { background: rgba(255, 204, 51, 0.09); transform: translateY(-3px); border-style: solid; border-color: var(--gold); box-shadow: 0 8px 25px var(--gold-glow); }
+        .upload-item i { font-size: 2rem; color: var(--gold); margin-bottom: 8px; transition: transform 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         .upload-item:hover i { transform: scale(1.15); }
         
-        .preview-img-circle { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .preview-img-circle { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; display: none; margin-bottom: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         #audioPreview { width: 100%; height: 32px; margin-top: 10px; display: none; }
 
-        .rules-box { background: rgba(255, 204, 51, 0.03); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 18px; padding: 20px; margin-top: 25px; text-align: right; box-shadow: inset 0 0 15px rgba(0,0,0,0.6); }
-        .rules-title { color: var(--gold); font-weight: 900; font-size: 1.1rem; margin-bottom: 12px; display: block; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .rules-list { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; color: #cccccc; line-height: 1.7; }
+        .rules-box { background: rgba(255, 204, 51, 0.04); border: 1.5px solid rgba(255, 204, 51, 0.4); border-radius: 18px; padding: 22px; margin-top: 25px; text-align: right; box-shadow: inset 0 0 15px rgba(0,0,0,0.6); }
+        .rules-title { color: var(--gold); font-weight: 900; font-size: 1.2rem; margin-bottom: 12px; display: block; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .rules-list { list-style: none; padding: 0; margin: 0; font-size: 1.05rem; color: #dedede; line-height: 1.8; font-weight: 700; }
         .rules-list li { margin-bottom: 10px; display: flex; gap: 10px; transition: transform 0.2s ease; }
         .rules-list li:hover { transform: translateX(-4px); color: #fff; }
-        .rules-list i { color: var(--gold); font-size: 0.8rem; margin-top: 6px; filter: drop-shadow(0 0 2px var(--gold-glow)); }
-        .trust-tag { color: var(--gold); font-weight: bold; font-size: 0.95rem; margin-top: 15px; display: block; text-align: center; border: 1px dashed rgba(255, 204, 51, 0.5); padding: 10px; border-radius: 12px; background: rgba(0,0,0,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .rules-list i { color: var(--gold); font-size: 0.9rem; margin-top: 6px; filter: drop-shadow(0 0 3px var(--gold-glow)); }
+        .trust-tag { color: var(--gold); font-weight: 900; font-size: 1.05rem; margin-top: 15px; display: block; text-align: center; border: 1.5px dashed rgba(255, 204, 51, 0.6); padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
 
-        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 18px; border: none; border-radius: 50px; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; font-size: 1.3rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 6px 20px rgba(255,204,51,0.4); margin-top: 25px; }
-        .main-btn:hover { box-shadow: 0 0 35px var(--gold); transform: translateY(-3px) scale(1.01); }
+        .main-btn { width: 100%; background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; padding: 18px; border: none; border-radius: 50px; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; font-size: 1.4rem; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; box-shadow: 0 6px 22px rgba(255,204,51,0.45); margin-top: 25px; text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
+        .main-btn:hover { box-shadow: 0 0 40px var(--gold); transform: translateY(-3px) scale(1.01); }
 
         .footer-credit { text-align: center; margin-top: 45px; position: relative; z-index: 5; }
-        .footer-credit .name { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-size: 1.5rem; display: block; margin-bottom: 8px; font-weight: 900; text-shadow: 0 2px 6px rgba(0,0,0,0.7); }
-        .footer-credit .pray { color: #aaaaaa; font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .quran-final-verse { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-size: 1.8rem; font-weight: 900; margin-top: 35px; text-shadow: 0 0 20px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.8); animation: fadeIn 3s infinite alternate; }
+        .footer-credit .name { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-size: 1.75rem; display: block; margin-bottom: 8px; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+        .footer-credit .pray { color: #cccccc; font-size: 1.15rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6); font-weight: 700; }
+        .quran-final-verse { color: var(--gold); font-family: 'CustomZainFont', 'Cairo'; font-size: 2.1rem; font-weight: 900; margin-top: 35px; text-shadow: 0 0 25px var(--gold-glow), 0 3px 8px rgba(0,0,0,0.9); animation: fadeIn 3s infinite alternate; }
 
         #loadingOverlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(7,9,12,0.98); z-index: 9999; justify-content: center; align-items: center; 
             flex-direction: column; text-align: center; padding: 20px; backdrop-filter: blur(10px);
         }
-        #progressText { color: var(--gold); font-size: 4rem; font-weight: 900; margin-bottom: 12px; font-family: 'CustomZainFont', 'Cairo'; text-shadow: 0 0 25px var(--gold-glow); }
+        #progressText { color: var(--gold); font-size: 4.5rem; font-weight: 900; margin-bottom: 12px; font-family: 'CustomZainFont', 'Cairo'; text-shadow: 0 0 30px var(--gold-glow); }
 
-        #quizBox { border: 2px solid var(--gold); padding: 30px; border-radius: 24px; background: #0c0f13; max-width: 350px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,204,51,0.05); }
-        #quizQ { color: var(--gold); font-size: 1.3rem; font-weight: bold; margin-bottom: 18px; }
-        #quizA { color: #f0f0f0; font-size: 1.2rem; opacity: 0; transition: 0.8s; line-height: 1.8; }
+        #quizBox { border: 2.5px solid var(--gold); padding: 32px; border-radius: 24px; background: #0c0f13; max-width: 370px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,204,51,0.05); }
+        #quizQ { color: var(--gold); font-size: 1.4rem; font-weight: 900; margin-bottom: 18px; }
+        #quizA { color: #f5f5f5; font-size: 1.3rem; font-weight: 700; opacity: 0; transition: 0.8s; line-height: 1.9; }
 
-        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #0c0f13; border: 2px solid var(--gold); border-radius: 50px; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow); transition: 0.3s; backdrop-filter: blur(10px); }
-        .fixed-call-btn:hover { background: #13181f; transform: translateX(-50%) scale(1.02); box-shadow: 0 0 35px var(--gold); border-color: #fff; }
-        .fixed-call-btn span { color: #fff; font-family: 'CustomZainFont', 'Cairo'; font-size: 1.05rem; font-weight: bold; }
-        .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
+        .fixed-call-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 420px; z-index: 1000; background: #0c0f13; border: 2.5px solid var(--gold); border-radius: 50px; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px var(--gold-glow); transition: 0.3s; backdrop-filter: blur(10px); }
+        .fixed-call-btn:hover { background: #13181f; transform: translateX(-50%) scale(1.02); box-shadow: 0 0 40px var(--gold); border-color: #fff; }
+        .fixed-call-btn span { color: #fff; font-family: 'CustomZainFont', 'Cairo'; font-size: 1.15rem; font-weight: 900; }
+        .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; font-size: 1.2rem; }
 
         .floating-notification-btn {
             position: fixed;
@@ -284,28 +286,28 @@
         }
         .cert-card {
             background: linear-gradient(145deg, #121822 0%, #07090c 100%);
-            border: 3px solid var(--gold);
+            border: 3.5px solid var(--gold);
             border-radius: 32px;
             padding: 32px;
             width: 100%;
             max-width: 460px;
             text-align: center;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.95), 0 0 40px var(--gold-glow);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.95), 0 0 45px var(--gold-glow);
             position: relative;
             box-sizing: border-box;
         }
         .cert-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
         .cert-logo { width: 70px; border-radius: 14px; border: 2px solid var(--gold); box-shadow: 0 0 18px var(--gold-glow); }
-        .cert-title-box h3 { margin: 0; color: var(--gold); font-size: 1.35rem; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; }
-        .cert-title-box span { font-size: 0.85rem; color: #bbb; }
+        .cert-title-box h3 { margin: 0; color: var(--gold); font-size: 1.5rem; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; }
+        .cert-title-box span { font-size: 0.95rem; color: #ccc; font-weight: 700; }
         .cert-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; margin: 15px auto; box-shadow: 0 0 25px var(--gold-glow); display: block; }
-        .cert-name { font-size: 1.65rem; color: #fff; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; margin: 12px 0; text-shadow: 0 2px 6px rgba(0,0,0,0.7); }
-        .cert-details { background: rgba(255, 204, 51, 0.06); border: 1px dashed rgba(255, 204, 51, 0.5); border-radius: 18px; padding: 18px; margin: 18px 0; text-align: right; font-size: 1.05rem; line-height: 1.9; color: #eee; }
-        .cert-details strong { color: var(--gold); }
-        .cert-footer { margin-top: 20px; border-top: 1px solid rgba(255,204,51,0.25); padding-top: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: var(--gold); font-weight: bold; }
+        .cert-name { font-size: 1.85rem; color: #fff; font-family: 'CustomZainFont', 'Cairo'; font-weight: 900; margin: 12px 0; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+        .cert-details { background: rgba(255, 204, 51, 0.07); border: 1.5px dashed rgba(255, 204, 51, 0.6); border-radius: 18px; padding: 20px; margin: 18px 0; text-align: right; font-size: 1.15rem; line-height: 2; color: #f0f0f0; font-weight: 700; }
+        .cert-details strong { color: var(--gold); font-weight: 900; }
+        .cert-footer { margin-top: 20px; border-top: 1.5px solid rgba(255,204,51,0.3); padding-top: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; color: var(--gold); font-weight: 900; }
         
         .cert-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .cert-btn { flex: 1; padding: 14px; border-radius: 50px; font-weight: 900; font-family: 'CustomZainFont', 'Cairo'; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .cert-btn { flex: 1; padding: 15px; border-radius: 50px; font-weight: 900; font-family: 'CustomZainFont', 'Cairo'; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.05rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
         .cert-btn.download { background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; }
         .cert-btn.whatsapp { background: #25d366; color: #fff; }
         .cert-btn.close { background: #232a34; color: #fff; border: 1px solid #444; }
@@ -315,14 +317,14 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(9, 11, 14, 0.95); z-index: 100000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(15px);
         }
-        .archive-content { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 24px; padding: 25px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: right; }
-        .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,204,51,0.3); padding-bottom: 12px; margin-bottom: 15px; }
-        .archive-header h3 { color: var(--gold); margin: 0; font-family: 'CustomZainFont', 'Cairo'; font-size: 1.35rem; }
-        .archive-close { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; color: var(--gold); }
-        .event-card-item { background: rgba(255,204,51,0.03); border: 1px solid rgba(255,204,51,0.2); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; }
-        .event-card-item h4 { color: var(--gold); margin: 0 0 5px 0; font-size: 1.1rem; }
-        .event-card-item p { margin: 0; color: #ccc; font-size: 0.95rem; line-height: 1.6; }
-        .event-date-badge { display: inline-block; background: var(--gold); color: #000; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; margin-bottom: 6px; }
+        .archive-content { background: var(--card-bg); border: 2.5px solid var(--gold); border-radius: 24px; padding: 25px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: right; }
+        .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(255,204,51,0.4); padding-bottom: 12px; margin-bottom: 15px; }
+        .archive-header h3 { color: var(--gold); margin: 0; font-family: 'CustomZainFont', 'Cairo'; font-size: 1.5rem; font-weight: 900; }
+        .archive-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--gold); }
+        .event-card-item { background: rgba(255,204,51,0.04); border: 1.5px solid rgba(255,204,51,0.3); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+        .event-card-item h4 { color: var(--gold); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 900; }
+        .event-card-item p { margin: 0; color: #ddd; font-size: 1.05rem; line-height: 1.7; font-weight: 700; }
+        .event-date-badge { display: inline-block; background: var(--gold); color: #000; font-size: 0.9rem; padding: 3px 10px; border-radius: 6px; font-weight: 900; margin-bottom: 6px; }
 
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(255, 204, 51, 0.6)); } 100% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } }
@@ -383,7 +385,7 @@
             <h3><i class="fas fa-landmark"></i> موسوعة الغزوات والأحداث والمناسبات الإسلامية</h3>
             <button class="archive-close" onclick="closeArchiveModal()">&times;</button>
         </div>
-        <p style="color: #aaa; font-size: 0.95rem; margin-bottom: 15px;">تتغير هذه الأحداث تلقائياً بحسب التاريخ الهجري لليوم لتظهر في موعدها المحدد تماماً:</p>
+        <p style="color: #bbb; font-size: 1.05rem; margin-bottom: 15px; font-weight: 700;">تتغير هذه الأحداث تلقائياً بحسب التاريخ الهجري لليوم لتظهر في موعدها المحدد تماماً:</p>
         <div id="archiveEventsList">
         </div>
     </div>
@@ -392,7 +394,7 @@
 <div id="pwa-install-banner">
     <div class="pwa-flex-container">
         <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="pwa-mini-logo" alt="logo">
-        <p style="margin: 0; font-family: 'CustomZainFont', 'Cairo'; font-size: 0.9rem; font-weight: bold;">تثبيت تطبيق داعم المواهب</p>
+        <p style="margin: 0; font-family: 'CustomZainFont', 'Cairo'; font-size: 1rem; font-weight: 900;">تثبيت تطبيق داعم المواهب</p>
         <button id="pwa-btn">تثبيت الآن</button>
     </div>
 </div>
@@ -403,7 +405,7 @@
     <div id="progressText">0%</div>
     <div style="color:var(--gold); margin-bottom:20px;"><i class="fas fa-quran fa-spin fa-2x"></i></div>
     <div id="quizBox">
-        <p id="loadingStatusText" style="color:#888; font-size:0.85rem; margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
+        <p id="loadingStatusText" style="color:#aaa; font-size:0.95rem; margin-top:0; font-weight:700;"><i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..</p>
         <div id="quizQ">بستان المؤمن..</div>
         <div id="quizA">...</div>
     </div>
@@ -417,10 +419,10 @@
     </div>
 
     <div class="info-bar animate__animated animate__zoomIn">
-        <div class="info-item" style="border-left: 1px solid rgba(255,204,51,0.2)">
+        <div class="info-item" style="border-left: 1.5px solid rgba(255,204,51,0.3)">
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
-            <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
+            <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:6px; font-weight: 900;">-- -- ----</span>
             <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية">حدث اليوم التاريخي (اضغط للعرض)</span>
         </div>
         <div class="info-item">
@@ -434,8 +436,8 @@
         </div>
     </div>
 
-    <div class="youtube-widget-card animate__animated animate__fadeIn" style="background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.4); border-radius: 24px; padding: 15px; margin-bottom: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-        <button onclick="openArchiveModal()" style="background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; cursor: pointer; font-family: 'CustomZainFont', 'Cairo'; box-shadow: 0 4px 15px var(--gold-glow); transition: 0.3s;">
+    <div class="youtube-widget-card animate__animated animate__fadeIn" style="background: var(--card-bg); border: 1.5px solid rgba(255, 204, 51, 0.5); border-radius: 24px; padding: 18px; margin-bottom: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+        <button onclick="openArchiveModal()" style="background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; border: none; padding: 12px 22px; border-radius: 50px; font-weight: 900; cursor: pointer; font-family: 'CustomZainFont', 'Cairo'; font-size: 1.05rem; box-shadow: 0 4px 15px var(--gold-glow); transition: 0.3s;">
             <i class="fas fa-book-open"></i> تصفح موسوعة الغزوات والأحداث الإسلامية الكاملة
         </button>
     </div>
@@ -444,7 +446,6 @@
         <p>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."</p>
     </div>
 
-    <!-- صندوق الفيديو المؤقت (يظهر من غروب الخميس وحتى نهاية الجمعة تلقائياً) -->
     <div id="conditionalVideoWrapper" class="video-card animate__animated animate__fadeInUp" style="display: none;">
         <span id="videoDynamicLabel" class="video-label"><i class="fas fa-play-circle"></i> شمس الخميس اذا تغيب فزد الصلاة على الحبيب</span>
         <div class="video-box">
@@ -488,7 +489,7 @@
                 <span>يوتيوب</span>
             </a>
         </div>
-        <p style="font-size: 0.8rem; color: #aaa; margin-top: 10px;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
+        <p style="font-size: 0.9rem; color: #bbb; margin-top: 12px; font-weight: 700;">انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
     </div>
 
     <div class="announcement-card animate__animated animate__fadeInRight">
@@ -1001,7 +1002,6 @@
                 document.getElementById('modalPageFrom').innerText = document.getElementById('pageFrom').value;
                 document.getElementById('modalPageTo').innerText = document.getElementById('pageTo').value;
                 
-                // تعبئة التواريخ داخل الاستمارة
                 const now = new Date();
                 const hijriStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
                 const miladiStr = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
