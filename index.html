@@ -19,7 +19,7 @@
     <meta property="og:image" content="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://abmaki.com"> 
+    <meta property="og:url" content="https://abdodaim14-ai.github.io/-/"> 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffcc33">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,9 +32,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
-        /* تعريف الخط الخاص بك هنا */
         @font-face {
             font-family: 'ThmanyahSerif';
             src: url('thmanyahserifdisplay-Bold.otf') format('opentype');
@@ -50,7 +50,7 @@
         }
         
         body {
-            font-family: 'ThmanyahSerif', 'Almarai', sans-serif; /* تطبيق الخط كخيار أول */
+            font-family: 'ThmanyahSerif', 'Almarai', sans-serif;
             margin: 0; color: #fff;
             background: radial-gradient(circle at center, #131922 0%, var(--luxury-bg) 100%);
             background-attachment: fixed;
@@ -59,7 +59,6 @@
             position: relative;
         }
 
-        /* إضافة لمسة زخرفية فخمة في الخلفية */
         body::before {
             content: "";
             position: fixed;
@@ -134,7 +133,6 @@
         .time-display { font-size: 1.25rem; color: var(--gold); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,204,51,0.2); }
         .counter-val { font-size: 1.3rem; color: #fff; font-weight: 900; }
         
-        /* قايمة مخصصة ومستقلة لعرض العدد الحقيقي بشكل فخم */
         .real-followers-box {
             background: linear-gradient(135deg, rgba(255, 204, 51, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
             border: 1px solid var(--gold);
@@ -152,7 +150,7 @@
             text-shadow: 0 0 10px var(--gold-glow);
         }
 
-        .hijri-event-tag { font-size: 0.8rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 5px 14px; border-radius: 6px; font-weight: 900; margin-top: 10px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.4; box-shadow: 0 4px 12px var(--gold-glow); }
+        .hijri-event-tag { font-size: 0.8rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 5px 14px; border-radius: 6px; font-weight: 900; margin-top: 10px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.4; box-shadow: 0 4px 12px var(--gold-glow); cursor: pointer; }
 
         .announcement-card { background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.3); border-radius: 24px; padding: 25px; margin-bottom: 25px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.4); backdrop-filter: blur(15px); transition: all 0.3s ease; }
         .announcement-card:hover { border-color: var(--gold); box-shadow: 0 10px 35px rgba(255,204,51,0.1); }
@@ -162,7 +160,6 @@
         .criteria-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #d5d5d5; transition: transform 0.2s ease; }
         .criteria-list li:hover { transform: translateX(-5px); color: #fff; }
         .criteria-list i { color: var(--gold); margin-top: 5px; font-size: 0.9rem; filter: drop-shadow(0 0 3px var(--gold-glow)); }
-        .ann-footer { border-top: 1px solid rgba(255,204,51,0.15); padding-top: 12px; margin-top: 12px; font-weight: bold; color: var(--gold); font-size: 0.95rem; text-align: center; }
 
         .motivational-box { text-align: center; background: rgba(255, 204, 51, 0.04); border-right: 4px solid var(--gold); border-left: 1px solid rgba(255,204,51,0.1); border-top: 1px solid rgba(255,204,51,0.1); border-bottom: 1px solid rgba(255,204,51,0.1); padding: 18px; margin-bottom: 25px; border-radius: 4px 20px 20px 4px; backdrop-filter: blur(10px); position: relative; overflow: hidden; box-shadow: -5px 8px 25px rgba(0,0,0,0.3); }
         .motivational-box p { font-size: 1.1rem; color: #f0f0f0; line-height: 1.7; margin: 0; font-weight: bold; z-index: 2; position: relative; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -184,81 +181,6 @@
         .s-box:hover i, .s-box:hover span { color: #000; }
         .s-box.youtube:hover { box-shadow: 0 0 25px #ff0000; border-color: #ff0000; }
         .s-box.facebook:hover { box-shadow: 0 0 25px #1877f2; border-color: #1877f2; }
-
-        /* كارت استمارة التسجيل والمشاركة الجديد */
-        .registration-card {
-            background: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow);
-            transition: all 0.3s ease;
-        }
-        .registration-card h3 {
-            color: var(--gold);
-            font-family: 'ThmanyahSerif', 'Cairo';
-            font-size: 1.3rem;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-        .form-img-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255,204,51,0.4);
-            margin-bottom: 18px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-        .form-img-wrapper img {
-            width: 100%;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .form-img-wrapper:hover img {
-            transform: scale(1.03);
-        }
-        .form-actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .action-btn {
-            padding: 12px 15px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            font-family: 'ThmanyahSerif', 'Cairo', sans-serif;
-        }
-        .action-btn.whatsapp {
-            background: #25D366;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        }
-        .action-btn.whatsapp:hover {
-            background: #1eb857;
-            box-shadow: 0 0 20px #25D366;
-            transform: translateY(-2px);
-        }
-        .action-btn.download {
-            background: linear-gradient(45deg, #ffcc33, #e6b800);
-            color: #000;
-            box-shadow: 0 4px 15px rgba(255, 204, 51, 0.4);
-        }
-        .action-btn.download:hover {
-            box-shadow: 0 0 20px var(--gold);
-            transform: translateY(-2px);
-        }
         
         .form-card { background: var(--card-bg); border: 2px solid rgba(255, 204, 51, 0.5); padding: 30px; border-radius: 30px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 15px 45px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,204,51,0.02); transition: 0.4s; }
         .form-card:hover { border-color: var(--gold); box-shadow: 0 15px 50px rgba(255,204,51,0.25); }
@@ -322,7 +244,6 @@
         .fixed-call-btn span { color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1rem; font-weight: bold; }
         .fixed-call-btn i { color: var(--gold); animation: shake 2s infinite; }
 
-        /* تنسيق زر الإشعارات العائم الجديد */
         .floating-notification-btn {
             position: fixed;
             bottom: 95px;
@@ -349,6 +270,60 @@
             box-shadow: 0 0 25px var(--gold);
         }
 
+        #cardModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 7, 10, 0.95);
+            z-index: 100000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            backdrop-filter: blur(15px);
+            overflow-y: auto;
+        }
+        .cert-card {
+            background: linear-gradient(135deg, #11161d 0%, #090b0e 100%);
+            border: 3px solid var(--gold);
+            border-radius: 28px;
+            padding: 30px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px var(--gold-glow);
+            position: relative;
+            box-sizing: border-box;
+        }
+        .cert-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .cert-logo { width: 65px; border-radius: 12px; border: 2px solid var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
+        .cert-title-box h3 { margin: 0; color: var(--gold); font-size: 1.25rem; font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; }
+        .cert-title-box span { font-size: 0.8rem; color: #aaa; }
+        .cert-avatar { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; margin: 15px auto; box-shadow: 0 0 20px var(--gold-glow); display: block; }
+        .cert-name { font-size: 1.5rem; color: #fff; font-family: 'ThmanyahSerif', 'Cairo'; font-weight: 900; margin: 10px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .cert-details { background: rgba(255, 204, 51, 0.05); border: 1px dashed rgba(255, 204, 51, 0.4); border-radius: 16px; padding: 15px; margin: 15px 0; text-align: right; font-size: 0.95rem; line-height: 1.8; color: #ddd; }
+        .cert-details strong { color: var(--gold); }
+        .cert-footer { margin-top: 20px; border-top: 1px solid rgba(255,204,51,0.2); padding-top: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--gold); font-weight: bold; }
+        
+        .cert-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .cert-btn { flex: 1; padding: 12px; border-radius: 50px; font-weight: 900; font-family: 'ThmanyahSerif', 'Cairo'; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .cert-btn.download { background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; }
+        .cert-btn.whatsapp { background: #25d366; color: #fff; }
+        .cert-btn.close { background: #232a34; color: #fff; border: 1px solid #444; }
+        .cert-btn:hover { transform: scale(1.03); opacity: 0.95; }
+
+        #archiveModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(9, 11, 14, 0.95); z-index: 100000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(15px);
+        }
+        .archive-content { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 24px; padding: 25px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: right; }
+        .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,204,51,0.3); padding-bottom: 12px; margin-bottom: 15px; }
+        .archive-header h3 { color: var(--gold); margin: 0; font-family: 'ThmanyahSerif', 'Cairo'; font-size: 1.3rem; }
+        .archive-close { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; color: var(--gold); }
+        .event-card-item { background: rgba(255,204,51,0.03); border: 1px solid rgba(255,204,51,0.2); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; }
+        .event-card-item h4 { color: var(--gold); margin: 0 0 5px 0; font-size: 1.05rem; }
+        .event-card-item p { margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.5; }
+        .event-date-badge { display: inline-block; background: var(--gold); color: #000; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; margin-bottom: 6px; }
+
         @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-10deg); } }
         @keyframes pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(255, 204, 51, 0.6)); } 100% { transform: scale(1); filter: drop-shadow(0 0 15px var(--gold-glow)); } }
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
@@ -362,6 +337,55 @@
 <button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
     <i class="fas fa-bell"></i>
 </button>
+
+<div id="cardModal">
+    <div class="cert-card" id="captureCard">
+        <div class="cert-header">
+            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="cert-logo" alt="logo">
+            <div class="cert-title-box">
+                <h3>داعم المواهب للقرآن الكريم</h3>
+                <span>بطاقة اعتماد المشاركة الرسمية</span>
+            </div>
+        </div>
+        
+        <img id="modalAvatar" class="cert-avatar" src="" alt="صورة المشارك">
+        <h2 id="modalName" class="cert-name">اسم المشارك</h2>
+        
+        <div class="cert-details">
+            <div><strong>رقم الواتساب:</strong> <span id="modalPhone">--</span></div>
+            <div><strong>السورة المباركة:</strong> <span id="modalSurah">--</span></div>
+            <div><strong>الآيات:</strong> من آية <span id="modalAyahFrom">--</span> إلى آية <span id="modalAyahTo">--</span></div>
+            <div><strong>الصفحات:</strong> من ص <span id="modalPageFrom">--</span> إلى ص <span id="modalPageTo">--</span></div>
+        </div>
+        
+        <div class="cert-footer">
+            <span>🌟 خادم القرآن/ عبد الرحمن مكي</span>
+            <span>📅 2026 م</span>
+        </div>
+    </div>
+
+    <div style="width: 100%; max-width: 440px; margin-top: 15px;">
+        <div class="cert-actions">
+            <button class="cert-btn download" onclick="downloadCertificateImage()"><i class="fas fa-download"></i> تحميل الاستمارة</button>
+            <button class="cert-btn whatsapp" onclick="shareCertificateWhatsApp()"><i class="fab fa-whatsapp"></i> مشاركة واتساب</button>
+        </div>
+        <div style="margin-top: 10px;">
+            <button class="cert-btn close" style="width: 100%;" onclick="closeCardModal()"><i class="fas fa-times"></i> إغلاق ومتابعة</button>
+        </div>
+    </div>
+</div>
+
+<div id="archiveModal">
+    <div class="archive-content">
+        <div class="archive-header">
+            <h3><i class="fas fa-landmark"></i> موسوعة الغزوات والأحداث والمناسبات الإسلامية</h3>
+            <button class="archive-close" onclick="closeArchiveModal()">&times;</button>
+        </div>
+        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">تتغير هذه الأحداث تلقائياً بحسب التاريخ الهجري لليوم لتظهر في موعدها المحدد تماماً:</p>
+        <div id="archiveEventsList">
+        </div>
+    </div>
+</div>
 
 <div id="pwa-install-banner">
     <div class="pwa-flex-container">
@@ -395,7 +419,7 @@
             <i class="fas fa-calendar-check"></i>
             <span id="liveTime" class="time-display">00:00:00</span>
             <span id="combinedDate" class="info-val" style="color: var(--gold); margin-top:5px; font-weight: 900;">-- -- ----</span>
-            <span id="hijriEvent" class="hijri-event-tag">حدث اليوم التاريخي</span>
+            <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية">حدث اليوم التاريخي (اضغط للعرض)</span>
         </div>
         <div class="info-item">
             <i class="fas fa-heart"></i>
@@ -409,7 +433,9 @@
     </div>
 
     <div class="youtube-widget-card animate__animated animate__fadeIn" style="background: var(--card-bg); border: 1px solid rgba(255, 204, 51, 0.4); border-radius: 24px; padding: 15px; margin-bottom: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-        
+        <button onclick="openArchiveModal()" style="background: linear-gradient(45deg, #ffcc33, #e6b800); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; cursor: pointer; font-family: 'ThmanyahSerif', 'Cairo'; box-shadow: 0 4px 15px var(--gold-glow); transition: 0.3s;">
+            <i class="fas fa-book-open"></i> تصفح موسوعة الغزوات والأحداث الإسلامية الكاملة
+        </button>
     </div>
 
     <div class="motivational-box animate__animated animate__fadeInLeft">
@@ -421,22 +447,6 @@
         <div class="video-box">
             <i class="fab fa-youtube v-icon"></i>
             <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <!-- كارت استمارة المشاركة الجديد -->
-    <div class="registration-card animate__animated animate__fadeInUp">
-        <h3><i class="fas fa-file-invoice"></i> استمارة التسجيل الرسمية للمسابقة</h3>
-        <div class="form-img-wrapper">
-            <img id="formImg" src="watermarked_img_13681783113069069178.jpg" alt="استمارة مسابقة داعم المواهب للقرآن الكريم">
-        </div>
-        <div class="form-actions-grid">
-            <a id="downloadFormBtn" href="watermarked_img_13681783113069069178.jpg" download="استمارة_مسابقة_داعم_المواهب.jpg" class="action-btn download">
-                <i class="fas fa-download"></i> تحميل الاستمارة
-            </a>
-            <button onclick="shareToWhatsApp()" class="action-btn whatsapp">
-                <i class="fab fa-whatsapp"></i> مشاركة عبر الواتساب
-            </button>
         </div>
     </div>
 
@@ -565,14 +575,59 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // دالة مشاركة استمارة التسجيل عبر الواتساب
-    function shareToWhatsApp() {
-        const siteUrl = "https://abdodaim14-ai.github.io/-/";
-        const textMsg = encodeURIComponent("✨ *استمارة التسجيل في مسابقة داعم المواهب للقرآن الكريم* ✨\nبرعاية خادم القرآن/ عبد الرحمن مكي.\n\nشاركونا تلاواتكم العذبة عبر الرابط التالي:\n" + siteUrl);
-        window.open(`https://api.whatsapp.com/send?text=${textMsg}`, '_blank');
+    const islamicDatabase = [
+        { day: 1, month: 1, title: "رأس السنة الهجرية", desc: "ذكرى هجرة النبي ﷺ من مكة إلى المدينة المنورة وبداية التقويم الهجري." },
+        { day: 10, month: 1, title: "يوم عاشوراء", desc: "نجّى الله فيه موسى عليه السلام وقومه وأغرق فرعون وجنده، وصيامه يكفر سنة ماضية." },
+        { day: 17, month: 1, title: "غزوة ذات الرقاع", desc: "غزوة خرج فيها النبي ﷺ إلى نجد في سنة 4 هـ (أو 5 هـ)." },
+        { day: 2, month: 2, title: "غزوة الأبواء (ودّان)", desc: "أول غزوة غزاها النبي بنفسه في التاريخ الإسلامي في صفر سنة 2 هـ." },
+        { day: 20, month: 2, title: "سرية زيد بن حارثة", desc: "من السرايا المهمة في تأمين طرق التجارة والدعوة." },
+        { day: 12, month: 3, title: "المولد النبوي الشريف", desc: "مولد سيد ولد آدم وخاتم الأنبياء والمرسلين سيدنا محمد صلى الله عليه وسلم." },
+        { day: 8, month: 3, title: "وصول النبي ﷺ إلى قباء", desc: "مبنى أول مسجد تأسس على التقوى عند الهجرة المباركة للمدينة." },
+        { day: 10, month: 4, title: "سرية عبد الله بن أنيس", desc: "من الأحداث التاريخية في تعزيز أمن الدولة الإسلامية الوليدة." },
+        { day: 5, month: 5, title: "غزوة مؤتة العظمى", desc: "أعظم المعارك ضد الروم في سنة 8 هـ واستشهاد قادة الإسلام جعفر وزيد وابن رواحة." },
+        { day: 3, month: 6, title: "وفاة سيدة نساء العالمين فاطمة الزهراء", desc: "ذكرى وفاة ابنة رسول الله ﷺ رضي الله عنها وأرضاها." },
+        { day: 15, month: 6, title: "معركة اليمامة", desc: "من معارك حروب الردة الكبرى لتثبيت دعائم الدولة الإسلامية في سنة 11 هـ." },
+        { day: 27, month: 7, title: "رحلة الإسراء والمعراج", desc: "المعجزة الكبرى التي أسرى فيها بالنبي ﷺ من المسجد الحرام إلى الأقصى وعرج به إلى السماوات العلا." },
+        { day: 9, month: 7, title: "غزوة تبوك (ساعة العسرة)", desc: "آخر غزوة غزاها النبي ﷺ بنفسه في سنة 9 هـ لمواجهة الروم." },
+        { day: 15, month: 8, title: "تحويل القبلة", desc: "تحول المسلمين في صلاتهم من المسجد الأقصى إلى الكعبة المشرفة في السنة الثانية للهجرة." },
+        { day: 2, month: 8, title: "غزوة بني مصطلق (المريسيع)", desc: "غزوة حدثت في شعبان سنة 5 أو 6 هـ وظهرت فيها براءة أم المؤمنين عائشة." },
+        { day: 1, month: 9, title: "أول أيام شهر رمضان المبارك", desc: "فرض الصيام على هذه الأمة ونزول القرآن الكريم هدى للناس وبينات." },
+        { day: 17, month: 9, title: "غزوة بدر الكبرى (يوم الفرقان)", desc: "أعظم انتصار للمسلمين في التاريخ الإسلامي في 17 رمضان سنة 2 هـ." },
+        { day: 20, month: 9, title: "فتح مكة المكرمة (عام الفتح)", desc: "دخول النبي ﷺ مكة ظارحاً منتصراً في 20 رمضان سنة 8 هـ وعفو عام عن قريش." },
+        { day: 27, month: 9, title: "ليلة القدر المباركة", desc: "خير من ألف شهر، فيها تنزل الملائكة والروح بإذن ربهم." },
+        { day: 1, month: 10, title: "عيد الفطر المبارك", desc: "يوم الجوائز وفرحة المسلمين بإتمام صيام شهر رمضان المبارك." },
+        { day: 3, month: 10, title: "غزوة أحد", desc: "المعركة الشهيرة في السنة الثالثة للهجرة وما فيها من دروس وعبر تمحيص للمؤمنين." },
+        { day: 5, month: 10, title: "غزوة بني قريظة", desc: "حدثت فور انتهاء غزوة الخندق في ذي القعدة/شوال سنة 5 هـ." },
+        { day: 1, month: 11, title: "صلح الحديبية", desc: "الهدنة المباركة التي سماها القرآن فتحاً مبخراً في سنة 6 هـ." },
+        { day: 8, month: 12, title: "يوم التروية", desc: "بداية مناسك الحج الأكبر ومسير الحجاج إلى منى." },
+        { day: 9, month: 12, title: "وقفة عرفة الأعظم", desc: "اليوم المشهود الذي يباهي الله فيه ملائكة بأهل عرفات، وصيامه يكفر سنتين." },
+        { day: 10, month: 12, title: "عيد الأضحى المبارك وأيام التشريق", desc: "أعظم أيام الله في السنة ويوم النحر وأيام الهدى والذكر." }
+    ];
+
+    function populateArchiveModal() {
+        const listContainer = document.getElementById('archiveEventsList');
+        listContainer.innerHTML = "";
+        islamicDatabase.forEach(ev => {
+            const item = document.createElement('div');
+            item.className = 'event-card-item';
+            item.innerHTML = `
+                <span class="event-date-badge">شهر ${ev.month} - اليوم ${ev.day} هـ</span>
+                <h4>${ev.title}</h4>
+                <p>${ev.desc}</p>
+            `;
+            listContainer.appendChild(item);
+        });
     }
 
-    // جزء سحب عدد متابعين فيسبوك وتحديثه تلقائياً داخل خانة الـ userCounter
+    function openArchiveModal() {
+        populateArchiveModal();
+        document.getElementById('archiveModal').style.display = 'flex';
+    }
+
+    function closeArchiveModal() {
+        document.getElementById('archiveModal').style.display = 'none';
+    }
+
     async function fetchFacebookFollowers() {
         const PAGE_ID = '1027623416866396';
         const ACCESS_TOKEN = 'EAAOmnji5plwBRx9ji7nXkmuF2ZAQvAH8BQ5N4JkwZAvUG9WgazuyLAL04zDU2Ih1g6QRElxHrpMP0OAnGP0MaL9sHjRJDIZA5VumiVkX13oZBfKDZAZBMLsh6fpzpYVpPo7ywdTpP8eLYZCjHNQJSxMxGVjvSSPipGYt4WVwIDpyZAfB52E0XZACQS1oTrFNPHMEPrpW2ZBYJtFGZBjq4npzC1A1ZAtVhixgmCieOQZDZD';
@@ -594,7 +649,7 @@
             }
         } catch (error) {
             console.error("خطأ في جلب بيانات المتابعين:", error);
-            counterElement.innerText = "";
+            counterElement.innerText = ""; 
             realCountElement.innerText = "العدد الحقيقي: غير متاح حالياً";
         }
     }
@@ -736,10 +791,13 @@
         }
     });
 
+    let uploadedImageSrc = "";
+
     function previewImage(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
+                uploadedImageSrc = e.target.result;
                 document.getElementById('imgIcon').style.display = 'none';
                 const preview = document.getElementById('imgPreview');
                 preview.src = e.target.result; preview.style.display = 'block';
@@ -760,12 +818,6 @@
     }
 
     function initLiveInfo() {
-        const hijriEvents = {
-            "1/1": "رأس السنة الهجرية", "10/1": "يوم عاشوراء", "12/3": "المولد النبوي الشريف",
-            "27/7": "ذكرى الإسراء والمعراج", "1/9": "أول أيام شهر رمضان", "17/9": "ذكرى غزوة بدر الكبرى",
-            "1/10": "عيد الفطر المبارك", "10/12": "عيد الأضحى المبارك"
-        };
-
         const updateClock = () => {
             const now = new Date();
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
@@ -775,13 +827,17 @@
             document.getElementById('combinedDate').innerHTML = hijriFull + "<br>" + miladiDayMonth + " 2026 م";
 
             const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
-            const hDay = parts.find(p => p.type === 'day').value;
-            const hMonth = parts.find(p => p.type === 'month').value;
-            const hKey = `${hDay}/${hMonth}`;
+            const hDay = parseInt(parts.find(p => p.type === 'day').value);
+            const hMonth = parseInt(parts.find(p => p.type === 'month').value);
+
+            const matchedEvent = islamicDatabase.find(e => e.day === hDay && e.month === hMonth);
 
             let eventStr = "";
-            if (hijriEvents[hKey]) eventStr = "اليوم: " + hijriEvents[hKey];
-            else eventStr = "يوم مبارك من أيام الله";
+            if (matchedEvent) {
+                eventStr = "⭐ " + matchedEvent.title;
+            } else {
+                eventStr = "🌟 يوم مبارك من أيام الله (اضغط للعرض)";
+            }
             
             document.getElementById('hijriEvent').innerText = eventStr;
         };
@@ -790,7 +846,7 @@
     initLiveInfo();
 
     const quranMap = [
-    ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبيآء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
+    ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
     ];
         
 
@@ -849,7 +905,7 @@
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
         
-        document.getElementById('loadingStatusText').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة..';
+        document.getElementById('loadingStatusText').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> جاري رفع تلاوتكم المباركة وتجهيز الاستمارة الفاخرة..';
         
         overlay.style.display = 'flex';
         let idx = 0;
@@ -880,9 +936,48 @@
             const response = await fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
             
             clearInterval(pInt); clearInterval(contentInt); progText.innerText = "100%";
-            setTimeout(() => { alert("✅ تم استلام تلاوتكم المباركة بنجاح.. جزاكم الله خيراً!"); location.reload(); }, 800);
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('modalAvatar').src = uploadedImageSrc;
+                document.getElementById('modalName').innerText = document.getElementById('name').value;
+                document.getElementById('modalPhone').innerText = fullNumber;
+                document.getElementById('modalSurah').innerText = document.getElementById('surah').value;
+                document.getElementById('modalAyahFrom').innerText = document.getElementById('ayahFrom').value;
+                document.getElementById('modalAyahTo').innerText = document.getElementById('ayahTo').value;
+                document.getElementById('modalPageFrom').innerText = document.getElementById('pageFrom').value;
+                document.getElementById('modalPageTo').innerText = document.getElementById('pageTo').value;
+                
+                document.getElementById('cardModal').style.display = 'flex';
+            }, 800);
         } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
     };
+
+    function downloadCertificateImage() {
+        const cardElement = document.getElementById('captureCard');
+        html2canvas(cardElement, { scale: 3, backgroundColor: '#090b0e', useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'استمارة_مشاركة_داعم_المواهب.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
+
+    function shareCertificateWhatsApp() {
+        const name = document.getElementById('name').value;
+        const surah = document.getElementById('surah').value;
+        const aFrom = document.getElementById('ayahFrom').value;
+        const aTo = document.getElementById('ayahTo').value;
+        
+        const message = `✨ *استمارة مشاركة في منصة داعم المواهب للقرآن الكريم* ✨\n\n👤 اسم المشارك: ${name}\n📖 السورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\n🌟 برعاية خادم القرآن/ عبد الرحمن مكي\n\n🔗 رابط المنصة للمشاركة: https://abdodaim14-ai.github.io/-/`;
+        const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    }
+
+    function closeCardModal() {
+        document.getElementById('cardModal').style.display = 'none';
+        location.reload();
+    }
 
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader(); reader.readAsDataURL(file);
@@ -912,7 +1007,7 @@
 
         const entryLoader = setInterval(() => {
             if (count < 100) {
-                count += 4;
+                count += 4; 
                 progText.innerText = count + "%";
             } else {
                 clearInterval(entryLoader);
@@ -922,6 +1017,5 @@
         }, 60);
     });
 </script>
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script>
-</body>
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script></body>
 </html>
