@@ -166,10 +166,10 @@
         .motivational-box::before { content: '\f687'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); font-size: 4.5rem; color: rgba(255,204,51,0.03); }
 
         .video-label { color: var(--gold); font-size: 0.95rem; margin-bottom: 12px; display: block; text-align: center; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .video-box { border: 2px solid rgba(255, 204, 51, 0.6); border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.4s ease; }
+        .video-box { border: 2px solid rgba(255, 204, 51, 0.6); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow); margin-bottom: 20px; position: relative; transition: 0.4s ease; display: flex; justify-content: center; align-items: center; background: #000; }
         .video-box:hover { transform: scale(1.02); border-color: var(--gold); box-shadow: 0 15px 35px rgba(255,204,51,0.3); }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
-        .v-icon { position: absolute; top: 12px; left: 12px; color: var(--gold); font-size: 1.4rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .video-box iframe { width: 100%; max-width: 100%; border: none; display: block; }
+        .v-icon { position: absolute; top: 12px; left: 12px; color: var(--gold); font-size: 1.4rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); z-index: 10; pointer-events: none; }
         
         .social-call { text-align: center; margin: 25px 0; background: var(--card-bg); padding: 20px; border-radius: 24px; border: 1px dashed rgba(255, 204, 51, 0.4); backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .social-call h4 { margin: 0 0 15px 0; font-family: 'ThmanyahSerif', 'Cairo'; color: var(--gold); font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -445,8 +445,8 @@
     <div class="video-card animate__animated animate__fadeInUp">
         <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات المبدعين ✨</span>
         <div class="video-box">
-            <i class="fab fa-youtube v-icon"></i>
-            <iframe src="https://www.youtube.com/embed/LeUouzj6wns" allowfullscreen></iframe>
+            <i class="fab fa-facebook v-icon"></i>
+            <iframe src="https://www.facebook.com/plugins/video.php?height=312&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1222686662828097%2F&show_text=false&width=560&t=0" width="560" height="312" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
         </div>
     </div>
 
@@ -570,7 +570,7 @@
 
 <a href="tel:01122783768" class="fixed-call-btn">
     <i class="fas fa-tools"></i>
-    <span>للمشاكل الفنية اضغط هنا</span>
+    <span>ل للمشاكل الفنية اضغط هنا</span>
 </a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
@@ -846,7 +846,7 @@
     initLiveInfo();
 
     const quranMap = [
-    ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
+    ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبيّاء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
     ];
         
 
@@ -1017,5 +1017,5 @@
         }, 60);
     });
 </script>
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script></body>
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script></body>
 </html>
