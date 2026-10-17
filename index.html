@@ -133,24 +133,19 @@
         .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.55rem; filter: drop-shadow(0px 0px 0px var(--gold-glow)); }
         .info-val { font-family: 'CustomZainFont', 'Cairo'; font-weight: 0; font-size: 1.05rem; color: #f0f0f0; line-height: 1.6; }
         .time-display { font-size: 1.45rem; color: var(--gold); font-weight: 0; letter-spacing: 1px; text-shadow: none; }
-        .counter-val { font-size: 1.45rem; color: var(--gold); font-weight: 0; }
+        .counter-val { font-size: 1.45rem; color: #fff; font-weight: 0; }
         
         .real-followers-box {
             background: linear-gradient(135deg, rgba(255, 204, 51, 0.12) 0%, rgba(0, 0, 0, 0.5) 100%);
             border: 1.5px solid var(--gold);
             border-radius: 14px;
-            padding: 8px 14px;
-            margin-top: 10px;
+            padding: 10px 14px;
+            margin-top: 12px;
             display: inline-block;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             text-align: right;
-        }
-        .real-followers-count {
-            color: var(--gold);
-            font-size: 1.5rem;
-            font-weight: 0;
-            font-family: 'CustomZainFont', 'Cairo', sans-serif;
-            text-shadow: none;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .hijri-event-tag { font-size: 0.95rem; color: #000; background: linear-gradient(45deg, #ffcc33, #e6b800); padding: 7px 16px; border-radius: 10px; font-weight: 0; margin-top: 12px; display: inline-block; animation: flash 2.5s infinite; line-height: 1.5; box-shadow: 0px 0px 0px var(--gold-glow); cursor: pointer; }
@@ -427,40 +422,16 @@
             <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية">حدث اليوم التاريخي (اضغط للعرض)</span>
         </div>
         <div class="info-item">
-            <i class="fas fa-users-viewfinder"></i>
-            <span id="readersCount" class="counter-val">جاري التحميل...</span>
-            <span class="info-val"> إجمالي القرّاء المشاركين </span>
+            <i class="fas fa-users"></i>
+            <span id="totalRegisteredCount" class="counter-val" style="color: var(--gold);">جاري الحساب...</span>
+            <span class="info-val"> إجمالي القراء المسجلين بالمنصة </span>
 
-            <div class="real-followers-box" style="display: block;">
-                <div style="color:var(--gold); font-size:0.85rem; font-weight:bold; margin-bottom:4px;">
-                    <i class="fas fa-user-clock"></i> أحدث 3 مسجلين:
-                </div>
-                <div id="recentReaders" style="font-size:0.85rem; color:#ddd; line-height: 1.5;">
-                    جاري الجلب...
-                </div>
+            <div class="real-followers-box">
+                <div style="font-size: 0.9rem; color: #ffcc33; margin-bottom: 6px; font-family: 'CustomZainFont', 'Cairo';"><i class="fas fa-award"></i> آخر 3 قراء متألقين:</div>
+                <ul id="latestReadersList" style="list-style: none; padding: 0; margin: 0; text-align: right; font-size: 0.88rem; line-height: 1.6;">
+                    <li style="color: #fff;">جاري التحميل...</li>
+                </ul>
             </div>
-        </div>
-    </div>
-
-    <!-- إشراقة قرآنية -->
-    <div class="announcement-card animate__animated animate__fadeIn" style="border-color: var(--gold);">
-        <div class="ann-title">
-            <i class="fas fa-book-open"></i>
-            <span>إشراقة قرآنية</span>
-        </div>
-        <div class="ann-text" style="font-style: italic; color: #fff;">
-            "إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ وَيُبَشِّرُ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا كَبِيرًا"
-        </div>
-    </div>
-
-    <!-- من هدى النبوة -->
-    <div class="announcement-card animate__animated animate__fadeIn" style="border-color: var(--gold);">
-        <div class="ann-title">
-            <i class="fas fa-star-and-crescent"></i>
-            <span>من هدى النبوة</span>
-        </div>
-        <div class="ann-text" style="font-style: italic; color: #fff;">
-            قال رسول الله ﷺ: <b>"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ"</b> (رواه البخاري).
         </div>
     </div>
 
@@ -706,39 +677,47 @@
         document.getElementById('archiveModal').style.display = 'none';
     }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
-
-    // جلب عدد القراء وآخر 3 مسجلين من جوجل شيت
-    async function fetchSheetReadersData() {
-        const readersCountEl = document.getElementById('readersCount');
-        const recentReadersEl = document.getElementById('recentReaders');
+    // جلب عدد القراء وإجمالي المسجلين وآخر 3 قراء من جوجل شيت
+    async function fetchPlatformData() {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
+        const totalCounterEl = document.getElementById('totalRegisteredCount');
+        const listContainer = document.getElementById('latestReadersList');
         
-        readersCountEl.innerText = "جاري التحميل...";
+        totalCounterEl.innerText = "جاري الحساب...";
 
         try {
-            const response = await fetch(scriptURL + "?action=getStats");
+            const response = await fetch(scriptURL);
             const data = await response.json();
             
-            if (data) {
-                readersCountEl.innerText = (data.totalCount || 0) + " قارئ";
-                if (data.recentNames && data.recentNames.length > 0) {
-                    let html = "";
-                    data.recentNames.slice(-3).reverse().forEach(name => {
-                        html += `<div><i class="fas fa-quran" style="color:var(--gold);"></i> ${name}</div>`;
-                    });
-                    recentReadersEl.innerHTML = html;
+            if (data && typeof data.totalCount !== 'undefined') {
+                totalCounterEl.innerText = data.totalCount.toLocaleString() + " قارئ";
+            } else {
+                totalCounterEl.innerText = "0 قارئ";
+            }
+            
+            if (listContainer) {
+                listContainer.innerHTML = '';
+                if (!data.latestReaders || data.latestReaders.length === 0) {
+                    listContainer.innerHTML = '<li style="color: #fff;">لا توجد سجلات بعد</li>';
                 } else {
-                    recentReadersEl.innerHTML = '<div>لا يوجد مسجلين حتى الآن</div>';
+                    data.latestReaders.forEach(reader => {
+                        let li = document.createElement('li');
+                        li.style.marginBottom = "4px";
+                        li.innerHTML = `⭐ <strong>${reader.name}</strong> (${reader.surah})`;
+                        listContainer.appendChild(li);
+                    });
                 }
             }
         } catch (error) {
             console.error("خطأ في جلب بيانات القراء:", error);
-            readersCountEl.innerText = "متاح للانضمام";
-            recentReadersEl.innerHTML = '<div>أهلاً بك معنا</div>';
+            totalCounterEl.innerText = "غير متاح";
+            if (listContainer) {
+                listContainer.innerHTML = '<li style="color: #ffcc33;">تعذر جلب القراء</li>';
+            }
         }
     }
 
-    window.addEventListener('DOMContentLoaded', fetchSheetReadersData);
+    window.addEventListener('DOMContentLoaded', fetchPlatformData);
 
     const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
 
@@ -848,6 +827,8 @@
 
     window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; init(); });
     init(); animate();
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
     
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
@@ -980,8 +961,13 @@
         { type: "من هدي النبوة..", text: "قال ﷺ: 'زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ'.. صوتك الحسن هو زينة لكلام الله, فأخرجه في أفضل صورة." },
         { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
         { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
-        { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه إلى القلوب." },
-        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيتك خالصتة لله عند إرسال تلاوتك." }
+        { type: "إشراقة قرآنية..", text: "اقرأ ورتل بصوتك الخاشع، فرب آية تفتح أبواباً من الرحمة والسكينة في قلب سامعها." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'الماهر بالقرآن مع السفرة الكرام البررة، والذي يقرأ القرآن ويتعتع فيه وهو عليه شاق له أجران'." },
+        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيل رضا الله هو غايتك عند إرسال تلاوتك." },
+        { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فالقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه العميقة إلى القلوب المنيبة." },
+        { type: "إشراقة قرآنية..", text: "يأتي القرآن يوم القيامة شفيعاً لأصحابه، فطوبى لمن جعل صوته مِرآةً لتعظيم كلام الله." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه'." },
+        { type: "إشراقة قرآنية..", text: "الخشوع في التلاوة واجتمع القلب على تدبر الآيات يرفع درجات العبد في الجنة." }
     ];
 
     document.getElementById('talentForm').onsubmit = async function(e) {
