@@ -133,7 +133,7 @@
         .info-item i { color: var(--gold); margin-bottom: 8px; font-size: 1.55rem; filter: drop-shadow(0px 0px 0px var(--gold-glow)); }
         .info-val { font-family: 'CustomZainFont', 'Cairo'; font-weight: 0; font-size: 1.05rem; color: #f0f0f0; line-height: 1.6; }
         .time-display { font-size: 1.45rem; color: var(--gold); font-weight: 0; letter-spacing: 1px; text-shadow: none; }
-        .counter-val { font-size: 1.45rem; color: #fff; font-weight: 0; }
+        .counter-val { font-size: 1.45rem; color: var(--gold); font-weight: 0; }
         
         .real-followers-box {
             background: linear-gradient(135deg, rgba(255, 204, 51, 0.12) 0%, rgba(0, 0, 0, 0.5) 100%);
@@ -143,10 +143,11 @@
             margin-top: 10px;
             display: inline-block;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            text-align: right;
         }
         .real-followers-count {
             color: var(--gold);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 0;
             font-family: 'CustomZainFont', 'Cairo', sans-serif;
             text-shadow: none;
@@ -426,25 +427,41 @@
             <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية">حدث اليوم التاريخي (اضغط للعرض)</span>
         </div>
         <div class="info-item">
-            <i class="fas fa-users"></i>
-            <span id="userCounter" class="counter-val">جاري الحساب...</span>
-            <span class="info-val"> صوتك نديّ فلا تحرمنا من سماعه، ارفع تلاوتك الان </span>
+            <i class="fas fa-users-viewfinder"></i>
+            <span id="readersCount" class="counter-val">جاري التحميل...</span>
+            <span class="info-val"> إجمالي القرّاء المشاركين </span>
 
             <div class="real-followers-box" style="display: block;">
-                <div id="realFollowersCount" class="real-followers-count">إجمالي القراء: جاري التحميل...</div>
+                <div style="color:var(--gold); font-size:0.85rem; font-weight:bold; margin-bottom:4px;">
+                    <i class="fas fa-user-clock"></i> أحدث 3 مسجلين:
+                </div>
+                <div id="recentReaders" style="font-size:0.85rem; color:#ddd; line-height: 1.5;">
+                    جاري الجلب...
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- صندوق عرض آخر 3 قراء -->
-    <div class="announcement-card animate__animated animate__fadeIn" style="text-align: right;">
+    <!-- إشراقة قرآنية -->
+    <div class="announcement-card animate__animated animate__fadeIn" style="border-color: var(--gold);">
         <div class="ann-title">
-            <i class="fas fa-award"></i>
-            <span>آخر القراء المسجلين في المنصة</span>
+            <i class="fas fa-book-open"></i>
+            <span>إشراقة قرآنية</span>
         </div>
-        <ul id="latestReadersList" style="list-style: none; padding: 0; margin: 0; color: #fff; font-size: 1.1rem; line-height: 1.8;">
-            <li>جاري تحميل القراء...</li>
-        </ul>
+        <div class="ann-text" style="font-style: italic; color: #fff;">
+            "إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ وَيُبَشِّرُ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا كَبِيرًا"
+        </div>
+    </div>
+
+    <!-- من هدى النبوة -->
+    <div class="announcement-card animate__animated animate__fadeIn" style="border-color: var(--gold);">
+        <div class="ann-title">
+            <i class="fas fa-star-and-crescent"></i>
+            <span>من هدى النبوة</span>
+        </div>
+        <div class="ann-text" style="font-style: italic; color: #fff;">
+            قال رسول الله ﷺ: <b>"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ"</b> (رواه البخاري).
+        </div>
     </div>
 
     <div class="youtube-widget-card animate__animated animate__fadeIn" style="background: var(--card-bg); border: 1.5px solid rgba(255, 204, 51, 0.5); border-radius: 24px; padding: 18px; margin-bottom: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
@@ -598,45 +615,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    const scriptURL = 'ضع_رابط_الـ_Web_App_الخاص_بجوجل_شيت_هنا';
-
-    // دالة جلب إجمالي القراء وآخر القراء من الشيت وتحديث الواجهة
-    function fetchPlatformStats() {
-        fetch(scriptURL)
-            .then(response => response.json())
-            .then(data => {
-                // 1. تحديث إجمالي عدد المسجلين
-                const userCounter = document.getElementById('userCounter');
-                const realFollowersCount = document.getElementById('realFollowersCount');
-                
-                if(userCounter) userCounter.innerText = data.totalCount + " قارئ";
-                if(realFollowersCount) realFollowersCount.innerText = "إجمالي القراء: " + data.totalCount;
-
-                // 2. تحديث قائمة آخر القراء
-                const listContainer = document.getElementById('latestReadersList');
-                if(listContainer) {
-                    listContainer.innerHTML = '';
-                    
-                    if (!data.latestReaders || data.latestReaders.length === 0) {
-                        listContainer.innerHTML = '<li>لا توجد سجلات بعد</li>';
-                        return;
-                    }
-                    
-                    data.latestReaders.forEach(reader => {
-                        let li = document.createElement('li');
-                        li.style.marginBottom = "6px";
-                        li.innerHTML = `⭐ <strong>${reader.name}</strong> - تلاوة سورة <strong>${reader.surah}</strong> (من آية ${reader.ayahFrom} إلى ${reader.ayahTo})`;
-                        listContainer.appendChild(li);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("خطأ في جلب بيانات القراء:", error);
-            });
-    }
-
-    window.addEventListener('DOMContentLoaded', fetchPlatformStats);
-
     function checkThursdaySunsetToFriday() {
         const now = new Date();
         const day = now.getDay(); 
@@ -727,6 +705,40 @@
     function closeArchiveModal() {
         document.getElementById('archiveModal').style.display = 'none';
     }
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
+
+    // جلب عدد القراء وآخر 3 مسجلين من جوجل شيت
+    async function fetchSheetReadersData() {
+        const readersCountEl = document.getElementById('readersCount');
+        const recentReadersEl = document.getElementById('recentReaders');
+        
+        readersCountEl.innerText = "جاري التحميل...";
+
+        try {
+            const response = await fetch(scriptURL + "?action=getStats");
+            const data = await response.json();
+            
+            if (data) {
+                readersCountEl.innerText = (data.totalCount || 0) + " قارئ";
+                if (data.recentNames && data.recentNames.length > 0) {
+                    let html = "";
+                    data.recentNames.slice(-3).reverse().forEach(name => {
+                        html += `<div><i class="fas fa-quran" style="color:var(--gold);"></i> ${name}</div>`;
+                    });
+                    recentReadersEl.innerHTML = html;
+                } else {
+                    recentReadersEl.innerHTML = '<div>لا يوجد مسجلين حتى الآن</div>';
+                }
+            }
+        } catch (error) {
+            console.error("خطأ في جلب بيانات القراء:", error);
+            readersCountEl.innerText = "متاح للانضمام";
+            recentReadersEl.innerHTML = '<div>أهلاً بك معنا</div>';
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchSheetReadersData);
 
     const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
 
@@ -836,7 +848,7 @@
 
     window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; init(); });
     init(); animate();
-
+    
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
         "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
