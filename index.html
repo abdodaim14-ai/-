@@ -146,7 +146,7 @@
         }
         .real-followers-count {
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 0;
             font-family: 'CustomZainFont', 'Cairo', sans-serif;
             text-shadow: none;
@@ -426,14 +426,25 @@
             <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية">حدث اليوم التاريخي (اضغط للعرض)</span>
         </div>
         <div class="info-item">
-            <i class="fas fa-heart"></i>
-            <span id="userCounter" class="counter-val"></span>
+            <i class="fas fa-users"></i>
+            <span id="userCounter" class="counter-val">جاري الحساب...</span>
             <span class="info-val"> صوتك نديّ فلا تحرمنا من سماعه، ارفع تلاوتك الان </span>
 
             <div class="real-followers-box" style="display: block;">
-                <div id="realFollowersCount" class="real-followers-count">جاري الحساب...</div>
+                <div id="realFollowersCount" class="real-followers-count">إجمالي القراء: جاري التحميل...</div>
             </div>
         </div>
+    </div>
+
+    <!-- صندوق عرض آخر 3 قراء -->
+    <div class="announcement-card animate__animated animate__fadeIn" style="text-align: right;">
+        <div class="ann-title">
+            <i class="fas fa-award"></i>
+            <span>آخر القراء المسجلين في المنصة</span>
+        </div>
+        <ul id="latestReadersList" style="list-style: none; padding: 0; margin: 0; color: #fff; font-size: 1.1rem; line-height: 1.8;">
+            <li>جاري تحميل القراء...</li>
+        </ul>
     </div>
 
     <div class="youtube-widget-card animate__animated animate__fadeIn" style="background: var(--card-bg); border: 1.5px solid rgba(255, 204, 51, 0.5); border-radius: 24px; padding: 18px; margin-bottom: 25px; text-align: center; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
@@ -587,6 +598,45 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    const scriptURL = 'ضع_رابط_الـ_Web_App_الخاص_بجوجل_شيت_هنا';
+
+    // دالة جلب إجمالي القراء وآخر القراء من الشيت وتحديث الواجهة
+    function fetchPlatformStats() {
+        fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                // 1. تحديث إجمالي عدد المسجلين
+                const userCounter = document.getElementById('userCounter');
+                const realFollowersCount = document.getElementById('realFollowersCount');
+                
+                if(userCounter) userCounter.innerText = data.totalCount + " قارئ";
+                if(realFollowersCount) realFollowersCount.innerText = "إجمالي القراء: " + data.totalCount;
+
+                // 2. تحديث قائمة آخر القراء
+                const listContainer = document.getElementById('latestReadersList');
+                if(listContainer) {
+                    listContainer.innerHTML = '';
+                    
+                    if (!data.latestReaders || data.latestReaders.length === 0) {
+                        listContainer.innerHTML = '<li>لا توجد سجلات بعد</li>';
+                        return;
+                    }
+                    
+                    data.latestReaders.forEach(reader => {
+                        let li = document.createElement('li');
+                        li.style.marginBottom = "6px";
+                        li.innerHTML = `⭐ <strong>${reader.name}</strong> - تلاوة سورة <strong>${reader.surah}</strong> (من آية ${reader.ayahFrom} إلى ${reader.ayahTo})`;
+                        listContainer.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("خطأ في جلب بيانات القراء:", error);
+            });
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchPlatformStats);
+
     function checkThursdaySunsetToFriday() {
         const now = new Date();
         const day = now.getDay(); 
@@ -677,34 +727,6 @@
     function closeArchiveModal() {
         document.getElementById('archiveModal').style.display = 'none';
     }
-
-    async function fetchFacebookFollowers() {
-        const PAGE_ID = '1027623416866396';
-        const ACCESS_TOKEN = 'EAAOmnji5plwBRx9ji7nXkmuF2ZAQvAH8BQ5N4JkwZAvUG9WgazuyLAL04zDU2Ih1g6QRElxHrpMP0OAnGP0MaL9sHjRJDIZA5VumiVkX13oZBfKDZAZBMLsh6fpzpYVpPo7ywdTpP8eLYZCjHNQJSxMxGVjvSSPipGYt4WVwIDpyZAfB52E0XZACQS1oTrFNPHMEPrpW2ZBYJtFGZBjq4npzC1A1ZAtVhixgmCieOQZDZD';
-        const counterElement = document.getElementById('userCounter');
-        const realCountElement = document.getElementById('realFollowersCount');
-        
-        counterElement.innerText = "جاري جلب العدد...";
-
-        try {
-            const response = await fetch(`https://graph.facebook.com/v19.0/${PAGE_ID}?fields=followers_count&access_token=${ACCESS_TOKEN}`);
-            const data = await response.json();
-            
-            if (data && data.followers_count) {
-                counterElement.innerText = data.followers_count.toLocaleString() + " متابع";
-                realCountElement.innerText = "العدد الحقيقي: " + data.followers_count;
-            } else {
-                counterElement.innerText = "";
-                realCountElement.innerText = "";
-            }
-        } catch (error) {
-            console.error("خطأ في جلب بيانات المتابعين:", error);
-            counterElement.innerText = ""; 
-            realCountElement.innerText = "العدد الحقيقي: غير متاح حالياً";
-        }
-    }
-
-    window.addEventListener('DOMContentLoaded', fetchFacebookFollowers);
 
     const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
 
@@ -815,8 +837,6 @@
     window.addEventListener('resize', function(){ canvas.width = innerWidth; canvas.height = innerHeight; init(); });
     init(); animate();
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFuMa99FTBcykVxdxd_0Stn2mQqeb9vE5ArZY39kQCyXNaALYcXsg5plbdpbjlUmXhsQ/exec';
-    
     const opLogos = {
         "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
         "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
