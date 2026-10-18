@@ -845,7 +845,21 @@
         * , *::before, *::after {
             font-family: 'CustomZainFont' !important;
         }
-    </style>
+    
+        /* Requested font thickness: zero outline and lightest valid font weight */
+        *, *::before, *::after {
+            -webkit-text-stroke-width: 0 !important;
+            text-stroke-width: 0 !important;
+            font-weight: 100 !important;
+        }
+        /* Keep icon glyphs rendered by Font Awesome */
+        i.fas, i.far, i.fab, i.fa {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+            font-weight: 900 !important;
+            -webkit-text-stroke-width: 0 !important;
+        }
+
+</style>
 </head>
 <body>
 
@@ -905,8 +919,8 @@
         </div>
         
         <div class="cert-footer">
-            <span>🌟 خادم القرآن/ عبد الرحمن مكي</span>
-            <span>📅 2026 م</span>
+            <span><i class="fas fa-star" aria-hidden="true"></i> خادم القرآن/ عبد الرحمن مكي</span>
+            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2026 م</span>
         </div>
     </div>
 
@@ -1009,7 +1023,7 @@
 
     <!-- Featured Recitations Video -->
     <div class="glass-card animate__animated animate__fadeInUp" style="padding: 20px;">
-        <span class="video-label"><i class="fas fa-play-circle"></i> ✨ نماذج مختارة من تلاوات المبدعين ✨</span>
+        <span class="video-label"><i class="fas fa-play-circle"></i> <i class="fas fa-star" aria-hidden="true"></i> نماذج مختارة من تلاوات المبدعين <i class="fas fa-star" aria-hidden="true"></i></span>
         <div class="video-box">
             <iframe src="https://www.facebook.com/plugins/video.php?height=312&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1222686662828097%2F&show_text=false&width=560&t=0" width="560" height="312" style="border:none;overflow:hidden;width:100%;height:100%" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
@@ -1348,7 +1362,7 @@
         } else if (day === 5) { 
             shouldShow = true;
             if (hour >= 4) { 
-                textTitle = "جمعة مباركة 🌺";
+                textTitle = '<i class="fas fa-spa" aria-hidden="true"></i> جمعة مباركة';
             } else {
                 textTitle = "شمس الخميس اذا تغيب فزد الصلاة على الحبيب";
             }
@@ -1550,7 +1564,7 @@
             const fileURL = URL.createObjectURL(input.files[0]);
             audioPreview.src = fileURL; audioPreview.style.display = 'block';
             document.getElementById('audioIcon').style.display = 'none';
-            document.getElementById('fileT').innerHTML = "🎧 تأكد من تسجيلك";
+            document.getElementById('fileT').innerHTML = '<i class="fas fa-headphones" aria-hidden="true"></i> تأكد من تسجيلك';
         }
     }
 
@@ -1568,9 +1582,9 @@
             const hMonth = parseInt(parts.find(p => p.type === 'month').value);
 
             const matchedEvent = islamicDatabase.find(e => e.day === hDay && e.month === hMonth);
-            let eventStr = matchedEvent ? "⭐ " + matchedEvent.title : "🌟 يوم مبارك من أيام الله (اضغط للعرض)";
+            let eventStr = matchedEvent ? '<i class="fas fa-star" aria-hidden="true"></i> ' + matchedEvent.title : '<i class="fas fa-star" aria-hidden="true"></i> يوم مبارك من أيام الله (اضغط للعرض)';
             
-            document.getElementById('hijriEvent').innerText = eventStr;
+            document.getElementById('hijriEvent').innerHTML = eventStr;
         };
         updateClock(); setInterval(updateClock, 1000);
     }
@@ -1687,7 +1701,7 @@
         const aFrom = document.getElementById('ayahFrom').value;
         const aTo = document.getElementById('ayahTo').value;
         
-        const message = `✨ *استمارة مشاركة في منصة داعم المواهب للقرآن الكريم* ✨\n\n👤 اسم المشارك: ${name}\n📖 السورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\n🌟 برعاية خادم القرآن/ عبد الرحمن مكي\n\n🔗 رابط المنصة للمشاركة: https://abdodaim14-ai.github.io/-/`;
+        const message = `*استمارة مشاركة في منصة داعم المواهب للقرآن الكريم*\n\nاسم المشارك: ${name}\nالسورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\nبرعاية خادم القرآن/ عبد الرحمن مكي\n\nرابط المنصة للمشاركة: https://abdodaim14-ai.github.io/-/`;
         const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
     }
