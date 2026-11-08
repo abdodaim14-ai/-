@@ -868,6 +868,34 @@
         .auth-btn:disabled { opacity:.65; cursor:wait !important; }
         #authStatus { display:block; margin-top:12px; color:var(--text-gold); min-height:1.5em; overflow-wrap:anywhere; }
         .auth-user { color:#fff; margin-top:8px; }
+        .profile-tools { margin:16px auto 4px; padding:14px; max-width:420px; border:1px solid rgba(212,175,55,.28); border-radius:18px; background:rgba(0,0,0,.22); }
+        .profile-avatar { width:92px; height:92px; display:block; margin:0 auto 10px; border-radius:50%; object-fit:cover; border:3px solid var(--text-gold); background:#111820; box-shadow:0 5px 18px rgba(0,0,0,.45); }
+        .profile-file { display:block; width:100%; margin:10px auto; color:#ddd; font-size:.9rem; }
+        .profile-upload-btn { min-width:0; width:100%; margin-top:8px; }
+        .profile-hint { display:block; color:#aaa; font-size:.82rem; margin-top:8px; line-height:1.6; }
+
+
+
+        /* Account creation, sign-in and donation additions */
+        .auth-form-grid { display:grid; grid-template-columns:1fr; gap:10px; max-width:520px; margin:14px auto 0; }
+        .auth-form-grid input, .donation-form input { width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .auth-form-grid input:focus, .donation-form input:focus { border-color:var(--text-gold); box-shadow:0 0 0 3px rgba(212,175,55,.12); }
+        .auth-mode-switch { display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+        .auth-mode-switch button { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:9px 16px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .auth-mode-switch button.active { background:var(--gold-gradient); color:#111; }
+        .auth-form-grid .auth-btn { width:100%; }
+        .auth-help { color:#bbb; font-size:.88rem; line-height:1.7; }
+        .auth-required-note { display:none; padding:12px; margin:12px 0; border:1px solid rgba(212,175,55,.35); border-radius:14px; color:var(--text-gold); background:rgba(0,0,0,.25); line-height:1.7; }
+        .donation-card { padding:22px; text-align:center; }
+        .donation-card h3 { color:var(--text-gold); margin:0 0 8px; }
+        .donation-form { display:grid; gap:12px; max-width:480px; margin:16px auto 0; }
+        .donation-form label { text-align:right; color:#eee; }
+        .donation-amount-wrap { position:relative; }
+        .donation-amount-wrap span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-gold); }
+        .donation-submit { border:0; border-radius:14px; padding:14px 18px; background:var(--gold-gradient); color:#111; cursor:pointer; font:inherit; font-size:1.05rem; }
+        .donation-submit:disabled { opacity:.55; cursor:not-allowed; }
+        .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
+        .form-auth-locked { opacity:.58; }
 
     </style>
 </head>
@@ -884,7 +912,7 @@
 <canvas id="webgl-bg"></canvas>
 
 <!-- Notification Button -->
-<button idfloatingNotifyBtn id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
+<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
     <i class="bi bi-bell-fill"></i>
 </button>
 
@@ -987,15 +1015,35 @@
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
-    <!-- تسجيل الدخول والحساب -->
-    <section class="glass-card auth-panel" id="accountPanel" aria-label="تسجيل الدخول">
+    <!-- تسجيل الدخول وإنشاء الحساب -->
+    <section class="glass-card auth-panel" id="accountPanel" aria-label="حساب المستخدم">
         <div style="color:var(--text-gold);font-size:1.25rem;margin-bottom:6px;"><i class="bi bi-person-circle"></i> حسابك على منصة داعم المواهب</div>
-        <div id="authIntro">سجّل الدخول لمتابعة حسابك والاستفادة من خدمات المنصة</div>
+        <div id="authIntro">أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة</div>
+        <div class="auth-mode-switch" id="authModeSwitch">
+            <button type="button" id="showSignupBtn" class="active">إنشاء حساب جديد</button>
+            <button type="button" id="showLoginBtn">تسجيل الدخول</button>
+        </div>
+        <form id="emailAuthForm" class="auth-form-grid" novalidate>
+            <input type="text" id="authDisplayName" autocomplete="name" placeholder="الاسم بالكامل" aria-label="الاسم بالكامل">
+            <input type="email" id="authEmail" autocomplete="email" required placeholder="البريد الإلكتروني" aria-label="البريد الإلكتروني">
+            <input type="password" id="authPassword" autocomplete="new-password" required minlength="8" placeholder="كلمة المرور (8 أحرف على الأقل)" aria-label="كلمة المرور">
+            <input type="password" id="authPasswordConfirm" autocomplete="new-password" minlength="8" placeholder="تأكيد كلمة المرور" aria-label="تأكيد كلمة المرور">
+            <button type="submit" class="auth-btn" id="emailAuthSubmitBtn">إنشاء الحساب</button>
+            <button type="button" class="auth-btn" id="forgotPasswordBtn" hidden>نسيت كلمة المرور؟</button>
+            <div class="auth-help" id="emailAuthHint">بعد إنشاء الحساب قد تحتاج إلى تأكيد بريدك الإلكتروني من الرسالة التي ستصلك.</div>
+        </form>
         <div class="auth-actions" id="authButtons">
-            <button type="button" class="auth-btn" id="googleLoginBtn"><i class="bi bi-google"></i> تسجيل الدخول باستخدام Google</button>
-            <button type="button" class="auth-btn facebook" id="facebookLoginBtn"><i class="bi bi-facebook"></i> تسجيل الدخول باستخدام Facebook</button>
+            <button type="button" class="auth-btn" id="googleLoginBtn"><i class="bi bi-google"></i> المتابعة باستخدام Google</button>
+            <button type="button" class="auth-btn facebook" id="facebookLoginBtn"><i class="bi bi-facebook"></i> المتابعة باستخدام Facebook</button>
         </div>
         <div id="authUser" class="auth-user" hidden></div>
+        <div id="profileTools" class="profile-tools" hidden>
+            <img id="profileAvatar" class="profile-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E" alt="صورة البروفايل">
+            <div style="color:var(--text-gold);font-size:1rem;">صورة حسابك</div>
+            <input type="file" id="profileAvatarInput" class="profile-file" accept="image/jpeg,image/png,image/webp">
+            <button type="button" class="auth-btn profile-upload-btn" id="uploadAvatarBtn">رفع صورة البروفايل</button>
+            <span class="profile-hint">الصيغ المسموحة: JPG وPNG وWEBP — الحد الأقصى 2 ميجابايت.</span>
+        </div>
         <button type="button" class="auth-btn" id="logoutBtn" hidden style="margin-top:12px;">تسجيل الخروج</button>
         <span id="authStatus" role="status" aria-live="polite"></span>
     </section>
@@ -1098,6 +1146,20 @@
             <li><i class="bi bi-clock"></i> مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
         </ul>
     </div>
+
+    <!-- نموذج التبرع - يتطلب تسجيل الدخول -->
+    <section class="glass-card donation-card" id="donationSection">
+        <h3><i class="bi bi-heart-fill"></i> ساهم في دعم المواهب القرآنية</h3>
+        <p style="color:#ddd;line-height:1.8;margin:6px 0;">تبرع بالمبلغ الذي تختاره لدعم أنشطة المنصة وخدمة أهل القرآن الكريم.</p>
+        <div id="donationGuestNote" class="auth-required-note" style="display:block;">لازم تسجل الدخول الأول علشان تقدر تتبرع. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">تسجيل الدخول أو إنشاء حساب</a></div>
+        <form id="donationForm" class="donation-form">
+            <label for="donationAmount">مبلغ التبرع بالجنيه المصري</label>
+            <div class="donation-amount-wrap"><input id="donationAmount" type="number" min="1" max="1000000" step="0.01" inputmode="decimal" placeholder="اكتب أي مبلغ تريده" required disabled><span>ج.م</span></div>
+            <button class="donation-submit" id="donationSubmitBtn" type="submit" disabled><i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع</button>
+            <div class="donation-status" id="donationStatus" role="status" aria-live="polite"></div>
+        </form>
+        <p class="auth-help">سيتم اختيار وسيلة الدفع في صفحة الدفع الآمنة عند تفعيل ربط Paymob.</p>
+    </section>
 
     <!-- Participation Form -->
     <div class="glass-card form-card animate__animated animate__fadeInUp">
@@ -1654,6 +1716,7 @@
 
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
+        if (typeof window.requirePlatformAuth === 'function' && !window.requirePlatformAuth('لازم تسجل الدخول قبل إرسال التلاوة.')) return;
         
         if (!document.getElementById('surah').value) {
             alert("يرجى اختيار السورة المباركة أولاً من القائمة");
@@ -1799,62 +1862,235 @@
 <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script>
 
 
-<!-- Supabase Auth (Google + Facebook) -->
+<!-- Supabase Auth: Email/Password + Google + Facebook + Profile Avatar -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
   const SUPABASE_URL = 'https://xkraqrjkimkdawlazjyl.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
   const redirectTo = 'https://abdodaim14-ai.github.io/-/';
-  const statusEl = document.getElementById('authStatus');
-  const googleBtn = document.getElementById('googleLoginBtn');
-  const facebookBtn = document.getElementById('facebookLoginBtn');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const authButtons = document.getElementById('authButtons');
-  const authUser = document.getElementById('authUser');
-  const authIntro = document.getElementById('authIntro');
+  const $ = (id) => document.getElementById(id);
+  const statusEl = $('authStatus');
+  const googleBtn = $('googleLoginBtn');
+  const facebookBtn = $('facebookLoginBtn');
+  const logoutBtn = $('logoutBtn');
+  const authButtons = $('authButtons');
+  const authUser = $('authUser');
+  const authIntro = $('authIntro');
+  const profileTools = $('profileTools');
+  const profileAvatar = $('profileAvatar');
+  const avatarInput = $('profileAvatarInput');
+  const talentForm = $('talentForm');
+  const donationForm = $('donationForm');
   let supabaseClient = null;
+  let currentUser = null;
+  let authReady = false;
+  let authMode = 'signup';
+  const fallbackAvatar = profileAvatar ? profileAvatar.src : '';
+
   function setStatus(message) { if (statusEl) statusEl.textContent = message || ''; }
-  function setBusy(busy) { [googleBtn, facebookBtn, logoutBtn].forEach(b => { if (b && !b.hidden) b.disabled = busy; }); }
+  function setBusy(busy) {
+    [googleBtn, facebookBtn, logoutBtn, $('emailAuthSubmitBtn'), $('forgotPasswordBtn'), $('uploadAvatarBtn')].forEach(b => { if (b) b.disabled = !!busy; });
+  }
+  function focusAccount(message) {
+    $('accountPanel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (message) setStatus(message);
+  }
+  window.requirePlatformAuth = function (message) {
+    if (currentUser && authReady) return true;
+    focusAccount(message || 'سجّل الدخول أو أنشئ حسابًا أولاً لاستخدام خدمات الموقع.');
+    return false;
+  };
+  // Any future form that writes/submits site content is protected by the same login requirement.
+  document.addEventListener('submit', (event) => {
+    if (event.target && event.target.id !== 'emailAuthForm' && !window.requirePlatformAuth('لازم تسجل الدخول قبل إرسال أي بيانات أو كتابة محتوى في الموقع.')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
+  function setMode(mode) {
+    authMode = mode;
+    const signup = mode === 'signup';
+    $('authDisplayName').hidden = !signup;
+    $('authPasswordConfirm').hidden = !signup;
+    $('forgotPasswordBtn').hidden = signup;
+    $('emailAuthSubmitBtn').textContent = signup ? 'إنشاء الحساب' : 'تسجيل الدخول';
+    $('emailAuthHint').textContent = signup
+      ? 'استخدم بريدًا إلكترونيًا صحيحًا وكلمة مرور لا تقل عن 8 أحرف. قد تحتاج إلى تأكيد البريد قبل الدخول.'
+      : 'اكتب بريدك الإلكتروني وكلمة المرور. يمكنك استعادة كلمة المرور إذا نسيتها.';
+    $('showSignupBtn').classList.toggle('active', signup);
+    $('showLoginBtn').classList.toggle('active', !signup);
+    $('authPassword').autocomplete = signup ? 'new-password' : 'current-password';
+    setStatus('');
+  }
+  $('showSignupBtn')?.addEventListener('click', () => setMode('signup'));
+  $('showLoginBtn')?.addEventListener('click', () => setMode('login'));
+
   async function signIn(provider) {
-    if (!supabaseClient) { setStatus('تعذر تحميل خدمة تسجيل الدخول. حدّث الصفحة وتأكد من اتصال الإنترنت.'); return; }
-    setBusy(true); setStatus('جاري تحويلك إلى صفحة تسجيل الدخول...');
+    if (!supabaseClient) { setStatus('خدمة الحسابات غير جاهزة. حدّث الصفحة وحاول مرة أخرى.'); return; }
+    setBusy(true); setStatus('جاري تحويلك إلى تسجيل الدخول...');
     try {
       const { error } = await supabaseClient.auth.signInWithOAuth({ provider, options: { redirectTo } });
       if (error) throw error;
     } catch (error) {
-      console.error('Supabase sign-in error:', error);
+      console.error('OAuth sign-in error:', error);
       setStatus('تعذر بدء تسجيل الدخول: ' + (error.message || 'خطأ غير معروف'));
       setBusy(false);
     }
   }
-  googleBtn.addEventListener('click', () => signIn('google'));
-  facebookBtn.addEventListener('click', () => signIn('facebook'));
-  logoutBtn.addEventListener('click', async () => {
+  googleBtn?.addEventListener('click', () => signIn('google'));
+  facebookBtn?.addEventListener('click', () => signIn('facebook'));
+
+  $('emailAuthForm')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!supabaseClient) { setStatus('خدمة الحسابات لم تُحمّل بعد.'); return; }
+    const email = $('authEmail').value.trim();
+    const password = $('authPassword').value;
+    const displayName = $('authDisplayName').value.trim();
+    if (!email || !password) { setStatus('اكتب البريد الإلكتروني وكلمة المرور.'); return; }
+    if (password.length < 8) { setStatus('كلمة المرور لازم تكون 8 أحرف على الأقل.'); return; }
+    setBusy(true);
+    try {
+      if (authMode === 'signup') {
+        if (!displayName) { setStatus('اكتب اسمك علشان ننشئ الحساب.'); setBusy(false); return; }
+        if (password !== $('authPasswordConfirm').value) { setStatus('كلمتا المرور غير متطابقتين.'); setBusy(false); return; }
+        const { data, error } = await supabaseClient.auth.signUp({
+          email, password,
+          options: { emailRedirectTo: redirectTo, data: { display_name: displayName, full_name: displayName } }
+        });
+        if (error) throw error;
+        if (data.session) setStatus('تم إنشاء حسابك وتسجيل الدخول بنجاح.');
+        else setStatus('تم إنشاء الحساب. افتح رسالة التأكيد التي وصلتك على بريدك الإلكتروني ثم ارجع لتسجيل الدخول.');
+        $('authPassword').value = ''; $('authPasswordConfirm').value = '';
+      } else {
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        $('authPassword').value = '';
+        setStatus('تم تسجيل الدخول بنجاح. أهلاً بك!');
+      }
+    } catch (error) {
+      console.error('Email auth error:', error);
+      const msg = error.message || 'خطأ غير معروف';
+      setStatus('تعذر إتمام العملية: ' + msg);
+    } finally { setBusy(false); }
+  });
+
+  $('forgotPasswordBtn')?.addEventListener('click', async () => {
+    const email = $('authEmail').value.trim();
+    if (!email) { setStatus('اكتب بريدك الإلكتروني أولاً علشان نبعتلك رابط استعادة كلمة المرور.'); return; }
+    setBusy(true);
+    try {
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      setStatus('لو البريد مسجل عندنا، هتوصلك رسالة فيها رابط استعادة كلمة المرور.');
+    } catch (error) { setStatus('تعذر إرسال رابط الاستعادة: ' + (error.message || 'خطأ غير معروف')); }
+    finally { setBusy(false); }
+  });
+
+  logoutBtn?.addEventListener('click', async () => {
     if (!supabaseClient) return;
     setBusy(true);
     const { error } = await supabaseClient.auth.signOut();
     if (error) setStatus('تعذر تسجيل الخروج: ' + error.message);
     setBusy(false);
   });
-  function renderSession(session) {
-    const user = session && session.user;
-    if (user) {
-      authButtons.hidden = true; logoutBtn.hidden = false; authUser.hidden = false;
-      authUser.textContent = 'تم تسجيل الدخول: ' + (user.email || user.phone || 'حسابك');
-      authIntro.textContent = 'أهلاً بك في منصة داعم المواهب'; setStatus('');
-    } else {
-      authButtons.hidden = false; logoutBtn.hidden = true; authUser.hidden = true;
-      authIntro.textContent = 'سجّل الدخول لمتابعة حسابك والاستفادة من خدمات المنصة';
+
+  async function loadOwnProfile(user) {
+    if (!user || !supabaseClient) return;
+    const { data, error } = await supabaseClient.from('profiles').select('avatar_url, display_name').eq('id', user.id).maybeSingle();
+    if (error) { console.warn('Profile read:', error.message); }
+    if (data?.avatar_url) profileAvatar.src = data.avatar_url;
+    else {
+      const providerPic = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+      profileAvatar.src = providerPic || fallbackAvatar;
     }
   }
-  if (!window.supabase || !window.supabase.createClient) {
-    setStatus('خدمة تسجيل الدخول لم تُحمّل. تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.'); return;
+
+  $('uploadAvatarBtn')?.addEventListener('click', async () => {
+    if (!window.requirePlatformAuth('سجّل الدخول قبل رفع صورة الحساب.')) return;
+    const file = avatarInput.files && avatarInput.files[0];
+    if (!file) { setStatus('اختَر صورة أولاً.'); return; }
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) { setStatus('الصيغة غير مدعومة. استخدم JPG أو PNG أو WEBP.'); return; }
+    if (file.size > 2 * 1024 * 1024) { setStatus('حجم الصورة أكبر من 2 ميجابايت.'); return; }
+    setBusy(true); setStatus('جاري رفع صورة البروفايل...');
+    try {
+      const extension = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[file.type];
+      const objectPath = currentUser.id + '/avatar.' + extension;
+      const { error: uploadError } = await supabaseClient.storage.from('avatars').upload(objectPath, file, { upsert: true, contentType: file.type, cacheControl: '3600' });
+      if (uploadError) throw uploadError;
+      const publicUrl = supabaseClient.storage.from('avatars').getPublicUrl(objectPath).data.publicUrl + '?v=' + Date.now();
+      const { error: profileError } = await supabaseClient.from('profiles').update({ avatar_url: publicUrl }).eq('id', currentUser.id);
+      if (profileError) throw profileError;
+      profileAvatar.src = publicUrl; avatarInput.value = '';
+      setStatus('تم رفع صورة البروفايل وحفظها بنجاح.');
+    } catch (error) { console.error(error); setStatus('تعذر رفع الصورة: ' + (error.message || 'خطأ غير معروف')); }
+    finally { setBusy(false); }
+  });
+
+  function setFormAccess(allowed) {
+    if (talentForm) {
+      talentForm.classList.toggle('form-auth-locked', !allowed);
+      talentForm.querySelectorAll('input,select,textarea,button').forEach(el => { el.disabled = !allowed; });
+      let note = $('talentAuthRequired');
+      if (!note) {
+        note = document.createElement('div'); note.id = 'talentAuthRequired'; note.className = 'auth-required-note';
+        note.innerHTML = 'لإرسال تلاوتك وكتابة بيانات المشاركة، لازم تسجل الدخول أو تنشئ حسابًا أولاً. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">اذهب إلى الحساب</a>';
+        talentForm.parentNode.insertBefore(note, talentForm);
+      }
+      note.style.display = allowed ? 'none' : 'block';
+    }
+    if ($('donationAmount')) $('donationAmount').disabled = !allowed;
+    if ($('donationSubmitBtn')) {
+      $('donationSubmitBtn').disabled = !allowed;
+      $('donationSubmitBtn').innerHTML = allowed ? '<i class="bi bi-heart-fill"></i> متابعة التبرع' : '<i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع';
+    }
+    if ($('donationGuestNote')) $('donationGuestNote').style.display = allowed ? 'none' : 'block';
+  }
+
+  function renderSession(session) {
+    currentUser = session?.user || null;
+    authReady = true;
+    const loggedIn = !!currentUser;
+    if (loggedIn) {
+      authButtons.hidden = true; $('emailAuthForm').hidden = true; $('authModeSwitch').hidden = true;
+      logoutBtn.hidden = false; authUser.hidden = false; profileTools.hidden = false;
+      const display = currentUser.user_metadata?.display_name || currentUser.user_metadata?.full_name || currentUser.email || 'حسابك';
+      authUser.textContent = 'أهلاً بك، ' + display + (currentUser.email ? ' — ' + currentUser.email : '');
+      authIntro.textContent = 'أنت مسجل الدخول الآن ويمكنك استخدام خدمات المنصة.';
+      setStatus('');
+      Promise.resolve().then(() => loadOwnProfile(currentUser));
+    } else {
+      authButtons.hidden = false; $('emailAuthForm').hidden = false; $('authModeSwitch').hidden = false;
+      logoutBtn.hidden = true; authUser.hidden = true; profileTools.hidden = true;
+      authIntro.textContent = 'أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة';
+      profileAvatar.src = fallbackAvatar;
+    }
+    setFormAccess(loggedIn);
+  }
+
+  // Donation UI is prepared for the server function; the server-side Paymob function must be deployed before real checkout can work.
+  donationForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!window.requirePlatformAuth('سجّل الدخول قبل التبرع.')) return;
+    const amount = Number($('donationAmount').value);
+    if (!Number.isFinite(amount) || amount < 1 || amount > 1000000) {
+      $('donationStatus').textContent = 'اكتب مبلغًا صحيحًا من 1 إلى 1,000,000 جنيه.'; return;
+    }
+    $('donationStatus').textContent = 'واجهة التبرع جاهزة، لكن إنشاء طلب الدفع على الخادم لم يكتمل نشره بعد. لن يتم خصم أي مبلغ الآن.';
+  });
+
+  if (!window.supabase?.createClient) {
+    setStatus('تعذر تحميل Supabase. تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.');
+    setFormAccess(false); return;
   }
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  window.supabaseClient = supabaseClient;
+  setMode('signup');
+  setFormAccess(false);
   supabaseClient.auth.getSession().then(({ data, error }) => {
     if (error) setStatus('تعذر التحقق من الجلسة: ' + error.message);
-    renderSession(data && data.session);
+    renderSession(data?.session || null);
   });
   supabaseClient.auth.onAuthStateChange((_event, session) => renderSession(session));
 })();
