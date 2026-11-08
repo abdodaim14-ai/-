@@ -26,7 +26,90 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Webpushr script -->
-    <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = "https://cdn.webpushr.com/app.min.js";
+    
+<!-- Supabase Auth: public publishable key only; never place secret/service_role keys in this file. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+    const SUPABASE_URL = 'https://xkraqrjkimkdawlazjyl.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
+    const REDIRECT_URL = 'https://abdodaim14-ai.github.io/-/';
+
+    const messageEl = document.getElementById('authMessage');
+    const signedOutEl = document.getElementById('authSignedOut');
+    const signedInEl = document.getElementById('authSignedIn');
+    const emailEl = document.getElementById('authUserEmail');
+    const googleBtn = document.getElementById('googleLoginBtn');
+    const facebookBtn = document.getElementById('facebookLoginBtn');
+    const signOutBtn = document.getElementById('authSignOutBtn');
+
+    if (!window.supabase || !window.supabase.createClient) {
+        messageEl.textContent = 'تعذر تحميل خدمة تسجيل الدخول. حدّث الصفحة وحاول مرة أخرى.';
+        return;
+    }
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
+    );
+
+    function showMessage(message, isError = false) {
+        messageEl.textContent = message || '';
+        messageEl.style.color = isError ? '#ff9b9b' : '#f3d77b';
+    }
+
+    function renderAuth(user) {
+        if (user) {
+            signedOutEl.style.display = 'none';
+            signedInEl.style.display = 'block';
+            emailEl.textContent = user.email || user.phone || 'تم تسجيل الدخول';
+            showMessage('أهلاً بك في منصة داعم المواهب.');
+        } else {
+            signedOutEl.style.display = 'block';
+            signedInEl.style.display = 'none';
+            emailEl.textContent = '';
+        }
+    }
+
+    async function signInWith(provider) {
+        googleBtn.disabled = true;
+        facebookBtn.disabled = true;
+        showMessage('جاري تحويلك إلى صفحة تسجيل الدخول...');
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider,
+            options: { redirectTo: REDIRECT_URL }
+        });
+        if (error) {
+            showMessage('تعذر بدء تسجيل الدخول: ' + error.message, true);
+            googleBtn.disabled = false;
+            facebookBtn.disabled = false;
+        }
+    }
+
+    googleBtn.addEventListener('click', () => signInWith('google'));
+    facebookBtn.addEventListener('click', () => signInWith('facebook'));
+
+    signOutBtn.addEventListener('click', async () => {
+        signOutBtn.disabled = true;
+        const { error } = await supabaseClient.auth.signOut();
+        signOutBtn.disabled = false;
+        if (error) showMessage('تعذر تسجيل الخروج: ' + error.message, true);
+        else showMessage('تم تسجيل الخروج.');
+    });
+
+    supabaseClient.auth.getSession().then(({ data, error }) => {
+        if (error) showMessage('تعذر التحقق من جلسة الدخول: ' + error.message, true);
+        renderAuth(data?.session?.user || null);
+    });
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+        renderAuth(session?.user || null);
+    });
+})();
+</script>
+
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = "https://cdn.webpushr.com/app.min.js";
     fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk-alternative'));
     webpushr('init','BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk','https://abdodaim14-ai.github.io/-/webpushr-sw.js','/-/');</script>
 
@@ -975,6 +1058,33 @@
         </div>
         <div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+
+        <!-- Supabase Authentication -->
+        <div id="authPanel" class="glass-card" style="max-width:460px;margin:18px auto 0;padding:16px;text-align:center;">
+            <div id="authSignedOut">
+                <div style="color:var(--text-gold);font-weight:700;margin-bottom:12px;">
+                    <i class="bi bi-person-circle"></i> سجّل دخولك إلى المنصة
+                </div>
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                    <button id="googleLoginBtn" type="button" style="background:#fff;color:#222;border:0;border-radius:12px;padding:11px 18px;font-weight:700;cursor:pointer;">
+                        <i class="bi bi-google"></i> تسجيل الدخول بجوجل
+                    </button>
+                    <button id="facebookLoginBtn" type="button" style="background:#1877f2;color:#fff;border:0;border-radius:12px;padding:11px 18px;font-weight:700;cursor:pointer;">
+                        <i class="bi bi-facebook"></i> فيسبوك
+                    </button>
+                </div>
+            </div>
+            <div id="authSignedIn" style="display:none;">
+                <div style="color:var(--text-gold);font-weight:700;margin-bottom:8px;">
+                    <i class="bi bi-person-check-fill"></i> تم تسجيل الدخول
+                </div>
+                <div id="authUserEmail" style="color:#eee;font-size:.9rem;direction:ltr;overflow-wrap:anywhere;margin-bottom:12px;"></div>
+                <button id="authSignOutBtn" type="button" style="background:var(--gold-gradient);color:#111;border:0;border-radius:12px;padding:10px 22px;font-weight:700;cursor:pointer;">
+                    تسجيل الخروج
+                </button>
+            </div>
+            <div id="authMessage" role="status" aria-live="polite" style="font-size:.85rem;color:#f3d77b;margin-top:10px;"></div>
+        </div>
     </div>
 
     <!-- Live Info Card -->
