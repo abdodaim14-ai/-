@@ -30,7 +30,8 @@
     fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk-alternative'));
     webpushr('init','BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk','https://abdodaim14-ai.github.io/-/webpushr-sw.js','/-/');</script>
 
-    <!-- Icons & Styling Libraries -->
+
+    <!-- Icons & Styling Libraries (Changed Font Awesome to Material Design Icons / Bootstrap Icons as a new icon font) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -53,9 +54,9 @@
             --gold-glow: 0 0 25px rgba(212, 175, 55, 0.4);
             --emerald-glow: 0 0 25px rgba(16, 185, 129, 0.3);
             --luxury-bg: #030508;
-            --card-glass: rgba(12, 16, 24, 0.85);
-            --card-border: rgba(212, 175, 55, 0.35);
-            --card-hover-border: rgba(255, 224, 102, 0.9);
+            --card-glass: rgba(12, 16, 24, 0.75);
+            --card-border: rgba(212, 175, 55, 0.3);
+            --card-hover-border: rgba(255, 224, 102, 0.8);
             --text-gold: #f7d070;
         }
 
@@ -70,11 +71,12 @@
             color: #f3f4f6;
             background-color: var(--luxury-bg);
             min-height: 100vh;
-            padding: 10px 0 140px 0;
+            padding: 20px 0 140px 0;
             overflow-x: hidden;
             position: relative;
         }
 
+        /* 3D Canvas Container Background */
         #webgl-bg {
             position: fixed;
             top: 0;
@@ -85,6 +87,7 @@
             pointer-events: none;
         }
 
+        /* Ambient Light Overlays */
         .ambient-light {
             position: fixed;
             width: 500px;
@@ -106,54 +109,13 @@
 
         .container {
             width: 92%;
-            max-width: 720px;
+            max-width: 680px;
             margin: auto;
             position: relative;
             z-index: 5;
         }
 
-        /* شريط التنقل العلوي المنظم بالأيقونات */
-        .site-nav-header {
-            background: rgba(10, 14, 22, 0.9);
-            border: 1.5px solid var(--card-border);
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            overflow-x: auto;
-            gap: 10px;
-        }
-        .nav-item-btn {
-            background: none;
-            border: none;
-            color: #ccc;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            padding: 8px 12px;
-            border-radius: 14px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-family: inherit;
-        }
-        .nav-item-btn i {
-            font-size: 1.4rem;
-            color: var(--text-gold);
-        }
-        .nav-item-btn:hover, .nav-item-btn.active {
-            color: #fff;
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--text-gold);
-            transform: translateY(-2px);
-        }
-
+        /* 3D Glassmorphism Cards */
         .glass-card {
             background: var(--card-glass);
             border: 1.5px solid var(--card-border);
@@ -172,6 +134,7 @@
             transform: translateY(-3px);
         }
 
+        /* Decorative Gold Corner Borders */
         .glass-card::before {
             content: '';
             position: absolute;
@@ -181,16 +144,18 @@
             opacity: 0.6;
         }
 
+        /* Header Styling */
         .header-section {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
+            position: relative;
         }
         .logo-wrapper {
             position: relative;
             display: inline-block;
         }
         .logo-main {
-            width: 140px;
+            width: 150px;
             height: auto;
             filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
             animation: pulseLogo 3s infinite ease-in-out;
@@ -205,57 +170,61 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
         }
         .quran-verse {
             font-family: 'Amiri', serif;
-            font-size: 2.2rem;
-            margin: 10px 0;
+            font-size: 2.5rem;
+            margin: 15px 0;
             color: #ffffff;
             text-shadow: 0 0 15px rgba(255,255,255,0.3);
             font-weight: 700;
         }
 
+        /* Info Bar Grid */
         .info-bar {
-            padding: 20px;
+            padding: 24px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
             text-align: center;
         }
         @media (max-width: 500px) {
-            .info-bar { grid-template-columns: 1fr; gap: 15px; }
+            .info-bar { grid-template-columns: 1fr; gap: 18px; }
         }
         .info-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 18px;
             border: 1px solid rgba(255, 204, 51, 0.1);
         }
         .info-item i {
             color: var(--text-gold);
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
         }
         .time-display {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--text-gold);
             font-weight: 800;
+            letter-spacing: 1px;
             font-family: monospace;
         }
         .info-val {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: #e5e7eb;
             margin-top: 4px;
         }
         .counter-val {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #ffffff;
             font-weight: 800;
         }
@@ -263,43 +232,548 @@
         .real-followers-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 14px;
-            padding: 10px 14px;
-            margin-top: 10px;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-top: 12px;
             width: 100%;
             text-align: right;
         }
 
         .hijri-event-tag {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #0d1117;
             background: var(--gold-gradient);
-            padding: 6px 15px;
+            padding: 8px 18px;
             border-radius: 30px;
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 12px;
             display: inline-block;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+            transition: all 0.3s ease;
+        }
+        .hijri-event-tag:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(255, 224, 102, 0.6);
         }
 
+        /* Custom Quran Surah Picker with Live Search */
         .surah-picker-btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px 20px;
             background: rgba(12, 15, 20, 0.9);
             border: 1.5px solid #2a3442;
             color: #fff;
             border-radius: 16px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
             font-family: inherit;
             text-align: right;
         }
+        .surah-picker-btn:hover, .surah-picker-btn:focus {
+            border-color: var(--text-gold);
+            box-shadow: 0 0 18px rgba(212,175,55,0.25);
+            background: #131922;
+        }
 
-        #surahSearchModal, #cardModal, #archiveModal, #loadingOverlay {
+        /* Surah Selection Modal Overlay */
+        #surahSearchModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 5, 8, 0.92);
+            z-index: 200000;
+            backdrop-filter: blur(25px);
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .surah-modal-content {
+            background: rgba(15, 20, 30, 0.95);
+            border: 2px solid var(--text-gold);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--gold-glow);
+            overflow: hidden;
+            animation: zoomIn 0.3s ease;
+        }
+        .surah-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+        }
+        .surah-modal-header h3 {
+            margin: 0;
+            color: var(--text-gold);
+            font-size: 1.4rem;
+            font-family: 'Reem Kufi', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .surah-search-box {
+            padding: 15px 20px;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+        }
+        .surah-search-input {
+            width: 100%;
+            padding: 14px 45px 14px 18px;
+            background: #090c10;
+            border: 1.5px solid var(--text-gold);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            font-family: inherit;
+        }
+        .surah-search-icon {
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gold);
+            font-size: 1.2rem;
+        }
+        .surah-list-container {
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .surah-card-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .surah-card-item:hover {
+            background: var(--gold-gradient);
+            color: #000;
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        .surah-card-item:hover .surah-num,
+        .surah-card-item:hover .surah-details {
+            color: #111;
+        }
+        .surah-name-ar {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .surah-num {
+            font-size: 0.8rem;
+            color: var(--text-gold);
+        }
+        .surah-details {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* Motivational Box */
+        .motivational-box {
+            text-align: center;
+            background: rgba(212, 175, 55, 0.05);
+            border-right: 5px solid var(--text-gold);
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+        }
+        .motivational-box p {
+            font-size: 1.25rem;
+            color: #ffffff;
+            line-height: 1.9;
+            margin: 0;
+            font-family: 'Amiri', serif;
+        }
+
+        /* Media / Video Section */
+        .video-label {
+            color: var(--text-gold);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+        }
+        .video-box {
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Social Section */
+        .social-call {
+            text-align: center;
+            padding: 22px;
+            border: 1.5px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+        }
+        .social-call h4 {
+            margin: 0 0 15px 0;
+            color: var(--text-gold);
+            font-size: 1.3rem;
+        }
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .s-box {
+            background: rgba(0,0,0,0.6);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 2px solid var(--text-gold);
+            transition: 0.3s ease;
+        }
+        .s-box i { font-size: 1.6rem; color: var(--text-gold); }
+        .s-box span { font-size: 0.75rem; color: #fff; margin-top: 4px; }
+        .s-box:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--text-gold);
+        }
+        .s-box:hover i, .s-box:hover span { color: #000; }
+
+        /* Announcement Card */
+        .announcement-card {
+            padding: 25px;
+            text-align: right;
+        }
+        .ann-title {
+            color: var(--text-gold);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ann-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #ebebeb;
+            margin-bottom: 18px;
+        }
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .criteria-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1.05rem;
+            color: #dedede;
+        }
+        .criteria-list i { color: var(--text-gold); margin-top: 5px; }
+
+        /* Form Controls */
+        .form-card {
+            padding: 32px;
+            text-align: right;
+        }
+        .field {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        .field label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--text-gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .input-w-icon { position: relative; }
+        .input-w-icon i:not(.iti__icon) {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gold);
+            font-size: 1.2rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .field input, .field select {
+            width: 100%;
+            padding: 16px 48px 16px 16px;
+            background: rgba(12, 15, 20, 0.9);
+            border: 1.5px solid #2a3442;
+            color: #fff;
+            border-radius: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1.1rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+        }
+        .field input:focus, .field select:focus {
+            border-color: var(--text-gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.3);
+            background: #131922;
+        }
+
+        .operator-label-logo {
+            height: 26px;
+            display: none;
+            vertical-align: middle;
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+
+        .iti { width: 100%; direction: ltr; }
+        .iti__selected-dial-code { display: none !important; }
+        .iti__country-list { background-color: #0c0f13; color: #fff; text-align: left; border: 1.5px solid var(--text-gold); border-radius: 12px; }
+
+        .flex-row { display: flex; gap: 15px; }
+        .flex-row .field { flex: 1; }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .upload-item {
+            border: 2px dashed rgba(212, 175, 55, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 175, 55, 0.03);
+            min-height: 135px;
+            position: relative;
+        }
+        .upload-item:hover {
+            background: rgba(212, 175, 55, 0.09);
+            border-color: var(--text-gold);
+            transform: translateY(-3px);
+        }
+        .upload-item i { font-size: 2.2rem; color: var(--text-gold); margin-bottom: 8px; }
+        .preview-img-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--text-gold);
+            object-fit: cover;
+            display: none;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        #audioPreview { width: 100%; height: 36px; margin-top: 10px; display: none; }
+
+        /* Rules Box */
+        .rules-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 22px;
+            margin-top: 25px;
+            text-align: right;
+        }
+        .rules-title {
+            color: var(--text-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 1.05rem;
+            color: #dedede;
+            line-height: 1.8;
+        }
+        .rules-list li { margin-bottom: 10px; display: flex; gap: 10px; }
+        .rules-list i { color: var(--text-gold); margin-top: 6px; }
+
+        .trust-tag {
+            color: var(--text-gold);
+            font-size: 1.05rem;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            border: 1.5px dashed rgba(212, 175, 55, 0.5);
+            padding: 12px;
+            border-radius: 14px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* 3D Gold Main Button */
+        .main-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 18px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.35rem;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4), inset 0 2px 2px rgba(255,255,255,0.4);
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .main-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 35px rgba(255, 224, 102, 0.7);
+        }
+
+        /* Footer Credit */
+        .footer-credit {
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            z-index: 5;
+        }
+        .footer-credit .name {
+            color: var(--text-gold);
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .quran-final-verse {
+            color: var(--text-gold);
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            margin-top: 30px;
+            animation: fadeIn 3s infinite alternate;
+        }
+
+        /* Floating Action Buttons */
+        .fixed-call-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 420px;
+            z-index: 1000;
+            background: rgba(12, 16, 24, 0.95);
+            border: 2px solid var(--text-gold);
+            border-radius: 50px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), var(--gold-glow);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        .fixed-call-btn:hover {
+            transform: translateX(-50%) scale(1.03);
+            background: rgba(20, 26, 38, 0.98);
+        }
+        .fixed-call-btn span { color: #fff; font-size: 1.15rem; font-weight: 700; }
+        .fixed-call-btn i { color: var(--text-gold); font-size: 1.3rem; animation: shake 2s infinite; }
+
+        .floating-notification-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--gold-gradient);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 58px;
+            height: 58px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s ease;
+        }
+        .floating-notification-btn i { color: #000; font-size: 1.5rem; }
+
+        /* PWA Banner */
+        #pwa-install-banner {
+            display: none;
+            position: fixed;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px;
+            background: rgba(10, 14, 20, 0.95);
+            border: 2px solid var(--text-gold);
+            color: white;
+            padding: 14px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10001;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        }
+        .pwa-flex-container { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .pwa-mini-logo { height: 38px; border-radius: 8px; border: 1px solid var(--text-gold); }
+        #pwa-install-banner button {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Certificate Modal / Modals */
+        #cardModal, #archiveModal, #loadingOverlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -311,239 +785,147 @@
             backdrop-filter: blur(15px);
             overflow-y: auto;
         }
-        .surah-modal-content, .cert-card, .archive-content {
-            background: rgba(15, 20, 30, 0.95);
-            border: 2px solid var(--text-gold);
-            border-radius: 28px;
+        .cert-card {
+            background: linear-gradient(145deg, #121822 0%, #07090c 100%);
+            border: 3px solid var(--text-gold);
+            border-radius: 32px;
+            padding: 32px;
             width: 100%;
-            max-width: 520px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--gold-glow);
-            overflow: hidden;
-        }
-        .surah-modal-header, .archive-header {
-            padding: 18px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.3);
-        }
-        .surah-search-box {
-            padding: 12px 18px;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.95), var(--gold-glow);
             position: relative;
         }
-        .surah-search-input {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            background: #090c10;
-            border: 1.5px solid var(--text-gold);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-        }
-        .surah-list-container {
-            padding: 15px;
-            overflow-y: auto;
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 8px;
-        }
-        .surah-card-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(212,175,55,0.2);
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .surah-card-item:hover {
-            background: var(--gold-gradient);
-            color: #000;
-        }
+        .cert-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .cert-logo { width: 70px; border-radius: 14px; border: 2px solid var(--text-gold); }
+        .cert-title-box h3 { margin: 0; color: var(--text-gold); font-size: 1.5rem; font-family: 'Reem Kufi', sans-serif; }
+        .cert-title-box span { font-size: 0.95rem; color: #ccc; }
+        .cert-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--text-gold); object-fit: cover; margin: 15px auto; display: block; }
+        .cert-name { font-size: 1.85rem; color: #fff; font-family: 'Amiri', serif; margin: 12px 0; }
+        .cert-details { background: rgba(212, 175, 55, 0.05); border: 1.5px dashed rgba(212, 175, 55, 0.5); border-radius: 18px; padding: 20px; margin: 18px 0; text-align: right; font-size: 1.1rem; line-height: 2; color: #f0f0f0; }
+        .cert-details strong { color: var(--text-gold); }
+        .cert-footer { margin-top: 20px; border-top: 1.5px solid rgba(212,175,55,0.3); padding-top: 15px; display: flex; justify-content: space-between; align-items: center; color: var(--text-gold); }
 
-        .motivational-box {
-            text-align: center;
-            background: rgba(212, 175, 55, 0.05);
-            border-right: 5px solid var(--text-gold);
-            padding: 20px;
-            border-radius: 16px;
-        }
-        .motivational-box p {
-            font-size: 1.15rem;
-            color: #ffffff;
-            line-height: 1.8;
-            margin: 0;
-            font-family: 'Amiri', serif;
-        }
+        .cert-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .cert-btn { flex: 1; padding: 14px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: 0.3s; font-family: inherit; }
+        .cert-btn.download { background: var(--gold-gradient); color: #000; }
+        .cert-btn.whatsapp { background: #25d366; color: #fff; }
+        .cert-btn.close { background: #222a35; color: #fff; border: 1px solid #444; }
 
-        .video-label {
-            color: var(--text-gold);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: block;
-            text-align: center;
-            font-weight: 700;
-        }
-        .video-box {
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            border-radius: 18px;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-            background: #000;
-        }
-        .video-box iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .social-call {
-            text-align: center;
-            padding: 20px;
-            border: 1.5px dashed rgba(212, 175, 55, 0.4);
-            border-radius: 20px;
-        }
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .s-box {
-            background: rgba(0,0,0,0.6);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            border: 2px solid var(--text-gold);
-            transition: 0.3s ease;
-        }
-        .s-box i { font-size: 1.4rem; color: var(--text-gold); }
-        .s-box span { font-size: 0.7rem; color: #fff; margin-top: 3px; }
-
-        .form-card {
+        .archive-content {
+            background: var(--card-glass);
+            border: 2.5px solid var(--text-gold);
+            border-radius: 28px;
             padding: 28px;
+            width: 100%;
+            max-width: 620px;
+            max-height: 85vh;
+            overflow-y: auto;
             text-align: right;
         }
-        .field {
-            margin-bottom: 20px;
-        }
-        .field label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            color: var(--text-gold);
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        .input-w-icon { position: relative; }
-        .input-w-icon i:not(.iti__icon) {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gold);
-            font-size: 1.1rem;
-            pointer-events: none;
-        }
-        .field input, .field select {
-            width: 100%;
-            padding: 14px 45px 14px 15px;
-            background: rgba(12, 15, 20, 0.9);
-            border: 1.5px solid #2a3442;
-            color: #fff;
-            border-radius: 14px;
-            outline: none;
-            font-family: inherit;
-            font-size: 1rem;
-        }
+        .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(212,175,55,0.3); padding-bottom: 12px; margin-bottom: 15px; }
+        .archive-header h3 { color: var(--text-gold); margin: 0; font-size: 1.5rem; font-family: 'Reem Kufi', sans-serif; }
+        .archive-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-gold); }
 
-        .flex-row { display: flex; gap: 12px; }
-        .flex-row .field { flex: 1; }
+        .event-card-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.3); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+        .event-card-item h4 { color: var(--text-gold); margin: 0 0 6px 0; font-size: 1.25rem; }
+        .event-card-item p { margin: 0; color: #ddd; font-size: 1.05rem; line-height: 1.7; }
+        .event-date-badge { display: inline-block; background: var(--text-gold); color: #000; font-size: 0.85rem; padding: 3px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 6px; }
 
-        .upload-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        .upload-item {
-            border: 2px dashed rgba(212, 175, 55, 0.6);
-            padding: 15px;
-            border-radius: 18px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(212, 175, 55, 0.03);
-            min-height: 120px;
-        }
-        .upload-item i { font-size: 2rem; color: var(--text-gold); margin-bottom: 6px; }
-        .preview-img-circle {
-            width: 60px; height: 60px; border-radius: 50%;
-            border: 2px solid var(--text-gold); object-fit: cover; display: none; margin-bottom: 6px;
-        }
-        #audioPreview { width: 100%; height: 32px; margin-top: 8px; display: none; }
+        /* Loading Screen */
+        #loadingOverlay { flex-direction: column; text-align: center; }
+        #progressText { color: var(--text-gold); font-size: 4.5rem; font-weight: 800; font-family: 'Cairo', sans-serif; }
+        #quizBox { border: 2px solid var(--text-gold); padding: 28px; border-radius: 24px; background: rgba(12,16,24,0.9); max-width: 400px; width: 90%; }
+        #quizQ { color: var(--text-gold); font-size: 1.35rem; font-weight: 700; margin-bottom: 15px; }
+        #quizA { color: #f5f5f5; font-size: 1.15rem; line-height: 1.8; transition: 0.5s opacity; }
 
-        .main-btn {
-            width: 100%;
-            background: var(--gold-gradient);
-            color: #000;
-            padding: 16px;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-            margin-top: 20px;
-        }
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(12deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(12deg); } 80% { transform: rotate(-12deg); } }
 
-        /* تنسيقات حساب المستخدم والبروفايل */
-        .auth-panel { position: relative; z-index: 20; margin: 0 auto 24px; padding: 20px; text-align: center; }
-        .auth-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:12px; }
-        .auth-btn { border:1px solid rgba(212,175,55,.65); border-radius:14px; padding:10px 18px; color:#111; background:var(--gold-gradient); font-size:0.95rem; cursor:pointer; }
-        .auth-btn.facebook { color:#fff; background:#1877f2; border-color:#1877f2; }
-        .profile-tools { margin:10px auto; padding:12px; max-width:400px; border:1px solid rgba(212,175,55,.28); border-radius:16px; background:rgba(0,0,0,.22); }
-        .profile-avatar { width:80px; height:80px; display:block; margin:0 auto 8px; border-radius:50%; object-fit:cover; border:3px solid var(--text-gold); }
-
-        /* مجتمع الأعضاء والمحادثات */
-        .community-panel { padding:20px; text-align:right; }
-        .community-panel h3 { color:var(--text-gold); margin:0 0 10px; text-align:center; }
-        .community-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0; }
-        .community-tabs button, .community-action { border:1px solid rgba(212,175,55,.45); border-radius:10px; padding:8px 12px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
-        .community-tabs button.active, .community-action.primary { background:var(--gold-gradient); color:#111; }
-        .community-search-row { display:flex; gap:8px; }
-        .community-search-row input, .community-message-form textarea { flex:1; width:100%; padding:12px; border-radius:10px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; outline:none; }
-        .community-list { display:grid; gap:8px; margin-top:12px; }
-        .community-item { display:flex; align-items:center; gap:10px; padding:10px; border:1px solid rgba(212,175,55,.22); border-radius:12px; background:rgba(0,0,0,.24); }
-        .community-avatar { width:40px; height:40px; border-radius:50%; object-fit:cover; border:1px solid var(--text-gold); }
-        .community-messages { display:flex; flex-direction:column; gap:8px; max-height:350px; overflow:auto; padding:10px; border:1px solid rgba(212,175,55,.2); border-radius:14px; background:rgba(0,0,0,.25); }
-        .community-bubble { max-width:85%; padding:8px 12px; border-radius:12px; background:rgba(255,255,255,.08); color:#fff; align-self:flex-start; }
-        .community-bubble.mine { align-self:flex-end; background:rgba(212,175,55,.2); border:1px solid rgba(212,175,55,.35); }
-
-        *, *::before, *::after {
+        /* Use palestine-swashes.ttf as the only font throughout the page */
+        * , *::before, *::after {
             font-family: 'CustomZainFont' !important;
+        }
+    
+        /* Requested font thickness: zero outline and lightest valid font weight */
+        *, *::before, *::after {
             -webkit-text-stroke-width: 0 !important;
+            text-stroke-width: 0 !important;
             font-weight: 100 !important;
         }
+        /* Keep icon glyphs rendered by Bootstrap Icons */
         i.bi {
             font-family: "bootstrap-icons" !important;
             font-weight: 900 !important;
+            -webkit-text-stroke-width: 0 !important;
         }
+
+
+        /* Supabase account controls */
+        .auth-panel { position: relative; z-index: 20; margin: 0 auto 24px; padding: 18px; text-align: center; overflow: visible; }
+        .auth-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:12px; }
+        .auth-btn { position:relative; z-index:30; pointer-events:auto !important; cursor:pointer !important; border:1px solid rgba(212,175,55,.65); border-radius:14px; padding:12px 20px; min-width:190px; color:#111; background:var(--gold-gradient); font-size:1rem; box-shadow:0 5px 18px rgba(212,175,55,.2); }
+        .auth-btn.facebook { color:#fff; background:#1877f2; border-color:#1877f2; }
+        .auth-btn:disabled { opacity:.65; cursor:wait !important; }
+        #authStatus { display:block; margin-top:12px; color:var(--text-gold); min-height:1.5em; overflow-wrap:anywhere; }
+        .auth-user { color:#fff; margin-top:8px; }
+        .profile-tools { margin:16px auto 4px; padding:14px; max-width:420px; border:1px solid rgba(212,175,55,.28); border-radius:18px; background:rgba(0,0,0,.22); }
+        .profile-avatar { width:92px; height:92px; display:block; margin:0 auto 10px; border-radius:50%; object-fit:cover; border:3px solid var(--text-gold); background:#111820; box-shadow:0 5px 18px rgba(0,0,0,.45); }
+        .profile-file { display:block; width:100%; margin:10px auto; color:#ddd; font-size:.9rem; }
+        .profile-upload-btn { min-width:0; width:100%; margin-top:8px; }
+        .profile-hint { display:block; color:#aaa; font-size:.82rem; margin-top:8px; line-height:1.6; }
+
+
+
+        /* Account creation, sign-in and donation additions */
+        .auth-form-grid { display:grid; grid-template-columns:1fr; gap:10px; max-width:520px; margin:14px auto 0; }
+        .auth-form-grid input, .donation-form input { width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .auth-form-grid input:focus, .donation-form input:focus { border-color:var(--text-gold); box-shadow:0 0 0 3px rgba(212,175,55,.12); }
+        .auth-mode-switch { display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+        .auth-mode-switch button { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:9px 16px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .auth-mode-switch button.active { background:var(--gold-gradient); color:#111; }
+        .auth-form-grid .auth-btn { width:100%; }
+        .auth-help { color:#bbb; font-size:.88rem; line-height:1.7; }
+        .auth-required-note { display:none; padding:12px; margin:12px 0; border:1px solid rgba(212,175,55,.35); border-radius:14px; color:var(--text-gold); background:rgba(0,0,0,.25); line-height:1.7; }
+        .donation-card { padding:22px; text-align:center; }
+        .donation-card h3 { color:var(--text-gold); margin:0 0 8px; }
+        .donation-form { display:grid; gap:12px; max-width:480px; margin:16px auto 0; }
+        .donation-form label { text-align:right; color:#eee; }
+        .donation-amount-wrap { position:relative; }
+        .donation-amount-wrap span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-gold); }
+        .donation-submit { border:0; border-radius:14px; padding:14px 18px; background:var(--gold-gradient); color:#111; cursor:pointer; font:inherit; font-size:1.05rem; }
+        .donation-submit:disabled { opacity:.55; cursor:not-allowed; }
+        .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
+        .form-auth-locked { opacity:.58; }
+
+        /* Members community and private messaging */
+        .community-panel { padding:22px; text-align:right; }
+        .community-panel h3 { color:var(--text-gold); margin:0 0 12px; text-align:center; }
+        .community-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 18px; }
+        .community-tabs button, .community-action { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:10px 15px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .community-tabs button.active, .community-action.primary { background:var(--gold-gradient); color:#111; }
+        .community-search-row { display:flex; gap:8px; flex-wrap:wrap; }
+        .community-search-row input, .community-message-form textarea { flex:1; min-width:180px; width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .community-list { display:grid; gap:10px; margin-top:14px; }
+        .community-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid rgba(212,175,55,.22); border-radius:15px; background:rgba(0,0,0,.24); min-width:0; }
+        .community-item-main { flex:1; min-width:0; }
+        .community-item-title { color:#fff; overflow-wrap:anywhere; }
+        .community-item-sub { color:#aaa; font-size:.82rem; margin-top:4px; }
+        .community-avatar { width:46px; height:46px; flex:0 0 46px; border-radius:50%; object-fit:cover; border:1px solid var(--text-gold); background:#111820; }
+        .community-actions { display:flex; flex-wrap:wrap; gap:7px; }
+        .community-action { padding:8px 11px; font-size:.88rem; }
+        .community-action.danger { border-color:rgba(239,68,68,.5); color:#ffb4b4; }
+        .community-state { color:var(--text-gold); text-align:center; min-height:1.6em; margin:10px 0; line-height:1.7; }
+        .community-chat-head { display:flex; align-items:center; gap:10px; margin:8px 0 14px; }
+        .community-chat-head strong { color:var(--text-gold); }
+        .community-messages { display:flex; flex-direction:column; gap:9px; max-height:420px; overflow:auto; padding:12px; border:1px solid rgba(212,175,55,.2); border-radius:16px; background:rgba(0,0,0,.25); }
+        .community-bubble { max-width:88%; padding:10px 13px; border-radius:14px; background:rgba(255,255,255,.08); color:#fff; align-self:flex-start; overflow-wrap:anywhere; white-space:pre-wrap; }
+        .community-bubble.mine { align-self:flex-end; background:rgba(212,175,55,.2); border:1px solid rgba(212,175,55,.35); }
+        .community-bubble small { display:block; color:#aaa; font-size:.72rem; margin-top:5px; }
+        .community-message-form { display:flex; gap:8px; margin-top:12px; align-items:stretch; }
+        .community-message-form textarea { min-height:48px; max-height:120px; resize:vertical; }
+        @media(max-width:520px) { .community-item { align-items:flex-start; flex-wrap:wrap; } .community-actions { width:100%; } .community-message-form { flex-direction:column; } }
+
+
     </style>
 </head>
 <body>
@@ -559,7 +941,7 @@
 <canvas id="webgl-bg"></canvas>
 
 <!-- Notification Button -->
-<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات" style="display:none;">
+<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
     <i class="bi bi-bell-fill"></i>
 </button>
 
@@ -571,7 +953,7 @@
             <button class="archive-close" onclick="closeSurahModal()">&times;</button>
         </div>
         <div class="surah-search-box">
-            <i class="bi bi-search surah-search-icon" style="position:absolute; right:30px; top:50%; transform:translateY(-50%); color:var(--text-gold);"></i>
+            <i class="bi bi-search surah-search-icon"></i>
             <input type="text" id="surahSearchInput" class="surah-search-input" placeholder="ابحث باسم السورة (مثلاً: البقرة، الكهف...)..." oninput="filterSurahs()">
         </div>
         <div class="surah-list-container" id="surahListContainer">
@@ -583,74 +965,77 @@
 <!-- Certificate Card Modal -->
 <div id="cardModal">
     <div class="cert-card" id="captureCard">
-        <div class="cert-header" style="display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom:15px;">
-            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="cert-logo" alt="logo" style="width:60px; border-radius:10px;">
+        <div class="cert-header">
+            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="cert-logo" alt="logo">
             <div class="cert-title-box">
-                <h3 style="margin:0; color:var(--text-gold);">داعم المواهب للقرآن الكريم</h3>
-                <span style="font-size:0.85rem; color:#ccc;">بطاقة اعتماد المشاركة الرسمية</span>
+                <h3>داعم المواهب للقرآن الكريم</h3>
+                <span>بطاقة اعتماد المشاركة الرسمية</span>
             </div>
         </div>
         
-        <img id="modalAvatar" class="cert-avatar" src="" alt="صورة المشارك" style="width:100px; height:100px; border-radius:50%; border:2px solid var(--text-gold); object-fit:cover; margin:10px auto; display:block;">
-        <h2 id="modalName" class="cert-name" style="font-size:1.5rem; color:#fff; margin:10px 0;">اسم المشارك</h2>
+        <img id="modalAvatar" class="cert-avatar" src="" alt="صورة المشارك">
+        <h2 id="modalName" class="cert-name">اسم المشارك</h2>
         
-        <div class="cert-details" style="background:rgba(212,175,55,0.05); border:1px dashed rgba(212,175,55,0.4); border-radius:14px; padding:15px; text-align:right; font-size:0.95rem; line-height:1.8;">
+        <div class="cert-details">
             <div><strong>رقم الواتساب:</strong> <span id="modalPhone">--</span></div>
             <div><strong>السورة المباركة:</strong> <span id="modalSurah">--</span></div>
             <div><strong>الآيات:</strong> من آية <span id="modalAyahFrom">--</span> إلى آية <span id="modalAyahTo">--</span></div>
-            <div><strong>التاريخ:</strong> <span id="modalMiladiDate">--</span></div>
+            <div><strong>الصفحات:</strong> من ص <span id="modalPageFrom">--</span> إلى ص <span id="modalPageTo">--</span></div>
+            <div><strong>التاريخ الهجري:</strong> <span id="modalHijriDate">--</span></div>
+            <div><strong>التاريخ الميلادي:</strong> <span id="modalMiladiDate">--</span></div>
         </div>
         
-        <div class="cert-footer" style="margin-top:15px; display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-gold);">
-            <span>خادم القرآن/ عبد الرحمن مكي</span>
-            <span>2026 م</span>
+        <div class="cert-footer">
+            <span><i class="bi bi-star-fill" aria-hidden="true"></i> خادم القرآن/ عبد الرحمن مكي</span>
+            <span><i class="bi bi-calendar-event" aria-hidden="true"></i> 2026 م</span>
         </div>
     </div>
 
     <div style="width: 100%; max-width: 480px; margin-top: 15px;">
-        <div style="display:flex; gap:10px;">
-            <button class="cert-btn download" onclick="downloadCertificateImage()" style="flex:1; padding:12px; border-radius:30px; background:var(--gold-gradient); border:none; font-weight:bold; cursor:pointer;"><i class="bi bi-download"></i> تحميل الاستمارة</button>
-            <button class="cert-btn whatsapp" onclick="shareCertificateWhatsApp()" style="flex:1; padding:12px; border-radius:30px; background:#25d366; color:#fff; border:none; font-weight:bold; cursor:pointer;"><i class="bi bi-whatsapp"></i> مشاركة واتساب</button>
+        <div class="cert-actions">
+            <button class="cert-btn download" onclick="downloadCertificateImage()"><i class="bi bi-download"></i> تحميل الاستمارة</button>
+            <button class="cert-btn whatsapp" onclick="shareCertificateWhatsApp()"><i class="bi bi-whatsapp"></i> مشاركة واتساب</button>
         </div>
         <div style="margin-top: 10px;">
-            <button class="cert-btn close" style="width: 100%; padding:10px; border-radius:30px; background:#222; color:#fff; border:1px solid #444; cursor:pointer;" onclick="closeCardModal()">إغلاق ومتابعة</button>
+            <button class="cert-btn close" style="width: 100%;" onclick="closeCardModal()"><i class="bi bi-x-lg"></i> إغلاق ومتابعة</button>
         </div>
     </div>
 </div>
 
 <!-- Islamic Archive Modal -->
 <div id="archiveModal">
-    <div class="archive-content" style="padding:20px;">
+    <div class="archive-content">
         <div class="archive-header">
-            <h3 style="color:var(--text-gold); margin:0; font-size:1.2rem;"><i class="bi bi-bank"></i> موسوعة الأحداث الإسلامية</h3>
-            <button class="archive-close" onclick="closeArchiveModal()" style="background:none; border:none; color:var(--text-gold); font-size:1.5rem; cursor:pointer;">&times;</button>
+            <h3><i class="bi bi-bank"></i> موسوعة الغزوات والأحداث والمناسبات الإسلامية</h3>
+            <button class="archive-close" onclick="closeArchiveModal()">&times;</button>
         </div>
-        <div id="archiveEventsList" style="margin-top:15px; max-height:60vh; overflow-y:auto;"></div>
+        <p style="color: #bbb; font-size: 1rem; margin-bottom: 15px;">تتغير هذه الأحداث تلقائياً بحسب التاريخ الهجري لليوم لتظهر في موعدها المحدد تماماً:</p>
+        <div id="archiveEventsList"></div>
     </div>
 </div>
 
 <!-- PWA Banner -->
-<div id="pwa-install-banner" style="display:none; position:fixed; bottom:80px; left:50%; transform:translateX(-50%); width:90%; max-width:400px; background:rgba(10,14,20,0.95); border:2px solid var(--text-gold); color:white; padding:12px; border-radius:16px; text-align:center; z-index:10001;">
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-        <p style="margin:0; font-size:0.9rem;">تثبيت تطبيق داعم المواهب</p>
-        <button id="pwa-btn" style="background:var(--gold-gradient); color:#000; border:none; padding:6px 15px; border-radius:20px; font-weight:bold; cursor:pointer;">تثبيت</button>
+<div id="pwa-install-banner">
+    <div class="pwa-flex-container">
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="pwa-mini-logo" alt="logo">
+        <p style="margin: 0; font-size: 0.95rem;">تثبيت تطبيق داعم المواهب</p>
+        <button id="pwa-btn">تثبيت الآن</button>
     </div>
 </div>
 
 <!-- Loading Overlay -->
-<div id="loadingOverlay" style="display:none; flex-direction:column; text-align:center;">
-    <div id="progressText" style="color:var(--text-gold); font-size:3.5rem; font-weight:bold;">0%</div>
-    <div id="quizBox" style="margin-top:20px; max-width:350px; padding:20px; background:rgba(12,16,24,0.9); border-radius:16px; border:1px solid var(--text-gold);">
-        <p id="loadingStatusText" style="color:#aaa; font-size:0.9rem;">جاري رفع تلاوتك المباركة...</p>
-        <div id="quizQ" style="color:var(--text-gold); font-weight:bold; margin-top:10px;"></div>
-        <div id="quizA" style="color:#fff; font-size:0.95rem; margin-top:5px;"></div>
+<div id="loadingOverlay">
+    <div id="progressText">0%</div>
+    <div style="color:var(--text-gold); margin-bottom:20px;"><i class="bi bi-book-half"></i></div>
+    <div id="quizBox">
+        <p id="loadingStatusText" style="color:#aaa; font-size:0.95rem; margin-top:0;"><i class="bi bi-cloud-arrow-up"></i> جاري رفع تلاوتكم المباركة..</p>
+        <div id="quizQ">بستان المؤمن..</div>
+        <div id="quizA">...</div>
     </div>
 </div>
 
 <!-- Main Application Layout -->
 <div class="container animate__animated animate__fadeIn">
-    
-    <!-- Header Section -->
     <div class="header-section">
         <div class="logo-wrapper">
             <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main" alt="داعم المواهب">
@@ -659,129 +1044,86 @@
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
 
-    <!-- شريط التنقل العلوي للأقسام مع الأيقونات والأسماء -->
-    <nav class="site-nav-header">
-        <button class="nav-item-btn active" onclick="scrollToSection('accountPanel')">
-            <i class="bi bi-person-circle"></i>
-            <span>حسابي والبروفايل</span>
-        </button>
-        <button class="nav-item-btn" onclick="scrollToSection('communityPanel')">
-            <i class="bi bi-chat-dots-fill"></i>
-            <span>المجتمع والمحادثات</span>
-        </button>
-        <button class="nav-item-btn" onclick="scrollToSection('talentForm')">
-            <i class="bi bi-mic-fill"></i>
-            <span>إرسال تلاوة</span>
-        </button>
-        <button class="nav-item-btn" onclick="scrollToSection('donationSection')">
-            <i class="bi bi-heart-fill"></i>
-            <span>دعم المنصة</span>
-        </button>
-        <a href="tel:01122783768" class="nav-item-btn" style="text-decoration:none;">
-            <i class="bi bi-headset"></i>
-            <span>التواصل مع الإدارة</span>
-        </a>
-    </nav>
-
-    <!-- 1. لوحة الحساب والبروفايل (تتغير تلقائياً عند تسجيل الدخول أو الخروج وتخفي التسجيل) -->
+    <!-- تسجيل الدخول وإنشاء الحساب -->
     <section class="glass-card auth-panel" id="accountPanel" aria-label="حساب المستخدم">
-        <div style="color:var(--text-gold);font-size:1.2rem;margin-bottom:6px;"><i class="bi bi-shield-lock-fill"></i> حسابك على منصة داعم المواهب</div>
-        <div id="authIntro" style="font-size:0.95rem; color:#ccc;">أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة والبروفايل الشخصي</div>
-        
-        <!-- أزرار تبديل وضع الدخول / إنشاء الحساب -->
-        <div class="auth-mode-switch" id="authModeSwitch" style="display:flex; justify-content:center; gap:8px; margin:12px 0;">
-            <button type="button" id="showSignupBtn" class="auth-btn active" style="padding:6px 14px;">إنشاء حساب جديد</button>
-            <button type="button" id="showLoginBtn" class="auth-btn" style="padding:6px 14px; background:transparent; color:#fff;">تسجيل الدخول</button>
+        <div style="color:var(--text-gold);font-size:1.25rem;margin-bottom:6px;"><i class="bi bi-person-circle"></i> حسابك على منصة داعم المواهب</div>
+        <div id="authIntro">أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة</div>
+        <div class="auth-mode-switch" id="authModeSwitch">
+            <button type="button" id="showSignupBtn" class="active">إنشاء حساب جديد</button>
+            <button type="button" id="showLoginBtn">تسجيل الدخول</button>
         </div>
-
-        <!-- نموذج تسجيل الدخول بالبريد -->
-        <form id="emailAuthForm" style="display:grid; gap:8px; max-width:450px; margin:10px auto;">
-            <input type="text" id="authDisplayName" placeholder="الاسم بالكامل" style="padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-            <input type="email" id="authEmail" placeholder="البريد الإلكتروني" required style="padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-            <input type="password" id="authPassword" placeholder="كلمة المرور (8 أحرف على الأقل)" required minlength="8" style="padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-            <input type="password" id="authPasswordConfirm" placeholder="تأكيد كلمة المرور" minlength="8" style="padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-            <button type="submit" class="auth-btn" id="emailAuthSubmitBtn" style="margin-top:5px; padding:12px; font-weight:bold; cursor:pointer;">إنشاء الحساب</button>
-            <button type="button" class="auth-btn" id="forgotPasswordBtn" hidden style="background:transparent; color:var(--text-gold); border:none;">نسيت كلمة المرور؟</button>
-            <div id="emailAuthHint" style="font-size:0.8rem; color:#aaa;">أدخل بياناتك للمتابعة.</div>
+        <form id="emailAuthForm" class="auth-form-grid" novalidate>
+            <input type="text" id="authDisplayName" autocomplete="name" placeholder="الاسم بالكامل" aria-label="الاسم بالكامل">
+            <input type="email" id="authEmail" autocomplete="email" required placeholder="البريد الإلكتروني" aria-label="البريد الإلكتروني">
+            <input type="password" id="authPassword" autocomplete="new-password" required minlength="8" placeholder="كلمة المرور (8 أحرف على الأقل)" aria-label="كلمة المرور">
+            <input type="password" id="authPasswordConfirm" autocomplete="new-password" minlength="8" placeholder="تأكيد كلمة المرور" aria-label="تأكيد كلمة المرور">
+            <button type="submit" class="auth-btn" id="emailAuthSubmitBtn">إنشاء الحساب</button>
+            <button type="button" class="auth-btn" id="forgotPasswordBtn" hidden>نسيت كلمة المرور؟</button>
+            <div class="auth-help" id="emailAuthHint">بعد إنشاء الحساب قد تحتاج إلى تأكيد بريدك الإلكتروني من الرسالة التي ستصلك.</div>
         </form>
-
-        <!-- أزرار السوشيال للدخول -->
-        <div class="auth-actions" id="authButtons" style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
-            <button type="button" class="auth-btn" id="googleLoginBtn"><i class="bi bi-google"></i> Google</button>
-            <button type="button" class="auth-btn facebook" id="facebookLoginBtn"><i class="bi bi-facebook"></i> Facebook</button>
+        <div class="auth-actions" id="authButtons">
+            <button type="button" class="auth-btn" id="googleLoginBtn"><i class="bi bi-google"></i> المتابعة باستخدام Google</button>
+            <button type="button" class="auth-btn facebook" id="facebookLoginBtn"><i class="bi bi-facebook"></i> المتابعة باستخدام Facebook</button>
         </div>
-
-        <!-- بيانات البروفايل عند تسجيل الدخول (تظهر فقط للمسجلين وتخفي نموذج التسجيل) -->
-        <div id="authUser" class="auth-user" style="font-weight:bold; color:var(--text-gold); margin:10px 0;" hidden></div>
-        
+        <div id="authUser" class="auth-user" hidden></div>
         <div id="profileTools" class="profile-tools" hidden>
-            <img id="profileAvatar" class="profile-avatar" src="" alt="صورة البروفايل">
-            <div style="color:var(--text-gold); font-size:1.05rem; font-weight:bold;" id="profileNameDisplay">اسم العضو</div>
-            
-            <!-- خانة عرض عدد مرات التسجيل الخاصة بالشخص من الشيت -->
-            <div style="background:rgba(212,175,55,0.1); border:1px solid var(--text-gold); border-radius:12px; padding:10px; margin:10px 0; text-align:center;">
-                <i class="bi bi-journal-check" style="color:var(--text-gold);"></i> عدد مرات تسجيلات التلاوة الخاصة بك: 
-                <strong id="userRecordCountBadge" style="color:#fff; font-size:1.2rem;">جاري التحميل...</strong>
-            </div>
-
-            <input type="file" id="profileAvatarInput" style="display:block; width:100%; margin:8px auto; font-size:0.85rem; color:#ccc;" accept="image/jpeg,image/png,image/webp">
-            <button type="button" class="auth-btn" id="uploadAvatarBtn" style="width:100%; padding:8px;">تحديث صورة البروفايل</button>
+            <img id="profileAvatar" class="profile-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E" alt="صورة البروفايل">
+            <div style="color:var(--text-gold);font-size:1rem;">صورة حسابك</div>
+            <input type="file" id="profileAvatarInput" class="profile-file" accept="image/jpeg,image/png,image/webp">
+            <button type="button" class="auth-btn profile-upload-btn" id="uploadAvatarBtn">رفع صورة البروفايل</button>
+            <span class="profile-hint">الصيغ المسموحة: JPG وPNG وWEBP — الحد الأقصى 2 ميجابايت.</span>
         </div>
-
-        <button type="button" class="auth-btn" id="logoutBtn" hidden style="background:#e74c3c; color:#fff; border:none; margin-top:10px; padding:8px 20px;">تسجيل الخروج</button>
-        <span id="authStatus" style="display:block; margin-top:8px; color:var(--text-gold); font-size:0.9rem;"></span>
+        <button type="button" class="auth-btn" id="logoutBtn" hidden style="margin-top:12px;">تسجيل الخروج</button>
+        <span id="authStatus" role="status" aria-live="polite"></span>
     </section>
 
-    <!-- 2. مجتمع الأعضاء والمراسلات الخاصة والتواصل مع الإدارة -->
-    <section class="glass-card community-panel" id="communityPanel" hidden aria-label="مجتمع الأعضاء">
-        <h3><i class="bi bi-people-fill"></i> مجتمع أعضاء داعم المواهب والمحادثات الخاصة</h3>
-        <p style="color:#bbb;text-align:center;font-size:0.9rem;margin:5px 0 15px;">تواصل مع الأعضاء، اطلب صداقة أو مراسلة، أو تواصل مباشرة مع الإدارة.</p>
-        
-        <div class="community-tabs" role="tablist">
-            <button type="button" class="active" data-community-view="search">بحث الأعضاء</button>
-            <button type="button" data-community-view="requests">طلبات التواصل</button>
-            <button type="button" data-community-view="conversations">محادثاتي الخاصة</button>
-        </div>
 
+
+    <!-- مجتمع الأعضاء والمراسلات الخاصة -->
+    <section class="glass-card community-panel" id="communityPanel" hidden aria-label="مجتمع الأعضاء">
+        <h3><i class="bi bi-people-fill"></i> مجتمع أعضاء داعم المواهب</h3>
+        <p style="color:#bbb;text-align:center;line-height:1.7;margin:0;">ابحث عن عضو، أرسل طلب تواصل، وتابع محادثاتك الخاصة.</p>
+        <div class="community-tabs" role="tablist" aria-label="أقسام المجتمع">
+            <button type="button" class="active" data-community-view="search">البحث عن أعضاء</button>
+            <button type="button" data-community-view="requests">طلبات التواصل</button>
+            <button type="button" data-community-view="conversations">محادثاتي</button>
+        </div>
         <div id="communitySearchView">
-            <div class="community-search-row" style="display:flex; gap:8px;">
-                <input id="memberSearchInput" type="search" placeholder="ابحث عن اسم العضو..." style="flex:1; padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-                <button type="button" class="community-action primary" id="memberSearchBtn" style="padding:10px 15px; border-radius:10px; border:none; cursor:pointer;"><i class="bi bi-search"></i> بحث</button>
+            <div class="community-search-row">
+                <input id="memberSearchInput" type="search" maxlength="80" placeholder="اكتب اسم العضو للبحث..." autocomplete="off" aria-label="البحث عن عضو">
+                <button type="button" class="community-action primary" id="memberSearchBtn"><i class="bi bi-search"></i> بحث</button>
             </div>
             <div id="memberSearchResults" class="community-list"></div>
         </div>
-
         <div id="communityRequestsView" hidden>
-            <h4 style="color:var(--text-gold); font-size:1rem; margin:10px 0;">الطلبات الواردة</h4>
+            <h4 style="color:var(--text-gold);margin:8px 0;">الطلبات الواردة</h4>
             <div id="incomingRequestsList" class="community-list"></div>
-            <h4 style="color:var(--text-gold); font-size:1rem; margin:15px 0 5px;">الطلبات المرسلة</h4>
+            <h4 style="color:var(--text-gold);margin:20px 0 8px;">الطلبات المرسلة</h4>
             <div id="sentRequestsList" class="community-list"></div>
         </div>
-
         <div id="communityConversationsView" hidden>
             <div id="communityConversationsList" class="community-list"></div>
         </div>
-
         <div id="communityChatView" hidden>
-            <button type="button" class="community-action" id="backToConversationsBtn" style="margin-bottom:10px;"><i class="bi bi-arrow-right"></i> رجوع للمحادثات</button>
-            <div class="community-chat-head" id="communityChatHead" style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"></div>
-            <div id="communityMessagesList" class="community-messages"></div>
-            <form id="communityMessageForm" class="community-message-form" style="display:flex; gap:8px; margin-top:10px;">
-                <textarea id="communityMessageInput" rows="2" placeholder="اكتب رسالتك هنا..." required style="flex:1; padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;"></textarea>
-                <button type="submit" class="community-action primary" id="sendCommunityMessageBtn" style="padding:0 15px; border-radius:10px; border:none; cursor:pointer;"><i class="bi bi-send-fill"></i></button>
+            <button type="button" class="community-action" id="backToConversationsBtn"><i class="bi bi-arrow-right"></i> رجوع للمحادثات</button>
+            <div class="community-chat-head" id="communityChatHead"></div>
+            <div id="communityMessagesList" class="community-messages" aria-live="polite"></div>
+            <form id="communityMessageForm" class="community-message-form">
+                <textarea id="communityMessageInput" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required aria-label="نص الرسالة"></textarea>
+                <button type="submit" class="community-action primary" id="sendCommunityMessageBtn"><i class="bi bi-send-fill"></i> إرسال</button>
             </form>
         </div>
-        <div id="communityStatus" class="community-state" style="color:var(--text-gold); text-align:center; font-size:0.85rem; margin-top:8px;"></div>
+        <div id="communityStatus" class="community-state" role="status" aria-live="polite"></div>
     </section>
 
     <!-- Live Info Card -->
-    <div class="glass-card">
+    <div class="glass-card animate__animated animate__zoomIn">
         <div class="info-bar">
             <div class="info-item">
                 <i class="bi bi-calendar-check"></i>
                 <span id="liveTime" class="time-display">00:00:00</span>
-                <span id="combinedDate" class="info-val" style="color: var(--text-gold); margin-top:4px;">-- -- ----</span>
-                <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()">حدث اليوم التاريخي (اضغط للعرض)</span>
+                <span id="combinedDate" class="info-val" style="color: var(--text-gold); margin-top:6px;">-- -- ----</span>
+                <span id="hijriEvent" class="hijri-event-tag" onclick="openArchiveModal()" title="اضغط لعرض موسوعة الغزوات والأحداث التاريخية"><i class="bi bi-calendar-day"></i> حدث اليوم التاريخي (اضغط للعرض)</span>
             </div>
             <div class="info-item">
                 <i class="bi bi-people"></i>
@@ -789,8 +1131,8 @@
                 <span class="info-val">إجمالي القراء المسجلين بالمنصة</span>
 
                 <div class="real-followers-box">
-                    <div style="font-size: 0.85rem; color: var(--text-gold); margin-bottom: 4px;"><i class="bi bi-award"></i> آخر 3 قراء مسجلين:</div>
-                    <ul id="latestReadersList" style="list-style: none; padding: 0; margin: 0; text-align: right; font-size: 0.82rem; line-height: 1.5;">
+                    <div style="font-size: 0.9rem; color: var(--text-gold); margin-bottom: 6px;"><i class="bi bi-award"></i> آخر 3 قراء مسجلين:</div>
+                    <ul id="latestReadersList" style="list-style: none; padding: 0; margin: 0; text-align: right; font-size: 0.88rem; line-height: 1.6;">
                         <li style="color: #fff;"><i class="bi bi-arrow-repeat"></i> جاري التحميل...</li>
                     </ul>
                 </div>
@@ -799,96 +1141,120 @@
     </div>
 
     <!-- Archive Widget Card -->
-    <div class="glass-card" style="text-align: center; padding: 15px;">
-        <button onclick="openArchiveModal()" style="background: var(--gold-gradient); color: #000; border: none; padding: 12px 24px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 0.95rem;">
-            <i class="bi bi-book-half"></i> تصفح موسوعة الغزوات والأحداث الإسلامية <i class="bi bi-chevron-left"></i>
+    <div class="glass-card animate__animated animate__fadeIn" style="text-align: center; padding: 20px;">
+        <button onclick="openArchiveModal()" style="background: var(--gold-gradient); color: #000; border: none; padding: 14px 28px; border-radius: 50px; font-weight: 700; cursor: pointer; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(212,175,55,0.4); transition: 0.3s;">
+            <i class="bi bi-book-half"></i> تصفح موسوعة الغزوات والأحداث الإسلامية الكاملة <i class="bi bi-chevron-left"></i>
         </button>
     </div>
 
     <!-- Motivational Box -->
-    <div class="glass-card motivational-box">
-        <p><i class="bi bi-quote" style="color:var(--text-gold);"></i> "أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن." <i class="bi bi-quote" style="color:var(--text-gold);"></i></p>
+    <div class="glass-card motivational-box animate__animated animate__fadeInLeft">
+        <p><i class="bi bi-quote" style="color:var(--text-gold); margin-left:8px;"></i>"أهل القرآن هم أهل الله وخاصته.. صوتك الجميل أمانة ونور، شاركنا تلاوتك الآن لعلها تكون سبباً في هداية غيرك."<i class="bi bi-quote" style="color:var(--text-gold); margin-right:8px;"></i></p>
     </div>
 
     <!-- Conditional Thursday/Friday Video Wrapper -->
-    <div id="conditionalVideoWrapper" class="glass-card" style="display: none; padding: 15px;">
+    <div id="conditionalVideoWrapper" class="glass-card animate__animated animate__fadeInUp" style="display: none; padding: 20px;">
         <span id="videoDynamicLabel" class="video-label"><i class="bi bi-play-circle"></i> شمس الخميس اذا تغيب فزد الصلاة على الحبيب</span>
         <div class="video-box">
-            <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2116331025948589%2F&show_text=false&width=560&t=0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2116331025948589%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden;width:100%;height:100%" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
     </div>
 
-    <!-- Featured Recitations Video -->
-    <div class="glass-card" style="padding: 15px;">
-        <span class="video-label"><i class="bi bi-play-circle"></i> نماذج مختارة من تلاوات المبدعين</span>
+    <!-- Featured Recitations Video (Updated with the new Facebook Reel link) -->
+    <div class="glass-card animate__animated animate__fadeInUp" style="padding: 20px;">
+        <span class="video-label"><i class="bi bi-play-circle"></i> <i class="bi bi-star-fill" aria-hidden="true"></i> نماذج مختارة من تلاوات المبدعين <i class="bi bi-star-fill" aria-hidden="true"></i></span>
         <div class="video-box">
-            <iframe src="https://www.facebook.com/plugins/video.php?height=312&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1433807855590904%2F&show_text=false&width=560&t=0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <iframe src="https://www.facebook.com/plugins/video.php?height=312&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1433807855590904%2F&show_text=false&width=560&t=0" width="560" height="312" style="border:none;overflow:hidden;width:100%;height:100%" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
     </div>
 
     <!-- Social Call Widget -->
-    <div class="glass-card social-call">
-        <h4 style="color:var(--text-gold); margin:0 0 10px; font-size:1.1rem;"><i class="bi bi-share"></i> تابعنا على المنصات</h4>
+    <div class="glass-card social-call animate__animated animate__fadeIn">
+        <h4><i class="bi bi-share"></i> كن من يشاهد تلاوتك وتلاوات المبدعين</h4>
+        
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <div class="fb-page" 
+                 data-href="https://www.facebook.com/share/1E46DRQBSH/" 
+                 data-width="380" 
+                 data-small-header="false" 
+                 data-adapt-container-width="true" 
+                 data-hide-cover="true" 
+                 data-show-facepile="false">
+              <blockquote lang="ar" class="fb-xfbml-parse-ignore">
+                <a href="https://www.facebook.com/share/1E46DRQBSH/">صفحة الفيسبوك</a>
+              </blockquote>
+            </div>
+        </div>
+
         <div class="social-row">
-            <a href="https://www.facebook.com/share/1E46DRQBSH/" class="s-box" target="_blank">
+            <a href="https://www.facebook.com/share/1E46DRQBSH/" class="s-box facebook" target="_blank">
                 <i class="bi bi-facebook"></i>
                 <span>فيسبوك</span>
             </a>
-            <a href="https://youtube.com/@abdomaki17?si=kfBDjVNMr87GEsJi" class="s-box" target="_blank">
+            <a href="https://youtube.com/@abdomaki17?si=kfBDjVNMr87GEsJi" class="s-box youtube" target="_blank">
                 <i class="bi bi-youtube"></i>
                 <span>يوتيوب</span>
             </a>
         </div>
+        <p style="font-size: 0.9rem; color: #bbb; margin-top: 14px;"><i class="bi bi-globe"></i> انضم لأسرتنا على المنصات ليصل صوتك للعالم!</p>
     </div>
 
     <!-- Announcements Card -->
-    <div class="glass-card" style="padding: 20px; text-align: right;">
-        <div style="color:var(--text-gold); font-size:1.1rem; font-weight:bold; margin-bottom:10px;"><i class="bi bi-megaphone"></i> تنبيهات المشاركة الهامة</div>
-        <ul style="padding-right: 18px; margin: 0; color: #ddd; font-size: 0.95rem; line-height: 1.8;">
-            <li>يرجى إرسال الصوت بدون مؤثرات صوتية لضمان تقييم الأداء.</li>
-            <li>التأكد من وضوح مخارج الحروف والهدوء التام.</li>
-            <li>مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
+    <div class="glass-card announcement-card animate__animated animate__fadeInRight">
+        <div class="ann-title">
+            <i class="bi bi-megaphone"></i>
+            <span>تنبيهات المشاركة الهامة</span>
+        </div>
+        <div class="ann-text">
+            <i class="bi bi-info-circle" style="color:var(--text-gold); margin-left:6px;"></i> يرجى العلم بضرورة الالتزام بمعايير الجودة لضمان عرض تلاوتك بشكل لائق.
+        </div>
+        <ul class="criteria-list">
+            <li><i class="bi bi-mic"></i> <strong>يرجى إرسال الصوت بدون مؤثرات صوتية</strong> لضمان تقييم الأداء بشكل صحيح.</li>
+            <li><i class="bi bi-check-circle"></i> يرجى التأكد من وضوح مخارج الحروف والهدوء في مكان التسجيل.</li>
+            <li><i class="bi bi-clock"></i> مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
         </ul>
     </div>
 
-    <!-- نموذج التبرع -->
-    <section class="glass-card" id="donationSection" style="padding: 20px; text-align: center;">
-        <h3 style="color:var(--text-gold); margin:0 0 8px;"><i class="bi bi-heart-fill"></i> ساهم في دعم المواهب القرآنية</h3>
-        <p style="color:#ddd; font-size:0.9rem; margin-bottom:10px;">تبرع لدعم أنشطة المنصة وخدمة أهل القرآن الكريم.</p>
-        <div id="donationGuestNote" style="display:block; font-size:0.85rem; color:var(--text-gold);">يجب تسجيل الدخول أولاً لتتمكن من التبرع.</div>
-        <form id="donationForm" style="display:grid; gap:10px; max-width:400px; margin:12px auto;">
-            <input id="donationAmount" type="number" min="1" max="1000000" step="0.01" placeholder="مبلغ التبرع بالجنيه المصري" disabled style="padding:10px; border-radius:10px; background:#090c10; border:1px solid rgba(212,175,55,0.4); color:#fff;">
-            <button class="auth-btn" id="donationSubmitBtn" type="submit" disabled style="padding:12px; font-weight:bold;">سجّل الدخول للتبرع</button>
-            <div id="donationStatus" style="color:var(--text-gold); font-size:0.85rem;"></div>
+    <!-- نموذج التبرع - يتطلب تسجيل الدخول -->
+    <section class="glass-card donation-card" id="donationSection">
+        <h3><i class="bi bi-heart-fill"></i> ساهم في دعم المواهب القرآنية</h3>
+        <p style="color:#ddd;line-height:1.8;margin:6px 0;">تبرع بالمبلغ الذي تختاره لدعم أنشطة المنصة وخدمة أهل القرآن الكريم.</p>
+        <div id="donationGuestNote" class="auth-required-note" style="display:block;">لازم تسجل الدخول الأول علشان تقدر تتبرع. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">تسجيل الدخول أو إنشاء حساب</a></div>
+        <form id="donationForm" class="donation-form">
+            <label for="donationAmount">مبلغ التبرع بالجنيه المصري</label>
+            <div class="donation-amount-wrap"><input id="donationAmount" type="number" min="1" max="1000000" step="0.01" inputmode="decimal" placeholder="اكتب أي مبلغ تريده" required disabled><span>ج.م</span></div>
+            <button class="donation-submit" id="donationSubmitBtn" type="submit" disabled><i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع</button>
+            <div class="donation-status" id="donationStatus" role="status" aria-live="polite"></div>
         </form>
+        <p class="auth-help">سيتم اختيار وسيلة الدفع في صفحة الدفع الآمنة عند تفعيل ربط Paymob.</p>
     </section>
 
-    <!-- Participation Form (نموذج إرسال التلاوة) -->
-    <div class="glass-card form-card" id="talentForm">
-        <form id="talentFormContent">
+    <!-- Participation Form -->
+    <div class="glass-card form-card animate__animated animate__fadeInUp">
+        <form id="talentForm">
             <div class="field">
                 <label><i class="bi bi-person-badge"></i> الاسم بالكامل</label>
                 <div class="input-w-icon">
                     <i class="bi bi-pencil-square"></i>
-                    <input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي">
+                    <input type="text" id="name" name="Name" required placeholder="اكتب اسمك ثلاثي كما تحب أن يظهر">
                 </div>
             </div>
             
             <div class="field">
                 <label>
                     <i class="bi bi-whatsapp"></i> رقم الواتساب
-                    <img id="opLogo" style="height:20px; display:none; vertical-align:middle; margin-right:8px;" alt="operator">
+                    <img id="opLogo" class="operator-label-logo" src="" alt="operator">
                 </label>
                 <div class="input-w-icon">
-                    <input type="tel" id="phone" required style="direction:ltr; text-right;">
+                    <input type="tel" id="phone" required>
                 </div>
             </div>
 
-            <!-- Surah Selection Field -->
+            <!-- Custom Quran Surah Selection Field -->
             <div class="field">
                 <label><i class="bi bi-book-half"></i> اسم السورة</label>
                 <button type="button" class="surah-picker-btn" id="surahPickerTrigger" onclick="openSurahModal()">
-                    <span id="selectedSurahText">اختر السورة المباركة (ابحث من القائمة)..</span>
+                    <span id="selectedSurahText"><i class="bi bi-search" style="margin-left:5px;"></i> اختر السورة المباركة (ابحث من القائمة)..</span>
                     <i class="bi bi-chevron-down" style="color: var(--text-gold);"></i>
                 </button>
                 <input type="hidden" id="surah" name="Surah" required>
@@ -896,39 +1262,63 @@
 
             <div class="flex-row">
                 <div class="field">
-                    <label>من آية</label>
-                    <div class="input-w-icon"><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div>
+                    <label><i class="bi bi-list-ol"></i> من آية</label>
+                    <div class="input-w-icon"><i class="bi bi-hash"></i><select id="ayahFrom" name="AyahFrom" required onchange="smartPageLink('from')"></select></div>
                 </div>
                 <div class="field">
-                    <label>إلى آية</label>
-                    <div class="input-w-icon"><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div>
+                    <label><i class="bi bi-list-ol"></i> إلى آية</label>
+                    <div class="input-w-icon"><i class="bi bi-hash"></i><select id="ayahTo" name="AyahTo" required onchange="smartPageLink('to')"></select></div>
                 </div>
             </div>
 
             <div class="flex-row">
                 <div class="field">
-                    <label>من صفحة</label>
-                    <div class="input-w-icon"><select id="pageFrom" name="PageFrom" required></select></div>
+                    <label><i class="bi bi-file-earmark-text"></i> من صفحة</label>
+                    <div class="input-w-icon"><i class="bi bi-file-text"></i><select id="pageFrom" name="PageFrom" required></select></div>
                 </div>
                 <div class="field">
-                    <label>إلى صفحة</label>
-                    <div class="input-w-icon"><select id="pageTo" name="PageTo" required></select></div>
+                    <label><i class="bi bi-file-earmark-text"></i> إلى صفحة</label>
+                    <div class="input-w-icon"><i class="bi bi-file-text"></i><select id="pageTo" name="PageTo" required></select></div>
                 </div>
+            </div>
+            
+            <!-- ميزة جديدة مضافة: خانة كتابة خواطر أو إهداء اختياري مع عداد الكلمات -->
+            <div class="field">
+                <label><i class="bi bi-pen"></i> خواطر أو إهداء (اختياري)</label>
+                <div class="input-w-icon">
+                    <i class="bi bi-chat-dots"></i>
+                    <input type="text" id="userNote" name="UserNote" placeholder="اكتب إهداءً قصيراً أو دعاءً يرافق مشاركتك..." maxlength="100" oninput="updateNoteCounter(this)">
+                </div>
+                <div style="font-size: 0.8rem; color: #888; text-align: left; margin-top: 4px;"><span id="noteCharCount">0</span>/100 حرف</div>
             </div>
 
             <div class="upload-grid">
                 <div class="upload-item" onclick="document.getElementById('imgIn').click()">
                     <i id="imgIcon" class="bi bi-camera"></i>
                     <img id="imgPreview" class="preview-img-circle" src="" alt="المشترك">
-                    <span id="imgT" style="font-size:0.85rem;"><i class="bi bi-upload"></i> صورتك الشخصية</span>
+                    <span id="imgT"><i class="bi bi-upload"></i> صورتك الموقرة</span>
                     <input type="file" id="imgIn" accept="image/*" style="display:none" required onchange="previewImage(this)">
                 </div>
                 <div class="upload-item" onclick="document.getElementById('fileIn').click()">
                     <i id="audioIcon" class="bi bi-mic-fill"></i>
-                    <span id="fileT" style="font-size:0.85rem;"><i class="bi bi-upload"></i> ملف التلاوة</span>
+                    <span id="fileT"><i class="bi bi-upload"></i> تلاوتك الندية</span>
                     <audio id="audioPreview" controls></audio>
                     <input type="file" id="fileIn" accept="audio/*" style="display:none" required onchange="previewAudio(this)">
                 </div>
+            </div>
+
+            <div class="rules-box">
+                <span class="rules-title"><i class="bi bi-shield-check"></i> معايير القبول والإتقان:</span>
+                <ul class="rules-list">
+                    <li><i class="bi bi-check2-all"></i> <strong>إتقان التجويد:</strong> نركز على صحة الحركات ومخارج الحروف.</li>
+                    <li><i class="bi bi-check2-all"></i> <strong>الوقار السمعي:</strong> يُفضل التسجيل في هدوء تام وبدون "صدى صوت" مبالغ فيه.</li>
+                    <li><i class="bi bi-check2-all"></i> <strong>الأمانة:</strong> يمنع استخدام برامج تحسين الصوت أو الذكاء الاصطناعي لتغيير نبرة الصوت.</li>
+                    <li><i class="bi bi-check2-all"></i> <strong>الالتزام:</strong> يحق للإدارة استبعاد المشارك في حال عدم مطابقة الصورة الشخصية للوقار المطلوب.</li>
+                </ul>
+                <span class="trust-tag">
+                    <i class="bi bi-shield-lock"></i> 
+                    يتم المراجعة بواسطة مشايخ مجازين بالقراءات العشر لضمان جودة الأداء الفني.
+                </span>
             </div>
             
             <button type="submit" id="btn" class="main-btn">
@@ -938,32 +1328,29 @@
     </div>
 
     <!-- Footer Credit -->
-    <div class="footer-credit" style="text-align:center; margin-top:30px;">
-        <div style="color:var(--text-gold); font-family:'Amiri'; font-size:1.5rem;">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
-        <span style="color:var(--text-gold); font-size:1.1rem; display:block; margin-top:5px;">خادم القرآن/ عبد الرحمن مكي</span>
+    <div class="footer-credit">
+        <div class="quran-final-verse">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
+        <span class="name"><i class="bi bi-person-check"></i> خادم القرآن/ عبد الرحمن مكي</span>
+        <span style="color: #cccccc; font-size: 1.15rem;">نسألكم الدعاء بالقبول والإخلاص <i class="bi bi-heart"></i></span>
     </div>
 </div>
 
-<a href="tel:01122783768" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); width:90%; max-width:380px; z-index:1000; background:rgba(12,16,24,0.95); border:2px solid var(--text-gold); border-radius:30px; padding:10px; display:flex; align-items:center; justify-content:center; gap:10px; text-decoration:none; box-shadow:0 5px 20px rgba(0,0,0,0.8);">
-    <i class="bi bi-tools" style="color:var(--text-gold);"></i>
-    <span style="color:#fff; font-size:0.95rem; font-weight:bold;">للمشاكل الفنية والتواصل مع الإدارة اضغط هنا</span>
+<a href="tel:01122783768" class="fixed-call-btn">
+    <i class="bi bi-tools"></i>
+    <span>للمشاكل الفنية اضغط هنا</span>
 </a>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    /* دالة التنقل السلس بين الأقسام من الهيدر الجديد */
-    function scrollToSection(id) {
-        const el = document.getElementById(id);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    /* 1. خلفية Three.js التفاعلية */
+    /* -------------------------------------------------------------
+       1. Three.js Interactive 3D Background System
+    ------------------------------------------------------------- */
     let scene, camera, renderer, particlesMesh;
 
     function init3DBackground() {
         const canvas = document.getElementById('webgl-bg');
         scene = new THREE.Scene();
+        
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
 
@@ -971,8 +1358,11 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const particlesCount = 300;
+        // Create Golden Particles Geometry
+        const particlesCount = 350;
         const posArray = new Float32Array(particlesCount * 3);
+        const scaleArray = new Float32Array(particlesCount);
+
         for(let i = 0; i < particlesCount * 3; i+=3) {
             posArray[i] = (Math.random() - 0.5) * 12;
             posArray[i+1] = (Math.random() - 0.5) * 12;
@@ -982,6 +1372,7 @@
         const particlesGeometry = new THREE.BufferGeometry();
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
+        // Golden Particle Material
         const particlesMaterial = new THREE.PointsMaterial({
             size: 0.04,
             color: 0xf39c12,
@@ -993,20 +1384,27 @@
         particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
+        // Interaction Mouse Motion
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
             mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
         });
 
+        // Animation Loop
         function animate3D() {
             requestAnimationFrame(animate3D);
+            
             particlesMesh.rotation.y += 0.0015;
             particlesMesh.rotation.x += 0.0008;
+
+            // Smooth parallax follow
             particlesMesh.rotation.y += (mouseX - particlesMesh.rotation.y) * 0.03;
             particlesMesh.rotation.x += (mouseY - particlesMesh.rotation.x) * 0.03;
+
             renderer.render(scene, camera);
         }
+
         animate3D();
 
         window.addEventListener('resize', () => {
@@ -1016,7 +1414,9 @@
         });
     }
 
-    /* 2. خريطة سور القرآن والبحث الذكي */
+    /* -------------------------------------------------------------
+       2. Quran Surah Map & Custom Live Search System
+    ------------------------------------------------------------- */
     const quranMap = [
         ["الفاتحة",7,1],["البقرة",286,2],["آل عمران",200,50],["النساء",176,77],["المائدة",120,106],["الأنعام",165,128],["الأعراف",206,151],["الأنفال",75,177],["التوبة",129,187],["يونس",109,208],["هود",123,221],["يوسف",111,235],["الرعد",43,249],["إبراهيم",52,255],["الحجر",99,262],["النحل",128,267],["الإسراء",111,282],["الكهف",110,293],["مريم",98,305],["طه",135,312],["الأنبياء",112,322],["الحج",78,332],["المؤمنون",118,342],["النور",64,350],["الفرقان",77,359],["الشعراء",227,367],["النمل",93,377],["القصص",88,385],["العنكبوت",69,396],["الروم",60,404],["لقمان",34,411],["السجدة",30,415],["الأحزاب",73,418],["سبأ",54,428],["فاطر",45,434],["يس",83,440],["الصافات",182,446],["ص",88,453],["الزمر",75,458],["غافر",85,467],["فصلت",54,477],["الشورى",53,483],["الزخرف",89,489],["الدخان",59,496],["الجاثية",37,499],["الأحقاف",35,502],["محمد",38,507],["الفتح",29,511],["الحجرات",18,515],["ق",45,518],["الذاريات",60,520],["الطور",49,523],["النجم",62,526],["القمر",55,528],["الرحمن",78,531],["الواقعة",96,534],["الحديد",29,537],["المجادلة",22,542],["الحشر",24,545],["الممتحنة",13,549],["الصف",14,551],["الجمعة",11,553],["المنافقون",11,554],["التغابن",18,556],["الطلاق",12,558],["التحريم",12,560],["الملك",30,562],["القلم",52,564],["الحاقة",52,566],["المعارج",44,568],["نوح",28,570],["الجن",28,572],["المزمل",20,574],["المدثر",56,575],["القيامة",40,577],["الإنسان",31,578],["المرسلات",50,580],["النبأ",40,582],["النازعات",46,583],["عبس",42,585],["التكوير",29,586],["الانفطار",19,587],["المطففين",36,587],["الانشقاق",25,589],["البروج",22,590],["الطارق",17,591],["الأعلى",19,591],["الغاشية",26,592],["الفجر",30,593],["البلد",20,594],["الشمس",15,595],["الليل",21,595],["الضحى",11,596],["الشرح",8,596],["التين",8,597],["العلق",19,597],["القدر",5,598],["البينة",8,598],["الزلزلة",8,599],["العاديات",11,599],["القارعة",11,600],["التكاثر",8,600],["العصر",3,601],["الهمزة",9,601],["الفيل",5,601],["قريش",4,602],["الماعون",7,602],["الكوثر",3,602],["الكافرون",6,603],["النصر",3,603],["المسد",5,603],["الإخلاص",4,604],["الفلق",5,604],["الناس",6,604]
     ];
@@ -1024,31 +1424,57 @@
     function renderSurahList(filterText = "") {
         const container = document.getElementById('surahListContainer');
         container.innerHTML = "";
+        
         quranMap.forEach((surah, idx) => {
-            const surahName = surah[0], ayahsCount = surah[1], startPage = surah[2];
-            if (filterText === "" || surahName.includes(filterText)) {
+            const surahName = surah[0];
+            const ayahsCount = surah[1];
+            const startPage = surah[2];
+            
+            if (filterText === "" || surahName.includes(filterText) || surahName.replace("أ","ا").replace("إ","ا").replace("آ","ا").includes(filterText.replace("أ","ا").replace("إ","ا").replace("آ","ا"))) {
                 const item = document.createElement('div');
                 item.className = 'surah-card-item';
                 item.onclick = () => selectSurah(surahName);
-                item.innerHTML = `<span style="font-weight:bold;">سورة ${surahName}</span><br><span style="font-size:0.75rem; color:#aaa;">${ayahsCount} آية</span>`;
+                item.innerHTML = `
+                    <span class="surah-num">#${idx + 1}</span>
+                    <span class="surah-name-ar">سورة ${surahName}</span>
+                    <span class="surah-details">${ayahsCount} آية | ص ${startPage}</span>
+                `;
                 container.appendChild(item);
             }
         });
+
+        if (container.children.length === 0) {
+            container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 20px; color:#aaa;">لم يتم العثور على سورة بهذا الاسم</div>`;
+        }
     }
 
-    function filterSurahs() { renderSurahList(document.getElementById('surahSearchInput').value.trim()); }
-    function openSurahModal() { document.getElementById('surahSearchModal').style.display = 'flex'; renderSurahList(); }
-    function closeSurahModal() { document.getElementById('surahSearchModal').style.display = 'none'; }
+    function filterSurahs() {
+        const query = document.getElementById('surahSearchInput').value.trim();
+        renderSurahList(query);
+    }
+
+    function openSurahModal() {
+        document.getElementById('surahSearchModal').style.display = 'flex';
+        document.getElementById('surahSearchInput').value = '';
+        renderSurahList();
+    }
+
+    function closeSurahModal() {
+        document.getElementById('surahSearchModal').style.display = 'none';
+    }
+
     function selectSurah(surahName) {
         document.getElementById('surah').value = surahName;
-        document.getElementById('selectedSurahText').innerHTML = `<strong style="color:var(--text-gold)">سورة ${surahName}</strong> (تم الاختيار)`;
-        fillQuranData(); closeSurahModal();
+        document.getElementById('selectedSurahText').innerHTML = `<strong style="color:var(--text-gold)"><i class="bi bi-check-circle"></i> سورة ${surahName}</strong> (تم الاختيار)`;
+        fillQuranData();
+        closeSurahModal();
     }
 
     function fillQuranData() {
         const surahVal = document.getElementById('surah').value;
         const selected = quranMap.find(s => s[0] === surahVal);
         if (!selected) return;
+
         const [name, ayahs, startPage] = selected;
         const populate = (id, max, start = 1) => {
             const el = document.getElementById(id); el.innerHTML = "";
@@ -1065,19 +1491,115 @@
         const startPage = selectedSurah[2];
         if(type === 'from') {
             const val = parseInt(document.getElementById('ayahFrom').value);
-            document.getElementById('pageFrom').value = startPage + Math.floor(val / 15);
+            let estimatedPage = startPage + Math.floor(val / 15);
+            document.getElementById('pageFrom').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
         } else {
             const val = parseInt(document.getElementById('ayahTo').value);
-            document.getElementById('pageTo').value = startPage + Math.floor(val / 15);
+            let estimatedPage = startPage + Math.floor(val / 15);
+            document.getElementById('pageTo').value = estimatedPage > 604 ? 604 : (estimatedPage || startPage);
         }
     }
 
-    /* 3. جلب بيانات القراء وإجمالي التسجيلات من الشيت */
-    async function fetchPlatformData(userEmailOrName = "") {
+    /* -------------------------------------------------------------
+       3. Platform Logic & Data Sync
+    ------------------------------------------------------------- */
+    function checkThursdaySunsetToFriday() {
+        const now = new Date();
+        const day = now.getDay(); 
+        const hour = now.getHours();
+        const minute = now.getMinutes();
+        const timeVal = hour * 60 + minute;
+        const sunsetTime = 17 * 60 + 30; 
+
+        const wrapper = document.getElementById('conditionalVideoWrapper');
+        const label = document.getElementById('videoDynamicLabel');
+
+        let shouldShow = false;
+        let textTitle = "شمس الخميس اذا تغيب فزد الصلاة على الحبيب";
+
+        if (day === 4) { 
+            if (timeVal >= sunsetTime) {
+                shouldShow = true;
+                textTitle = "شمس الخميس اذا تغيب فزد الصلاة على الحبيب";
+            }
+        } else if (day === 5) { 
+            shouldShow = true;
+            if (hour >= 4) { 
+                textTitle = '<i class="bi bi-brightness-high" aria-hidden="true"></i> جمعة مباركة';
+            } else {
+                textTitle = "شمس الخميس اذا تغيب فزد الصلاة على الحبيب";
+            }
+        }
+
+        if (wrapper) {
+            if (shouldShow) {
+                wrapper.style.display = 'block';
+                label.innerHTML = `<i class="bi bi-play-circle"></i> ${textTitle}`;
+            } else {
+                wrapper.style.display = 'none';
+            }
+        }
+    }
+
+    const islamicDatabase = [
+        { day: 1, month: 1, title: "رأس السنة الهجرية", desc: "ذكرى هجرة النبي ﷺ من مكة إلى المدينة المنورة وبداية التقويم الهجري." },
+        { day: 10, month: 1, title: "يوم عاشوراء", desc: "نجّى الله فيه موسى عليه السلام وقومه وأغرق فرعون وجنده، وصيامه يكفر سنة ماضية." },
+        { day: 17, month: 1, title: "غزوة ذات الرقاع", desc: "غزوة خرج فيها النبي ﷺ إلى نجد في سنة 4 هـ (أو 5 هـ)." },
+        { day: 2, month: 2, title: "غزوة الأبواء (ودّان)", desc: "أول غزوة غزاها النبي بنفسه في التاريخ الإسلامي في صفر سنة 2 هـ." },
+        { day: 20, month: 2, title: "سرية زيد بن حارثة", desc: "من السرايا المهمة في تأمين طرق التجارة والدعوة." },
+        { day: 12, month: 3, title: "المولد النبوي الشريف", desc: "مولد سيد ولد آدم وخاتم الأنبياء والمرسلين سيدنا محمد صلى الله عليه وسلم." },
+        { day: 8, month: 3, title: "وصول النبي ﷺ إلى قباء", desc: "مبنى أول مسجد تأسس على التقوى عند الهجرة المباركة للمدينة." },
+        { day: 10, month: 4, title: "سرية عبد الله بن أنيس", desc: "من الأحداث التاريخية في تعزيز أمن الدولة الإسلامية الوليدة." },
+        { day: 5, month: 5, title: "غزوة مؤتة العظمى", desc: "أعظم المعارك ضد الروم في سنة 8 هـ واستشهاد قادة الإسلام جعفر وزيد وابن رواحة." },
+        { day: 3, month: 6, title: "وفاة سيدة نساء العالمين فاطمة الزهراء", desc: "ذكرى وفاة ابنة رسول الله ﷺ رضي الله عنها وأرضاها." },
+        { day: 15, month: 6, title: "معركة اليمامة", desc: "من معارك حروب الردة الكبرى لتثبيت دعائم الدولة الإسلامية في سنة 11 هـ." },
+        { day: 27, month: 7, title: "رحلة الإسراء والمعراج", desc: "المعجزة الكبرى التي أسرى فيها بالنبي ﷺ من المسجد الحرام إلى الأقصى وعرج به إلى السماوات العلا." },
+        { day: 9, month: 7, title: "غزوة تبوك (ساعة العسرة)", desc: "آخر غزوة غزاها النبي ﷺ بنفسه في سنة 9 هـ لمواجهة الروم." },
+        { day: 15, month: 8, title: "تحويل القبلة", desc: "تحول المسلمين في صلاتهم من المسجد الأقصى إلى الكعبة المشرفة في السنة الثانية للهجرة." },
+        { day: 2, month: 8, title: "غزوة بني مصطلق (المريسيع)", desc: "غزوة حدثت في شعبان سنة 5 أو 6 هـ وظهرت فيها براءة أم المؤمنين عائشة." },
+        { day: 1, month: 9, title: "أول أيام شهر رمضان المبارك", desc: "فرض الصيام على هذه الأمة ونزول القرآن الكريم هدى للناس وبينات." },
+        { day: 17, month: 9, title: "غزوة بدر الكبرى (يوم الفرقان)", desc: "أعظم انتصار للمسلمين في التاريخ الإسلامي في 17 رمضان سنة 2 هـ." },
+        { day: 20, month: 9, title: "فتح مكة المكرمة (عام الفتح)", desc: "دخول النبي ﷺ مكة ظارحاً منتصراً في 20 رمضان سنة 8 هـ وعفو عام عن قريش." },
+        { day: 27, month: 9, title: "ليلة القدر المباركة", desc: "خير من ألف شهر، فيها تنزل الملائكة والروح بإذن ربهم." },
+        { day: 1, month: 10, title: "عيد الفطر المبارك", desc: "يوم الجوائز وفرحة المسلمين بإتمام صيام شهر رمضان المبارك." },
+        { day: 3, month: 10, title: "غزوة أحد", desc: "المعركة الشهيرة في السنة الثالثة للهجرة وما فيها من دروس وعبر تمحيص للمؤمنين." },
+        { day: 5, month: 10, title: "غزوة بني قريظة", desc: "حدثت فور انتهاء غزوة الخندق في ذي القعدة/شوال سنة 5 هـ." },
+        { day: 1, month: 11, title: "صلح الحديبية", desc: "الهدنة المباركة التي سماها القرآن فتحاً مبخراً في سنة 6 هـ." },
+        { day: 8, month: 12, title: "يوم التروية", desc: "بداية مناسك الحج الأكبر ومسير الحجاج إلى منى." },
+        { day: 9, month: 12, title: "وقفة عرفة الأعظم", desc: "اليوم المشهود الذي يباهي الله فيه ملائكة بأهل عرفات، وصيامه يكفر سنتين." },
+        { day: 10, month: 12, title: "عيد الأضحى المبارك وأيام التشريق", desc: "أعظم أيام الله في السنة ويوم النحر وأيام الهدى والذكر." }
+    ];
+
+    function populateArchiveModal() {
+        const listContainer = document.getElementById('archiveEventsList');
+        listContainer.innerHTML = "";
+        islamicDatabase.forEach(ev => {
+            const item = document.createElement('div');
+            item.className = 'event-card-item';
+            item.innerHTML = `
+                <span class="event-date-badge"><i class="bi bi-calendar-event"></i> شهر ${ev.month} - اليوم ${ev.day} هـ</span>
+                <h4><i class="bi bi-bookmark-fill" style="color:var(--text-gold); margin-left:5px;"></i>${ev.title}</h4>
+                <p>${ev.desc}</p>
+            `;
+            listContainer.appendChild(item);
+        });
+    }
+
+    function openArchiveModal() {
+        populateArchiveModal();
+        document.getElementById('archiveModal').style.display = 'flex';
+    }
+
+    function closeArchiveModal() {
+        document.getElementById('archiveModal').style.display = 'none';
+    }
+
+    async function fetchPlatformData() {
         const scriptURL = 'https://script.google.com/macros/s/AKfycby6ld_6DTSrz9vwvyeOZy1eosY7hPNwbWXT_pPxV8HmXDNm9xLX3OZ6YDCGDcFcRBSIgQ/exec';
         const totalCounterEl = document.getElementById('totalRegisteredCount');
         const listContainer = document.getElementById('latestReadersList');
-        const userRecordBadge = document.getElementById('userRecordCountBadge');
+        
+        totalCounterEl.innerText = "جاري الحساب...";
 
         try {
             const response = await fetch(scriptURL);
@@ -1085,60 +1607,104 @@
             
             if (data && typeof data.totalCount !== 'undefined') {
                 totalCounterEl.innerText = data.totalCount.toLocaleString() + " قارئ";
+            } else {
+                totalCounterEl.innerText = "0 قارئ";
             }
             
-            if (listContainer && data.latestReaders) {
+            if (listContainer) {
                 listContainer.innerHTML = '';
-                data.latestReaders.forEach(reader => {
-                    let li = document.createElement('li');
-                    li.innerHTML = `⭐ <strong>${reader.name}</strong> (${reader.surah})`;
-                    listContainer.appendChild(li);
-                });
-            }
-
-            // جلب عدد مرات التسجيل الخاصة بالمستخدم الحالي من الشيت مباشرة بناءً على اسمه أو بريده
-            if (userRecordBadge && userEmailOrName && data.allReaders) {
-                const userRegistrations = data.allReaders.filter(r => r.name === userEmailOrName || r.email === userEmailOrName);
-                userRecordBadge.innerText = userRegistrations.length + " مرة";
-            } else if (userRecordBadge) {
-                userRecordBadge.innerText = "0 مرة";
+                if (!data.latestReaders || data.latestReaders.length === 0) {
+                    listContainer.innerHTML = '<li style="color: #fff;"><i class="bi bi-info-circle"></i> لا توجد سجلات بعد</li>';
+                } else {
+                    data.latestReaders.forEach(reader => {
+                        let li = document.createElement('li');
+                        li.style.marginBottom = "4px";
+                        li.innerHTML = `<i class="bi bi-star-fill" style="color:var(--text-gold);"></i> <strong>${reader.name}</strong> (${reader.surah})`;
+                        listContainer.appendChild(li);
+                    });
+                }
             }
         } catch (error) {
-            console.error("خطأ في جلب بيانات الشيت:", error);
-            if(totalCounterEl) totalCounterEl.innerText = "متاح عبر الشيت";
-            if(userRecordBadge) userRecordBadge.innerText = "0 مرة";
+            console.error("خطأ في جلب بيانات القراء:", error);
+            totalCounterEl.innerText = "غير متاح";
+            if (listContainer) {
+                listContainer.innerHTML = '<li style="color: var(--text-gold);"><i class="bi bi-exclamation-triangle"></i> تعذر جلب القراء</li>';
+            }
         }
     }
 
-    /* 4. التاريخ الهجري والأحداث الإسلامية */
-    const islamicDatabase = [
-        { day: 1, month: 1, title: "رأس السنة الهجرية", desc: "ذكرى هجرة النبي ﷺ." },
-        { day: 10, month: 1, title: "يوم عاشوراء", desc: "نجّى الله فيه موسى عليه السلام." },
-        { day: 12, month: 3, title: "المولد النبوي الشريف", desc: "مولد سيد ولد آدم وخاتم الأنبياء." },
-        { day: 1, month: 9, title: "أول أيام شهر رمضان المبارك", desc: "فرض الصيام ونزول القرآن." },
-        { day: 17, month: 9, title: "غزوة بدر الكبرى", desc: "أعظم انتصار للمسلمين." },
-        { day: 10, month: 12, title: "عيد الأضحى المبارك", desc: "أعظم أيام الله في السنة." }
-    ];
-
-    function openArchiveModal() {
-        const list = document.getElementById('archiveEventsList');
-        list.innerHTML = islamicDatabase.map(e => `<div style="padding:8px; border-bottom:1px solid #333;"><strong style="color:var(--text-gold);">${e.title}</strong><p style="margin:2px 0 0; font-size:0.85rem; color:#ccc;">${e.desc}</p></div>`).join('');
-        document.getElementById('archiveModal').style.display = 'flex';
-    }
-    function closeArchiveModal() { document.getElementById('archiveModal').style.display = 'none'; }
-
-    function initLiveInfo() {
-        const updateClock = () => {
-            const now = new Date();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
-            const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
-            document.getElementById('combinedDate').innerHTML = hijriFull + " | 2026 م";
-        };
-        updateClock(); setInterval(updateClock, 1000);
+    const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
+    function checkNotificationPermission() {
+        if ("Notification" in window) {
+            if (Notification.permission === "granted" || Notification.permission === "denied") {
+                floatingNotifyBtn.style.display = 'none';
+            } else {
+                floatingNotifyBtn.style.display = 'flex';
+            }
+        }
     }
 
-    const phoneInput = document.querySelector("#phone");
-    const iti = window.intlTelInput(phoneInput, { initialCountry: "eg", utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" });
+    floatingNotifyBtn.addEventListener('click', () => {
+        if ("Notification" in window) {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted" || permission === "denied") {
+                    floatingNotifyBtn.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+            .then(reg => {
+                setInterval(() => { reg.update(); }, 60000);
+            }).catch(err => console.log('SW Registration failed', err));
+        });
+    }
+
+    let deferredPrompt;
+    const pwaBanner = document.getElementById('pwa-install-banner');
+    const pwaBtn = document.getElementById('pwa-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        pwaBanner.style.display = 'block'; 
+    });
+
+    pwaBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            pwaBanner.style.display = 'none';
+            deferredPrompt = null;
+        }
+    });
+
+    const opLogos = {
+        "010": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vodafone_Logo.png",
+        "011": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Etisalat_Logo.svg/1200px-Etisalat_Logo.svg.png",
+        "012": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/1024px-Orange_logo.svg.png",
+        "015": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/WE_logo.svg/1200px-WE_logo.svg.png"
+    };
+
+    document.getElementById('phone').addEventListener('input', function(e) {
+        const val = e.target.value.replace(/\s+/g, '');
+        const opLogo = document.getElementById('opLogo');
+        let prefix = "";
+        
+        if (val.startsWith('01')) prefix = val.substring(0, 3);
+        else if (val.startsWith('201')) prefix = "0" + val.substring(2, 4);
+        else if (val.startsWith('1')) prefix = "0" + val.substring(0, 2);
+
+        if (opLogos[prefix]) { 
+            opLogo.src = opLogos[prefix]; 
+            opLogo.style.display = 'inline-block'; 
+        } else { 
+            opLogo.style.display = 'none'; 
+        }
+    });
 
     let uploadedImageSrc = "";
     function previewImage(input) {
@@ -1149,7 +1715,7 @@
                 document.getElementById('imgIcon').style.display = 'none';
                 const preview = document.getElementById('imgPreview');
                 preview.src = e.target.result; preview.style.display = 'block';
-                document.getElementById('imgT').innerText = 'تم الاستلام';
+                document.getElementById('imgT').innerHTML = '<i class="bi bi-check-circle-fill" style="color:#25d366;"></i> ✅ تم استلام صورتك';
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -1158,22 +1724,92 @@
     function previewAudio(input) {
         if (input.files && input.files[0]) {
             const audioPreview = document.getElementById('audioPreview');
-            audioPreview.src = URL.createObjectURL(input.files[0]);
-            audioPreview.style.display = 'block';
+            const fileURL = URL.createObjectURL(input.files[0]);
+            audioPreview.src = fileURL; audioPreview.style.display = 'block';
             document.getElementById('audioIcon').style.display = 'none';
-            document.getElementById('fileT').innerText = 'تم إرفاق التلاوة';
+            document.getElementById('fileT').innerHTML = '<i class="bi bi-headphones" aria-hidden="true"></i> تم إرفاق تلاوتك بنجاح';
         }
     }
 
-    /* تقديم نموذج التلاوة */
-    document.getElementById('talentFormContent').onsubmit = async function(e) {
+    /* ميزة عداد الكلمات للخواطر الاختيارية */
+    function updateNoteCounter(el) {
+        const len = el.value.length;
+        document.getElementById('noteCharCount').innerText = len;
+    }
+
+    function initLiveInfo() {
+        const updateClock = () => {
+            const now = new Date();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('ar-EG');
+            
+            const hijriFull = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+            const miladiDayMonth = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long'});
+            document.getElementById('combinedDate').innerHTML = '<i class="bi bi-moon"></i> ' + hijriFull + "<br>" + '<i class="bi bi-sun"></i> ' + miladiDayMonth + " 2026 م";
+
+            const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'numeric'}).formatToParts(now);
+            const hDay = parseInt(parts.find(p => p.type === 'day').value);
+            const hMonth = parseInt(parts.find(p => p.type === 'month').value);
+
+            const matchedEvent = islamicDatabase.find(e => e.day === hDay && e.month === hMonth);
+            let eventStr = matchedEvent ? '<i class="bi bi-star-fill" aria-hidden="true"></i> ' + matchedEvent.title : '<i class="bi bi-calendar-day" aria-hidden="true"></i> يوم مبارك من أيام الله (اضغط للعرض)';
+            
+            document.getElementById('hijriEvent').innerHTML = eventStr;
+        };
+        updateClock(); setInterval(updateClock, 1000);
+    }
+
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "eg",
+        preferredCountries: ["eg", "sa", "ae", "kw", "om", "jo"],
+        autoPlaceholder: "aggressive",
+        separateDialCode: false,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    const mixedInfo = [
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'الذي يقرأ القرآن وهو ماهر به مع السفرة الكرام البررة'.. كن ماهراً باتباع قواعد التجويد." },
+        { type: "إشراقة قرآنية..", text: "قال تعالى: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا'.. الترتيل هو تجويد الحروف ومعرفة الوقوف, فاحرص على الإتقان." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'زَيِّنُوا الْقُرْآنَ بِأَصْوَاتِكُمْ'.. صوتك الحسن هو زينة لكلام الله, فأخرجه في أفضل صورة." },
+        { type: "إشراقة قرآنية..", text: "الحرف الواحد بعشر حسنات، فكيف بمن يتقن مخارج الحروف ويراعي أحكام المد والغنة؟" },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'ليس منا من لم يتغنَّ بالقرآن'.. والتغني هنا هو تحسين الصوت بخشوع وتدبر." },
+        { type: "إشراقة قرآنية..", text: "اقرأ ورتل بصوتك الخاشع، فرب آية تفتح أبواباً من الرحمة والسكينة في قلب سامعها." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'الماهر بالقرآن مع السفرة الكرام البررة، والذي يقرأ القرآن ويتعتع فيه وهو عليه شاق له أجران'." },
+        { type: "إشراقة قرآنية..", text: "أهل القرآن هم صفوة الخلق، فاجعل نيل رضا الله هو غايتك عند إرسال تلاوتك." },
+        { type: "نصيحة إتقان..", text: "لا تتعجل في القراءة، فالقرآن يُقرأ بتؤدة وطمأنينة لتصل معانيه العميقة إلى القلوب المنيبة." },
+        { type: "إشراقة قرآنية..", text: "يأتي القرآن يوم القيامة شفيعاً لأصحابه، فطوبى لمن جعل صوته مِرآةً لتعظيم كلام الله." },
+        { type: "من هدي النبوة..", text: "قال ﷺ: 'اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه'." },
+        { type: "إشراقة قرآنية..", text: "الخشوع في التلاوة واجتمع القلب على تدبر الآيات يرفع درجات العبد في الجنة." }
+    ];
+
+    document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         if (typeof window.requirePlatformAuth === 'function' && !window.requirePlatformAuth('لازم تسجل الدخول قبل إرسال التلاوة.')) return;
-        if (!document.getElementById('surah').value) { alert("يرجى اختيار السورة أولاً"); openSurahModal(); return; }
+        
+        if (!document.getElementById('surah').value) {
+            alert("يرجى اختيار السورة المباركة أولاً من القائمة");
+            openSurahModal();
+            return;
+        }
 
+        let fullNumber = iti.getNumber();
+        if (!iti.isValidNumber()) { alert("يرجى التأكد من كتابة رقم هاتف صحيح"); return; }
+        
         const overlay = document.getElementById('loadingOverlay');
         const progText = document.getElementById('progressText');
+        
+        document.getElementById('loadingStatusText').innerHTML = '<i class="bi bi-cloud-arrow-up"></i> جاري رفع تلاوتكم المباركة وتجهيز الاستمارة الفاخرة..';
+        
         overlay.style.display = 'flex';
+        let idx = 0;
+        const updateContent = () => {
+            const item = mixedInfo[idx];
+            document.getElementById('quizQ').innerHTML = '<i class="bi bi-bookmark-fill"></i> ' + item.type;
+            document.getElementById('quizA').style.opacity = 0;
+            setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
+            idx = (idx + 1) % mixedInfo.length;
+        };
+        updateContent(); const contentInt = setInterval(updateContent, 4000);
 
         try {
             const scriptURL = 'https://script.google.com/macros/s/AKfycby6ld_6DTSrz9vwvyeOZy1eosY7hPNwbWXT_pPxV8HmXDNm9xLX3OZ6YDCGDcFcRBSIgQ/exec';
@@ -1182,7 +1818,7 @@
             
             const formData = new URLSearchParams();
             formData.append("Name", document.getElementById('name').value);
-            formData.append("Phone", iti.getNumber());
+            formData.append("Phone", fullNumber);
             formData.append("Surah", document.getElementById('surah').value);
             formData.append("AyahFrom", document.getElementById('ayahFrom').value);
             formData.append("AyahTo", document.getElementById('ayahTo').value);
@@ -1191,33 +1827,60 @@
             formData.append("photoData", photoBase64.split(',')[1]);
             formData.append("audioData", audioBase64.split(',')[1]);
 
-            progText.innerText = "50%";
+            let p = 0; const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
+            
             await fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
-            progText.innerText = "100%";
+            
+            clearInterval(pInt); clearInterval(contentInt); progText.innerText = "100%";
             
             setTimeout(() => {
                 overlay.style.display = 'none';
                 document.getElementById('modalAvatar').src = uploadedImageSrc;
                 document.getElementById('modalName').innerText = document.getElementById('name').value;
-                document.getElementById('modalPhone').innerText = iti.getNumber();
+                document.getElementById('modalPhone').innerText = fullNumber;
                 document.getElementById('modalSurah').innerText = document.getElementById('surah').value;
                 document.getElementById('modalAyahFrom').innerText = document.getElementById('ayahFrom').value;
                 document.getElementById('modalAyahTo').innerText = document.getElementById('ayahTo').value;
-                document.getElementById('modalMiladiDate').innerText = new Date().toLocaleDateString('ar-EG');
+                document.getElementById('modalPageFrom').innerText = document.getElementById('pageFrom').value;
+                document.getElementById('modalPageTo').innerText = document.getElementById('pageTo').value;
+                
+                const now = new Date();
+                const hijriStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', {day:'numeric', month:'long', year:'numeric'}).format(now);
+                const miladiStr = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
+                document.getElementById('modalHijriDate').innerText = hijriStr;
+                document.getElementById('modalMiladiDate').innerText = miladiStr + " م";
+                
                 document.getElementById('cardModal').style.display = 'flex';
             }, 800);
-        } catch (err) { overlay.style.display = 'none'; alert("حدث خطأ أثناء الرفع."); }
+        } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
     };
 
     function downloadCertificateImage() {
-        html2canvas(document.getElementById('captureCard'), { scale: 3, backgroundColor: '#07090c', useCORS: true }).then(canvas => {
-            const link = document.createElement('a'); link.download = 'استمارة_مشاركة.png'; link.href = canvas.toDataURL('image/png'); link.click();
+        const cardElement = document.getElementById('captureCard');
+        html2canvas(cardElement, { scale: 3, backgroundColor: '#07090c', useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'استمارة_مشاركة_داعم_المواهب.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
         });
     }
+
     function shareCertificateWhatsApp() {
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("مشاركة في منصة داعم المواهب للقرآن الكريم مع خادم القرآن عبد الرحمن مكي")}`, '_blank');
+        const name = document.getElementById('name').value;
+        const surah = document.getElementById('surah').value;
+        const aFrom = document.getElementById('ayahFrom').value;
+        const aTo = document.getElementById('ayahTo').value;
+        
+        const message = `*استمارة مشاركة في منصة داعم المواهب للقرآن الكريم*\n\nاسم المشارك: ${name}\nالسورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\nبرعاية خادم القرآن/ عبد الرحمن مكي\n\nرابط المنصة للمشاركة: https://abdodaim14-ai.github.io/-/`;
+        const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
     }
-    function closeCardModal() { document.getElementById('cardModal').style.display = 'none'; location.reload(); }
+
+    function closeCardModal() {
+        document.getElementById('cardModal').style.display = 'none';
+        location.reload();
+    }
+
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader(); reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
@@ -1227,10 +1890,47 @@
         init3DBackground();
         initLiveInfo();
         fetchPlatformData();
+        checkThursdaySunsetToFriday();
+        checkNotificationPermission();
+        setInterval(checkThursdaySunsetToFriday, 60000);
+
+        const overlay = document.getElementById('loadingOverlay');
+        const progText = document.getElementById('progressText');
+        const statusText = document.getElementById('loadingStatusText');
+        
+        statusText.innerHTML = '<i class="bi bi-arrow-repeat"></i> جاري فتح منصة داعم المواهب...';
+        overlay.style.display = 'flex';
+        
+        let count = 0;
+        let idx = 0;
+        
+        const updateContent = () => {
+            const item = mixedInfo[idx];
+            document.getElementById('quizQ').innerHTML = '<i class="bi bi-bookmark-fill"></i> ' + item.type;
+            document.getElementById('quizA').style.opacity = 0;
+            setTimeout(() => { document.getElementById('quizA').innerText = item.text; document.getElementById('quizA').style.opacity = 1; }, 300);
+            idx = (idx + 1) % mixedInfo.length;
+        };
+        updateContent(); 
+        const contentInt = setInterval(updateContent, 2000);
+
+        const entryLoader = setInterval(() => {
+            if (count < 100) {
+                count += 5; 
+                progText.innerText = count + "%";
+            } else {
+                clearInterval(entryLoader);
+                clearInterval(contentInt);
+                overlay.style.display = 'none'; 
+            }
+        }, 50);
     });
 </script>
 
-<!-- Supabase Auth & Community Messaging Integration -->
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BOO4teW9tsrKtn6KrGRs3psaQAvWUQymBnUVHdjVk389J1pDBU9Rr80r5xsLXrO4CROg30n-if560rNydIb6onk' });</script>
+
+
+<!-- Supabase Auth: Email/Password + Google + Facebook + Profile Avatar -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
@@ -1239,94 +1939,512 @@
   const redirectTo = 'https://abdodaim14-ai.github.io/-/';
   const $ = (id) => document.getElementById(id);
   const statusEl = $('authStatus');
+  const googleBtn = $('googleLoginBtn');
+  const facebookBtn = $('facebookLoginBtn');
+  const logoutBtn = $('logoutBtn');
+  const authButtons = $('authButtons');
+  const authUser = $('authUser');
+  const authIntro = $('authIntro');
+  const profileTools = $('profileTools');
+  const profileAvatar = $('profileAvatar');
+  const avatarInput = $('profileAvatarInput');
+  const talentForm = $('talentForm');
+  const donationForm = $('donationForm');
   let supabaseClient = null;
   let currentUser = null;
+  let authReady = false;
+  let authMode = 'signup';
+  const fallbackAvatar = profileAvatar ? profileAvatar.src : '';
 
-  window.requirePlatformAuth = function (msg) {
-    if (currentUser) return true;
-    $('accountPanel')?.scrollIntoView({ behavior: 'smooth' });
-    if (statusEl) statusEl.textContent = msg || 'يرجى تسجيل الدخول أولاً.';
+  function setStatus(message) { if (statusEl) statusEl.textContent = message || ''; }
+  function setBusy(busy) {
+    [googleBtn, facebookBtn, logoutBtn, $('emailAuthSubmitBtn'), $('forgotPasswordBtn'), $('uploadAvatarBtn')].forEach(b => { if (b) b.disabled = !!busy; });
+  }
+  function focusAccount(message) {
+    $('accountPanel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (message) setStatus(message);
+  }
+  window.requirePlatformAuth = function (message) {
+    if (currentUser && authReady) return true;
+    focusAccount(message || 'سجّل الدخول أو أنشئ حسابًا أولاً لاستخدام خدمات الموقع.');
     return false;
   };
+  // Any future form that writes/submits site content is protected by the same login requirement.
+  document.addEventListener('submit', (event) => {
+    if (event.target && event.target.id !== 'emailAuthForm' && !window.requirePlatformAuth('لازم تسجل الدخول قبل إرسال أي بيانات أو كتابة محتوى في الموقع.')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
+  function setMode(mode) {
+    authMode = mode;
+    const signup = mode === 'signup';
+    $('authDisplayName').hidden = !signup;
+    $('authPasswordConfirm').hidden = !signup;
+    $('forgotPasswordBtn').hidden = signup;
+    $('emailAuthSubmitBtn').textContent = signup ? 'إنشاء الحساب' : 'تسجيل الدخول';
+    $('emailAuthHint').textContent = signup
+      ? 'استخدم بريدًا إلكترونيًا صحيحًا وكلمة مرور لا تقل عن 8 أحرف. قد تحتاج إلى تأكيد البريد قبل الدخول.'
+      : 'اكتب بريدك الإلكتروني وكلمة المرور. يمكنك استعادة كلمة المرور إذا نسيتها.';
+    $('showSignupBtn').classList.toggle('active', signup);
+    $('showLoginBtn').classList.toggle('active', !signup);
+    $('authPassword').autocomplete = signup ? 'new-password' : 'current-password';
+    setStatus('');
+  }
+  $('showSignupBtn')?.addEventListener('click', () => setMode('signup'));
+  $('showLoginBtn')?.addEventListener('click', () => setMode('login'));
 
-  $('showSignupBtn')?.addEventListener('click', () => {
-    $('authDisplayName').hidden = false; $('authPasswordConfirm').hidden = false;
-    $('emailAuthSubmitBtn').textContent = 'إنشاء الحساب';
-    $('showSignupBtn').classList.add('active'); $('showLoginBtn').classList.remove('active');
-  });
-  $('showLoginBtn')?.addEventListener('click', () => {
-    $('authDisplayName').hidden = true; $('authPasswordConfirm').hidden = true;
-    $('emailAuthSubmitBtn').textContent = 'تسجيل الدخول';
-    $('showLoginBtn').classList.add('active'); $('showSignupBtn').classList.remove('active');
-  });
+  async function signIn(provider) {
+    if (!supabaseClient) { setStatus('خدمة الحسابات غير جاهزة. حدّث الصفحة وحاول مرة أخرى.'); return; }
+    setBusy(true); setStatus('جاري تحويلك إلى تسجيل الدخول...');
+    try {
+      const { error } = await supabaseClient.auth.signInWithOAuth({ provider, options: { redirectTo } });
+      if (error) throw error;
+    } catch (error) {
+      console.error('OAuth sign-in error:', error);
+      setStatus('تعذر بدء تسجيل الدخول: ' + (error.message || 'خطأ غير معروف'));
+      setBusy(false);
+    }
+  }
+  googleBtn?.addEventListener('click', () => signIn('google'));
+  facebookBtn?.addEventListener('click', () => signIn('facebook'));
 
-  $('googleLoginBtn')?.addEventListener('click', () => supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } }));
-  $('facebookLoginBtn')?.addEventListener('click', () => supabaseClient.auth.signInWithOAuth({ provider: 'facebook', options: { redirectTo } }));
-
-  $('emailAuthForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  $('emailAuthForm')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!supabaseClient) { setStatus('خدمة الحسابات لم تُحمّل بعد.'); return; }
     const email = $('authEmail').value.trim();
     const password = $('authPassword').value;
-    const name = $('authDisplayName').value.trim();
+    const displayName = $('authDisplayName').value.trim();
+    if (!email || !password) { setStatus('اكتب البريد الإلكتروني وكلمة المرور.'); return; }
+    if (password.length < 8) { setStatus('كلمة المرور لازم تكون 8 أحرف على الأقل.'); return; }
+    setBusy(true);
     try {
-      if (!$('authDisplayName').hidden) {
-        const { error } = await supabaseClient.auth.signUp({ email, password, options: { data: { display_name: name } } });
+      if (authMode === 'signup') {
+        if (!displayName) { setStatus('اكتب اسمك علشان ننشئ الحساب.'); setBusy(false); return; }
+        if (password !== $('authPasswordConfirm').value) { setStatus('كلمتا المرور غير متطابقتين.'); setBusy(false); return; }
+        const { data, error } = await supabaseClient.auth.signUp({
+          email, password,
+          options: { emailRedirectTo: redirectTo, data: { display_name: displayName, full_name: displayName } }
+        });
         if (error) throw error;
-        statusEl.textContent = 'تم إنشاء الحساب بنجاح!';
+        if (data.session) setStatus('تم إنشاء حسابك وتسجيل الدخول بنجاح.');
+        else setStatus('تم إنشاء الحساب. افتح رسالة التأكيد التي وصلتك على بريدك الإلكتروني ثم ارجع لتسجيل الدخول.');
+        $('authPassword').value = ''; $('authPasswordConfirm').value = '';
       } else {
         const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        statusEl.textContent = 'تم تسجيل الدخول بنجاح!';
+        $('authPassword').value = '';
+        setStatus('تم تسجيل الدخول بنجاح. أهلاً بك!');
       }
-    } catch (err) { statusEl.textContent = 'خطأ: ' + err.message; }
+    } catch (error) {
+      console.error('Email auth error:', error);
+      const msg = error.message || 'خطأ غير معروف';
+      setStatus('تعذر إتمام العملية: ' + msg);
+    } finally { setBusy(false); }
   });
 
-  $('logoutBtn')?.addEventListener('click', () => supabaseClient.auth.signOut());
+  $('forgotPasswordBtn')?.addEventListener('click', async () => {
+    const email = $('authEmail').value.trim();
+    if (!email) { setStatus('اكتب بريدك الإلكتروني أولاً علشان نبعتلك رابط استعادة كلمة المرور.'); return; }
+    setBusy(true);
+    try {
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      setStatus('لو البريد مسجل عندنا، هتوصلك رسالة فيها رابط استعادة كلمة المرور.');
+    } catch (error) { setStatus('تعذر إرسال رابط الاستعادة: ' + (error.message || 'خطأ غير معروف')); }
+    finally { setBusy(false); }
+  });
 
-  function renderSession(session) {
-    currentUser = session?.user || null;
-    const loggedIn = !!currentUser;
-    if (loggedIn) {
-      $('authButtons').hidden = true; $('emailAuthForm').hidden = true; $('authModeSwitch').hidden = true;
-      $('logoutBtn').hidden = false; $('authUser').hidden = false; $('profileTools').hidden = false;
-      const displayName = currentUser.user_metadata?.display_name || currentUser.email || 'عضو';
-      $('authUser').textContent = 'أهلاً بك، ' + displayName;
-      $('profileNameDisplay').textContent = displayName;
-      
-      // جلب عدد مرات التسجيل من الشيت بناءً على اسم أو بريد المستخدم
-      fetchPlatformData(displayName);
-    } else {
-      $('authButtons').hidden = false; $('emailAuthForm').hidden = false; $('authModeSwitch').hidden = false;
-      $('logoutBtn').hidden = true; $('authUser').hidden = true; $('profileTools').hidden = true;
+  logoutBtn?.addEventListener('click', async () => {
+    if (!supabaseClient) return;
+    setBusy(true);
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) setStatus('تعذر تسجيل الخروج: ' + error.message);
+    setBusy(false);
+  });
+
+  async function loadOwnProfile(user) {
+    if (!user || !supabaseClient) return;
+    const { data, error } = await supabaseClient.from('profiles').select('avatar_url, display_name').eq('id', user.id).maybeSingle();
+    if (error) { console.warn('Profile read:', error.message); }
+    if (data?.avatar_url) profileAvatar.src = data.avatar_url;
+    else {
+      const providerPic = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+      profileAvatar.src = providerPic || fallbackAvatar;
     }
-    if ($('communityPanel')) $('communityPanel').hidden = !loggedIn;
-    if ($('donationAmount')) $('donationAmount').disabled = !loggedIn;
-    if ($('donationSubmitBtn')) {
-      $('donationSubmitBtn').disabled = !loggedIn;
-      $('donationSubmitBtn').textContent = loggedIn ? 'متابعة التبرع' : 'سجّل الدخول للتبرع';
-    }
-    if ($('donationGuestNote')) $('donationGuestNote').style.display = loggedIn ? 'none' : 'block';
   }
 
-  // Community Chat UI handlers
-  document.querySelectorAll('[data-community-view]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('[data-community-view]').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      const view = e.target.dataset.communityView;
-      $('communitySearchView').hidden = view !== 'search';
-      $('communityRequestsView').hidden = view !== 'requests';
-      $('communityConversationsView').hidden = view !== 'conversations';
-      $('communityChatView').hidden = view !== 'chat';
+  $('uploadAvatarBtn')?.addEventListener('click', async () => {
+    if (!window.requirePlatformAuth('سجّل الدخول قبل رفع صورة الحساب.')) return;
+    const file = avatarInput.files && avatarInput.files[0];
+    if (!file) { setStatus('اختَر صورة أولاً.'); return; }
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) { setStatus('الصيغة غير مدعومة. استخدم JPG أو PNG أو WEBP.'); return; }
+    if (file.size > 2 * 1024 * 1024) { setStatus('حجم الصورة أكبر من 2 ميجابايت.'); return; }
+    setBusy(true); setStatus('جاري رفع صورة البروفايل...');
+    try {
+      const extension = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[file.type];
+      const objectPath = currentUser.id + '/avatar.' + extension;
+      const { error: uploadError } = await supabaseClient.storage.from('avatars').upload(objectPath, file, { upsert: true, contentType: file.type, cacheControl: '3600' });
+      if (uploadError) throw uploadError;
+      const publicUrl = supabaseClient.storage.from('avatars').getPublicUrl(objectPath).data.publicUrl + '?v=' + Date.now();
+      const { error: profileError } = await supabaseClient.from('profiles').update({ avatar_url: publicUrl }).eq('id', currentUser.id);
+      if (profileError) throw profileError;
+      profileAvatar.src = publicUrl; avatarInput.value = '';
+      setStatus('تم رفع صورة البروفايل وحفظها بنجاح.');
+    } catch (error) { console.error(error); setStatus('تعذر رفع الصورة: ' + (error.message || 'خطأ غير معروف')); }
+    finally { setBusy(false); }
+  });
+
+  function setFormAccess(allowed) {
+    if (talentForm) {
+      talentForm.classList.toggle('form-auth-locked', !allowed);
+      talentForm.querySelectorAll('input,select,textarea,button').forEach(el => { el.disabled = !allowed; });
+      let note = $('talentAuthRequired');
+      if (!note) {
+        note = document.createElement('div'); note.id = 'talentAuthRequired'; note.className = 'auth-required-note';
+        note.innerHTML = 'لإرسال تلاوتك وكتابة بيانات المشاركة، لازم تسجل الدخول أو تنشئ حسابًا أولاً. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">اذهب إلى الحساب</a>';
+        talentForm.parentNode.insertBefore(note, talentForm);
+      }
+      note.style.display = allowed ? 'none' : 'block';
+    }
+    if ($('donationAmount')) $('donationAmount').disabled = !allowed;
+    if ($('donationSubmitBtn')) {
+      $('donationSubmitBtn').disabled = !allowed;
+      $('donationSubmitBtn').innerHTML = allowed ? '<i class="bi bi-heart-fill"></i> متابعة التبرع' : '<i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع';
+    }
+    if ($('donationGuestNote')) $('donationGuestNote').style.display = allowed ? 'none' : 'block';
+  }
+
+
+
+  // Community: member search, requests, conversations and private messages.
+  let activeConversationId = null;
+  let activeConversationPeer = null;
+  let activeMessageChannel = null;
+  let communityBusy = false;
+
+  function communityStatus(message) {
+    const el = $('communityStatus');
+    if (el) el.textContent = message || '';
+  }
+  function escapeCommunityText(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function communityName(profile, fallback) {
+    return profile?.display_name || fallback || 'عضو بالمنصة';
+  }
+  function communityAvatar(profile) {
+    return profile?.avatar_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E";
+  }
+  async function getProfilesByIds(ids) {
+    const unique = [...new Set((ids || []).filter(Boolean))];
+    if (!unique.length) return {};
+    const { data, error } = await supabaseClient.from('profiles')
+      .select('id,display_name,avatar_url').in('id', unique);
+    if (error) throw error;
+    return Object.fromEntries((data || []).map(profile => [profile.id, profile]));
+  }
+  function setCommunityView(view) {
+    $('communitySearchView').hidden = view !== 'search';
+    $('communityRequestsView').hidden = view !== 'requests';
+    $('communityConversationsView').hidden = view !== 'conversations';
+    $('communityChatView').hidden = view !== 'chat';
+    document.querySelectorAll('[data-community-view]').forEach(button =>
+      button.classList.toggle('active', button.dataset.communityView === view));
+    if (view !== 'chat') communityStatus('');
+  }
+  document.querySelectorAll('[data-community-view]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const view = button.dataset.communityView;
+      setCommunityView(view);
+      if (view === 'requests') await refreshCommunityRequests();
+      if (view === 'conversations') await refreshCommunityConversations();
     });
   });
 
-  if (window.supabase?.createClient) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-    window.supabaseClient = supabaseClient;
-    supabaseClient.auth.getSession().then(({ data }) => renderSession(data?.session || null));
-    supabaseClient.auth.onAuthStateChange((_, session) => renderSession(session));
+  async function searchCommunityMembers() {
+    if (!currentUser) return window.requirePlatformAuth('سجّل الدخول للبحث عن الأعضاء.');
+    const term = $('memberSearchInput').value.trim().replace(/[%,()]/g, ' ');
+    const results = $('memberSearchResults');
+    if (term.length < 2) { results.textContent = 'اكتب حرفين على الأقل للبحث.'; return; }
+    results.textContent = 'جاري البحث...';
+    try {
+      const { data, error } = await supabaseClient.from('profiles')
+        .select('id,display_name,avatar_url')
+        .neq('id', currentUser.id)
+        .ilike('display_name', '%' + term + '%')
+        .limit(20);
+      if (error) throw error;
+      if (!data?.length) { results.textContent = 'مفيش أعضاء مطابقين للاسم ده.'; return; }
+      results.innerHTML = data.map(profile => `
+        <div class="community-item">
+          <img class="community-avatar" src="${escapeCommunityText(communityAvatar(profile))}" alt="">
+          <div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(profile))}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
+          <div class="community-actions"><button type="button" class="community-action primary" data-send-request="${escapeCommunityText(profile.id)}">إرسال طلب تواصل</button></div>
+        </div>`).join('');
+      results.querySelectorAll('[data-send-request]').forEach(button => button.addEventListener('click', () => sendCommunityRequest(button.dataset.sendRequest, button)));
+    } catch (error) {
+      console.error('Member search:', error);
+      results.textContent = 'تعذر البحث عن الأعضاء: ' + (error.message || 'تحقق من صلاحية قراءة الملفات الشخصية في Supabase.');
+    }
   }
+  $('memberSearchBtn')?.addEventListener('click', searchCommunityMembers);
+  $('memberSearchInput')?.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); searchCommunityMembers(); } });
+
+  async function sendCommunityRequest(receiverId, button) {
+    if (!currentUser || communityBusy) return;
+    communityBusy = true;
+    if (button) button.disabled = true;
+    communityStatus('جاري إرسال طلب التواصل...');
+    try {
+      const { error } = await supabaseClient.from('message_requests').insert({
+        sender_id: currentUser.id,
+        receiver_id: receiverId,
+        status: 'pending'
+      });
+      if (error) {
+        if (error.code === '23505') throw new Error('فيه طلب تواصل معلق بالفعل بينكما.');
+        throw error;
+      }
+      communityStatus('تم إرسال طلب التواصل بنجاح.');
+      if (button) button.textContent = 'تم إرسال الطلب';
+      if (button) button.disabled = true;
+    } catch (error) {
+      communityStatus('تعذر إرسال الطلب: ' + (error.message || 'حدث خطأ غير متوقع.'));
+      if (button) button.disabled = false;
+    } finally { communityBusy = false; }
+  }
+
+  async function refreshCommunityRequests() {
+    if (!currentUser) return;
+    $('incomingRequestsList').textContent = 'جاري تحميل الطلبات الواردة...';
+    $('sentRequestsList').textContent = 'جاري تحميل الطلبات المرسلة...';
+    try {
+      const [incomingResult, sentResult] = await Promise.all([
+        supabaseClient.from('message_requests').select('id,sender_id,receiver_id,status,created_at')
+          .eq('receiver_id', currentUser.id).eq('status', 'pending').order('created_at', {ascending:false}).limit(50),
+        supabaseClient.from('message_requests').select('id,sender_id,receiver_id,status,created_at')
+          .eq('sender_id', currentUser.id).in('status', ['pending','accepted','rejected','cancelled']).order('created_at', {ascending:false}).limit(50)
+      ]);
+      if (incomingResult.error) throw incomingResult.error;
+      if (sentResult.error) throw sentResult.error;
+      const rows = [...(incomingResult.data || []), ...(sentResult.data || [])];
+      const profiles = await getProfilesByIds(rows.map(row => row.sender_id === currentUser.id ? row.receiver_id : row.sender_id));
+      const incoming = $('incomingRequestsList');
+      const sent = $('sentRequestsList');
+      incoming.innerHTML = (incomingResult.data || []).length ? incomingResult.data.map(row => {
+        const peer = profiles[row.sender_id];
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
+      }).join('') : '<div class="community-item">لا توجد طلبات واردة حاليًا.</div>';
+      sent.innerHTML = (sentResult.data || []).length ? sentResult.data.map(row => {
+        const peer = profiles[row.receiver_id];
+        const statusLabel = row.status === 'pending' ? 'بانتظار رد العضو' : row.status === 'accepted' ? 'تم قبول الطلب' : row.status === 'rejected' ? 'تم رفض الطلب' : 'تم إلغاء الطلب';
+        const action = row.status === 'pending' ? `<button class="community-action danger" data-cancel-request="${row.id}">إلغاء الطلب</button>` : '';
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
+      }).join('') : '<div class="community-item">لم ترسل طلبات تواصل بعد.</div>';
+      incoming.querySelectorAll('[data-accept-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('accept_message_request', button.dataset.acceptRequest, button)));
+      incoming.querySelectorAll('[data-reject-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('reject_message_request', button.dataset.rejectRequest, button)));
+      sent.querySelectorAll('[data-cancel-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('cancel_message_request', button.dataset.cancelRequest, button)));
+    } catch (error) {
+      console.error('Community requests:', error);
+      $('incomingRequestsList').textContent = 'تعذر تحميل الطلبات: ' + (error.message || 'خطأ غير معروف');
+      $('sentRequestsList').textContent = '';
+    }
+  }
+
+  async function respondToCommunityRequest(functionName, requestId, button) {
+    if (!currentUser || communityBusy) return;
+    communityBusy = true;
+    if (button) button.disabled = true;
+    communityStatus('جاري تنفيذ الطلب...');
+    try {
+      const { data, error } = await supabaseClient.rpc(functionName, {p_request_id:requestId});
+      if (error) throw error;
+      communityStatus(functionName === 'accept_message_request' ? 'تم قبول الطلب وفتح المحادثة.' : functionName === 'reject_message_request' ? 'تم رفض طلب التواصل.' : 'تم إلغاء طلب التواصل.');
+      await refreshCommunityRequests();
+      if (functionName === 'accept_message_request' && data) {
+        await refreshCommunityConversations();
+        await openCommunityConversation(data);
+      }
+    } catch (error) {
+      console.error('Respond to request:', error);
+      communityStatus('تعذر تنفيذ الطلب: ' + (error.message || 'تحقق من إعدادات قاعدة البيانات.'));
+      if (button) button.disabled = false;
+    } finally { communityBusy = false; }
+  }
+
+  async function refreshCommunityConversations() {
+    if (!currentUser) return;
+    const list = $('communityConversationsList');
+    list.textContent = 'جاري تحميل المحادثات...';
+    try {
+      const { data, error } = await supabaseClient.from('message_requests')
+        .select('sender_id,receiver_id,conversation_id,responded_at')
+        .eq('status', 'accepted')
+        .not('conversation_id', 'is', null)
+        .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`)
+        .order('responded_at', {ascending:false}).limit(100);
+      if (error) throw error;
+      const byConversation = new Map();
+      (data || []).forEach(row => {
+        if (!byConversation.has(row.conversation_id)) {
+          const peerId = row.sender_id === currentUser.id ? row.receiver_id : row.sender_id;
+          byConversation.set(row.conversation_id, {conversationId:row.conversation_id, peerId});
+        }
+      });
+      const items = [...byConversation.values()];
+      if (!items.length) { list.innerHTML = '<div class="community-item">لسه مفيش محادثات. ابحث عن عضو وأرسل طلب تواصل.</div>'; return; }
+      const profiles = await getProfilesByIds(items.map(item => item.peerId));
+      list.innerHTML = items.map(item => {
+        const peer = profiles[item.peerId];
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+      }).join('');
+      list.querySelectorAll('[data-open-conversation]').forEach(button => button.addEventListener('click', () => openCommunityConversation(button.dataset.openConversation)));
+    } catch (error) {
+      console.error('Community conversations:', error);
+      list.textContent = 'تعذر تحميل المحادثات: ' + (error.message || 'خطأ غير معروف');
+    }
+  }
+
+  async function openCommunityConversation(conversationId) {
+    if (!currentUser) return;
+    activeConversationId = conversationId;
+    setCommunityView('chat');
+    $('communityChatHead').textContent = 'جاري تحميل المحادثة...';
+    $('communityMessagesList').textContent = 'جاري تحميل الرسائل...';
+    try {
+      const { data: requestRows, error: requestError } = await supabaseClient.from('message_requests')
+        .select('sender_id,receiver_id').eq('conversation_id', conversationId).eq('status', 'accepted')
+        .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`).limit(1);
+      if (requestError) throw requestError;
+      const request = requestRows?.[0];
+      if (!request) throw new Error('لا تملك صلاحية الوصول إلى هذه المحادثة.');
+      activeConversationPeer = request.sender_id === currentUser.id ? request.receiver_id : request.sender_id;
+      const profiles = await getProfilesByIds([activeConversationPeer]);
+      const peer = profiles[activeConversationPeer];
+      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${escapeCommunityText(communityName(peer, 'عضو'))}</strong>`;
+      await refreshCommunityMessages();
+      if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+      activeMessageChannel = supabaseClient.channel('private-messages-' + conversationId)
+        .on('postgres_changes', {event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.' + conversationId}, () => refreshCommunityMessages())
+        .subscribe();
+    } catch (error) {
+      console.error('Open conversation:', error);
+      $('communityMessagesList').textContent = 'تعذر فتح المحادثة: ' + (error.message || 'خطأ غير معروف');
+    }
+  }
+
+  async function refreshCommunityMessages() {
+    if (!activeConversationId || !currentUser) return;
+    const list = $('communityMessagesList');
+    const { data, error } = await supabaseClient.from('messages')
+      .select('id,sender_id,content,created_at')
+      .eq('conversation_id', activeConversationId)
+      .order('created_at', {ascending:true}).limit(200);
+    if (error) throw error;
+    list.innerHTML = (data || []).length ? data.map(message => {
+      const mine = message.sender_id === currentUser.id;
+      const date = message.created_at ? new Date(message.created_at).toLocaleString('ar-EG', {dateStyle:'short',timeStyle:'short'}) : '';
+      return `<div class="community-bubble${mine ? ' mine' : ''}">${escapeCommunityText(message.content)}<small>${mine ? 'أنت' : 'العضو الآخر'} · ${escapeCommunityText(date)}</small></div>`;
+    }).join('') : '<div style="color:#aaa;text-align:center">ابدأ المحادثة برسالة طيبة.</div>';
+    list.scrollTop = list.scrollHeight;
+  }
+  $('backToConversationsBtn')?.addEventListener('click', async () => {
+    if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+    activeConversationId = null; activeConversationPeer = null;
+    setCommunityView('conversations');
+    await refreshCommunityConversations();
+  });
+  $('communityMessageForm')?.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!currentUser || !activeConversationId) return;
+    const input = $('communityMessageInput');
+    const content = input.value.trim();
+    if (!content) return;
+    const sendButton = $('sendCommunityMessageBtn');
+    sendButton.disabled = true;
+    try {
+      const { error } = await supabaseClient.from('messages').insert({
+        conversation_id:activeConversationId,
+        sender_id:currentUser.id,
+        content
+      });
+      if (error) throw error;
+      input.value = '';
+      await refreshCommunityMessages();
+      communityStatus('تم إرسال الرسالة.');
+    } catch (error) {
+      console.error('Send message:', error);
+      communityStatus('تعذر إرسال الرسالة: ' + (error.message || 'قد يكون أحد الطرفين حظرك.'));
+    } finally { sendButton.disabled = false; }
+  });
+
+  async function refreshCommunity() {
+    if (!currentUser) return;
+    await Promise.allSettled([refreshCommunityRequests(), refreshCommunityConversations()]);
+  }
+  function setCommunityAuth(loggedIn) {
+    const panel = $('communityPanel');
+    if (panel) panel.hidden = !loggedIn;
+    if (!loggedIn) {
+      if (activeMessageChannel && supabaseClient) supabaseClient.removeChannel(activeMessageChannel);
+      activeMessageChannel = null; activeConversationId = null; activeConversationPeer = null;
+      if ($('memberSearchResults')) $('memberSearchResults').textContent = '';
+      if ($('communityStatus')) $('communityStatus').textContent = '';
+    } else {
+      setCommunityView('search');
+      Promise.resolve().then(refreshCommunity);
+    }
+  }
+
+
+  function renderSession(session) {
+    currentUser = session?.user || null;
+    authReady = true;
+    const loggedIn = !!currentUser;
+    if (loggedIn) {
+      authButtons.hidden = true; $('emailAuthForm').hidden = true; $('authModeSwitch').hidden = true;
+      logoutBtn.hidden = false; authUser.hidden = false; profileTools.hidden = false;
+      const display = currentUser.user_metadata?.display_name || currentUser.user_metadata?.full_name || currentUser.email || 'حسابك';
+      authUser.textContent = 'أهلاً بك، ' + display + (currentUser.email ? ' — ' + currentUser.email : '');
+      authIntro.textContent = 'أنت مسجل الدخول الآن ويمكنك استخدام خدمات المنصة.';
+      setStatus('');
+      Promise.resolve().then(() => loadOwnProfile(currentUser));
+    } else {
+      authButtons.hidden = false; $('emailAuthForm').hidden = false; $('authModeSwitch').hidden = false;
+      logoutBtn.hidden = true; authUser.hidden = true; profileTools.hidden = true;
+      authIntro.textContent = 'أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة';
+      profileAvatar.src = fallbackAvatar;
+    }
+    setFormAccess(loggedIn);
+    setCommunityAuth(loggedIn);
+  }
+
+  // Donation UI is prepared for the server function; the server-side Paymob function must be deployed before real checkout can work.
+  donationForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!window.requirePlatformAuth('سجّل الدخول قبل التبرع.')) return;
+    const amount = Number($('donationAmount').value);
+    if (!Number.isFinite(amount) || amount < 1 || amount > 1000000) {
+      $('donationStatus').textContent = 'اكتب مبلغًا صحيحًا من 1 إلى 1,000,000 جنيه.'; return;
+    }
+    $('donationStatus').textContent = 'واجهة التبرع جاهزة، لكن إنشاء طلب الدفع على الخادم لم يكتمل نشره بعد. لن يتم خصم أي مبلغ الآن.';
+  });
+
+  if (!window.supabase?.createClient) {
+    setStatus('تعذر تحميل Supabase. تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.');
+    setFormAccess(false); return;
+  }
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  window.supabaseClient = supabaseClient;
+  setMode('signup');
+  setFormAccess(false);
+  supabaseClient.auth.getSession().then(({ data, error }) => {
+    if (error) setStatus('تعذر التحقق من الجلسة: ' + error.message);
+    renderSession(data?.session || null);
+  });
+  supabaseClient.auth.onAuthStateChange((_event, session) => renderSession(session));
 })();
 </script>
 
