@@ -1291,6 +1291,7 @@ $('sendForm').addEventListener('submit',async e=>{
     const {data:pushResult,error:pushError}=
       await client.functions.invoke('send-community-push',{
         headers:{
+          apikey: KEY,
           Authorization:`Bearer ${accessToken}`
         },
         body:{
