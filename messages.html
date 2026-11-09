@@ -942,8 +942,52 @@
  $('signupBtn').addEventListener('click',async()=>{const {error}=await client.auth.signUp({email:$('email').value.trim(),password:$('password').value});$('authStatus').textContent=error?'تعذر إنشاء الحساب: '+error.message:'تم إنشاء الحساب. افحص بريدك إذا طُلب تأكيده.';});
  for(const [id,provider] of [['googleBtn','google'],['facebookBtn','facebook']])$(id).addEventListener('click',async()=>{const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:location.href}});if(error)$('authStatus').textContent=error.message;});
  $('logoutBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);await client.auth.signOut();});$('refreshBtn').addEventListener('click',loadInbox);$('backBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);channel=null;activeConversation=null;$('chatView').hidden=true;$('messagesInboxView').hidden=false;await loadInbox();});
- $('sendForm').addEventListener('submit',async e=>{e.preventDefault();const content=$('messageText').value.trim();if(!content||!activeConversation)return;const btn=e.submitter; if(btn)btn.disabled=true;try{const {error}=await client.from('messages').insert({conversation_id:activeConversation,sender_id:user.id,content});if(error)throw error;$('messageText').value='';await loadChat();status('تم إرسال الرسالة.');}catch(err){status('تعذر إرسال الرسالة: '+err.message);}finally{if(btn)btn.disabled=false;}});
- function render(session){user=session?.user||null;$('authCard').hidden=!!user;$('messagesApp').hidden=!user;if(user)loadInbox();else{if(channel)client.removeChannel(channel);channel=null;}}
- client.auth.getSession().then(({data})=>render(data.session));client.auth.onAuthStateChange((_e,s)=>render(s));
-})();
+ $('sendForm').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const content = $('messageText').value.trim();
+  if (!content || !activeConversation) return;
+
+  const btn = e.submitter;
+  if (btn) btn.disabled = true;
+
+  try {
+    // إرسال الرسالة وحفظ رقمها
+    const { data: sentMessage, error } = await client
+      .from('messages')
+      .insert({
+        conversation_id: activeConversation,
+        sender_id: user.id,
+        content
+      })
+      .select('id')
+      .single();
+
+    if (error) throw error;
+
+    $('messageText').value = '';
+    await loadChat();
+
+    // إرسال إشعار للطرف الآخر
+    const { data: pushResult, error: pushError } =
+      await client.functions.invoke('send-community-push', {
+        body: {
+          message_id: sentMessage.id
+        }
+      });
+
+    if (pushError) {
+      console.error('Push notification error:', pushError);
+    } else {
+      console.log('Push notification result:', pushResult);
+    }
+
+    status('تم إرسال الرسالة.');
+
+  } catch (err) {
+    status('تعذر إرسال الرسالة: ' + err.message);
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+});
 </script></body></html>
