@@ -811,11 +811,10 @@
             font-family: 'CustomZainFont' !important;
         }
     
-        /* Requested font thickness: zero outline and lightest valid font weight */
+        /* Keep text crisp without forcing every element to an unreadably thin weight */
         *, *::before, *::after {
             -webkit-text-stroke-width: 0 !important;
             text-stroke-width: 0 !important;
-            font-weight: 100 !important;
         }
         /* Keep icon glyphs rendered by Bootstrap Icons */
         i.bi {
@@ -902,7 +901,7 @@
     
 .messages-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 20px}.messages-nav a{color:#f5d778;text-decoration:none;border:1px solid rgba(212,175,55,.35);padding:9px 14px;border-radius:12px;background:rgba(0,0,0,.22)}
 .auth-mini{display:grid;gap:10px;max-width:520px;margin:0 auto}.auth-mini input{width:100%;padding:12px;border-radius:10px}.auth-mini button,.messages-toolbar button{padding:10px 14px;border-radius:10px;cursor:pointer}
-.messages-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.messages-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.messages-stat{padding:16px;border:1px solid rgba(212,175,55,.25);border-radius:14px;text-align:center;background:rgba(0,0,0,.2)}.messages-stat strong{display:block;color:var(--text-gold);font-size:1.7rem}.messages-stat span{color:#ddd;font-size:.9rem}
+.conversation-search{width:100%;padding:13px 15px;margin:8px 0 12px;border:1px solid rgba(212,175,55,.35);border-radius:12px;background:#090c10;color:#fff;font:inherit;outline:none}.conversation-search:focus{border-color:var(--text-gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}.messages-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.messages-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.messages-stat{padding:16px;border:1px solid rgba(212,175,55,.25);border-radius:14px;text-align:center;background:rgba(0,0,0,.2)}.messages-stat strong{display:block;color:var(--text-gold);font-size:1.7rem}.messages-stat span{color:#ddd;font-size:.9rem}
 #messagesInboxList{display:grid;gap:8px}.messages-empty{color:#bbb;text-align:center;padding:18px}.messages-page-title{text-align:center;color:var(--text-gold)}
 </style></head><body>
 <div class="ambient-light light-1"></div><div class="ambient-light light-2"></div>
@@ -910,7 +909,7 @@
 <header class="header-section"><div class="logo-wrapper"><img class="logo-main" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></div><div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div><div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div></header>
 <nav class="messages-nav" aria-label="التنقل الرئيسي"><a href="index.html"><i class="bi bi-house"></i> الرئيسية</a><a href="index.html#communityPanel"><i class="bi bi-people"></i> المجتمع</a><a href="messages.html"><i class="bi bi-chat-dots"></i> الرسائل</a></nav>
 <section class="glass-card" id="authCard"><h3 class="messages-page-title"><i class="bi bi-person-lock"></i> تسجيل الدخول للرسائل</h3><p style="text-align:center;color:#ccc">سجّل الدخول بنفس حسابك المستخدم في الموقع الأساسي.</p><form id="loginForm" class="auth-mini"><input id="email" type="email" placeholder="البريد الإلكتروني" required autocomplete="email"><input id="password" type="password" placeholder="كلمة المرور" required autocomplete="current-password"><button class="main-btn" type="submit">تسجيل الدخول</button><button type="button" id="signupBtn" class="auth-btn">إنشاء حساب بالبريد الإلكتروني</button><button type="button" id="googleBtn" class="auth-btn"><i class="bi bi-google"></i> الدخول باستخدام Google</button><button type="button" id="facebookBtn" class="auth-btn"><i class="bi bi-facebook"></i> الدخول باستخدام Facebook</button></form><div id="authStatus" class="community-state" role="status"></div></section>
-<section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">الأشخاص الذين أرسلوا لك رسائل</h4><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
+<section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">محادثاتك</h4><input id="conversationSearch" type="search" class="conversation-search" placeholder="ابحث باسم العضو أو محتوى الرسالة..." aria-label="البحث في المحادثات"><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -929,7 +928,7 @@ window.communitySupabase = client;        if ('serviceWorker' in navigator) {
     console.error('Community worker registration failed:', error);
   });
 }
- let user=null, activeConversation=null, activePeer=null, channel=null;
+ let user=null, activeConversation=null, activePeer=null, channel=null, renderedUserId=null;
  const fallback='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="50" fill="%23111820"/%3E%3Ccircle cx="50" cy="36" r="18" fill="%23d4af37"/%3E%3Cpath d="M15 94c3-23 17-34 35-34s32 11 35 34" fill="%23d4af37"/%3E%3C/svg%3E';
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const status=t=>$('pageStatus').textContent=t||'';
@@ -952,43 +951,80 @@ async function loadInbox(){
       return;
     }
 
-    const peerMap=new Map(conv.map(x=>[x.conversationId,x.peerId]));
+    const conversationIds=conv.map(x=>x.conversationId);
 
-    const {data:msgs,error,count}=await client
+    // عدد الرسائل الواردة يظل منفصلًا عن قائمة المحادثات.
+    const {count:incomingCount,error:countError}=await client
       .from('messages')
-      .select('id,sender_id,conversation_id,created_at',{count:'exact'})
-      .in('conversation_id',conv.map(x=>x.conversationId))
-      .neq('sender_id',user.id)
+      .select('id',{count:'exact',head:true})
+      .in('conversation_id',conversationIds)
+      .neq('sender_id',user.id);
+
+    if(countError)throw countError;
+
+    // جلب أحدث الرسائل من الطرفين حتى لا تختفي محادثة بدأتَها أنت.
+    const {data:allMessages,error:messagesError}=await client
+      .from('messages')
+      .select('id,sender_id,conversation_id,content,created_at')
+      .in('conversation_id',conversationIds)
       .order('created_at',{ascending:false})
       .limit(1000);
 
-    if(error)throw error;
+    if(messagesError)throw messagesError;
 
-    const latest=new Map();
-
-    (msgs||[]).forEach(m=>{
-      const pid=peerMap.get(m.conversation_id);
-      if(pid&&m.sender_id===pid&&!latest.has(pid)){
-        latest.set(pid,{peerId:pid,conversationId:m.conversation_id});
+    const latestByConversation=new Map();
+    (allMessages||[]).forEach(message=>{
+      if(!latestByConversation.has(message.conversation_id)){
+        latestByConversation.set(message.conversation_id,message);
       }
     });
 
-    const senders=[...latest.values()];
-    const ps=await profiles(senders.map(x=>x.peerId));
+    const ps=await profiles(conv.map(x=>x.peerId));
+    $('incomingMessageCount').textContent=String(incomingCount??0);
+    $('incomingPeopleCount').textContent=String(new Set(
+      (allMessages||[]).filter(m=>m.sender_id!==user.id).map(m=>m.sender_id)
+    ).size);
 
-    $('incomingMessageCount').textContent=String(count??msgs.length);
-    $('incomingPeopleCount').textContent=String(senders.length);
+    const rows=conv.map(item=>{
+      const profile=ps[item.peerId]||{};
+      const latest=latestByConversation.get(item.conversationId);
+      return {...item,profile,latest};
+    }).sort((a,b)=>
+      new Date(b.latest?.created_at||0)-new Date(a.latest?.created_at||0)
+    );
 
-    $('messagesInboxList').innerHTML=senders.length
-      ?senders.map(x=>{
-        const p=ps[x.peerId]||{};
-        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(x.conversationId)}"><img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(p.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">اضغط لفتح المحادثة</span></span><i class="bi bi-chevron-left"></i></button>`;
-      }).join('')
-      :'<div class="messages-empty">لا توجد رسائل واردة حتى الآن.</div>';
+    const renderRows=(filterText='')=>{
+      const term=filterText.trim().toLocaleLowerCase('ar');
+      const filtered=rows.filter(row=>{
+        const name=row.profile.display_name||'عضو';
+        const preview=row.latest?.content||'لا توجد رسائل بعد';
+        return !term || name.toLocaleLowerCase('ar').includes(term) ||
+          preview.toLocaleLowerCase('ar').includes(term);
+      });
 
-    $('messagesInboxList').querySelectorAll('[data-conv]').forEach(b=>{
-      b.addEventListener('click',()=>openChat(b.dataset.conv));
-    });
+      $('messagesInboxList').innerHTML=filtered.length
+        ?filtered.map(row=>{
+          const latest=row.latest;
+          const preview=latest
+            ?`${latest.sender_id===user.id?'أنت: ':''}${latest.content||''}`
+            :'لا توجد رسائل بعد';
+          const date=latest?.created_at
+            ?new Date(latest.created_at).toLocaleString('ar-EG')
+            :'';
+          return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(row.conversationId)}"><img class="community-avatar" src="${esc(row.profile.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(row.profile.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">${esc(preview.slice(0,110))}</span><span class="community-item-sub" style="display:block">${esc(date)}</span></span><i class="bi bi-chevron-left"></i></button>`;
+        }).join('')
+        :'<div class="messages-empty">لا توجد محادثات تطابق البحث.</div>';
+
+      $('messagesInboxList').querySelectorAll('[data-conv]').forEach(button=>{
+        button.addEventListener('click',()=>openChat(button.dataset.conv));
+      });
+    };
+
+    renderRows($('conversationSearch')?.value||'');
+    if($('conversationSearch') && !$('conversationSearch').dataset.bound){
+      $('conversationSearch').addEventListener('input',event=>renderRows(event.target.value));
+      $('conversationSearch').dataset.bound='1';
+    }
 
     status('');
 
@@ -999,6 +1035,7 @@ async function loadInbox(){
 }
 
 async function openChat(id){
+  if(!user)return;
   activeConversation=id;
   $('messagesInboxView').hidden=true;
   $('chatView').hidden=false;
@@ -1036,8 +1073,8 @@ async function openChat(id){
         table:'messages',
         filter:'conversation_id=eq.'+id
       },()=>{
-        loadChat();
-        loadInbox();
+        loadChat().catch(error=>status('تعذر تحديث المحادثة: '+error.message));
+        loadInbox().catch(error=>console.error('Inbox refresh error:',error));
       })
       .subscribe();
 
@@ -1067,23 +1104,31 @@ async function loadChat(){
 
 // متابعة حالة تسجيل الدخول وإظهار الواجهة المناسبة
 function renderAuth(session){
-  user=session?.user||null;
+  const nextUser=session?.user||null;
+  const nextUserId=nextUser?.id||null;
+  const changed=nextUserId!==renderedUserId;
+  user=nextUser;
 
   $('authCard').hidden=!!user;
   $('messagesApp').hidden=!user;
+
+  if(!changed)return;
+  renderedUserId=nextUserId;
 
   if(user){
     $('messagesInboxView').hidden=false;
     $('chatView').hidden=true;
     activeConversation=null;
     activePeer=null;
-    loadInbox();
+    loadInbox().catch(error=>{
+      console.error('Inbox initialization error:',error);
+      status('تعذر تحميل صندوق الرسائل: '+error.message);
+    });
   }else{
     if(channel){
       client.removeChannel(channel);
       channel=null;
     }
-
     activeConversation=null;
     activePeer=null;
   }
@@ -1108,55 +1153,88 @@ client.auth.onAuthStateChange((event,session)=>{
 // تسجيل الدخول بالبريد الإلكتروني
 $('loginForm').addEventListener('submit',async e=>{
   e.preventDefault();
-
   $('authStatus').textContent='جاري تسجيل الدخول...';
-
-  const {error}=await client.auth.signInWithPassword({
-    email:$('email').value.trim(),
-    password:$('password').value
-  });
-
-  $('authStatus').textContent=error
-    ?'تعذر تسجيل الدخول: '+error.message
-    :'';
+  const button=$('loginForm').querySelector('[type="submit"]');
+  button.disabled=true;
+  try{
+    const {error}=await client.auth.signInWithPassword({
+      email:$('email').value.trim(),
+      password:$('password').value
+    });
+    if(error)throw error;
+    $('authStatus').textContent='تم تسجيل الدخول بنجاح.';
+  }catch(error){
+    $('authStatus').textContent='تعذر تسجيل الدخول: '+error.message;
+  }finally{
+    button.disabled=false;
+  }
 });
 
 // إنشاء حساب جديد
 $('signupBtn').addEventListener('click',async()=>{
-  const {error}=await client.auth.signUp({
-    email:$('email').value.trim(),
-    password:$('password').value
-  });
-
-  $('authStatus').textContent=error
-    ?'تعذر إنشاء الحساب: '+error.message
-    :'تم إنشاء الحساب. افحص بريدك إذا طُلب تأكيده.';
+  const email=$('email').value.trim();
+  const password=$('password').value;
+  if(!email || !password){
+    $('authStatus').textContent='اكتب البريد الإلكتروني وكلمة المرور أولًا.';
+    return;
+  }
+  if(password.length<6){
+    $('authStatus').textContent='كلمة المرور يجب ألا تقل عن 6 أحرف.';
+    return;
+  }
+  $('authStatus').textContent='جاري إنشاء الحساب...';
+  try{
+    const {error}=await client.auth.signUp({email,password});
+    if(error)throw error;
+    $('authStatus').textContent='تم إرسال طلب إنشاء الحساب. افحص بريدك إذا كان تأكيد البريد مفعّلًا.';
+  }catch(error){
+    $('authStatus').textContent='تعذر إنشاء الحساب: '+error.message;
+  }
 });
 
 // تسجيل الدخول بجوجل وفيسبوك
 for(const [id,provider] of [['googleBtn','google'],['facebookBtn','facebook']]){
   $(id).addEventListener('click',async()=>{
-    const {error}=await client.auth.signInWithOAuth({
-      provider,
-      options:{redirectTo:location.href}
-    });
-
-    if(error)$('authStatus').textContent=error.message;
+    $('authStatus').textContent='جاري التحويل لتسجيل الدخول...';
+    try{
+      const {error}=await client.auth.signInWithOAuth({
+        provider,
+        options:{redirectTo:location.href.split(/[?#]/)[0]}
+      });
+      if(error)throw error;
+    }catch(error){
+      $('authStatus').textContent='تعذر بدء تسجيل الدخول: '+error.message;
+    }
   });
 }
 
 // تسجيل الخروج
 $('logoutBtn').addEventListener('click',async()=>{
-  if(channel){
-    await client.removeChannel(channel);
-    channel=null;
+  const button=$('logoutBtn');
+  button.disabled=true;
+  try{
+    if(channel){
+      await client.removeChannel(channel);
+      channel=null;
+    }
+    const {error}=await client.auth.signOut();
+    if(error)throw error;
+    $('authStatus').textContent='تم تسجيل الخروج.';
+  }catch(error){
+    status('تعذر تسجيل الخروج: '+error.message);
+  }finally{
+    button.disabled=false;
   }
-
-  await client.auth.signOut();
 });
 
 // تحديث الرسائل
-$('refreshBtn').addEventListener('click',loadInbox);
+$('refreshBtn').addEventListener('click',()=>{
+  if(activeConversation){
+    loadChat().catch(error=>status('تعذر تحديث المحادثة: '+error.message));
+  }else{
+    loadInbox();
+  }
+});
 
 // الرجوع إلى قائمة المحادثات
 $('backBtn').addEventListener('click',async()=>{
@@ -1164,6 +1242,7 @@ $('backBtn').addEventListener('click',async()=>{
 
   channel=null;
   activeConversation=null;
+  activePeer=null;
 
   $('chatView').hidden=true;
   $('messagesInboxView').hidden=false;
@@ -1178,8 +1257,8 @@ $('sendForm').addEventListener('submit',async e=>{
   const content=$('messageText').value.trim();
   if(!content||!activeConversation||!user)return;
 
-  const btn=e.submitter;
-  if(btn)btn.disabled=true;
+  const btn=$('sendForm').querySelector('[type="submit"]');
+  btn.disabled=true;
 
   try{
     const {data:sentMessage,error}=await client
@@ -1216,8 +1295,27 @@ $('sendForm').addEventListener('submit',async e=>{
   }catch(err){
     status('تعذر إرسال الرسالة: '+err.message);
   }finally{
-    if(btn)btn.disabled=false;
+    btn.disabled=false;
+    $('messageText').focus();
+  }
+});
+
+// إرسال الرسالة بزر Enter، واستخدام Shift+Enter لسطر جديد.
+$('messageText').addEventListener('keydown',event=>{
+  if(event.key==='Enter' && !event.shiftKey){
+    event.preventDefault();
+    $('sendForm').requestSubmit();
+  }
+});
+
+// تحديث قائمة المحادثات عند الرجوع للصفحة.
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden && user && !activeConversation){
+    loadInbox().catch(error=>console.error('Visible inbox refresh:',error));
   }
 });
 
 })();
+</script>
+</body>
+</html>
