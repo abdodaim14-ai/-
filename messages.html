@@ -919,6 +919,16 @@
  const KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
  const $=id=>document.getElementById(id);
  const client=window.supabase.createClient(URL,KEY);
+        if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register(
+    '/-/community-push/sw.js',
+    { scope: '/-/community-push/' }
+  ).then(() => {
+    console.log('Community notifications worker registered');
+  }).catch(error => {
+    console.error('Community worker registration failed:', error);
+  });
+}
  let user=null, activeConversation=null, activePeer=null, channel=null;
  const fallback='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="50" fill="%23111820"/%3E%3Ccircle cx="50" cy="36" r="18" fill="%23d4af37"/%3E%3Cpath d="M15 94c3-23 17-34 35-34s32 11 35 34" fill="%23d4af37"/%3E%3C/svg%3E';
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
