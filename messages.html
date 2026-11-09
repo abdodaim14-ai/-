@@ -1277,8 +1277,22 @@ $('sendForm').addEventListener('submit',async e=>{
 
     await loadChat();
 
+    // احصل على جلسة المستخدم الحالية وأرسل Access Token صراحةً للدالة.
+    // هذا يمنع استدعاء الدالة بترويسة Authorization قديمة أو غير محدثة.
+    const {data:sessionData,error:sessionError}=await client.auth.getSession();
+    const accessToken=sessionData?.session?.access_token;
+
+    if(sessionError || !accessToken){
+      console.error('Push auth session unavailable:',sessionError?.message||'No active access token');
+      status('تم إرسال الرسالة، لكن تعذر إرسال الإشعار لأن جلسة تسجيل الدخول غير متاحة.');
+      return;
+    }
+
     const {data:pushResult,error:pushError}=
       await client.functions.invoke('send-community-push',{
+        headers:{
+          Authorization:`Bearer ${accessToken}`
+        },
         body:{
           message_id:sentMessage.id
         }
@@ -1286,11 +1300,12 @@ $('sendForm').addEventListener('submit',async e=>{
 
     if(pushError){
       console.error('Push notification error:',pushError);
+      // الرسالة محفوظة بالفعل؛ فشل الإشعار لا يعني فشل إرسال الرسالة.
+      status('تم إرسال الرسالة، لكن تعذر إرسال إشعار للطرف الآخر.');
     }else{
       console.log('Push notification result:',pushResult);
+      status('تم إرسال الرسالة.');
     }
-
-    status('تم إرسال الرسالة.');
 
   }catch(err){
     status('تعذر إرسال الرسالة: '+err.message);
