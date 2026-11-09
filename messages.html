@@ -918,8 +918,8 @@
  const URL='https://xkraqrjkimkdawlazjyl.supabase.co';
  const KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
  const $=id=>document.getElementById(id);
- const client=window.supabase.createClient(URL,KEY);
-        if ('serviceWorker' in navigator) {
+const client=window.supabase.createClient(URL,KEY);
+window.communitySupabase = client;        if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register(
     '/-/community-push/sw.js',
     { scope: '/-/community-push/' }
