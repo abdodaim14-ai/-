@@ -935,63 +935,289 @@ window.communitySupabase = client;        if ('serviceWorker' in navigator) {
  const status=t=>$('pageStatus').textContent=t||'';
  async function profiles(ids){if(!ids.length)return{};const {data,error}=await client.from('profiles').select('id,display_name,avatar_url').in('id',[...new Set(ids)]);if(error)throw error;return Object.fromEntries((data||[]).map(p=>[p.id,p]));}
  async function peers(){const {data,error}=await client.from('message_requests').select('sender_id,receiver_id,conversation_id,responded_at').eq('status','accepted').not('conversation_id','is',null).or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`).order('responded_at',{ascending:false}).limit(200);if(error)throw error;const map=new Map();(data||[]).forEach(r=>{if(!map.has(r.conversation_id))map.set(r.conversation_id,{conversationId:r.conversation_id,peerId:r.sender_id===user.id?r.receiver_id:r.sender_id});});return [...map.values()];}
- async function loadInbox(){if(!user)return;status('جاري تحميل الرسائل...');$('messagesInboxList').innerHTML='<div class="messages-empty">جاري التحميل...</div>';try{const conv=await peers();if(!conv.length){$('incomingMessageCount').textContent='0';$('incomingPeopleCount').textContent='0';$('messagesInboxList').innerHTML='<div class="messages-empty">لا توجد محادثات مقبولة حتى الآن.</div>';status('');return;}const peerMap=new Map(conv.map(x=>[x.conversationId,x.peerId]));const {data:msgs,error,count}=await client.from('messages').select('id,sender_id,conversation_id,created_at',{count:'exact'}).in('conversation_id',conv.map(x=>x.conversationId)).neq('sender_id',user.id).order('created_at',{ascending:false}).limit(1000);if(error)throw error;const latest=new Map();(msgs||[]).forEach(m=>{const pid=peerMap.get(m.conversation_id);if(pid&&m.sender_id===pid&&!latest.has(pid))latest.set(pid,{peerId:pid,conversationId:m.conversation_id});});const senders=[...latest.values()];const ps=await profiles(senders.map(x=>x.peerId));$('incomingMessageCount').textContent=String(count??msgs.length);$('incomingPeopleCount').textContent=String(senders.length);$('messagesInboxList').innerHTML=senders.length?senders.map(x=>{const p=ps[x.peerId]||{};return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(x.conversationId)}"><img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(p.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">اضغط لفتح المحادثة</span></span><i class="bi bi-chevron-left"></i></button>`}).join(''):'<div class="messages-empty">لا توجد رسائل واردة حتى الآن.</div>';$('messagesInboxList').querySelectorAll('[data-conv]').forEach(b=>b.addEventListener('click',()=>openChat(b.dataset.conv)));status('');}catch(e){console.error(e);status('تعذر تحميل الرسائل: '+(e.message||'خطأ غير معروف'));}}
- async function openChat(id){activeConversation=id;$('messagesInboxView').hidden=true;$('chatView').hidden=false;$('chatHead').textContent='جاري فتح المحادثة...';$('chatMessages').textContent='جاري تحميل الرسائل...';try{const {data,error}=await client.from('message_requests').select('sender_id,receiver_id').eq('conversation_id',id).eq('status','accepted').or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`).limit(1);if(error)throw error;if(!data?.length)throw new Error('لا تملك صلاحية الوصول إلى هذه المحادثة.');const r=data[0];activePeer=r.sender_id===user.id?r.receiver_id:r.sender_id;const ps=await profiles([activePeer]);const p=ps[activePeer]||{};$('chatHead').innerHTML=`<img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><strong>${esc(p.display_name||'عضو')}</strong>`;await loadChat();if(channel)await client.removeChannel(channel);channel=client.channel('messages-page-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+id},()=>{loadChat();loadInbox();}).subscribe();}catch(e){status('تعذر فتح المحادثة: '+e.message);}}
- async function loadChat(){if(!activeConversation)return;const {data,error}=await client.from('messages').select('id,sender_id,content,created_at').eq('conversation_id',activeConversation).order('created_at',{ascending:true}).limit(200);if(error)throw error;$('chatMessages').innerHTML=(data||[]).length?data.map(m=>`<div class="community-bubble${m.sender_id===user.id?' mine':''}">${esc(m.content)}<small>${m.sender_id===user.id?'أنت':'العضو الآخر'} · ${esc(new Date(m.created_at).toLocaleString('ar-EG'))}</small></div>`).join(''):'<div class="messages-empty">ابدأ المحادثة برسالة طيبة.</div>';$('chatMessages').scrollTop=$('chatMessages').scrollHeight;}
- $('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('authStatus').textContent='جاري تسجيل الدخول...';const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});$('authStatus').textContent=error?'تعذر تسجيل الدخول: '+error.message:'';});
- $('signupBtn').addEventListener('click',async()=>{const {error}=await client.auth.signUp({email:$('email').value.trim(),password:$('password').value});$('authStatus').textContent=error?'تعذر إنشاء الحساب: '+error.message:'تم إنشاء الحساب. افحص بريدك إذا طُلب تأكيده.';});
- for(const [id,provider] of [['googleBtn','google'],['facebookBtn','facebook']])$(id).addEventListener('click',async()=>{const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:location.href}});if(error)$('authStatus').textContent=error.message;});
- $('logoutBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);await client.auth.signOut();});$('refreshBtn').addEventListener('click',loadInbox);$('backBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);channel=null;activeConversation=null;$('chatView').hidden=true;$('messagesInboxView').hidden=false;await loadInbox();});
- $('sendForm').addEventListener('submit', async e => {
+
+async function loadInbox(){
+  if(!user)return;
+  status('جاري تحميل الرسائل...');
+  $('messagesInboxList').innerHTML='<div class="messages-empty">جاري التحميل...</div>';
+
+  try{
+    const conv=await peers();
+
+    if(!conv.length){
+      $('incomingMessageCount').textContent='0';
+      $('incomingPeopleCount').textContent='0';
+      $('messagesInboxList').innerHTML='<div class="messages-empty">لا توجد محادثات مقبولة حتى الآن.</div>';
+      status('');
+      return;
+    }
+
+    const peerMap=new Map(conv.map(x=>[x.conversationId,x.peerId]));
+
+    const {data:msgs,error,count}=await client
+      .from('messages')
+      .select('id,sender_id,conversation_id,created_at',{count:'exact'})
+      .in('conversation_id',conv.map(x=>x.conversationId))
+      .neq('sender_id',user.id)
+      .order('created_at',{ascending:false})
+      .limit(1000);
+
+    if(error)throw error;
+
+    const latest=new Map();
+
+    (msgs||[]).forEach(m=>{
+      const pid=peerMap.get(m.conversation_id);
+      if(pid&&m.sender_id===pid&&!latest.has(pid)){
+        latest.set(pid,{peerId:pid,conversationId:m.conversation_id});
+      }
+    });
+
+    const senders=[...latest.values()];
+    const ps=await profiles(senders.map(x=>x.peerId));
+
+    $('incomingMessageCount').textContent=String(count??msgs.length);
+    $('incomingPeopleCount').textContent=String(senders.length);
+
+    $('messagesInboxList').innerHTML=senders.length
+      ?senders.map(x=>{
+        const p=ps[x.peerId]||{};
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(x.conversationId)}"><img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(p.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">اضغط لفتح المحادثة</span></span><i class="bi bi-chevron-left"></i></button>`;
+      }).join('')
+      :'<div class="messages-empty">لا توجد رسائل واردة حتى الآن.</div>';
+
+    $('messagesInboxList').querySelectorAll('[data-conv]').forEach(b=>{
+      b.addEventListener('click',()=>openChat(b.dataset.conv));
+    });
+
+    status('');
+
+  }catch(e){
+    console.error(e);
+    status('تعذر تحميل الرسائل: '+(e.message||'خطأ غير معروف'));
+  }
+}
+
+async function openChat(id){
+  activeConversation=id;
+  $('messagesInboxView').hidden=true;
+  $('chatView').hidden=false;
+  $('chatHead').textContent='جاري فتح المحادثة...';
+  $('chatMessages').textContent='جاري تحميل الرسائل...';
+
+  try{
+    const {data,error}=await client
+      .from('message_requests')
+      .select('sender_id,receiver_id')
+      .eq('conversation_id',id)
+      .eq('status','accepted')
+      .or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`)
+      .limit(1);
+
+    if(error)throw error;
+    if(!data?.length)throw new Error('لا تملك صلاحية الوصول إلى هذه المحادثة.');
+
+    const r=data[0];
+    activePeer=r.sender_id===user.id?r.receiver_id:r.sender_id;
+
+    const ps=await profiles([activePeer]);
+    const p=ps[activePeer]||{};
+
+    $('chatHead').innerHTML=`<img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><strong>${esc(p.display_name||'عضو')}</strong>`;
+
+    await loadChat();
+
+    if(channel)await client.removeChannel(channel);
+
+    channel=client.channel('messages-page-'+id)
+      .on('postgres_changes',{
+        event:'INSERT',
+        schema:'public',
+        table:'messages',
+        filter:'conversation_id=eq.'+id
+      },()=>{
+        loadChat();
+        loadInbox();
+      })
+      .subscribe();
+
+  }catch(e){
+    status('تعذر فتح المحادثة: '+e.message);
+  }
+}
+
+async function loadChat(){
+  if(!activeConversation)return;
+
+  const {data,error}=await client
+    .from('messages')
+    .select('id,sender_id,content,created_at')
+    .eq('conversation_id',activeConversation)
+    .order('created_at',{ascending:true})
+    .limit(200);
+
+  if(error)throw error;
+
+  $('chatMessages').innerHTML=(data||[]).length
+    ?data.map(m=>`<div class="community-bubble${m.sender_id===user.id?' mine':''}">${esc(m.content)}<small>${m.sender_id===user.id?'أنت':'العضو الآخر'} · ${esc(new Date(m.created_at).toLocaleString('ar-EG'))}</small></div>`).join('')
+    :'<div class="messages-empty">ابدأ المحادثة برسالة طيبة.</div>';
+
+  $('chatMessages').scrollTop=$('chatMessages').scrollHeight;
+}
+
+// متابعة حالة تسجيل الدخول وإظهار الواجهة المناسبة
+function renderAuth(session){
+  user=session?.user||null;
+
+  $('authCard').hidden=!!user;
+  $('messagesApp').hidden=!user;
+
+  if(user){
+    $('messagesInboxView').hidden=false;
+    $('chatView').hidden=true;
+    activeConversation=null;
+    activePeer=null;
+    loadInbox();
+  }else{
+    if(channel){
+      client.removeChannel(channel);
+      channel=null;
+    }
+
+    activeConversation=null;
+    activePeer=null;
+  }
+}
+
+// فحص جلسة المستخدم عند فتح الصفحة
+client.auth.getSession().then(({data,error})=>{
+  if(error){
+    console.error('Session error:',error);
+    $('authStatus').textContent='تعذر التحقق من تسجيل الدخول';
+    return;
+  }
+
+  renderAuth(data.session);
+});
+
+// متابعة أي تغيير في حالة الحساب
+client.auth.onAuthStateChange((event,session)=>{
+  renderAuth(session);
+});
+
+// تسجيل الدخول بالبريد الإلكتروني
+$('loginForm').addEventListener('submit',async e=>{
   e.preventDefault();
 
-  const content = $('messageText').value.trim();
-  if (!content || !activeConversation) return;
+  $('authStatus').textContent='جاري تسجيل الدخول...';
 
-  const btn = e.submitter;
-  if (btn) btn.disabled = true;
+  const {error}=await client.auth.signInWithPassword({
+    email:$('email').value.trim(),
+    password:$('password').value
+  });
 
-  try {
-    // إرسال الرسالة وحفظ رقمها
-    const { data: sentMessage, error } = await client
+  $('authStatus').textContent=error
+    ?'تعذر تسجيل الدخول: '+error.message
+    :'';
+});
+
+// إنشاء حساب جديد
+$('signupBtn').addEventListener('click',async()=>{
+  const {error}=await client.auth.signUp({
+    email:$('email').value.trim(),
+    password:$('password').value
+  });
+
+  $('authStatus').textContent=error
+    ?'تعذر إنشاء الحساب: '+error.message
+    :'تم إنشاء الحساب. افحص بريدك إذا طُلب تأكيده.';
+});
+
+// تسجيل الدخول بجوجل وفيسبوك
+for(const [id,provider] of [['googleBtn','google'],['facebookBtn','facebook']]){
+  $(id).addEventListener('click',async()=>{
+    const {error}=await client.auth.signInWithOAuth({
+      provider,
+      options:{redirectTo:location.href}
+    });
+
+    if(error)$('authStatus').textContent=error.message;
+  });
+}
+
+// تسجيل الخروج
+$('logoutBtn').addEventListener('click',async()=>{
+  if(channel){
+    await client.removeChannel(channel);
+    channel=null;
+  }
+
+  await client.auth.signOut();
+});
+
+// تحديث الرسائل
+$('refreshBtn').addEventListener('click',loadInbox);
+
+// الرجوع إلى قائمة المحادثات
+$('backBtn').addEventListener('click',async()=>{
+  if(channel)await client.removeChannel(channel);
+
+  channel=null;
+  activeConversation=null;
+
+  $('chatView').hidden=true;
+  $('messagesInboxView').hidden=false;
+
+  await loadInbox();
+});
+
+// إرسال رسالة مع إشعار للطرف الآخر
+$('sendForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+
+  const content=$('messageText').value.trim();
+  if(!content||!activeConversation||!user)return;
+
+  const btn=e.submitter;
+  if(btn)btn.disabled=true;
+
+  try{
+    const {data:sentMessage,error}=await client
       .from('messages')
       .insert({
-        conversation_id: activeConversation,
-        sender_id: user.id,
+        conversation_id:activeConversation,
+        sender_id:user.id,
         content
       })
       .select('id')
       .single();
 
-    if (error) throw error;
+    if(error)throw error;
 
-    $('messageText').value = '';
+    $('messageText').value='';
+
     await loadChat();
 
-    // إرسال إشعار للطرف الآخر
-    const { data: pushResult, error: pushError } =
-      await client.functions.invoke('send-community-push', {
-        body: {
-          message_id: sentMessage.id
+    const {data:pushResult,error:pushError}=
+      await client.functions.invoke('send-community-push',{
+        body:{
+          message_id:sentMessage.id
         }
       });
 
-    if (pushError) {
-      console.error('Push notification error:', pushError);
-    } else {
-      console.log('Push notification result:', pushResult);
+    if(pushError){
+      console.error('Push notification error:',pushError);
+    }else{
+      console.log('Push notification result:',pushResult);
     }
 
     status('تم إرسال الرسالة.');
 
-  } catch (err) {
-    status('تعذر إرسال الرسالة: ' + err.message);
-    } finally {
-    if (btn) btn.disabled = false;
+  }catch(err){
+    status('تعذر إرسال الرسالة: '+err.message);
+  }finally{
+    if(btn)btn.disabled=false;
   }
 });
 
 })();
-</script>
-</body>
-</html>
