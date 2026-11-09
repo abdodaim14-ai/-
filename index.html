@@ -934,7 +934,13 @@
         @media(max-width:520px) { .community-item { align-items:flex-start; flex-wrap:wrap; } .community-actions { width:100%; } .community-message-form { flex-direction:column; } }
 
 
-    </style>
+    
+        /* Unified navigation shared with the standalone messages page */
+        .platform-nav{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px auto 22px;padding:10px;border:1px solid rgba(212,175,55,.22);border-radius:16px;background:rgba(0,0,0,.24);}
+        .platform-nav a{display:inline-flex;align-items:center;gap:7px;color:#f5d778;text-decoration:none;border:1px solid rgba(212,175,55,.35);padding:9px 15px;border-radius:12px;background:rgba(0,0,0,.22);transition:background .2s,border-color .2s;}
+        .platform-nav a:hover,.platform-nav a:focus{background:rgba(212,175,55,.14);border-color:rgba(255,224,102,.8);outline:none;}
+        @media(max-width:520px){.platform-nav{gap:6px;padding:8px}.platform-nav a{padding:8px 10px;font-size:.9rem}}
+</style>
 </head>
 <body>
 
@@ -1051,6 +1057,13 @@
         <div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div>
         <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
     </div>
+
+    <nav class="platform-nav" aria-label="التنقل الرئيسي">
+        <a href="index.html"><i class="bi bi-house-fill"></i> الرئيسية</a>
+        <a href="#accountPanel"><i class="bi bi-person-circle"></i> حسابي</a>
+        <a href="#communityPanel" id="navCommunityLink"><i class="bi bi-people-fill"></i> المجتمع</a>
+        <a href="messages.html"><i class="bi bi-chat-dots-fill"></i> الرسائل</a>
+    </nav>
 
     <!-- تسجيل الدخول وإنشاء الحساب -->
     <section class="glass-card auth-panel" id="accountPanel" aria-label="حساب المستخدم">
@@ -2541,6 +2554,13 @@
     setFormAccess(loggedIn);
     setCommunityAuth(loggedIn);
   }
+
+  $('navCommunityLink')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!currentUser) { window.requirePlatformAuth('سجّل الدخول لفتح مجتمع الأعضاء.'); return; }
+    const panel = $('communityPanel');
+    if (panel) { panel.hidden = false; panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
 
   // Donation UI is prepared for the server function; the server-side Paymob function must be deployed before real checkout can work.
   donationForm?.addEventListener('submit', async (event) => {
