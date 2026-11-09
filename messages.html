@@ -909,7 +909,7 @@
 <header class="header-section"><div class="logo-wrapper"><img class="logo-main" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></div><div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div><div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div></header>
 <nav class="messages-nav" aria-label="التنقل الرئيسي"><a href="index.html"><i class="bi bi-house"></i> الرئيسية</a><a href="index.html#communityPanel"><i class="bi bi-people"></i> المجتمع</a><a href="messages.html"><i class="bi bi-chat-dots"></i> الرسائل</a></nav>
 <section class="glass-card" id="authCard"><h3 class="messages-page-title"><i class="bi bi-person-lock"></i> تسجيل الدخول للرسائل</h3><p style="text-align:center;color:#ccc">سجّل الدخول بنفس حسابك المستخدم في الموقع الأساسي.</p><form id="loginForm" class="auth-mini"><input id="email" type="email" placeholder="البريد الإلكتروني" required autocomplete="email"><input id="password" type="password" placeholder="كلمة المرور" required autocomplete="current-password"><button class="main-btn" type="submit">تسجيل الدخول</button><button type="button" id="signupBtn" class="auth-btn">إنشاء حساب بالبريد الإلكتروني</button><button type="button" id="googleBtn" class="auth-btn"><i class="bi bi-google"></i> الدخول باستخدام Google</button><button type="button" id="facebookBtn" class="auth-btn"><i class="bi bi-facebook"></i> الدخول باستخدام Facebook</button></form><div id="authStatus" class="community-state" role="status"></div></section>
-<section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">محادثاتك</h4><input id="conversationSearch" type="search" class="conversation-search" placeholder="ابحث باسم العضو أو محتوى الرسالة..." aria-label="البحث في المحادثات"><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
+<section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="enablePushBtn"><i class="bi bi-bell-fill"></i> تفعيل إشعارات الرسائل</button><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">محادثاتك</h4><input id="conversationSearch" type="search" class="conversation-search" placeholder="ابحث باسم العضو أو محتوى الرسالة..." aria-label="البحث في المحادثات"><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -918,16 +918,88 @@
  const KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
  const $=id=>document.getElementById(id);
 const client=window.supabase.createClient(URL,KEY);
-window.communitySupabase = client;        if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(
-    '/-/community-push/sw.js',
-    { scope: '/-/community-push/' }
-  ).then(() => {
-    console.log('Community notifications worker registered');
-  }).catch(error => {
-    console.error('Community worker registration failed:', error);
-  });
-}
+window.communitySupabase = client;
+
+ // مفتاح VAPID العام فقط؛ المفتاح الخاص يظل محفوظًا داخل Supabase Secrets.
+ const VAPID_PUBLIC_KEY='BHsCrTZbJwI_VacQtKbrmzs619WzlQN__RQq691zwdfLFPDgGnh5st6MsCgqjl5XhZciGk_sJBf4olJJeTNaykE';
+ let communityWorkerPromise=null;
+ if ('serviceWorker' in navigator) {
+   communityWorkerPromise=navigator.serviceWorker.register(
+     '/-/community-push/sw.js',
+     { scope: '/-/community-push/' }
+   ).then(registration=>{
+     console.log('Community notifications worker registered');
+     return registration;
+   }).catch(error=>{
+     console.error('Community worker registration failed:',error);
+     return null;
+   });
+ }
+
+ function urlBase64ToUint8Array(base64String){
+   const padding='='.repeat((4-base64String.length%4)%4);
+   const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+   const raw=atob(base64);
+   return Uint8Array.from([...raw].map(char=>char.charCodeAt(0)));
+ }
+
+ async function enableCommunityPush(){
+   const button=$('enablePushBtn');
+   if(!user){status('سجّل الدخول أولًا لتفعيل الإشعارات.');return;}
+   if(!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)){
+     status('المتصفح لا يدعم إشعارات الويب على هذا الجهاز.');return;
+   }
+   if(Notification.permission==='denied'){
+     status('إذن الإشعارات مرفوض من إعدادات المتصفح. فعّله من إعدادات الموقع ثم حاول مرة أخرى.');return;
+   }
+
+   const oldLabel=button.innerHTML;
+   button.disabled=true;
+   button.innerHTML='<i class="bi bi-hourglass-split"></i> جاري التفعيل...';
+   try{
+     const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
+     if(permission!=='granted'){
+       status('لم يتم السماح بالإشعارات. يمكنك تفعيلها لاحقًا من زر الإشعارات.');
+       return;
+     }
+
+     const registration=await communityWorkerPromise;
+     if(!registration)throw new Error('تعذر تجهيز خدمة الإشعارات. أعد تحميل الصفحة وحاول مرة أخرى.');
+
+     let subscription=await registration.pushManager.getSubscription();
+     if(!subscription){
+       subscription=await registration.pushManager.subscribe({
+         userVisibleOnly:true,
+         applicationServerKey:urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+       });
+     }
+
+     const subscriptionData=subscription.toJSON();
+     const keys=subscriptionData.keys||{};
+     if(!subscription.endpoint||!keys.p256dh||!keys.auth){
+       throw new Error('بيانات اشتراك الإشعارات غير مكتملة.');
+     }
+
+     const {error}=await client.from('user_push_subscriptions').upsert({
+       user_id:user.id,
+       endpoint:subscription.endpoint,
+       p256dh:keys.p256dh,
+       auth_key:keys.auth,
+       updated_at:new Date().toISOString()
+     },{onConflict:'endpoint'});
+     if(error)throw error;
+
+     status('تم تفعيل إشعارات الرسائل على هذا الجهاز بنجاح.');
+     button.innerHTML='<i class="bi bi-bell-fill"></i> الإشعارات مفعّلة';
+   }catch(error){
+     console.error('Enable community push failed:',error);
+     status('تعذر تفعيل الإشعارات: '+(error.message||'خطأ غير معروف'));
+     button.innerHTML=oldLabel;
+   }finally{
+     button.disabled=false;
+   }
+ }
+
  let user=null, activeConversation=null, activePeer=null, channel=null, renderedUserId=null;
  const fallback='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="50" fill="%23111820"/%3E%3Ccircle cx="50" cy="36" r="18" fill="%23d4af37"/%3E%3Cpath d="M15 94c3-23 17-34 35-34s32 11 35 34" fill="%23d4af37"/%3E%3C/svg%3E';
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1116,6 +1188,7 @@ function renderAuth(session){
   renderedUserId=nextUserId;
 
   if(user){
+    $('enablePushBtn').innerHTML='<i class="bi bi-bell-fill"></i> تفعيل إشعارات الرسائل';
     $('messagesInboxView').hidden=false;
     $('chatView').hidden=true;
     activeConversation=null;
@@ -1149,6 +1222,9 @@ client.auth.getSession().then(({data,error})=>{
 client.auth.onAuthStateChange((event,session)=>{
   renderAuth(session);
 });
+
+// تفعيل إشعارات الرسائل بعد موافقة المستخدم وبضغطه على الزر.
+$('enablePushBtn').addEventListener('click',enableCommunityPush);
 
 // تسجيل الدخول بالبريد الإلكتروني
 $('loginForm').addEventListener('submit',async e=>{
