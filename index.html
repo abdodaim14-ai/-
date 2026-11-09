@@ -2709,13 +2709,16 @@
     if (panel) { panel.hidden = false; panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 
-  // Donation details UI. Secure record creation and Paymob checkout are added in the next backend step.
+  // Create a secure Paymob intention through the Edge Function; never expose merchant secrets here.
   donationForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!window.requirePlatformAuth('سجّل الدخول قبل التبرع.')) return;
     const amount = Number($('donationAmount').value);
     const donorName = $('donorFullName').value.trim();
     const donorPhone = $('donorPhone').value.trim();
+    const photo = $('donorPhoto').files?.[0] || null;
+    const publish = !!$('publishDonation').checked;
+
     if (!donorName) { $('donationStatus').textContent = 'اكتب اسم المتبرع.'; $('donorFullName').focus(); return; }
     if (!donorPhone || donorPhone.replace(/[^0-9+]/g, '').length < 8) {
       $('donationStatus').textContent = 'اكتب رقم هاتف صحيحًا.'; $('donorPhone').focus(); return;
@@ -2723,11 +2726,60 @@
     if (!Number.isFinite(amount) || amount < 1 || amount > 1000000) {
       $('donationStatus').textContent = 'اكتب مبلغًا صحيحًا من 1 إلى 1,000,000 جنيه.'; return;
     }
-    const photo = $('donorPhoto').files?.[0];
     if (photo && (!['image/jpeg','image/png','image/webp'].includes(photo.type) || photo.size > 2 * 1024 * 1024)) {
       $('donationStatus').textContent = 'راجع صورة المتبرع: الصيغ JPG وPNG وWEBP وبحد أقصى 2 ميجابايت.'; return;
     }
-    $('donationStatus').textContent = 'تم التحقق من البيانات. الخطوة التالية هي ربط الحفظ الآمن وإنشاء طلب الدفع على Paymob؛ لم يتم خصم أي مبلغ أو نشر أي بيانات.';
+    if (!currentUser || !supabaseClient) {
+      $('donationStatus').textContent = 'انتهت جلسة الدخول. سجّل الدخول مرة أخرى.'; return;
+    }
+
+    const submitButton = $('donationSubmitBtn');
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري تجهيز التبرع...';
+    $('donationStatus').textContent = 'جاري حفظ بيانات التبرع وتجهيز صفحة الدفع الآمنة...';
+    let uploadedPhotoPath = null;
+
+    try {
+      if (photo) {
+        const ext = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[photo.type];
+        uploadedPhotoPath = currentUser.id + '/' + crypto.randomUUID() + '.' + ext;
+        const { error: uploadError } = await supabaseClient.storage
+          .from('donor-photos')
+          .upload(uploadedPhotoPath, photo, { upsert: false, contentType: photo.type, cacheControl: '3600' });
+        if (uploadError) throw uploadError;
+      }
+
+      const { data, error } = await supabaseClient.functions.invoke('create-payment-intention', {
+        body: {
+          donor_name: donorName,
+          donor_phone: donorPhone,
+          amount_egp: amount,
+          donor_photo_path: uploadedPhotoPath,
+          donation_reason: $('donationReason').value.trim(),
+          publish_donation: publish,
+          publish_name: publish && $('publishName').checked,
+          publish_photo: publish && $('publishPhoto').checked && !!uploadedPhotoPath,
+          publish_amount: publish && $('publishAmount').checked,
+          publish_reason: publish && $('publishReason').checked
+        }
+      });
+      if (error) {
+        let details = error.message || 'تعذر الاتصال بخدمة الدفع.';
+        try { if (error.context) { const body = await error.context.json(); details = body.error || body.message || details; } } catch (_) {}
+        throw new Error(details);
+      }
+      if (!data?.checkout_url) throw new Error('الخادم لم يُرجع رابط الدفع الآمن. راجع إعداد دالة الدفع.');
+      $('donationStatus').textContent = 'تم تجهيز طلب التبرع. جاري تحويلك إلى صفحة Paymob الآمنة...';
+      window.location.assign(data.checkout_url);
+    } catch (error) {
+      console.error('Donation checkout error:', error);
+      if (uploadedPhotoPath) {
+        try { await supabaseClient.storage.from('donor-photos').remove([uploadedPhotoPath]); } catch (_) {}
+      }
+      $('donationStatus').textContent = 'تعذر تجهيز التبرع: ' + (error.message || 'خطأ غير معروف') + ' — لم يتم خصم أي مبلغ.';
+      submitButton.disabled = false;
+      submitButton.innerHTML = '<i class="bi bi-heart-fill"></i> متابعة التبرع';
+    }
   });
 
   if (!window.supabase?.createClient) {
