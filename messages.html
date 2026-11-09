@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الرسائل الخاصة | داعم المواهب للقرآن الكريم</title>
+<link rel="icon" href="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+
+        @font-face {
+            font-family: 'CustomZainFont';
+            src: url('palestine-swashes.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root { 
+            --gold-primary: #f39c12;
+            --gold-gradient: linear-gradient(135deg, #ffe066 0%, #d4af37 50%, #996515 100%);
+            --gold-glow: 0 0 25px rgba(212, 175, 55, 0.4);
+            --emerald-glow: 0 0 25px rgba(16, 185, 129, 0.3);
+            --luxury-bg: #030508;
+            --card-glass: rgba(12, 16, 24, 0.75);
+            --card-border: rgba(212, 175, 55, 0.3);
+            --card-hover-border: rgba(255, 224, 102, 0.8);
+            --text-gold: #f7d070;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cairo', 'CustomZainFont', sans-serif;
+            margin: 0;
+            color: #f3f4f6;
+            background-color: var(--luxury-bg);
+            min-height: 100vh;
+            padding: 20px 0 140px 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 3D Canvas Container Background */
+        #webgl-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Ambient Light Overlays */
+        .ambient-light {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 1;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+        .light-1 { top: -100px; right: -100px; }
+        .light-2 { bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, rgba(0,0,0,0) 70%); }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 40px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .container {
+            width: 92%;
+            max-width: 680px;
+            margin: auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* 3D Glassmorphism Cards */
+        .glass-card {
+            background: var(--card-glass);
+            border: 1.5px solid var(--card-border);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+        .glass-card:hover {
+            border-color: var(--card-hover-border);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--gold-glow);
+            transform: translateY(-3px);
+        }
+
+        /* Decorative Gold Corner Borders */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--text-gold), transparent);
+            opacity: 0.6;
+        }
+
+        /* Header Styling */
+        .header-section {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .logo-main {
+            width: 150px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            animation: pulseLogo 3s infinite ease-in-out;
+        }
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(255, 224, 102, 0.8)); }
+        }
+
+        .site-name {
+            font-family: 'Reem Kufi', 'Cairo', sans-serif;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+        .quran-verse {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            margin: 15px 0;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            font-weight: 700;
+        }
+
+        /* Info Bar Grid */
+        .info-bar {
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: center;
+        }
+        @media (max-width: 500px) {
+            .info-bar { grid-template-columns: 1fr; gap: 18px; }
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 204, 51, 0.1);
+        }
+        .info-item i {
+            color: var(--text-gold);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
+        }
+        .time-display {
+            font-size: 1.5rem;
+            color: var(--text-gold);
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+        .info-val {
+            font-size: 1.05rem;
+            color: #e5e7eb;
+            margin-top: 4px;
+        }
+        .counter-val {
+            font-size: 1.6rem;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .real-followers-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            width: 100%;
+            text-align: right;
+        }
+
+        .hijri-event-tag {
+            font-size: 0.95rem;
+            color: #0d1117;
+            background: var(--gold-gradient);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            margin-top: 12px;
+            display: inline-block;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+            transition: all 0.3s ease;
+        }
+        .hijri-event-tag:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(255, 224, 102, 0.6);
+        }
+
+        /* Custom Quran Surah Picker with Live Search */
+        .surah-picker-btn {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(12, 15, 20, 0.9);
+            border: 1.5px solid #2a3442;
+            color: #fff;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+            font-family: inherit;
+            text-align: right;
+        }
+        .surah-picker-btn:hover, .surah-picker-btn:focus {
+            border-color: var(--text-gold);
+            box-shadow: 0 0 18px rgba(212,175,55,0.25);
+            background: #131922;
+        }
+
+        /* Surah Selection Modal Overlay */
+        #surahSearchModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 5, 8, 0.92);
+            z-index: 200000;
+            backdrop-filter: blur(25px);
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .surah-modal-content {
+            background: rgba(15, 20, 30, 0.95);
+            border: 2px solid var(--text-gold);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--gold-glow);
+            overflow: hidden;
+            animation: zoomIn 0.3s ease;
+        }
+        .surah-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+        }
+        .surah-modal-header h3 {
+            margin: 0;
+            color: var(--text-gold);
+            font-size: 1.4rem;
+            font-family: 'Reem Kufi', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .surah-search-box {
+            padding: 15px 20px;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+        }
+        .surah-search-input {
+            width: 100%;
+            padding: 14px 45px 14px 18px;
+            background: #090c10;
+            border: 1.5px solid var(--text-gold);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            font-family: inherit;
+        }
+        .surah-search-icon {
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gold);
+            font-size: 1.2rem;
+        }
+        .surah-list-container {
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .surah-card-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .surah-card-item:hover {
+            background: var(--gold-gradient);
+            color: #000;
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        .surah-card-item:hover .surah-num,
+        .surah-card-item:hover .surah-details {
+            color: #111;
+        }
+        .surah-name-ar {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .surah-num {
+            font-size: 0.8rem;
+            color: var(--text-gold);
+        }
+        .surah-details {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* Motivational Box */
+        .motivational-box {
+            text-align: center;
+            background: rgba(212, 175, 55, 0.05);
+            border-right: 5px solid var(--text-gold);
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+        }
+        .motivational-box p {
+            font-size: 1.25rem;
+            color: #ffffff;
+            line-height: 1.9;
+            margin: 0;
+            font-family: 'Amiri', serif;
+        }
+
+        /* Media / Video Section */
+        .video-label {
+            color: var(--text-gold);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+        }
+        .video-box {
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Social Section */
+        .social-call {
+            text-align: center;
+            padding: 22px;
+            border: 1.5px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+        }
+        .social-call h4 {
+            margin: 0 0 15px 0;
+            color: var(--text-gold);
+            font-size: 1.3rem;
+        }
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .s-box {
+            background: rgba(0,0,0,0.6);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 2px solid var(--text-gold);
+            transition: 0.3s ease;
+        }
+        .s-box i { font-size: 1.6rem; color: var(--text-gold); }
+        .s-box span { font-size: 0.75rem; color: #fff; margin-top: 4px; }
+        .s-box:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--text-gold);
+        }
+        .s-box:hover i, .s-box:hover span { color: #000; }
+
+        /* Announcement Card */
+        .announcement-card {
+            padding: 25px;
+            text-align: right;
+        }
+        .ann-title {
+            color: var(--text-gold);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ann-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #ebebeb;
+            margin-bottom: 18px;
+        }
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .criteria-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1.05rem;
+            color: #dedede;
+        }
+        .criteria-list i { color: var(--text-gold); margin-top: 5px; }
+
+        /* Form Controls */
+        .form-card {
+            padding: 32px;
+            text-align: right;
+        }
+        .field {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        .field label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--text-gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .input-w-icon { position: relative; }
+        .input-w-icon i:not(.iti__icon) {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gold);
+            font-size: 1.2rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .field input, .field select {
+            width: 100%;
+            padding: 16px 48px 16px 16px;
+            background: rgba(12, 15, 20, 0.9);
+            border: 1.5px solid #2a3442;
+            color: #fff;
+            border-radius: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1.1rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+        }
+        .field input:focus, .field select:focus {
+            border-color: var(--text-gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.3);
+            background: #131922;
+        }
+
+        .operator-label-logo {
+            height: 26px;
+            display: none;
+            vertical-align: middle;
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+
+        .iti { width: 100%; direction: ltr; }
+        .iti__selected-dial-code { display: none !important; }
+        .iti__country-list { background-color: #0c0f13; color: #fff; text-align: left; border: 1.5px solid var(--text-gold); border-radius: 12px; }
+
+        .flex-row { display: flex; gap: 15px; }
+        .flex-row .field { flex: 1; }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .upload-item {
+            border: 2px dashed rgba(212, 175, 55, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 175, 55, 0.03);
+            min-height: 135px;
+            position: relative;
+        }
+        .upload-item:hover {
+            background: rgba(212, 175, 55, 0.09);
+            border-color: var(--text-gold);
+            transform: translateY(-3px);
+        }
+        .upload-item i { font-size: 2.2rem; color: var(--text-gold); margin-bottom: 8px; }
+        .preview-img-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--text-gold);
+            object-fit: cover;
+            display: none;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        #audioPreview { width: 100%; height: 36px; margin-top: 10px; display: none; }
+
+        /* Rules Box */
+        .rules-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 22px;
+            margin-top: 25px;
+            text-align: right;
+        }
+        .rules-title {
+            color: var(--text-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 1.05rem;
+            color: #dedede;
+            line-height: 1.8;
+        }
+        .rules-list li { margin-bottom: 10px; display: flex; gap: 10px; }
+        .rules-list i { color: var(--text-gold); margin-top: 6px; }
+
+        .trust-tag {
+            color: var(--text-gold);
+            font-size: 1.05rem;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            border: 1.5px dashed rgba(212, 175, 55, 0.5);
+            padding: 12px;
+            border-radius: 14px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* 3D Gold Main Button */
+        .main-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 18px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 1.35rem;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4), inset 0 2px 2px rgba(255,255,255,0.4);
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .main-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 35px rgba(255, 224, 102, 0.7);
+        }
+
+        /* Footer Credit */
+        .footer-credit {
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            z-index: 5;
+        }
+        .footer-credit .name {
+            color: var(--text-gold);
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .quran-final-verse {
+            color: var(--text-gold);
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            margin-top: 30px;
+            animation: fadeIn 3s infinite alternate;
+        }
+
+        /* Floating Action Buttons */
+        .fixed-call-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 420px;
+            z-index: 1000;
+            background: rgba(12, 16, 24, 0.95);
+            border: 2px solid var(--text-gold);
+            border-radius: 50px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), var(--gold-glow);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        .fixed-call-btn:hover {
+            transform: translateX(-50%) scale(1.03);
+            background: rgba(20, 26, 38, 0.98);
+        }
+        .fixed-call-btn span { color: #fff; font-size: 1.15rem; font-weight: 700; }
+        .fixed-call-btn i { color: var(--text-gold); font-size: 1.3rem; animation: shake 2s infinite; }
+
+        .floating-notification-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--gold-gradient);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 58px;
+            height: 58px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s ease;
+        }
+        .floating-notification-btn i { color: #000; font-size: 1.5rem; }
+
+        /* PWA Banner */
+        #pwa-install-banner {
+            display: none;
+            position: fixed;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px;
+            background: rgba(10, 14, 20, 0.95);
+            border: 2px solid var(--text-gold);
+            color: white;
+            padding: 14px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10001;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        }
+        .pwa-flex-container { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .pwa-mini-logo { height: 38px; border-radius: 8px; border: 1px solid var(--text-gold); }
+        #pwa-install-banner button {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Certificate Modal / Modals */
+        #cardModal, #archiveModal, #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 5, 8, 0.96);
+            z-index: 100000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            backdrop-filter: blur(15px);
+            overflow-y: auto;
+        }
+        .cert-card {
+            background: linear-gradient(145deg, #121822 0%, #07090c 100%);
+            border: 3px solid var(--text-gold);
+            border-radius: 32px;
+            padding: 32px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.95), var(--gold-glow);
+            position: relative;
+        }
+        .cert-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .cert-logo { width: 70px; border-radius: 14px; border: 2px solid var(--text-gold); }
+        .cert-title-box h3 { margin: 0; color: var(--text-gold); font-size: 1.5rem; font-family: 'Reem Kufi', sans-serif; }
+        .cert-title-box span { font-size: 0.95rem; color: #ccc; }
+        .cert-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--text-gold); object-fit: cover; margin: 15px auto; display: block; }
+        .cert-name { font-size: 1.85rem; color: #fff; font-family: 'Amiri', serif; margin: 12px 0; }
+        .cert-details { background: rgba(212, 175, 55, 0.05); border: 1.5px dashed rgba(212, 175, 55, 0.5); border-radius: 18px; padding: 20px; margin: 18px 0; text-align: right; font-size: 1.1rem; line-height: 2; color: #f0f0f0; }
+        .cert-details strong { color: var(--text-gold); }
+        .cert-footer { margin-top: 20px; border-top: 1.5px solid rgba(212,175,55,0.3); padding-top: 15px; display: flex; justify-content: space-between; align-items: center; color: var(--text-gold); }
+
+        .cert-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .cert-btn { flex: 1; padding: 14px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: 0.3s; font-family: inherit; }
+        .cert-btn.download { background: var(--gold-gradient); color: #000; }
+        .cert-btn.whatsapp { background: #25d366; color: #fff; }
+        .cert-btn.close { background: #222a35; color: #fff; border: 1px solid #444; }
+
+        .archive-content {
+            background: var(--card-glass);
+            border: 2.5px solid var(--text-gold);
+            border-radius: 28px;
+            padding: 28px;
+            width: 100%;
+            max-width: 620px;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: right;
+        }
+        .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(212,175,55,0.3); padding-bottom: 12px; margin-bottom: 15px; }
+        .archive-header h3 { color: var(--text-gold); margin: 0; font-size: 1.5rem; font-family: 'Reem Kufi', sans-serif; }
+        .archive-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-gold); }
+
+        .event-card-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.3); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+        .event-card-item h4 { color: var(--text-gold); margin: 0 0 6px 0; font-size: 1.25rem; }
+        .event-card-item p { margin: 0; color: #ddd; font-size: 1.05rem; line-height: 1.7; }
+        .event-date-badge { display: inline-block; background: var(--text-gold); color: #000; font-size: 0.85rem; padding: 3px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 6px; }
+
+        /* Loading Screen */
+        #loadingOverlay { flex-direction: column; text-align: center; }
+        #progressText { color: var(--text-gold); font-size: 4.5rem; font-weight: 800; font-family: 'Cairo', sans-serif; }
+        #quizBox { border: 2px solid var(--text-gold); padding: 28px; border-radius: 24px; background: rgba(12,16,24,0.9); max-width: 400px; width: 90%; }
+        #quizQ { color: var(--text-gold); font-size: 1.35rem; font-weight: 700; margin-bottom: 15px; }
+        #quizA { color: #f5f5f5; font-size: 1.15rem; line-height: 1.8; transition: 0.5s opacity; }
+
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(12deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(12deg); } 80% { transform: rotate(-12deg); } }
+
+        /* Use palestine-swashes.ttf as the only font throughout the page */
+        * , *::before, *::after {
+            font-family: 'CustomZainFont' !important;
+        }
+    
+        /* Requested font thickness: zero outline and lightest valid font weight */
+        *, *::before, *::after {
+            -webkit-text-stroke-width: 0 !important;
+            text-stroke-width: 0 !important;
+            font-weight: 100 !important;
+        }
+        /* Keep icon glyphs rendered by Bootstrap Icons */
+        i.bi {
+            font-family: "bootstrap-icons" !important;
+            font-weight: 900 !important;
+            -webkit-text-stroke-width: 0 !important;
+        }
+
+
+        /* Supabase account controls */
+        .auth-panel { position: relative; z-index: 20; margin: 0 auto 24px; padding: 18px; text-align: center; overflow: visible; }
+        .auth-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:12px; }
+        .auth-btn { position:relative; z-index:30; pointer-events:auto !important; cursor:pointer !important; border:1px solid rgba(212,175,55,.65); border-radius:14px; padding:12px 20px; min-width:190px; color:#111; background:var(--gold-gradient); font-size:1rem; box-shadow:0 5px 18px rgba(212,175,55,.2); }
+        .auth-btn.facebook { color:#fff; background:#1877f2; border-color:#1877f2; }
+        .auth-btn:disabled { opacity:.65; cursor:wait !important; }
+        #authStatus { display:block; margin-top:12px; color:var(--text-gold); min-height:1.5em; overflow-wrap:anywhere; }
+        .auth-user { color:#fff; margin-top:8px; }
+        .profile-tools { margin:16px auto 4px; padding:14px; max-width:420px; border:1px solid rgba(212,175,55,.28); border-radius:18px; background:rgba(0,0,0,.22); }
+        .profile-avatar { width:92px; height:92px; display:block; margin:0 auto 10px; border-radius:50%; object-fit:cover; border:3px solid var(--text-gold); background:#111820; box-shadow:0 5px 18px rgba(0,0,0,.45); }
+        .profile-file { display:block; width:100%; margin:10px auto; color:#ddd; font-size:.9rem; }
+        .profile-upload-btn { min-width:0; width:100%; margin-top:8px; }
+        .profile-hint { display:block; color:#aaa; font-size:.82rem; margin-top:8px; line-height:1.6; }
+
+
+
+        /* Account creation, sign-in and donation additions */
+        .auth-form-grid { display:grid; grid-template-columns:1fr; gap:10px; max-width:520px; margin:14px auto 0; }
+        .auth-form-grid input, .donation-form input { width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .auth-form-grid input:focus, .donation-form input:focus { border-color:var(--text-gold); box-shadow:0 0 0 3px rgba(212,175,55,.12); }
+        .auth-mode-switch { display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+        .auth-mode-switch button { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:9px 16px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .auth-mode-switch button.active { background:var(--gold-gradient); color:#111; }
+        .auth-form-grid .auth-btn { width:100%; }
+        .auth-help { color:#bbb; font-size:.88rem; line-height:1.7; }
+        .auth-required-note { display:none; padding:12px; margin:12px 0; border:1px solid rgba(212,175,55,.35); border-radius:14px; color:var(--text-gold); background:rgba(0,0,0,.25); line-height:1.7; }
+        .donation-card { padding:22px; text-align:center; }
+        .donation-card h3 { color:var(--text-gold); margin:0 0 8px; }
+        .donation-form { display:grid; gap:12px; max-width:480px; margin:16px auto 0; }
+        .donation-form label { text-align:right; color:#eee; }
+        .donation-amount-wrap { position:relative; }
+        .donation-amount-wrap span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-gold); }
+        .donation-submit { border:0; border-radius:14px; padding:14px 18px; background:var(--gold-gradient); color:#111; cursor:pointer; font:inherit; font-size:1.05rem; }
+        .donation-submit:disabled { opacity:.55; cursor:not-allowed; }
+        .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
+        .form-auth-locked { opacity:.58; }
+
+        /* Members community and private messaging */
+        .community-panel { padding:22px; text-align:right; }
+        .community-panel h3 { color:var(--text-gold); margin:0 0 12px; text-align:center; }
+        .community-inbox-summary { margin:18px 0; padding:16px; border:1px solid rgba(212,175,55,.28); border-radius:16px; background:rgba(0,0,0,.22); }
+        .community-inbox-summary h4 { color:var(--text-gold); margin:0 0 12px; }
+        .community-inbox-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+        .community-inbox-stat { text-align:center; border:1px solid rgba(212,175,55,.2); border-radius:13px; padding:12px 8px; background:rgba(255,255,255,.035); }
+        .community-inbox-stat strong { display:block; color:var(--text-gold); font-size:1.5rem; }
+        .community-inbox-stat span { color:#bbb; font-size:.84rem; }
+        .community-inbox-summary .community-list { margin-top:12px; }
+        .messages-page-toolbar { display:flex; justify-content:flex-start; margin:8px 0 14px; }
+        .community-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 18px; }
+        .community-tabs button, .community-action { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:10px 15px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .community-tabs button.active, .community-action.primary { background:var(--gold-gradient); color:#111; }
+        .community-search-row { display:flex; gap:8px; flex-wrap:wrap; }
+        .community-search-row input, .community-message-form textarea { flex:1; min-width:180px; width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .community-list { display:grid; gap:10px; margin-top:14px; }
+        .community-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid rgba(212,175,55,.22); border-radius:15px; background:rgba(0,0,0,.24); min-width:0; }
+        .community-item-main { flex:1; min-width:0; }
+        .community-item-title { color:#fff; overflow-wrap:anywhere; }
+        .community-item-sub { color:#aaa; font-size:.82rem; margin-top:4px; }
+        .community-avatar { width:46px; height:46px; flex:0 0 46px; border-radius:50%; object-fit:cover; border:1px solid var(--text-gold); background:#111820; }
+        .community-actions { display:flex; flex-wrap:wrap; gap:7px; }
+        .community-action { padding:8px 11px; font-size:.88rem; }
+        .community-action.danger { border-color:rgba(239,68,68,.5); color:#ffb4b4; }
+        .community-state { color:var(--text-gold); text-align:center; min-height:1.6em; margin:10px 0; line-height:1.7; }
+        .community-chat-head { display:flex; align-items:center; gap:10px; margin:8px 0 14px; }
+        .community-chat-head strong { color:var(--text-gold); }
+        .community-messages { display:flex; flex-direction:column; gap:9px; max-height:420px; overflow:auto; padding:12px; border:1px solid rgba(212,175,55,.2); border-radius:16px; background:rgba(0,0,0,.25); }
+        .community-bubble { max-width:88%; padding:10px 13px; border-radius:14px; background:rgba(255,255,255,.08); color:#fff; align-self:flex-start; overflow-wrap:anywhere; white-space:pre-wrap; }
+        .community-bubble.mine { align-self:flex-end; background:rgba(212,175,55,.2); border:1px solid rgba(212,175,55,.35); }
+        .community-bubble small { display:block; color:#aaa; font-size:.72rem; margin-top:5px; }
+        .community-message-form { display:flex; gap:8px; margin-top:12px; align-items:stretch; }
+        .community-message-form textarea { min-height:48px; max-height:120px; resize:vertical; }
+        @media(max-width:520px) { .community-item { align-items:flex-start; flex-wrap:wrap; } .community-actions { width:100%; } .community-message-form { flex-direction:column; } }
+
+
+    
+.messages-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 20px}.messages-nav a{color:#f5d778;text-decoration:none;border:1px solid rgba(212,175,55,.35);padding:9px 14px;border-radius:12px;background:rgba(0,0,0,.22)}
+.auth-mini{display:grid;gap:10px;max-width:520px;margin:0 auto}.auth-mini input{width:100%;padding:12px;border-radius:10px}.auth-mini button,.messages-toolbar button{padding:10px 14px;border-radius:10px;cursor:pointer}
+.messages-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.messages-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.messages-stat{padding:16px;border:1px solid rgba(212,175,55,.25);border-radius:14px;text-align:center;background:rgba(0,0,0,.2)}.messages-stat strong{display:block;color:var(--text-gold);font-size:1.7rem}.messages-stat span{color:#ddd;font-size:.9rem}
+#messagesInboxList{display:grid;gap:8px}.messages-empty{color:#bbb;text-align:center;padding:18px}.messages-page-title{text-align:center;color:var(--text-gold)}
+</style></head><body>
+<div class="ambient-light light-1"></div><div class="ambient-light light-2"></div>
+<div class="container animate__animated animate__fadeIn">
+<header class="header-section"><div class="logo-wrapper"><img class="logo-main" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></div><div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div><div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div></header>
+<nav class="messages-nav" aria-label="التنقل الرئيسي"><a href="index.html"><i class="bi bi-house"></i> الرئيسية</a><a href="index.html#communityPanel"><i class="bi bi-people"></i> المجتمع</a><a href="messages.html"><i class="bi bi-chat-dots"></i> الرسائل</a></nav>
+<section class="glass-card" id="authCard"><h3 class="messages-page-title"><i class="bi bi-person-lock"></i> تسجيل الدخول للرسائل</h3><p style="text-align:center;color:#ccc">سجّل الدخول بنفس حسابك المستخدم في الموقع الأساسي.</p><form id="loginForm" class="auth-mini"><input id="email" type="email" placeholder="البريد الإلكتروني" required autocomplete="email"><input id="password" type="password" placeholder="كلمة المرور" required autocomplete="current-password"><button class="main-btn" type="submit">تسجيل الدخول</button><button type="button" id="signupBtn" class="auth-btn">إنشاء حساب بالبريد الإلكتروني</button><button type="button" id="googleBtn" class="auth-btn"><i class="bi bi-google"></i> الدخول باستخدام Google</button><button type="button" id="facebookBtn" class="auth-btn"><i class="bi bi-facebook"></i> الدخول باستخدام Facebook</button></form><div id="authStatus" class="community-state" role="status"></div></section>
+<section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">الأشخاص الذين أرسلوا لك رسائل</h4><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(()=>{
+ const URL='https://xkraqrjkimkdawlazjyl.supabase.co';
+ const KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
+ const $=id=>document.getElementById(id);
+ const client=window.supabase.createClient(URL,KEY);
+ let user=null, activeConversation=null, activePeer=null, channel=null;
+ const fallback='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="50" fill="%23111820"/%3E%3Ccircle cx="50" cy="36" r="18" fill="%23d4af37"/%3E%3Cpath d="M15 94c3-23 17-34 35-34s32 11 35 34" fill="%23d4af37"/%3E%3C/svg%3E';
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const status=t=>$('pageStatus').textContent=t||'';
+ async function profiles(ids){if(!ids.length)return{};const {data,error}=await client.from('profiles').select('id,display_name,avatar_url').in('id',[...new Set(ids)]);if(error)throw error;return Object.fromEntries((data||[]).map(p=>[p.id,p]));}
+ async function peers(){const {data,error}=await client.from('message_requests').select('sender_id,receiver_id,conversation_id,responded_at').eq('status','accepted').not('conversation_id','is',null).or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`).order('responded_at',{ascending:false}).limit(200);if(error)throw error;const map=new Map();(data||[]).forEach(r=>{if(!map.has(r.conversation_id))map.set(r.conversation_id,{conversationId:r.conversation_id,peerId:r.sender_id===user.id?r.receiver_id:r.sender_id});});return [...map.values()];}
+ async function loadInbox(){if(!user)return;status('جاري تحميل الرسائل...');$('messagesInboxList').innerHTML='<div class="messages-empty">جاري التحميل...</div>';try{const conv=await peers();if(!conv.length){$('incomingMessageCount').textContent='0';$('incomingPeopleCount').textContent='0';$('messagesInboxList').innerHTML='<div class="messages-empty">لا توجد محادثات مقبولة حتى الآن.</div>';status('');return;}const peerMap=new Map(conv.map(x=>[x.conversationId,x.peerId]));const {data:msgs,error,count}=await client.from('messages').select('id,sender_id,conversation_id,created_at',{count:'exact'}).in('conversation_id',conv.map(x=>x.conversationId)).neq('sender_id',user.id).order('created_at',{ascending:false}).limit(1000);if(error)throw error;const latest=new Map();(msgs||[]).forEach(m=>{const pid=peerMap.get(m.conversation_id);if(pid&&m.sender_id===pid&&!latest.has(pid))latest.set(pid,{peerId:pid,conversationId:m.conversation_id});});const senders=[...latest.values()];const ps=await profiles(senders.map(x=>x.peerId));$('incomingMessageCount').textContent=String(count??msgs.length);$('incomingPeopleCount').textContent=String(senders.length);$('messagesInboxList').innerHTML=senders.length?senders.map(x=>{const p=ps[x.peerId]||{};return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(x.conversationId)}"><img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(p.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">اضغط لفتح المحادثة</span></span><i class="bi bi-chevron-left"></i></button>`}).join(''):'<div class="messages-empty">لا توجد رسائل واردة حتى الآن.</div>';$('messagesInboxList').querySelectorAll('[data-conv]').forEach(b=>b.addEventListener('click',()=>openChat(b.dataset.conv)));status('');}catch(e){console.error(e);status('تعذر تحميل الرسائل: '+(e.message||'خطأ غير معروف'));}}
+ async function openChat(id){activeConversation=id;$('messagesInboxView').hidden=true;$('chatView').hidden=false;$('chatHead').textContent='جاري فتح المحادثة...';$('chatMessages').textContent='جاري تحميل الرسائل...';try{const {data,error}=await client.from('message_requests').select('sender_id,receiver_id').eq('conversation_id',id).eq('status','accepted').or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`).limit(1);if(error)throw error;if(!data?.length)throw new Error('لا تملك صلاحية الوصول إلى هذه المحادثة.');const r=data[0];activePeer=r.sender_id===user.id?r.receiver_id:r.sender_id;const ps=await profiles([activePeer]);const p=ps[activePeer]||{};$('chatHead').innerHTML=`<img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><strong>${esc(p.display_name||'عضو')}</strong>`;await loadChat();if(channel)await client.removeChannel(channel);channel=client.channel('messages-page-'+id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+id},()=>{loadChat();loadInbox();}).subscribe();}catch(e){status('تعذر فتح المحادثة: '+e.message);}}
+ async function loadChat(){if(!activeConversation)return;const {data,error}=await client.from('messages').select('id,sender_id,content,created_at').eq('conversation_id',activeConversation).order('created_at',{ascending:true}).limit(200);if(error)throw error;$('chatMessages').innerHTML=(data||[]).length?data.map(m=>`<div class="community-bubble${m.sender_id===user.id?' mine':''}">${esc(m.content)}<small>${m.sender_id===user.id?'أنت':'العضو الآخر'} · ${esc(new Date(m.created_at).toLocaleString('ar-EG'))}</small></div>`).join(''):'<div class="messages-empty">ابدأ المحادثة برسالة طيبة.</div>';$('chatMessages').scrollTop=$('chatMessages').scrollHeight;}
+ $('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('authStatus').textContent='جاري تسجيل الدخول...';const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});$('authStatus').textContent=error?'تعذر تسجيل الدخول: '+error.message:'';});
+ $('signupBtn').addEventListener('click',async()=>{const {error}=await client.auth.signUp({email:$('email').value.trim(),password:$('password').value});$('authStatus').textContent=error?'تعذر إنشاء الحساب: '+error.message:'تم إنشاء الحساب. افحص بريدك إذا طُلب تأكيده.';});
+ for(const [id,provider] of [['googleBtn','google'],['facebookBtn','facebook']])$(id).addEventListener('click',async()=>{const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:location.href}});if(error)$('authStatus').textContent=error.message;});
+ $('logoutBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);await client.auth.signOut();});$('refreshBtn').addEventListener('click',loadInbox);$('backBtn').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);channel=null;activeConversation=null;$('chatView').hidden=true;$('messagesInboxView').hidden=false;await loadInbox();});
+ $('sendForm').addEventListener('submit',async e=>{e.preventDefault();const content=$('messageText').value.trim();if(!content||!activeConversation)return;const btn=e.submitter; if(btn)btn.disabled=true;try{const {error}=await client.from('messages').insert({conversation_id:activeConversation,sender_id:user.id,content});if(error)throw error;$('messageText').value='';await loadChat();status('تم إرسال الرسالة.');}catch(err){status('تعذر إرسال الرسالة: '+err.message);}finally{if(btn)btn.disabled=false;}});
+ function render(session){user=session?.user||null;$('authCard').hidden=!!user;$('messagesApp').hidden=!user;if(user)loadInbox();else{if(channel)client.removeChannel(channel);channel=null;}}
+ client.auth.getSession().then(({data})=>render(data.session));client.auth.onAuthStateChange((_e,s)=>render(s));
+})();
+</script></body></html>
