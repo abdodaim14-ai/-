@@ -2206,11 +2206,15 @@
     });
   });
 
+  let memberSearchTimer = null;
+  let memberSearchRun = 0;
   async function searchCommunityMembers() {
     if (!currentUser) return window.requirePlatformAuth('سجّل الدخول للبحث عن الأعضاء.');
     const term = $('memberSearchInput').value.trim().replace(/[%,()]/g, ' ');
     const results = $('memberSearchResults');
-    if (term.length < 2) { results.textContent = 'اكتب حرفين على الأقل للبحث.'; return; }
+    const thisRun = ++memberSearchRun;
+    if (!term) { results.textContent = ''; return; }
+    if (term.length < 1) { results.textContent = 'اكتب جزءًا من الاسم للبحث.'; return; }
     results.textContent = 'جاري البحث...';
     try {
       const { data, error } = await supabaseClient.from('profiles')
@@ -2219,6 +2223,7 @@
         .ilike('display_name', '%' + term + '%')
         .limit(20);
       if (error) throw error;
+      if (thisRun !== memberSearchRun) return;
       if (!data?.length) { results.textContent = 'مفيش أعضاء مطابقين للاسم ده.'; return; }
       results.innerHTML = data.map(profile => `
         <div class="community-item">
@@ -2233,7 +2238,14 @@
     }
   }
   $('memberSearchBtn')?.addEventListener('click', searchCommunityMembers);
-  $('memberSearchInput')?.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); searchCommunityMembers(); } });
+  $('memberSearchInput')?.addEventListener('input', () => {
+    clearTimeout(memberSearchTimer);
+    const term = $('memberSearchInput').value.trim();
+    if (!term) { memberSearchRun++; $('memberSearchResults').textContent = ''; return; }
+    $('memberSearchResults').textContent = 'جاري البحث...';
+    memberSearchTimer = setTimeout(searchCommunityMembers, 350);
+  });
+  $('memberSearchInput')?.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); clearTimeout(memberSearchTimer); searchCommunityMembers(); } });
 
   async function sendCommunityRequest(receiverId, button) {
     if (!currentUser || communityBusy) return;
@@ -2378,7 +2390,7 @@
       if (inboxList) inboxList.innerHTML = html;
       [summaryList, inboxList].filter(Boolean).forEach(list => {
         list.querySelectorAll('[data-open-incoming-conversation]').forEach(button =>
-          button.addEventListener('click', () => openCommunityConversation(button.dataset.openIncomingConversation)));
+          button.addEventListener('click', () => { window.location.href = 'messages.html'; }));
       });
     } catch (error) {
       console.error('Incoming messages summary:', error);
@@ -2389,14 +2401,9 @@
     }
   }
 
-  async function openMessagesPage() {
+  function openMessagesPage() {
     if (!currentUser) return window.requirePlatformAuth('سجّل الدخول لفتح الرسائل.');
-    $('communityPanel').hidden = true;
-    $('messagesPage').hidden = false;
-    $('messagesInboxView').hidden = false;
-    $('communityChatView').hidden = true;
-    communityStatus('');
-    await refreshIncomingMessageSenders();
+    window.location.href = 'messages.html';
   }
 
   async function showMessagesInbox() {
