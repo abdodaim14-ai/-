@@ -900,6 +900,14 @@
         /* Members community and private messaging */
         .community-panel { padding:22px; text-align:right; }
         .community-panel h3 { color:var(--text-gold); margin:0 0 12px; text-align:center; }
+        .community-inbox-summary { margin:18px 0; padding:16px; border:1px solid rgba(212,175,55,.28); border-radius:16px; background:rgba(0,0,0,.22); }
+        .community-inbox-summary h4 { color:var(--text-gold); margin:0 0 12px; }
+        .community-inbox-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+        .community-inbox-stat { text-align:center; border:1px solid rgba(212,175,55,.2); border-radius:13px; padding:12px 8px; background:rgba(255,255,255,.035); }
+        .community-inbox-stat strong { display:block; color:var(--text-gold); font-size:1.5rem; }
+        .community-inbox-stat span { color:#bbb; font-size:.84rem; }
+        .community-inbox-summary .community-list { margin-top:12px; }
+        .messages-page-toolbar { display:flex; justify-content:flex-start; margin:8px 0 14px; }
         .community-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 18px; }
         .community-tabs button, .community-action { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:10px 15px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
         .community-tabs button.active, .community-action.primary { background:var(--gold-gradient); color:#111; }
@@ -1083,6 +1091,15 @@
     <section class="glass-card community-panel" id="communityPanel" hidden aria-label="مجتمع الأعضاء">
         <h3><i class="bi bi-people-fill"></i> مجتمع أعضاء داعم المواهب</h3>
         <p style="color:#bbb;text-align:center;line-height:1.7;margin:0;">ابحث عن عضو، أرسل طلب تواصل، وتابع محادثاتك الخاصة.</p>
+        <div class="community-inbox-summary" aria-label="ملخص الرسائل الواردة">
+            <h4><i class="bi bi-envelope-paper-fill"></i> ملخص رسائلك الواردة</h4>
+            <div class="community-inbox-stats">
+                <div class="community-inbox-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div>
+                <div class="community-inbox-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div>
+            </div>
+            <div id="incomingSendersList" class="community-list"><div class="community-item">جاري تحميل الرسائل...</div></div>
+            <button type="button" class="community-action primary" id="openMessagesPageBtn" style="margin-top:12px;width:100%;"><i class="bi bi-chat-dots-fill"></i> فتح صفحة الرسائل</button>
+        </div>
         <div class="community-tabs" role="tablist" aria-label="أقسام المجتمع">
             <button type="button" class="active" data-community-view="search">البحث عن أعضاء</button>
             <button type="button" data-community-view="requests">طلبات التواصل</button>
@@ -1104,8 +1121,21 @@
         <div id="communityConversationsView" hidden>
             <div id="communityConversationsList" class="community-list"></div>
         </div>
+        <div id="communityStatus" class="community-state" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- صفحة المراسلات الخاصة المستقلة -->
+    <section class="glass-card community-panel" id="messagesPage" hidden aria-label="صفحة الرسائل الخاصة">
+        <h3><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3>
+        <div class="messages-page-toolbar">
+            <button type="button" class="community-action" id="backToCommunityBtn"><i class="bi bi-arrow-right"></i> العودة إلى المجتمع</button>
+        </div>
+        <div id="messagesInboxView">
+            <h4 style="color:var(--text-gold);margin:8px 0;">الأشخاص الذين أرسلوا لك رسائل</h4>
+            <div id="messagesInboxList" class="community-list"></div>
+        </div>
         <div id="communityChatView" hidden>
-            <button type="button" class="community-action" id="backToConversationsBtn"><i class="bi bi-arrow-right"></i> رجوع للمحادثات</button>
+            <button type="button" class="community-action" id="backToConversationsBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button>
             <div class="community-chat-head" id="communityChatHead"></div>
             <div id="communityMessagesList" class="community-messages" aria-live="polite"></div>
             <form id="communityMessageForm" class="community-message-form">
@@ -1113,7 +1143,7 @@
                 <button type="submit" class="community-action primary" id="sendCommunityMessageBtn"><i class="bi bi-send-fill"></i> إرسال</button>
             </form>
         </div>
-        <div id="communityStatus" class="community-state" role="status" aria-live="polite"></div>
+        <div id="messagesPageStatus" class="community-state" role="status" aria-live="polite"></div>
     </section>
 
     <!-- Live Info Card -->
@@ -2125,7 +2155,8 @@
   let communityBusy = false;
 
   function communityStatus(message) {
-    const el = $('communityStatus');
+    const messagesPage = $('messagesPage');
+    const el = messagesPage && !messagesPage.hidden ? $('messagesPageStatus') : $('communityStatus');
     if (el) el.textContent = message || '';
   }
   function escapeCommunityText(value) {
@@ -2149,7 +2180,6 @@
     $('communitySearchView').hidden = view !== 'search';
     $('communityRequestsView').hidden = view !== 'requests';
     $('communityConversationsView').hidden = view !== 'conversations';
-    $('communityChatView').hidden = view !== 'chat';
     document.querySelectorAll('[data-community-view]').forEach(button =>
       button.classList.toggle('active', button.dataset.communityView === view));
     if (view !== 'chat') communityStatus('');
@@ -2274,26 +2304,113 @@
     } finally { communityBusy = false; }
   }
 
+  async function loadAcceptedCommunityPeers() {
+    const { data, error } = await supabaseClient.from('message_requests')
+      .select('sender_id,receiver_id,conversation_id,responded_at')
+      .eq('status', 'accepted')
+      .not('conversation_id', 'is', null)
+      .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`)
+      .order('responded_at', {ascending:false}).limit(200);
+    if (error) throw error;
+    const byConversation = new Map();
+    (data || []).forEach(row => {
+      if (!byConversation.has(row.conversation_id)) {
+        const peerId = row.sender_id === currentUser.id ? row.receiver_id : row.sender_id;
+        byConversation.set(row.conversation_id, {conversationId:row.conversation_id, peerId});
+      }
+    });
+    return [...byConversation.values()];
+  }
+
+  async function refreshIncomingMessageSenders() {
+    if (!currentUser) return;
+    const summaryList = $('incomingSendersList');
+    const inboxList = $('messagesInboxList');
+    if (summaryList) summaryList.innerHTML = '<div class="community-item">جاري تحميل الرسائل الواردة...</div>';
+    if (inboxList && $('messagesPage') && !$('messagesPage').hidden && !$('messagesInboxView').hidden) {
+      inboxList.innerHTML = '<div class="community-item">جاري تحميل الرسائل...</div>';
+    }
+    try {
+      const conversations = await loadAcceptedCommunityPeers();
+      if (!conversations.length) {
+        $('incomingMessageCount').textContent = '0';
+        $('incomingPeopleCount').textContent = '0';
+        if (summaryList) summaryList.innerHTML = '<div class="community-item">لا توجد رسائل واردة حتى الآن.</div>';
+        if (inboxList) inboxList.innerHTML = '<div class="community-item">لا يوجد أشخاص أرسلوا لك رسائل حتى الآن.</div>';
+        return;
+      }
+      const peerByConversation = new Map(conversations.map(item => [item.conversationId, item.peerId]));
+      const { data:messages, error:messagesError, count } = await supabaseClient.from('messages')
+        .select('id,sender_id,conversation_id,created_at', {count:'exact'})
+        .in('conversation_id', conversations.map(item => item.conversationId))
+        .neq('sender_id', currentUser.id)
+        .order('created_at', {ascending:false}).limit(1000);
+      if (messagesError) throw messagesError;
+      const latestByPeer = new Map();
+      (messages || []).forEach(message => {
+        const peerId = peerByConversation.get(message.conversation_id);
+        if (!peerId || message.sender_id !== peerId || latestByPeer.has(peerId)) return;
+        latestByPeer.set(peerId, {peerId, conversationId:message.conversation_id, createdAt:message.created_at});
+      });
+      const senders = [...latestByPeer.values()];
+      const profiles = await getProfilesByIds(senders.map(item => item.peerId));
+      $('incomingMessageCount').textContent = String(count ?? (messages || []).length);
+      $('incomingPeopleCount').textContent = String(senders.length);
+      const renderSenders = () => senders.length ? senders.map(item => {
+        const peer = profiles[item.peerId];
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-incoming-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">لديك رسائل من هذا العضو</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+      }).join('') : '<div class="community-item">لا توجد رسائل واردة حتى الآن.</div>';
+      const html = renderSenders();
+      if (summaryList) summaryList.innerHTML = html;
+      if (inboxList) inboxList.innerHTML = html;
+      [summaryList, inboxList].filter(Boolean).forEach(list => {
+        list.querySelectorAll('[data-open-incoming-conversation]').forEach(button =>
+          button.addEventListener('click', () => openCommunityConversation(button.dataset.openIncomingConversation)));
+      });
+    } catch (error) {
+      console.error('Incoming messages summary:', error);
+      $('incomingMessageCount').textContent = '—';
+      $('incomingPeopleCount').textContent = '—';
+      if (summaryList) summaryList.textContent = 'تعذر تحميل ملخص الرسائل: ' + (error.message || 'خطأ غير معروف');
+      if (inboxList) inboxList.textContent = 'تعذر تحميل الرسائل: ' + (error.message || 'خطأ غير معروف');
+    }
+  }
+
+  async function openMessagesPage() {
+    if (!currentUser) return window.requirePlatformAuth('سجّل الدخول لفتح الرسائل.');
+    $('communityPanel').hidden = true;
+    $('messagesPage').hidden = false;
+    $('messagesInboxView').hidden = false;
+    $('communityChatView').hidden = true;
+    communityStatus('');
+    await refreshIncomingMessageSenders();
+  }
+
+  async function showMessagesInbox() {
+    if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+    activeConversationId = null;
+    activeConversationPeer = null;
+    $('communityChatView').hidden = true;
+    $('messagesInboxView').hidden = false;
+    await refreshIncomingMessageSenders();
+  }
+
+  $('openMessagesPageBtn')?.addEventListener('click', openMessagesPage);
+  $('backToCommunityBtn')?.addEventListener('click', async () => {
+    if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+    activeConversationId = null; activeConversationPeer = null;
+    $('messagesPage').hidden = true;
+    $('communityPanel').hidden = false;
+    setCommunityView('search');
+    await refreshCommunity();
+  });
+
   async function refreshCommunityConversations() {
     if (!currentUser) return;
     const list = $('communityConversationsList');
     list.textContent = 'جاري تحميل المحادثات...';
     try {
-      const { data, error } = await supabaseClient.from('message_requests')
-        .select('sender_id,receiver_id,conversation_id,responded_at')
-        .eq('status', 'accepted')
-        .not('conversation_id', 'is', null)
-        .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`)
-        .order('responded_at', {ascending:false}).limit(100);
-      if (error) throw error;
-      const byConversation = new Map();
-      (data || []).forEach(row => {
-        if (!byConversation.has(row.conversation_id)) {
-          const peerId = row.sender_id === currentUser.id ? row.receiver_id : row.sender_id;
-          byConversation.set(row.conversation_id, {conversationId:row.conversation_id, peerId});
-        }
-      });
-      const items = [...byConversation.values()];
+      const items = await loadAcceptedCommunityPeers();
       if (!items.length) { list.innerHTML = '<div class="community-item">لسه مفيش محادثات. ابحث عن عضو وأرسل طلب تواصل.</div>'; return; }
       const profiles = await getProfilesByIds(items.map(item => item.peerId));
       list.innerHTML = items.map(item => {
@@ -2310,7 +2427,11 @@
   async function openCommunityConversation(conversationId) {
     if (!currentUser) return;
     activeConversationId = conversationId;
-    setCommunityView('chat');
+    $('communityPanel').hidden = true;
+    $('messagesPage').hidden = false;
+    $('messagesInboxView').hidden = true;
+    $('communityChatView').hidden = false;
+    communityStatus('');
     $('communityChatHead').textContent = 'جاري تحميل المحادثة...';
     $('communityMessagesList').textContent = 'جاري تحميل الرسائل...';
     try {
@@ -2327,7 +2448,10 @@
       await refreshCommunityMessages();
       if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
       activeMessageChannel = supabaseClient.channel('private-messages-' + conversationId)
-        .on('postgres_changes', {event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.' + conversationId}, () => refreshCommunityMessages())
+        .on('postgres_changes', {event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.' + conversationId}, () => {
+          refreshCommunityMessages();
+          refreshIncomingMessageSenders();
+        })
         .subscribe();
     } catch (error) {
       console.error('Open conversation:', error);
@@ -2350,12 +2474,7 @@
     }).join('') : '<div style="color:#aaa;text-align:center">ابدأ المحادثة برسالة طيبة.</div>';
     list.scrollTop = list.scrollHeight;
   }
-  $('backToConversationsBtn')?.addEventListener('click', async () => {
-    if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
-    activeConversationId = null; activeConversationPeer = null;
-    setCommunityView('conversations');
-    await refreshCommunityConversations();
-  });
+  $('backToConversationsBtn')?.addEventListener('click', showMessagesInbox);
   $('communityMessageForm')?.addEventListener('submit', async event => {
     event.preventDefault();
     if (!currentUser || !activeConversationId) return;
@@ -2382,7 +2501,7 @@
 
   async function refreshCommunity() {
     if (!currentUser) return;
-    await Promise.allSettled([refreshCommunityRequests(), refreshCommunityConversations()]);
+    await Promise.allSettled([refreshCommunityRequests(), refreshCommunityConversations(), refreshIncomingMessageSenders()]);
   }
   function setCommunityAuth(loggedIn) {
     const panel = $('communityPanel');
@@ -2390,9 +2509,11 @@
     if (!loggedIn) {
       if (activeMessageChannel && supabaseClient) supabaseClient.removeChannel(activeMessageChannel);
       activeMessageChannel = null; activeConversationId = null; activeConversationPeer = null;
+      if ($('messagesPage')) $('messagesPage').hidden = true;
       if ($('memberSearchResults')) $('memberSearchResults').textContent = '';
       if ($('communityStatus')) $('communityStatus').textContent = '';
     } else {
+      if ($('messagesPage')) $('messagesPage').hidden = true;
       setCommunityView('search');
       Promise.resolve().then(refreshCommunity);
     }
