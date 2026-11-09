@@ -955,7 +955,7 @@
 <canvas id="webgl-bg"></canvas>
 
 <!-- Notification Button -->
-<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل الإشعارات">
+<button id="floatingNotifyBtn" class="floating-notification-btn animate__animated animate__bounceIn" title="تفعيل إشعارات المجتمع" aria-label="تفعيل إشعارات المجتمع" type="button">
     <i class="bi bi-bell-fill"></i>
 </button>
 
@@ -1678,22 +1678,80 @@
 
     const floatingNotifyBtn = document.getElementById('floatingNotifyBtn');
     function checkNotificationPermission() {
-        if ("Notification" in window) {
-            if (Notification.permission === "granted" || Notification.permission === "denied") {
-                floatingNotifyBtn.style.display = 'none';
-            } else {
-                floatingNotifyBtn.style.display = 'flex';
-            }
-        }
+        if (!floatingNotifyBtn) return;
+        // لا نطلب الإذن تلقائيًا؛ نظهر الزر ليختار المستخدم التفعيل بنفسه.
+        floatingNotifyBtn.style.display = ("Notification" in window && Notification.permission !== 'denied') ? 'flex' : 'none';
     }
 
-    floatingNotifyBtn.addEventListener('click', () => {
-        if ("Notification" in window) {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted" || permission === "denied") {
-                    floatingNotifyBtn.style.display = 'none';
-                }
-            });
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const raw = atob(base64);
+        const output = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++) output[i] = raw.charCodeAt(i);
+        return output;
+    }
+
+    floatingNotifyBtn?.addEventListener('click', async () => {
+        const status = document.getElementById('authStatus');
+        const showMessage = (message) => { if (status) status.textContent = message; };
+        try {
+            const client = window.supabaseClient;
+            if (!client) { showMessage('خدمة الحسابات لم تجهز بعد. حدّث الصفحة وحاول مرة أخرى.'); return; }
+            const { data: userData, error: userError } = await client.auth.getUser();
+            if (userError) throw userError;
+            if (!userData?.user) {
+                window.requirePlatformAuth?.('سجّل الدخول أولاً لتفعيل إشعارات المجتمع.');
+                return;
+            }
+            if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+                showMessage('متصفحك لا يدعم إشعارات المجتمع.'); return;
+            }
+            if (!window.isSecureContext) {
+                showMessage('لازم تفتح الموقع من اتصال آمن HTTPS لتفعيل الإشعارات.'); return;
+            }
+            let permission = Notification.permission;
+            if (permission === 'default') permission = await Notification.requestPermission();
+            if (permission !== 'granted') {
+                showMessage(permission === 'denied' ? 'إذن الإشعارات مرفوض من إعدادات المتصفح.' : 'لم يتم تفعيل الإشعارات.');
+                checkNotificationPermission();
+                return;
+            }
+
+            floatingNotifyBtn.disabled = true;
+            showMessage('جاري تفعيل إشعارات المجتمع...');
+            const registration = await navigator.serviceWorker.register('/-/community-push/sw.js', { scope: '/-/community-push/' });
+            await navigator.serviceWorker.ready;
+            let subscription = await registration.pushManager.getSubscription();
+            if (!subscription) {
+                const applicationServerKey = 'BBTenNqSO4wU0vQTZMFdfPr5gB46w_yAJwvvMaQL4S6l8gaHe9zh-SVdqDIVctxYL2PHzpVmNPZvgYErM_7FpDE';
+                subscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(applicationServerKey)
+                });
+            }
+            const subscriptionData = subscription.toJSON();
+            const endpoint = subscriptionData.endpoint;
+            const p256dh = subscriptionData.keys?.p256dh;
+            const auth_key = subscriptionData.keys?.auth;
+            if (!endpoint || !p256dh || !auth_key) throw new Error('بيانات اشتراك الإشعارات غير مكتملة.');
+
+            const { error: saveError } = await client.from('user_push_subscriptions').upsert({
+                user_id: userData.user.id,
+                endpoint,
+                p256dh,
+                auth_key,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'endpoint' });
+            if (saveError) throw saveError;
+
+            showMessage('تم تفعيل إشعارات المجتمع وحفظ اشتراكك بنجاح.');
+            floatingNotifyBtn.style.display = 'none';
+        } catch (error) {
+            console.error('Community push subscription error:', error);
+            showMessage('تعذر تفعيل الإشعارات: ' + (error.message || 'حاول مرة أخرى.'));
+        } finally {
+            if (floatingNotifyBtn) floatingNotifyBtn.disabled = false;
         }
     });
 
