@@ -897,6 +897,35 @@
         .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
         .form-auth-locked { opacity:.58; }
 
+        /* Members community and private messaging */
+        .community-panel { padding:22px; text-align:right; }
+        .community-panel h3 { color:var(--text-gold); margin:0 0 12px; text-align:center; }
+        .community-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 18px; }
+        .community-tabs button, .community-action { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:10px 15px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
+        .community-tabs button.active, .community-action.primary { background:var(--gold-gradient); color:#111; }
+        .community-search-row { display:flex; gap:8px; flex-wrap:wrap; }
+        .community-search-row input, .community-message-form textarea { flex:1; min-width:180px; width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .community-list { display:grid; gap:10px; margin-top:14px; }
+        .community-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid rgba(212,175,55,.22); border-radius:15px; background:rgba(0,0,0,.24); min-width:0; }
+        .community-item-main { flex:1; min-width:0; }
+        .community-item-title { color:#fff; overflow-wrap:anywhere; }
+        .community-item-sub { color:#aaa; font-size:.82rem; margin-top:4px; }
+        .community-avatar { width:46px; height:46px; flex:0 0 46px; border-radius:50%; object-fit:cover; border:1px solid var(--text-gold); background:#111820; }
+        .community-actions { display:flex; flex-wrap:wrap; gap:7px; }
+        .community-action { padding:8px 11px; font-size:.88rem; }
+        .community-action.danger { border-color:rgba(239,68,68,.5); color:#ffb4b4; }
+        .community-state { color:var(--text-gold); text-align:center; min-height:1.6em; margin:10px 0; line-height:1.7; }
+        .community-chat-head { display:flex; align-items:center; gap:10px; margin:8px 0 14px; }
+        .community-chat-head strong { color:var(--text-gold); }
+        .community-messages { display:flex; flex-direction:column; gap:9px; max-height:420px; overflow:auto; padding:12px; border:1px solid rgba(212,175,55,.2); border-radius:16px; background:rgba(0,0,0,.25); }
+        .community-bubble { max-width:88%; padding:10px 13px; border-radius:14px; background:rgba(255,255,255,.08); color:#fff; align-self:flex-start; overflow-wrap:anywhere; white-space:pre-wrap; }
+        .community-bubble.mine { align-self:flex-end; background:rgba(212,175,55,.2); border:1px solid rgba(212,175,55,.35); }
+        .community-bubble small { display:block; color:#aaa; font-size:.72rem; margin-top:5px; }
+        .community-message-form { display:flex; gap:8px; margin-top:12px; align-items:stretch; }
+        .community-message-form textarea { min-height:48px; max-height:120px; resize:vertical; }
+        @media(max-width:520px) { .community-item { align-items:flex-start; flex-wrap:wrap; } .community-actions { width:100%; } .community-message-form { flex-direction:column; } }
+
+
     </style>
 </head>
 <body>
@@ -1046,6 +1075,45 @@
         </div>
         <button type="button" class="auth-btn" id="logoutBtn" hidden style="margin-top:12px;">تسجيل الخروج</button>
         <span id="authStatus" role="status" aria-live="polite"></span>
+    </section>
+
+
+
+    <!-- مجتمع الأعضاء والمراسلات الخاصة -->
+    <section class="glass-card community-panel" id="communityPanel" hidden aria-label="مجتمع الأعضاء">
+        <h3><i class="bi bi-people-fill"></i> مجتمع أعضاء داعم المواهب</h3>
+        <p style="color:#bbb;text-align:center;line-height:1.7;margin:0;">ابحث عن عضو، أرسل طلب تواصل، وتابع محادثاتك الخاصة.</p>
+        <div class="community-tabs" role="tablist" aria-label="أقسام المجتمع">
+            <button type="button" class="active" data-community-view="search">البحث عن أعضاء</button>
+            <button type="button" data-community-view="requests">طلبات التواصل</button>
+            <button type="button" data-community-view="conversations">محادثاتي</button>
+        </div>
+        <div id="communitySearchView">
+            <div class="community-search-row">
+                <input id="memberSearchInput" type="search" maxlength="80" placeholder="اكتب اسم العضو للبحث..." autocomplete="off" aria-label="البحث عن عضو">
+                <button type="button" class="community-action primary" id="memberSearchBtn"><i class="bi bi-search"></i> بحث</button>
+            </div>
+            <div id="memberSearchResults" class="community-list"></div>
+        </div>
+        <div id="communityRequestsView" hidden>
+            <h4 style="color:var(--text-gold);margin:8px 0;">الطلبات الواردة</h4>
+            <div id="incomingRequestsList" class="community-list"></div>
+            <h4 style="color:var(--text-gold);margin:20px 0 8px;">الطلبات المرسلة</h4>
+            <div id="sentRequestsList" class="community-list"></div>
+        </div>
+        <div id="communityConversationsView" hidden>
+            <div id="communityConversationsList" class="community-list"></div>
+        </div>
+        <div id="communityChatView" hidden>
+            <button type="button" class="community-action" id="backToConversationsBtn"><i class="bi bi-arrow-right"></i> رجوع للمحادثات</button>
+            <div class="community-chat-head" id="communityChatHead"></div>
+            <div id="communityMessagesList" class="community-messages" aria-live="polite"></div>
+            <form id="communityMessageForm" class="community-message-form">
+                <textarea id="communityMessageInput" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required aria-label="نص الرسالة"></textarea>
+                <button type="submit" class="community-action primary" id="sendCommunityMessageBtn"><i class="bi bi-send-fill"></i> إرسال</button>
+            </form>
+        </div>
+        <div id="communityStatus" class="community-state" role="status" aria-live="polite"></div>
     </section>
 
     <!-- Live Info Card -->
@@ -2048,6 +2116,289 @@
     if ($('donationGuestNote')) $('donationGuestNote').style.display = allowed ? 'none' : 'block';
   }
 
+
+
+  // Community: member search, requests, conversations and private messages.
+  let activeConversationId = null;
+  let activeConversationPeer = null;
+  let activeMessageChannel = null;
+  let communityBusy = false;
+
+  function communityStatus(message) {
+    const el = $('communityStatus');
+    if (el) el.textContent = message || '';
+  }
+  function escapeCommunityText(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function communityName(profile, fallback) {
+    return profile?.display_name || fallback || 'عضو بالمنصة';
+  }
+  function communityAvatar(profile) {
+    return profile?.avatar_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E";
+  }
+  async function getProfilesByIds(ids) {
+    const unique = [...new Set((ids || []).filter(Boolean))];
+    if (!unique.length) return {};
+    const { data, error } = await supabaseClient.from('profiles')
+      .select('id,display_name,avatar_url').in('id', unique);
+    if (error) throw error;
+    return Object.fromEntries((data || []).map(profile => [profile.id, profile]));
+  }
+  function setCommunityView(view) {
+    $('communitySearchView').hidden = view !== 'search';
+    $('communityRequestsView').hidden = view !== 'requests';
+    $('communityConversationsView').hidden = view !== 'conversations';
+    $('communityChatView').hidden = view !== 'chat';
+    document.querySelectorAll('[data-community-view]').forEach(button =>
+      button.classList.toggle('active', button.dataset.communityView === view));
+    if (view !== 'chat') communityStatus('');
+  }
+  document.querySelectorAll('[data-community-view]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const view = button.dataset.communityView;
+      setCommunityView(view);
+      if (view === 'requests') await refreshCommunityRequests();
+      if (view === 'conversations') await refreshCommunityConversations();
+    });
+  });
+
+  async function searchCommunityMembers() {
+    if (!currentUser) return window.requirePlatformAuth('سجّل الدخول للبحث عن الأعضاء.');
+    const term = $('memberSearchInput').value.trim().replace(/[%,()]/g, ' ');
+    const results = $('memberSearchResults');
+    if (term.length < 2) { results.textContent = 'اكتب حرفين على الأقل للبحث.'; return; }
+    results.textContent = 'جاري البحث...';
+    try {
+      const { data, error } = await supabaseClient.from('profiles')
+        .select('id,display_name,avatar_url')
+        .neq('id', currentUser.id)
+        .ilike('display_name', '%' + term + '%')
+        .limit(20);
+      if (error) throw error;
+      if (!data?.length) { results.textContent = 'مفيش أعضاء مطابقين للاسم ده.'; return; }
+      results.innerHTML = data.map(profile => `
+        <div class="community-item">
+          <img class="community-avatar" src="${escapeCommunityText(communityAvatar(profile))}" alt="">
+          <div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(profile))}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
+          <div class="community-actions"><button type="button" class="community-action primary" data-send-request="${escapeCommunityText(profile.id)}">إرسال طلب تواصل</button></div>
+        </div>`).join('');
+      results.querySelectorAll('[data-send-request]').forEach(button => button.addEventListener('click', () => sendCommunityRequest(button.dataset.sendRequest, button)));
+    } catch (error) {
+      console.error('Member search:', error);
+      results.textContent = 'تعذر البحث عن الأعضاء: ' + (error.message || 'تحقق من صلاحية قراءة الملفات الشخصية في Supabase.');
+    }
+  }
+  $('memberSearchBtn')?.addEventListener('click', searchCommunityMembers);
+  $('memberSearchInput')?.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); searchCommunityMembers(); } });
+
+  async function sendCommunityRequest(receiverId, button) {
+    if (!currentUser || communityBusy) return;
+    communityBusy = true;
+    if (button) button.disabled = true;
+    communityStatus('جاري إرسال طلب التواصل...');
+    try {
+      const { error } = await supabaseClient.from('message_requests').insert({
+        sender_id: currentUser.id,
+        receiver_id: receiverId,
+        status: 'pending'
+      });
+      if (error) {
+        if (error.code === '23505') throw new Error('فيه طلب تواصل معلق بالفعل بينكما.');
+        throw error;
+      }
+      communityStatus('تم إرسال طلب التواصل بنجاح.');
+      if (button) button.textContent = 'تم إرسال الطلب';
+      if (button) button.disabled = true;
+    } catch (error) {
+      communityStatus('تعذر إرسال الطلب: ' + (error.message || 'حدث خطأ غير متوقع.'));
+      if (button) button.disabled = false;
+    } finally { communityBusy = false; }
+  }
+
+  async function refreshCommunityRequests() {
+    if (!currentUser) return;
+    $('incomingRequestsList').textContent = 'جاري تحميل الطلبات الواردة...';
+    $('sentRequestsList').textContent = 'جاري تحميل الطلبات المرسلة...';
+    try {
+      const [incomingResult, sentResult] = await Promise.all([
+        supabaseClient.from('message_requests').select('id,sender_id,receiver_id,status,created_at')
+          .eq('receiver_id', currentUser.id).eq('status', 'pending').order('created_at', {ascending:false}).limit(50),
+        supabaseClient.from('message_requests').select('id,sender_id,receiver_id,status,created_at')
+          .eq('sender_id', currentUser.id).in('status', ['pending','accepted','rejected','cancelled']).order('created_at', {ascending:false}).limit(50)
+      ]);
+      if (incomingResult.error) throw incomingResult.error;
+      if (sentResult.error) throw sentResult.error;
+      const rows = [...(incomingResult.data || []), ...(sentResult.data || [])];
+      const profiles = await getProfilesByIds(rows.map(row => row.sender_id === currentUser.id ? row.receiver_id : row.sender_id));
+      const incoming = $('incomingRequestsList');
+      const sent = $('sentRequestsList');
+      incoming.innerHTML = (incomingResult.data || []).length ? incomingResult.data.map(row => {
+        const peer = profiles[row.sender_id];
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
+      }).join('') : '<div class="community-item">لا توجد طلبات واردة حاليًا.</div>';
+      sent.innerHTML = (sentResult.data || []).length ? sentResult.data.map(row => {
+        const peer = profiles[row.receiver_id];
+        const statusLabel = row.status === 'pending' ? 'بانتظار رد العضو' : row.status === 'accepted' ? 'تم قبول الطلب' : row.status === 'rejected' ? 'تم رفض الطلب' : 'تم إلغاء الطلب';
+        const action = row.status === 'pending' ? `<button class="community-action danger" data-cancel-request="${row.id}">إلغاء الطلب</button>` : '';
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
+      }).join('') : '<div class="community-item">لم ترسل طلبات تواصل بعد.</div>';
+      incoming.querySelectorAll('[data-accept-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('accept_message_request', button.dataset.acceptRequest, button)));
+      incoming.querySelectorAll('[data-reject-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('reject_message_request', button.dataset.rejectRequest, button)));
+      sent.querySelectorAll('[data-cancel-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('cancel_message_request', button.dataset.cancelRequest, button)));
+    } catch (error) {
+      console.error('Community requests:', error);
+      $('incomingRequestsList').textContent = 'تعذر تحميل الطلبات: ' + (error.message || 'خطأ غير معروف');
+      $('sentRequestsList').textContent = '';
+    }
+  }
+
+  async function respondToCommunityRequest(functionName, requestId, button) {
+    if (!currentUser || communityBusy) return;
+    communityBusy = true;
+    if (button) button.disabled = true;
+    communityStatus('جاري تنفيذ الطلب...');
+    try {
+      const { data, error } = await supabaseClient.rpc(functionName, {p_request_id:requestId});
+      if (error) throw error;
+      communityStatus(functionName === 'accept_message_request' ? 'تم قبول الطلب وفتح المحادثة.' : functionName === 'reject_message_request' ? 'تم رفض طلب التواصل.' : 'تم إلغاء طلب التواصل.');
+      await refreshCommunityRequests();
+      if (functionName === 'accept_message_request' && data) {
+        await refreshCommunityConversations();
+        await openCommunityConversation(data);
+      }
+    } catch (error) {
+      console.error('Respond to request:', error);
+      communityStatus('تعذر تنفيذ الطلب: ' + (error.message || 'تحقق من إعدادات قاعدة البيانات.'));
+      if (button) button.disabled = false;
+    } finally { communityBusy = false; }
+  }
+
+  async function refreshCommunityConversations() {
+    if (!currentUser) return;
+    const list = $('communityConversationsList');
+    list.textContent = 'جاري تحميل المحادثات...';
+    try {
+      const { data, error } = await supabaseClient.from('message_requests')
+        .select('sender_id,receiver_id,conversation_id,responded_at')
+        .eq('status', 'accepted')
+        .not('conversation_id', 'is', null)
+        .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`)
+        .order('responded_at', {ascending:false}).limit(100);
+      if (error) throw error;
+      const byConversation = new Map();
+      (data || []).forEach(row => {
+        if (!byConversation.has(row.conversation_id)) {
+          const peerId = row.sender_id === currentUser.id ? row.receiver_id : row.sender_id;
+          byConversation.set(row.conversation_id, {conversationId:row.conversation_id, peerId});
+        }
+      });
+      const items = [...byConversation.values()];
+      if (!items.length) { list.innerHTML = '<div class="community-item">لسه مفيش محادثات. ابحث عن عضو وأرسل طلب تواصل.</div>'; return; }
+      const profiles = await getProfilesByIds(items.map(item => item.peerId));
+      list.innerHTML = items.map(item => {
+        const peer = profiles[item.peerId];
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+      }).join('');
+      list.querySelectorAll('[data-open-conversation]').forEach(button => button.addEventListener('click', () => openCommunityConversation(button.dataset.openConversation)));
+    } catch (error) {
+      console.error('Community conversations:', error);
+      list.textContent = 'تعذر تحميل المحادثات: ' + (error.message || 'خطأ غير معروف');
+    }
+  }
+
+  async function openCommunityConversation(conversationId) {
+    if (!currentUser) return;
+    activeConversationId = conversationId;
+    setCommunityView('chat');
+    $('communityChatHead').textContent = 'جاري تحميل المحادثة...';
+    $('communityMessagesList').textContent = 'جاري تحميل الرسائل...';
+    try {
+      const { data: requestRows, error: requestError } = await supabaseClient.from('message_requests')
+        .select('sender_id,receiver_id').eq('conversation_id', conversationId).eq('status', 'accepted')
+        .or(`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`).limit(1);
+      if (requestError) throw requestError;
+      const request = requestRows?.[0];
+      if (!request) throw new Error('لا تملك صلاحية الوصول إلى هذه المحادثة.');
+      activeConversationPeer = request.sender_id === currentUser.id ? request.receiver_id : request.sender_id;
+      const profiles = await getProfilesByIds([activeConversationPeer]);
+      const peer = profiles[activeConversationPeer];
+      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${escapeCommunityText(communityName(peer, 'عضو'))}</strong>`;
+      await refreshCommunityMessages();
+      if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+      activeMessageChannel = supabaseClient.channel('private-messages-' + conversationId)
+        .on('postgres_changes', {event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.' + conversationId}, () => refreshCommunityMessages())
+        .subscribe();
+    } catch (error) {
+      console.error('Open conversation:', error);
+      $('communityMessagesList').textContent = 'تعذر فتح المحادثة: ' + (error.message || 'خطأ غير معروف');
+    }
+  }
+
+  async function refreshCommunityMessages() {
+    if (!activeConversationId || !currentUser) return;
+    const list = $('communityMessagesList');
+    const { data, error } = await supabaseClient.from('messages')
+      .select('id,sender_id,content,created_at')
+      .eq('conversation_id', activeConversationId)
+      .order('created_at', {ascending:true}).limit(200);
+    if (error) throw error;
+    list.innerHTML = (data || []).length ? data.map(message => {
+      const mine = message.sender_id === currentUser.id;
+      const date = message.created_at ? new Date(message.created_at).toLocaleString('ar-EG', {dateStyle:'short',timeStyle:'short'}) : '';
+      return `<div class="community-bubble${mine ? ' mine' : ''}">${escapeCommunityText(message.content)}<small>${mine ? 'أنت' : 'العضو الآخر'} · ${escapeCommunityText(date)}</small></div>`;
+    }).join('') : '<div style="color:#aaa;text-align:center">ابدأ المحادثة برسالة طيبة.</div>';
+    list.scrollTop = list.scrollHeight;
+  }
+  $('backToConversationsBtn')?.addEventListener('click', async () => {
+    if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
+    activeConversationId = null; activeConversationPeer = null;
+    setCommunityView('conversations');
+    await refreshCommunityConversations();
+  });
+  $('communityMessageForm')?.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!currentUser || !activeConversationId) return;
+    const input = $('communityMessageInput');
+    const content = input.value.trim();
+    if (!content) return;
+    const sendButton = $('sendCommunityMessageBtn');
+    sendButton.disabled = true;
+    try {
+      const { error } = await supabaseClient.from('messages').insert({
+        conversation_id:activeConversationId,
+        sender_id:currentUser.id,
+        content
+      });
+      if (error) throw error;
+      input.value = '';
+      await refreshCommunityMessages();
+      communityStatus('تم إرسال الرسالة.');
+    } catch (error) {
+      console.error('Send message:', error);
+      communityStatus('تعذر إرسال الرسالة: ' + (error.message || 'قد يكون أحد الطرفين حظرك.'));
+    } finally { sendButton.disabled = false; }
+  });
+
+  async function refreshCommunity() {
+    if (!currentUser) return;
+    await Promise.allSettled([refreshCommunityRequests(), refreshCommunityConversations()]);
+  }
+  function setCommunityAuth(loggedIn) {
+    const panel = $('communityPanel');
+    if (panel) panel.hidden = !loggedIn;
+    if (!loggedIn) {
+      if (activeMessageChannel && supabaseClient) supabaseClient.removeChannel(activeMessageChannel);
+      activeMessageChannel = null; activeConversationId = null; activeConversationPeer = null;
+      if ($('memberSearchResults')) $('memberSearchResults').textContent = '';
+      if ($('communityStatus')) $('communityStatus').textContent = '';
+    } else {
+      setCommunityView('search');
+      Promise.resolve().then(refreshCommunity);
+    }
+  }
+
+
   function renderSession(session) {
     currentUser = session?.user || null;
     authReady = true;
@@ -2067,6 +2418,7 @@
       profileAvatar.src = fallbackAvatar;
     }
     setFormAccess(loggedIn);
+    setCommunityAuth(loggedIn);
   }
 
   // Donation UI is prepared for the server function; the server-side Paymob function must be deployed before real checkout can work.
