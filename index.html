@@ -1075,6 +1075,7 @@
     <nav class="platform-nav" aria-label="التنقل الرئيسي">
         <a href="index.html"><i class="bi bi-house-fill"></i> الرئيسية</a>
         <a href="#accountPanel"><i class="bi bi-person-circle"></i> حسابي</a>
+        <a href="profile.html"><i class="bi bi-person-badge"></i> ملفي الشخصي</a>
         <a href="#communityPanel" id="navCommunityLink"><i class="bi bi-people-fill"></i> المجتمع</a>
         <a href="messages.html"><i class="bi bi-chat-dots-fill"></i> الرسائل</a>
     </nav>
@@ -2319,6 +2320,11 @@
   function communityName(profile, fallback) {
     return profile?.display_name || fallback || 'عضو بالمنصة';
   }
+  function communityProfileLink(profile, fallback) {
+    const id = encodeURIComponent(profile?.id || '');
+    const verified = profile?.is_verified ? ' <i class="bi bi-patch-check-fill" title="حساب موثق" aria-label="حساب موثق" style="color:#45a8ff"></i>' : '';
+    return `<a href="profile.html?id=${id}" style="color:inherit;text-decoration:none">${escapeCommunityText(communityName(profile, fallback))}${verified}</a>`;
+  }
   function communityAvatar(profile) {
     return profile?.avatar_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E";
   }
@@ -2326,7 +2332,7 @@
     const unique = [...new Set((ids || []).filter(Boolean))];
     if (!unique.length) return {};
     const { data, error } = await supabaseClient.from('profiles')
-      .select('id,display_name,avatar_url').in('id', unique);
+      .select('id,display_name,avatar_url,is_verified').in('id', unique);
     if (error) throw error;
     return Object.fromEntries((data || []).map(profile => [profile.id, profile]));
   }
@@ -2359,7 +2365,7 @@
     results.textContent = 'جاري البحث...';
     try {
       const { data, error } = await supabaseClient.from('profiles')
-        .select('id,display_name,avatar_url')
+        .select('id,display_name,avatar_url,is_verified')
         .neq('id', currentUser.id)
         .ilike('display_name', '%' + term + '%')
         .limit(20);
@@ -2369,7 +2375,7 @@
       results.innerHTML = data.map(profile => `
         <div class="community-item">
           <img class="community-avatar" src="${escapeCommunityText(communityAvatar(profile))}" alt="">
-          <div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(profile))}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
+          <div class="community-item-main"><div class="community-item-title">${communityProfileLink(profile)}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
           <div class="community-actions"><button type="button" class="community-action primary" data-send-request="${escapeCommunityText(profile.id)}">إرسال طلب تواصل</button></div>
         </div>`).join('');
       results.querySelectorAll('[data-send-request]').forEach(button => button.addEventListener('click', () => sendCommunityRequest(button.dataset.sendRequest, button)));
@@ -2431,13 +2437,13 @@
       const sent = $('sentRequestsList');
       incoming.innerHTML = (incomingResult.data || []).length ? incomingResult.data.map(row => {
         const peer = profiles[row.sender_id];
-        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${communityProfileLink(peer, 'عضو')}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
       }).join('') : '<div class="community-item">لا توجد طلبات واردة حاليًا.</div>';
       sent.innerHTML = (sentResult.data || []).length ? sentResult.data.map(row => {
         const peer = profiles[row.receiver_id];
         const statusLabel = row.status === 'pending' ? 'بانتظار رد العضو' : row.status === 'accepted' ? 'تم قبول الطلب' : row.status === 'rejected' ? 'تم رفض الطلب' : 'تم إلغاء الطلب';
         const action = row.status === 'pending' ? `<button class="community-action danger" data-cancel-request="${row.id}">إلغاء الطلب</button>` : '';
-        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${communityProfileLink(peer, 'عضو')}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
       }).join('') : '<div class="community-item">لم ترسل طلبات تواصل بعد.</div>';
       incoming.querySelectorAll('[data-accept-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('accept_message_request', button.dataset.acceptRequest, button)));
       incoming.querySelectorAll('[data-reject-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('reject_message_request', button.dataset.rejectRequest, button)));
@@ -2509,6 +2515,7 @@
       const { data:messages, error:messagesError, count } = await supabaseClient.from('messages')
         .select('id,sender_id,conversation_id,created_at', {count:'exact'})
         .in('conversation_id', conversations.map(item => item.conversationId))
+        .eq('is_hidden', false)
         .neq('sender_id', currentUser.id)
         .order('created_at', {ascending:false}).limit(1000);
       if (messagesError) throw messagesError;
@@ -2524,7 +2531,7 @@
       $('incomingPeopleCount').textContent = String(senders.length);
       const renderSenders = () => senders.length ? senders.map(item => {
         const peer = profiles[item.peerId];
-        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-incoming-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">لديك رسائل من هذا العضو</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-incoming-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${communityProfileLink(peer, 'عضو')}</span><span class="community-item-sub" style="display:block">لديك رسائل من هذا العضو</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
       }).join('') : '<div class="community-item">لا توجد رسائل واردة حتى الآن.</div>';
       const html = renderSenders();
       if (summaryList) summaryList.innerHTML = html;
@@ -2576,7 +2583,7 @@
       const profiles = await getProfilesByIds(items.map(item => item.peerId));
       list.innerHTML = items.map(item => {
         const peer = profiles[item.peerId];
-        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${communityProfileLink(peer, 'عضو')}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
       }).join('');
       list.querySelectorAll('[data-open-conversation]').forEach(button => button.addEventListener('click', () => openCommunityConversation(button.dataset.openConversation)));
     } catch (error) {
@@ -2605,7 +2612,7 @@
       activeConversationPeer = request.sender_id === currentUser.id ? request.receiver_id : request.sender_id;
       const profiles = await getProfilesByIds([activeConversationPeer]);
       const peer = profiles[activeConversationPeer];
-      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${escapeCommunityText(communityName(peer, 'عضو'))}</strong>`;
+      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${communityProfileLink(peer, 'عضو')}</strong>`;
       await refreshCommunityMessages();
       if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
       activeMessageChannel = supabaseClient.channel('private-messages-' + conversationId)
@@ -2625,7 +2632,7 @@
     const list = $('communityMessagesList');
     const { data, error } = await supabaseClient.from('messages')
       .select('id,sender_id,content,created_at')
-      .eq('conversation_id', activeConversationId)
+      .eq('conversation_id', activeConversationId).eq('is_hidden', false)
       .order('created_at', {ascending:true}).limit(200);
     if (error) throw error;
     list.innerHTML = (data || []).length ? data.map(message => {
@@ -2801,6 +2808,7 @@
 
 
 
+<div id="managedBottomAds" class="managed-ads" aria-label="إعلانات المنصة" hidden></div>
 <!-- Public site integrations: visitor presence, published appearance and managed ads -->
 <style>
   .managed-ads{width:92%;max-width:680px;margin:0 auto 22px;position:relative;z-index:6;display:grid;gap:12px}
@@ -2864,11 +2872,15 @@
     }).catch(error => console.debug('Published design unavailable:', error));
 
     // Home-page top ad slot. Additional placements can be added to their page templates later.
-    const slot = document.getElementById('managedTopAds');
-    if (slot) {
+    const topSlot = document.getElementById('managedTopAds');
+    const bottomSlot = document.getElementById('managedBottomAds');
+    if (topSlot || bottomSlot) {
       db.rpc('get_public_ads', {p_page_path: location.pathname || '/'}).then(({data,error}) => {
-        if (error || !Array.isArray(data) || !data.length) return;
-        const ads = data.filter(ad => ['home','top','header','top_of_page'].includes(String(ad.placement||'').toLowerCase()));
+        if (error || !Array.isArray(data) || !data.length) { if(error) console.warn('Ads:',error.message); return; }
+        const topAds = data.filter(ad => ['home','top','header','top_of_page','all_pages'].includes(String(ad.placement||'').toLowerCase()));
+        const bottomAds = data.filter(ad => ['bottom','footer','bottom_of_page'].includes(String(ad.placement||'').toLowerCase()));
+        const renderAds = (slot, ads) => {
+        if (!slot || !ads.length) return;
         if (!ads.length) return;
         // One ad from a rotation group is selected per page load; otherwise show active matching ads.
         const grouped = new Map();
@@ -2901,6 +2913,9 @@
           db.rpc('track_public_ad_event', {p_ad_id:ad.id,p_event_type:'impression',p_page_path:location.pathname||'/'});
         });
         slot.hidden = !chosen.length;
+        };
+        renderAds(topSlot, topAds);
+        renderAds(bottomSlot, bottomAds);
       }).catch(error => console.debug('Managed ads unavailable:', error));
     }
   };
