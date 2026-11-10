@@ -895,19 +895,6 @@
         .donation-submit { border:0; border-radius:14px; padding:14px 18px; background:var(--gold-gradient); color:#111; cursor:pointer; font:inherit; font-size:1.05rem; }
         .donation-submit:disabled { opacity:.55; cursor:not-allowed; }
         .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
-        .donation-field { display:grid; gap:7px; text-align:right; }
-        .donation-field small { color:#aaa; font-size:.8rem; line-height:1.6; }
-        .donation-form textarea { width:100%; min-height:88px; resize:vertical; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; }
-        .donation-form textarea:focus { border-color:var(--text-gold); outline:none; box-shadow:0 0 0 3px rgba(212,175,55,.12); }
-        .donation-form input[type="file"] { padding:10px; }
-        .donor-photo-preview { width:100px; height:100px; object-fit:cover; border-radius:50%; border:2px solid var(--text-gold); margin:6px auto; }
-        .donation-publish-box { text-align:right; border:1px solid rgba(212,175,55,.3); border-radius:14px; padding:14px; background:rgba(0,0,0,.22); }
-        .donation-publish-main { display:flex; align-items:center; gap:9px; font-weight:700; }
-        .donation-publish-box input[type="checkbox"] { width:18px; height:18px; accent-color:#d4af37; flex:0 0 auto; }
-        .donation-publish-box p { color:#aaa; font-size:.82rem; line-height:1.6; margin:8px 0; }
-        .donation-publish-options { display:grid; gap:9px; padding:12px; margin-top:10px; border-top:1px solid rgba(212,175,55,.2); }
-        .donation-publish-options label { display:flex; align-items:center; gap:8px; }
-        .donation-privacy-note { color:#b8d8c2; font-size:.82rem; line-height:1.6; text-align:right; }
         .form-auth-locked { opacity:.58; }
 
         /* Members community and private messaging */
@@ -948,6 +935,9 @@
 
 
     
+        .member-verified-badge{display:inline-flex;align-items:center;justify-content:center;color:#64b5f6;font-size:1rem;margin-inline:4px;vertical-align:middle;filter:drop-shadow(0 0 5px rgba(100,181,246,.35));}
+        .owner-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;background:linear-gradient(135deg,#fff0a6,#d4af37,#fff0a6);color:#17120a;font-size:.76rem;font-weight:700;vertical-align:middle;margin-inline:4px;}
+
         /* Unified navigation shared with the standalone messages page */
         .platform-nav{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px auto 22px;padding:10px;border:1px solid rgba(212,175,55,.22);border-radius:16px;background:rgba(0,0,0,.24);}
         .platform-nav a{display:inline-flex;align-items:center;gap:7px;color:#f5d778;text-decoration:none;border:1px solid rgba(212,175,55,.35);padding:9px 15px;border-radius:12px;background:rgba(0,0,0,.22);transition:background .2s,border-color .2s;}
@@ -1277,46 +1267,8 @@
         <p style="color:#ddd;line-height:1.8;margin:6px 0;">تبرع بالمبلغ الذي تختاره لدعم أنشطة المنصة وخدمة أهل القرآن الكريم.</p>
         <div id="donationGuestNote" class="auth-required-note" style="display:block;">لازم تسجل الدخول الأول علشان تقدر تتبرع. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">تسجيل الدخول أو إنشاء حساب</a></div>
         <form id="donationForm" class="donation-form">
-            <div class="donation-field">
-                <label for="donorFullName">الاسم بالكامل</label>
-                <input id="donorFullName" type="text" maxlength="120" autocomplete="name" placeholder="اكتب الاسم الذي تفضّل استخدامه" required disabled data-donation-field>
-            </div>
-            <div class="donation-field">
-                <label for="donorPhone">رقم الهاتف</label>
-                <input id="donorPhone" type="tel" maxlength="25" autocomplete="tel" inputmode="tel" placeholder="01xxxxxxxxx" required disabled data-donation-field>
-                <small>رقم الهاتف مطلوب لإتمام بيانات الدفع، ولن يظهر للعامة نهائيًا.</small>
-            </div>
-            <div class="donation-field">
-                <label for="donorPhoto">صورة المتبرع (اختياري)</label>
-                <input id="donorPhoto" type="file" accept="image/jpeg,image/png,image/webp" disabled data-donation-field>
-                <small>JPG أو PNG أو WEBP — بحد أقصى 2 ميجابايت.</small>
-                <img id="donorPhotoPreview" class="donor-photo-preview" alt="معاينة صورة المتبرع" hidden>
-            </div>
-            <div class="donation-field">
-                <label for="donationAmount">مبلغ التبرع بالجنيه المصري</label>
-                <div class="donation-amount-wrap"><input id="donationAmount" type="number" min="1" max="1000000" step="0.01" inputmode="decimal" placeholder="اكتب أي مبلغ تريده" required disabled data-donation-field><span>ج.م</span></div>
-            </div>
-            <div class="donation-field">
-                <label for="donationReason">سبب التبرع أو رسالة تحب تضيفها (اختياري)</label>
-                <textarea id="donationReason" rows="3" maxlength="500" placeholder="اكتب رسالتك أو سبب التبرع..." disabled data-donation-field></textarea>
-            </div>
-
-            <div class="donation-publish-box">
-                <label class="donation-publish-main">
-                    <input id="publishDonation" type="checkbox" disabled data-donation-field>
-                    <span>أوافق على نشر تبرعي في المنصة</span>
-                </label>
-                <p>لو لم تفعّل هذا الاختيار، ستظل بيانات تبرعك خاصة ولن يظهر شيء منها في صفحة المتبرعين.</p>
-                <div id="donationPublishOptions" class="donation-publish-options" hidden>
-                    <strong>اختَر المعلومات التي تسمح بنشرها:</strong>
-                    <label><input id="publishName" type="checkbox" disabled data-publish-option> نشر اسمي</label>
-                    <label><input id="publishPhoto" type="checkbox" disabled data-publish-option> نشر صورتي</label>
-                    <label><input id="publishAmount" type="checkbox" disabled data-publish-option> نشر مبلغ التبرع</label>
-                    <label><input id="publishReason" type="checkbox" disabled data-publish-option> نشر سبب التبرع أو رسالتي</label>
-                </div>
-            </div>
-
-            <div class="donation-privacy-note"><i class="bi bi-shield-lock"></i> رقم الهاتف والبريد الإلكتروني لا يتم نشرهما مطلقًا. والنشر اختياري بالكامل.</div>
+            <label for="donationAmount">مبلغ التبرع بالجنيه المصري</label>
+            <div class="donation-amount-wrap"><input id="donationAmount" type="number" min="1" max="1000000" step="0.01" inputmode="decimal" placeholder="اكتب أي مبلغ تريده" required disabled><span>ج.م</span></div>
             <button class="donation-submit" id="donationSubmitBtn" type="submit" disabled><i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع</button>
             <div class="donation-status" id="donationStatus" role="status" aria-live="polite"></div>
         </form>
@@ -2102,32 +2054,6 @@
   const avatarInput = $('profileAvatarInput');
   const talentForm = $('talentForm');
   const donationForm = $('donationForm');
-  const donationPublishToggle = $('publishDonation');
-  const donationPublishOptions = $('donationPublishOptions');
-  function syncDonationPublishOptions() {
-    const allowed = !!(donationPublishToggle && donationPublishToggle.checked && currentUser && authReady);
-    if (donationPublishOptions) donationPublishOptions.hidden = !allowed;
-    document.querySelectorAll('[data-publish-option]').forEach(input => {
-      input.disabled = !allowed;
-      if (!allowed) input.checked = false;
-    });
-  }
-  donationPublishToggle?.addEventListener('change', syncDonationPublishOptions);
-  $('donorPhoto')?.addEventListener('change', () => {
-    const file = $('donorPhoto').files?.[0];
-    const preview = $('donorPhotoPreview');
-    if (!preview) return;
-    if (!file) { preview.hidden = true; preview.removeAttribute('src'); return; }
-    if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 2 * 1024 * 1024) {
-      $('donorPhoto').value = '';
-      preview.hidden = true;
-      $('donationStatus').textContent = 'الصورة لازم تكون JPG أو PNG أو WEBP وبحجم لا يتجاوز 2 ميجابايت.';
-      return;
-    }
-    preview.src = URL.createObjectURL(file);
-    preview.hidden = false;
-  });
-
   let supabaseClient = null;
   let currentUser = null;
   let authReady = false;
@@ -2250,10 +2176,6 @@
       const providerPic = user.user_metadata?.avatar_url || user.user_metadata?.picture;
       profileAvatar.src = providerPic || fallbackAvatar;
     }
-    const donorNameInput = $('donorFullName');
-    if (donorNameInput && !donorNameInput.value.trim()) {
-      donorNameInput.value = data?.display_name || user.user_metadata?.display_name || user.user_metadata?.full_name || '';
-    }
   }
 
   $('uploadAvatarBtn')?.addEventListener('click', async () => {
@@ -2290,13 +2212,12 @@
       }
       note.style.display = allowed ? 'none' : 'block';
     }
-    document.querySelectorAll('[data-donation-field]').forEach(el => { el.disabled = !allowed; });
+    if ($('donationAmount')) $('donationAmount').disabled = !allowed;
     if ($('donationSubmitBtn')) {
       $('donationSubmitBtn').disabled = !allowed;
       $('donationSubmitBtn').innerHTML = allowed ? '<i class="bi bi-heart-fill"></i> متابعة التبرع' : '<i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع';
     }
     if ($('donationGuestNote')) $('donationGuestNote').style.display = allowed ? 'none' : 'block';
-    syncDonationPublishOptions();
   }
 
 
@@ -2318,6 +2239,20 @@
   function communityName(profile, fallback) {
     return profile?.display_name || fallback || 'عضو بالمنصة';
   }
+  function communityNameMarkup(profile, fallback) {
+    const name = escapeCommunityText(communityName(profile, fallback));
+    const owner = profile?.is_owner ? '<span class="owner-badge" title="مالك المنصة"><i class="bi bi-gem"></i> مالك المنصة</span>' : '';
+    const verified = profile?.is_verified ? '<span class="member-verified-badge" title="حساب موثق"><i class="bi bi-patch-check-fill"></i></span>' : '';
+    return `${name} ${owner} ${verified}`;
+  }
+  async function attachPublicBadges(profiles) {
+    const ids = (profiles || []).map(p => p.id).filter(Boolean);
+    if (!ids.length) return profiles || [];
+    const { data, error } = await supabaseClient.rpc('get_public_member_badges', { p_user_ids: ids });
+    if (error) { console.warn('Member badges are not available yet:', error.message); return profiles || []; }
+    const badges = Object.fromEntries((data || []).map(item => [item.user_id, item]));
+    return (profiles || []).map(p => ({ ...p, ...(badges[p.id] || {}) }));
+  }
   function communityAvatar(profile) {
     return profile?.avatar_url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23111820'/%3E%3Ccircle cx='50' cy='36' r='18' fill='%23d4af37'/%3E%3Cpath d='M15 94c3-23 17-34 35-34s32 11 35 34' fill='%23d4af37'/%3E%3C/svg%3E";
   }
@@ -2325,9 +2260,10 @@
     const unique = [...new Set((ids || []).filter(Boolean))];
     if (!unique.length) return {};
     const { data, error } = await supabaseClient.from('profiles')
-      .select('id,display_name,avatar_url').in('id', unique);
+      .select('id,display_name,avatar_url,is_verified').in('id', unique);
     if (error) throw error;
-    return Object.fromEntries((data || []).map(profile => [profile.id, profile]));
+    const enriched = await attachPublicBadges(data || []);
+    return Object.fromEntries(enriched.map(profile => [profile.id, profile]));
   }
   function setCommunityView(view) {
     $('communitySearchView').hidden = view !== 'search';
@@ -2358,17 +2294,18 @@
     results.textContent = 'جاري البحث...';
     try {
       const { data, error } = await supabaseClient.from('profiles')
-        .select('id,display_name,avatar_url')
+        .select('id,display_name,avatar_url,is_verified')
         .neq('id', currentUser.id)
         .ilike('display_name', '%' + term + '%')
         .limit(20);
       if (error) throw error;
       if (thisRun !== memberSearchRun) return;
       if (!data?.length) { results.textContent = 'مفيش أعضاء مطابقين للاسم ده.'; return; }
-      results.innerHTML = data.map(profile => `
+      const enrichedProfiles = await attachPublicBadges(data);
+      results.innerHTML = enrichedProfiles.map(profile => `
         <div class="community-item">
           <img class="community-avatar" src="${escapeCommunityText(communityAvatar(profile))}" alt="">
-          <div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(profile))}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
+          <div class="community-item-main"><div class="community-item-title">${communityNameMarkup(profile)}</div><div class="community-item-sub">عضو في داعم المواهب</div></div>
           <div class="community-actions"><button type="button" class="community-action primary" data-send-request="${escapeCommunityText(profile.id)}">إرسال طلب تواصل</button></div>
         </div>`).join('');
       results.querySelectorAll('[data-send-request]').forEach(button => button.addEventListener('click', () => sendCommunityRequest(button.dataset.sendRequest, button)));
@@ -2430,13 +2367,13 @@
       const sent = $('sentRequestsList');
       incoming.innerHTML = (incomingResult.data || []).length ? incomingResult.data.map(row => {
         const peer = profiles[row.sender_id];
-        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${communityNameMarkup(peer, 'عضو')}</div><div class="community-item-sub">طلب تواصل وارد</div></div><div class="community-actions"><button class="community-action primary" data-accept-request="${row.id}">قبول</button><button class="community-action danger" data-reject-request="${row.id}">رفض</button></div></div>`;
       }).join('') : '<div class="community-item">لا توجد طلبات واردة حاليًا.</div>';
       sent.innerHTML = (sentResult.data || []).length ? sentResult.data.map(row => {
         const peer = profiles[row.receiver_id];
         const statusLabel = row.status === 'pending' ? 'بانتظار رد العضو' : row.status === 'accepted' ? 'تم قبول الطلب' : row.status === 'rejected' ? 'تم رفض الطلب' : 'تم إلغاء الطلب';
         const action = row.status === 'pending' ? `<button class="community-action danger" data-cancel-request="${row.id}">إلغاء الطلب</button>` : '';
-        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
+        return `<div class="community-item"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><div class="community-item-main"><div class="community-item-title">${communityNameMarkup(peer, 'عضو')}</div><div class="community-item-sub">${statusLabel}</div></div><div class="community-actions">${action}</div></div>`;
       }).join('') : '<div class="community-item">لم ترسل طلبات تواصل بعد.</div>';
       incoming.querySelectorAll('[data-accept-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('accept_message_request', button.dataset.acceptRequest, button)));
       incoming.querySelectorAll('[data-reject-request]').forEach(button => button.addEventListener('click', () => respondToCommunityRequest('reject_message_request', button.dataset.rejectRequest, button)));
@@ -2523,7 +2460,7 @@
       $('incomingPeopleCount').textContent = String(senders.length);
       const renderSenders = () => senders.length ? senders.map(item => {
         const peer = profiles[item.peerId];
-        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-incoming-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">لديك رسائل من هذا العضو</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-incoming-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${communityNameMarkup(peer, 'عضو')}</span><span class="community-item-sub" style="display:block">لديك رسائل من هذا العضو</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
       }).join('') : '<div class="community-item">لا توجد رسائل واردة حتى الآن.</div>';
       const html = renderSenders();
       if (summaryList) summaryList.innerHTML = html;
@@ -2575,7 +2512,7 @@
       const profiles = await getProfilesByIds(items.map(item => item.peerId));
       list.innerHTML = items.map(item => {
         const peer = profiles[item.peerId];
-        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${escapeCommunityText(communityName(peer, 'عضو'))}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
+        return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-open-conversation="${item.conversationId}"><img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><span class="community-item-main"><span class="community-item-title">${communityNameMarkup(peer, 'عضو')}</span><span class="community-item-sub" style="display:block">افتح المحادثة الخاصة</span></span><i class="bi bi-chevron-left" style="color:var(--text-gold)"></i></button>`;
       }).join('');
       list.querySelectorAll('[data-open-conversation]').forEach(button => button.addEventListener('click', () => openCommunityConversation(button.dataset.openConversation)));
     } catch (error) {
@@ -2604,7 +2541,7 @@
       activeConversationPeer = request.sender_id === currentUser.id ? request.receiver_id : request.sender_id;
       const profiles = await getProfilesByIds([activeConversationPeer]);
       const peer = profiles[activeConversationPeer];
-      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${escapeCommunityText(communityName(peer, 'عضو'))}</strong>`;
+      $('communityChatHead').innerHTML = `<img class="community-avatar" src="${escapeCommunityText(communityAvatar(peer))}" alt=""><strong>${communityNameMarkup(peer, 'عضو')}</strong>`;
       await refreshCommunityMessages();
       if (activeMessageChannel) { await supabaseClient.removeChannel(activeMessageChannel); activeMessageChannel = null; }
       activeMessageChannel = supabaseClient.channel('private-messages-' + conversationId)
@@ -2709,77 +2646,15 @@
     if (panel) { panel.hidden = false; panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 
-  // Create a secure Paymob intention through the Edge Function; never expose merchant secrets here.
+  // Donation UI is prepared for the server function; the server-side Paymob function must be deployed before real checkout can work.
   donationForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!window.requirePlatformAuth('سجّل الدخول قبل التبرع.')) return;
     const amount = Number($('donationAmount').value);
-    const donorName = $('donorFullName').value.trim();
-    const donorPhone = $('donorPhone').value.trim();
-    const photo = $('donorPhoto').files?.[0] || null;
-    const publish = !!$('publishDonation').checked;
-
-    if (!donorName) { $('donationStatus').textContent = 'اكتب اسم المتبرع.'; $('donorFullName').focus(); return; }
-    if (!donorPhone || donorPhone.replace(/[^0-9+]/g, '').length < 8) {
-      $('donationStatus').textContent = 'اكتب رقم هاتف صحيحًا.'; $('donorPhone').focus(); return;
-    }
     if (!Number.isFinite(amount) || amount < 1 || amount > 1000000) {
       $('donationStatus').textContent = 'اكتب مبلغًا صحيحًا من 1 إلى 1,000,000 جنيه.'; return;
     }
-    if (photo && (!['image/jpeg','image/png','image/webp'].includes(photo.type) || photo.size > 2 * 1024 * 1024)) {
-      $('donationStatus').textContent = 'راجع صورة المتبرع: الصيغ JPG وPNG وWEBP وبحد أقصى 2 ميجابايت.'; return;
-    }
-    if (!currentUser || !supabaseClient) {
-      $('donationStatus').textContent = 'انتهت جلسة الدخول. سجّل الدخول مرة أخرى.'; return;
-    }
-
-    const submitButton = $('donationSubmitBtn');
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري تجهيز التبرع...';
-    $('donationStatus').textContent = 'جاري حفظ بيانات التبرع وتجهيز صفحة الدفع الآمنة...';
-    let uploadedPhotoPath = null;
-
-    try {
-      if (photo) {
-        const ext = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[photo.type];
-        uploadedPhotoPath = currentUser.id + '/' + crypto.randomUUID() + '.' + ext;
-        const { error: uploadError } = await supabaseClient.storage
-          .from('donor-photos')
-          .upload(uploadedPhotoPath, photo, { upsert: false, contentType: photo.type, cacheControl: '3600' });
-        if (uploadError) throw uploadError;
-      }
-
-      const { data, error } = await supabaseClient.functions.invoke('create-payment-intention', {
-        body: {
-          donor_name: donorName,
-          donor_phone: donorPhone,
-          amount_egp: amount,
-          donor_photo_path: uploadedPhotoPath,
-          donation_reason: $('donationReason').value.trim(),
-          publish_donation: publish,
-          publish_name: publish && $('publishName').checked,
-          publish_photo: publish && $('publishPhoto').checked && !!uploadedPhotoPath,
-          publish_amount: publish && $('publishAmount').checked,
-          publish_reason: publish && $('publishReason').checked
-        }
-      });
-      if (error) {
-        let details = error.message || 'تعذر الاتصال بخدمة الدفع.';
-        try { if (error.context) { const body = await error.context.json(); details = body.error || body.message || details; } } catch (_) {}
-        throw new Error(details);
-      }
-      if (!data?.checkout_url) throw new Error('الخادم لم يُرجع رابط الدفع الآمن. راجع إعداد دالة الدفع.');
-      $('donationStatus').textContent = 'تم تجهيز طلب التبرع. جاري تحويلك إلى صفحة Paymob الآمنة...';
-      window.location.assign(data.checkout_url);
-    } catch (error) {
-      console.error('Donation checkout error:', error);
-      if (uploadedPhotoPath) {
-        try { await supabaseClient.storage.from('donor-photos').remove([uploadedPhotoPath]); } catch (_) {}
-      }
-      $('donationStatus').textContent = 'تعذر تجهيز التبرع: ' + (error.message || 'خطأ غير معروف') + ' — لم يتم خصم أي مبلغ.';
-      submitButton.disabled = false;
-      submitButton.innerHTML = '<i class="bi bi-heart-fill"></i> متابعة التبرع';
-    }
+    $('donationStatus').textContent = 'واجهة التبرع جاهزة، لكن إنشاء طلب الدفع على الخادم لم يكتمل نشره بعد. لن يتم خصم أي مبلغ الآن.';
   });
 
   if (!window.supabase?.createClient) {
@@ -2788,6 +2663,35 @@
   }
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
   window.supabaseClient = supabaseClient;
+  // Public appearance + maintenance settings controlled from the admin center.
+  (async function applyPlatformAdminSettings() {
+    try {
+      const { data: settings, error } = await supabaseClient.rpc('get_public_platform_status');
+      if (error || !settings) return;
+      if (settings.theme_primary) {
+        document.documentElement.style.setProperty('--text-gold', settings.theme_primary);
+        document.documentElement.style.setProperty('--gold-primary', settings.theme_primary);
+      }
+      if (settings.theme_background) document.documentElement.style.setProperty('--luxury-bg', settings.theme_background);
+      if (settings.site_title) document.title = settings.site_title;
+      if (settings.maintenance_enabled) {
+        const { data: sessionData } = await supabaseClient.auth.getSession();
+        let isAdmin = false;
+        if (sessionData?.session?.user) {
+          const { data: access } = await supabaseClient.rpc('admin_check_access');
+          isAdmin = !!access?.allowed;
+        }
+        if (!isAdmin) {
+          const gate = document.createElement('div');
+          gate.id = 'platformMaintenanceGate';
+          gate.dir = 'rtl';
+          gate.style.cssText = 'position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.16),transparent 42%),#030508;color:#fff;text-align:center;font-family:inherit;';
+          gate.innerHTML = `<div style="max-width:620px;border:1px solid rgba(212,175,55,.5);border-radius:26px;padding:34px 24px;background:rgba(12,16,24,.94);box-shadow:0 20px 70px #000"><img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="" style="width:105px;max-width:35%;object-fit:contain"><h1 style="color:#f7d070;margin:18px 0 12px">نعود إليكم قريباً بإذن الله</h1><p style="font-size:1.2rem;line-height:2;margin:0">${escapeCommunityText(settings.maintenance_message || 'تجري الآن بعض التحديثات على المنصة.')}</p><p style="color:#bbb;line-height:1.8">${escapeCommunityText(settings.maintenance_subtext || '')}</p></div>`;
+          document.body.appendChild(gate);
+        }
+      }
+    } catch (e) { console.warn('Platform settings could not be loaded:', e); }
+  })();
   setMode('signup');
   setFormAccess(false);
   supabaseClient.auth.getSession().then(({ data, error }) => {
