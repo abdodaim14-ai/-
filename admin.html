@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة تحكم الإدارة | داعم المواهب</title>
+<link rel="icon" href="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+@font-face {
+  font-family: SiteFont;
+  src: url("palestine-swashes.ttf") format("truetype");
+}
+:root {
+  --gold:#d4af37;
+  --gold2:#f7d070;
+  --bg:#030508;
+  --card:rgba(12,16,24,.88);
+  --border:rgba(212,175,55,.3);
+  --muted:#aeb4bf;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  padding:22px 14px 50px;
+  color:#f4f4f4;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(212,175,55,.10),transparent 30%),
+    radial-gradient(circle at 0% 100%,rgba(16,185,129,.06),transparent 30%),
+    var(--bg);
+  font-family:SiteFont,Arial,sans-serif;
+}
+button,input,textarea,select { font:inherit; }
+button { cursor:pointer; }
+.container { max-width:1150px; margin:auto; }
+header {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:15px; flex-wrap:wrap; margin-bottom:22px;
+}
+.brand { display:flex; align-items:center; gap:13px; }
+.brand img { width:65px; height:65px; object-fit:contain; }
+h1 { color:var(--gold2); font-size:1.55rem; margin:0 0 5px; }
+.subtitle { color:var(--muted); font-size:.9rem; }
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 12px 35px #0008;
+}
+.gold { color:var(--gold2); }
+.muted { color:var(--muted); }
+.btn {
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:11px 16px;
+  background:rgba(255,255,255,.05);
+  color:#fff;
+}
+.btn.primary {
+  color:#111;
+  background:linear-gradient(135deg,#ffe066,#d4af37,#996515);
+  border:0;
+}
+.btn.danger { color:#ffaaaa; border-color:#8b3030; }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.stat {
+  text-align:center;
+  padding:17px 10px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#ffffff08;
+}
+.stat i { display:block; color:var(--gold2); font-size:1.5rem; }
+.stat strong { display:block; font-size:1.8rem; margin:8px 0; }
+.stat span { color:var(--muted); font-size:.88rem; }
+.tabs {
+  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;
+}
+.tab {
+  border:1px solid var(--border);
+  color:#eee;
+  background:#ffffff08;
+  padding:10px 15px;
+  border-radius:12px;
+}
+.tab.active { color:#111; background:var(--gold2); }
+.panel { display:none; }
+.panel.active { display:block; }
+.field { display:grid; gap:7px; margin-bottom:14px; }
+label { color:var(--gold2); }
+input,textarea,select {
+  width:100%;
+  color:#fff;
+  background:#080c12;
+  border:1px solid #39404c;
+  border-radius:11px;
+  padding:12px 13px;
+  outline:none;
+}
+input:focus,textarea:focus,select:focus { border-color:var(--gold); }
+textarea { min-height:115px; resize:vertical; }
+select option { background:#080c12; }
+.row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.search-row { display:flex; gap:9px; margin-bottom:14px; }
+.search-row input { flex:1; }
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; min-width:560px; }
+th,td {
+  padding:12px 10px;
+  border-bottom:1px solid #ffffff16;
+  text-align:right;
+  vertical-align:middle;
+}
+th { color:var(--gold2); font-weight:normal; }
+.member { display:flex; align-items:center; gap:10px; min-width:180px; }
+.avatar {
+  width:42px; height:42px; border-radius:50%;
+  object-fit:cover; background:#222;
+  border:1px solid var(--border);
+}
+.badge-verified {
+  display:inline-flex; align-items:center; gap:4px;
+  color:#6bbcff; font-size:.82rem; margin-right:5px;
+}
+.pill {
+  display:inline-block; padding:5px 9px;
+  border-radius:20px; background:#ffffff12;
+  color:#ddd; font-size:.8rem;
+}
+.actions { display:flex; gap:6px; flex-wrap:wrap; }
+.actions .btn { padding:7px 10px; font-size:.83rem; }
+.item {
+  padding:13px; border:1px solid #ffffff18;
+  border-radius:13px; margin-top:10px;
+  background:#ffffff06;
+}
+.item strong { color:var(--gold2); }
+.item p { color:#ddd; line-height:1.7; margin:7px 0; }
+.notice {
+  display:none; padding:12px 14px; border-radius:12px;
+  margin-bottom:15px; line-height:1.7;
+  border:1px solid var(--border); background:#ffffff09;
+}
+.notice.show { display:block; }
+.notice.error { color:#ffb4b4; border-color:#a33; }
+.notice.success { color:#a7f3c0; border-color:#28794c; }
+#loginGate { text-align:center; max-width:550px; margin:60px auto; }
+#dashboard { display:none; }
+.empty { color:var(--muted); text-align:center; padding:22px; }
+footer { text-align:center; color:#777; margin-top:25px; }
+@media(max-width:700px) {
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .row { grid-template-columns:1fr; }
+  header { align-items:flex-start; }
+  .card { padding:15px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <section id="loginGate" class="card">
+    <img width="95" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب">
+    <h1>لوحة تحكم الإدارة</h1>
+    <p class="muted" id="gateMessage">جارٍ التحقق من صلاحية حسابك...</p>
+    <a class="btn primary" href="./" style="display:inline-block;text-decoration:none;margin-top:10px">
+      العودة إلى الموقع
+    </a>
+  </section>
+
+  <main id="dashboard">
+    <header>
+      <div class="brand">
+        <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="الشعار">
+        <div>
+          <h1>لوحة تحكم الإدارة</h1>
+          <div class="subtitle">داعم المواهب للقرآن الكريم</div>
+        </div>
+      </div>
+      <div>
+        <span class="pill"><i class="bi bi-shield-check"></i> مدير النظام</span>
+        <button class="btn" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button>
+        <button class="btn danger" id="logoutBtn">تسجيل الخروج</button>
+      </div>
+    </header>
+
+    <div id="notice" class="notice" role="status"></div>
+
+    <section class="card">
+      <h2 class="gold">نظرة عامة</h2>
+      <div class="stats">
+        <div class="stat">
+          <i class="bi bi-people"></i>
+          <strong id="membersCount">—</strong>
+          <span>إجمالي الأعضاء</span>
+        </div>
+        <div class="stat">
+          <i class="bi bi-patch-check"></i>
+          <strong id="verifiedCount">—</strong>
+          <span>الحسابات الموثقة</span>
+        </div>
+        <div class="stat">
+          <i class="bi bi-bell"></i>
+          <strong id="notificationsCount">—</strong>
+          <span>الإشعارات المسجلة</span>
+        </div>
+        <div class="stat">
+          <i class="bi bi-activity"></i>
+          <strong id="actionsCount">—</strong>
+          <span>عمليات الإدارة</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="membersPanel"><i class="bi bi-people"></i> الأعضاء والتوثيق</button>
+      <button class="tab" data-tab="notificationsPanel"><i class="bi bi-bell"></i> الإشعارات</button>
+      <button class="tab" data-tab="activityPanel"><i class="bi bi-clock-history"></i> سجل الإدارة</button>
+    </nav>
+
+    <!-- إدارة الأعضاء -->
+    <section class="card panel active" id="membersPanel">
+      <h2 class="gold">إدارة الأعضاء</h2>
+      <p class="muted">ابحث عن عضو بالاسم أو بمعرّف الحساب، ثم امنحه شارة التوثيق أو أزلها.</p>
+      <div class="search-row">
+        <input id="memberSearch" type="search" placeholder="ابحث عن عضو...">
+        <button class="btn primary" id="searchBtn">بحث</button>
+      </div>
+      <div id="membersState" class="muted"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>العضو</th>
+              <th>معرّف الحساب</th>
+              <th>الحالة</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="membersTable">
+            <tr><td colspan="4" class="empty">جارٍ تحميل الأعضاء...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- الإشعارات -->
+    <section class="card panel" id="notificationsPanel">
+      <h2 class="gold">إرسال إشعار</h2>
+      <p class="muted">يمكنك تسجيل إشعار لعضو محدد أو لجميع أعضاء الموقع.</p>
+      <form id="notificationForm">
+        <div class="field">
+          <label for="notificationTarget">المستلم</label>
+          <select id="notificationTarget" required>
+            <option value="all">جميع الأعضاء</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="notificationTitle">عنوان الإشعار</label>
+          <input id="notificationTitle" maxlength="120" required placeholder="اكتب عنوان الإشعار">
+        </div>
+        <div class="field">
+          <label for="notificationBody">محتوى الإشعار</label>
+          <textarea id="notificationBody" maxlength="2000" required placeholder="اكتب نص الإشعار هنا..."></textarea>
+        </div>
+        <button class="btn primary" id="sendNotificationBtn" type="submit">
+          <i class="bi bi-send"></i> إرسال الإشعار
+        </button>
+      </form>
+
+      <hr style="border-color:#ffffff18;margin:25px 0">
+      <h3 class="gold">آخر الإشعارات المسجلة</h3>
+      <div id="notificationsList"><div class="empty">جارٍ التحميل...</div></div>
+    </section>
+
+    <!-- سجل الإدارة -->
+    <section class="card panel" id="activityPanel">
+      <h2 class="gold">سجل عمليات الإدارة</h2>
+      <p class="muted">يعرض آخر عمليات التوثيق والإشعارات التي نُفذت من لوحة التحكم.</p>
+      <div id="activityList"><div class="empty">جارٍ التحميل...</div></div>
+    </section>
+
+    <footer>لوحة إدارة داعم المواهب للقرآن الكريم</footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const SUPABASE_URL = "https://xkraqrjkimkdawlazjyl.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr";
+
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const $ = id => document.getElementById(id);
+  let currentUser = null;
+  let memberCache = [];
+
+  function showNotice(message, type = "success") {
+    const el = $("notice");
+    el.textContent = message;
+    el.className = "notice show " + type;
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;",
+      '"':"&quot;", "'":"&#39;"
+    })[char]);
+  }
+
+  function formatDate(value) {
+    if (!value) return "—";
+    return new Date(value).toLocaleString("ar-EG");
+  }
+
+  function setGate(message) {
+    $("gateMessage").textContent = message;
+    $("loginGate").style.display = "block";
+    $("dashboard").style.display = "none";
+  }
+
+  async function verifyAdminAccess() {
+    const { data: sessionData, error: sessionError } =
+      await client.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const user = sessionData.session?.user;
+
+    if (!user) {
+      setGate("سجّل الدخول من الصفحة الرئيسية أولاً، ثم افتح لوحة التحكم.");
+      return false;
+    }
+
+    currentUser = user;
+
+    // نقرأ دور المستخدم من user_roles؛ لا نعتمد على إخفاء الواجهة.
+    const { data: roleRow, error: roleError } = await client
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (roleError) {
+      console.error(roleError);
+      setGate("تعذر التحقق من صلاحياتك. راجع إعدادات RLS لجدول user_roles.");
+      return false;
+    }
+
+    if (roleRow?.role !== "admin") {
+      setGate("هذا الحساب غير مصرح له بدخول لوحة الإدارة.");
+      return false;
+    }
+
+    $("loginGate").style.display = "none";
+    $("dashboard").style.display = "block";
+    return true;
+  }
+
+  async function callRPC(name, args = {}) {
+    const { data, error } = await client.rpc(name, args);
+    if (error) throw error;
+    return data;
+  }
+
+  async function loadStats() {
+    const stats = await callRPC("admin_get_dashboard_stats");
+    $("membersCount").textContent = stats.members_count ?? 0;
+    $("verifiedCount").textContent = stats.verified_count ?? 0;
+    $("notificationsCount").textContent = stats.notifications_count ?? 0;
+    $("actionsCount").textContent = stats.actions_count ?? 0;
+  }
+
+  async function loadMembers(search = "") {
+    $("membersState").textContent = "جارٍ تحميل الأعضاء...";
+    $("membersTable").innerHTML =
+      '<tr><td colspan="4" class="empty">جارٍ التحميل...</td></tr>';
+
+    try {
+      const rows = await callRPC("admin_list_members", {
+        p_search: search.trim() || null
+      });
+
+      memberCache = rows || [];
+      $("membersState").textContent =
+        `عدد النتائج المعروضة: ${memberCache.length}`;
+
+      if (!memberCache.length) {
+        $("membersTable").innerHTML =
+          '<tr><td colspan="4" class="empty">لا توجد نتائج.</td></tr>';
+        return;
+      }
+
+      $("membersTable").innerHTML = memberCache.map(member => {
+        const name = escapeHTML(member.display_name || "عضو بدون اسم");
+        const id = escapeHTML(member.id);
+        const avatar = escapeHTML(member.avatar_url ||
+          "https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png");
+        const verified = member.is_verified === true;
+
+        return `
+          <tr>
+            <td>
+              <div class="member">
+                <img class="avatar" src="${avatar}" alt="">
+                <div>
+                  ${name}
+                  ${verified ? '<span class="badge-verified"><i class="bi bi-patch-check-fill"></i> موثق</span>' : ''}
+                </div>
+              </div>
+            </td>
+            <td><small dir="ltr">${id}</small></td>
+            <td><span class="pill">${verified ? "موثق" : "غير موثق"}</span></td>
+            <td>
+              <button
+                class="btn ${verified ? "danger" : "primary"}"
+                data-verify-id="${id}"
+                data-verify-value="${verified ? "false" : "true"}">
+                ${verified ? "إزالة التوثيق" : "منح التوثيق"}
+              </button>
+            </td>
+          </tr>`;
+      }).join("");
+
+      updateRecipientOptions();
+    } catch (error) {
+      console.error(error);
+      $("membersState").textContent =
+        "تعذر تحميل الأعضاء: " + (error.message || "خطأ غير معروف");
+      $("membersTable").innerHTML =
+        '<tr><td colspan="4" class="empty">حدث خطأ أثناء تحميل الأعضاء.</td></tr>';
+    }
+  }
+
+  function updateRecipientOptions() {
+    const select = $("notificationTarget");
+    const currentValue = select.value || "all";
+
+    select.innerHTML = '<option value="all">جميع الأعضاء</option>';
+
+    memberCache.forEach(member => {
+      const option = document.createElement("option");
+      option.value = member.id;
+      option.textContent = member.display_name || member.id;
+      select.appendChild(option);
+    });
+
+    if ([...select.options].some(option => option.value === currentValue)) {
+      select.value = currentValue;
+    }
+  }
+
+  async function changeVerification(userId, verified) {
+    const actionText = verified ? "منح شارة التوثيق" : "إزالة شارة التوثيق";
+    if (!confirm(`هل أنت متأكد من ${actionText} لهذا العضو؟`)) return;
+
+    try {
+      await callRPC("admin_set_verified", {
+        p_target_user_id: userId,
+        p_verified: verified
+      });
+
+      showNotice(
+        verified ? "تم منح شارة التوثيق بنجاح." : "تمت إزالة شارة التوثيق.",
+        "success"
+      );
+
+      await Promise.all([loadMembers($("memberSearch").value), loadStats(), loadActivity()]);
+    } catch (error) {
+      console.error(error);
+      showNotice("تعذر تنفيذ العملية: " + (error.message || "خطأ غير معروف"), "error");
+    }
+  }
+
+  async function sendNotification(event) {
+    event.preventDefault();
+
+    const target = $("notificationTarget").value;
+    const title = $("notificationTitle").value.trim();
+    const body = $("notificationBody").value.trim();
+
+    if (!title || !body) {
+      showNotice("اكتب عنوان الإشعار ومحتواه أولاً.", "error");
+      return;
+    }
+
+    if (!confirm(target === "all"
+      ? "هل تريد إرسال هذا الإشعار إلى جميع الأعضاء؟"
+      : "هل تريد إرسال هذا الإشعار إلى العضو المحدد؟")) return;
+
+    const button = $("sendNotificationBtn");
+    button.disabled = true;
+    button.textContent = "جارٍ الإرسال...";
+
+    try {
+      const count = await callRPC("admin_send_notification", {
+        p_target_user_id: target === "all" ? null : target,
+        p_title: title,
+        p_body: body
+      });
+
+      $("notificationForm").reset();
+      showNotice(`تم تسجيل الإشعار بنجاح. عدد المستلمين: ${count}`, "success");
+
+      await Promise.all([loadNotifications(), loadStats(), loadActivity()]);
+    } catch (error) {
+      console.error(error);
+      showNotice("تعذر إرسال الإشعار: " + (error.message || "خطأ غير معروف"), "error");
+    } finally {
+      button.disabled = false;
+      button.innerHTML = '<i class="bi bi-send"></i> إرسال الإشعار';
+    }
+  }
+
+  async function loadNotifications() {
+    const rows = await callRPC("admin_list_notifications", {p_limit:30});
+
+    if (!rows?.length) {
+      $("notificationsList").innerHTML =
+        '<div class="empty">لا توجد إشعارات مسجلة حتى الآن.</div>';
+      return;
+    }
+
+    $("notificationsList").innerHTML = rows.map(row => `
+      <article class="item">
+        <strong>${escapeHTML(row.title)}</strong>
+        <p>${escapeHTML(row.body)}</p>
+        <small class="muted">
+          المستلم: ${escapeHTML(row.recipient_name || "عضو")}
+          · ${formatDate(row.created_at)}
+        </small>
+      </article>
+    `).join("");
+  }
+
+  async function loadActivity() {
+    const rows = await callRPC("admin_list_activity_logs", {p_limit:30});
+
+    if (!rows?.length) {
+      $("activityList").innerHTML =
+        '<div class="empty">لا توجد عمليات مسجلة حتى الآن.</div>';
+      return;
+    }
+
+    const labels = {
+      grant_verified_badge:"منح شارة توثيق",
+      remove_verified_badge:"إزالة شارة توثيق",
+      send_notification:"إرسال إشعار"
+    };
+
+    $("activityList").innerHTML = rows.map(row => `
+      <article class="item">
+        <strong>${escapeHTML(labels[row.action] || row.action)}</strong>
+        <p>المدير: <small dir="ltr">${escapeHTML(row.admin_id)}</small></p>
+        <small class="muted">${formatDate(row.created_at)}</small>
+      </article>
+    `).join("");
+  }
+
+  async function refreshAll() {
+    try {
+      await Promise.all([
+        loadStats(),
+        loadMembers($("memberSearch").value),
+        loadNotifications(),
+        loadActivity()
+      ]);
+    } catch (error) {
+      console.error(error);
+      showNotice("حدث خطأ أثناء تحديث بيانات لوحة التحكم: " +
+        (error.message || "خطأ غير معروف"), "error");
+    }
+  }
+
+  // التنقل بين أقسام لوحة التحكم
+  document.querySelectorAll(".tab").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(item =>
+        item.classList.remove("active")
+      );
+      document.querySelectorAll(".panel").forEach(item =>
+        item.classList.remove("active")
+      );
+
+      button.classList.add("active");
+      $(button.dataset.tab).classList.add("active");
+    });
+  });
+
+  $("membersTable").addEventListener("click", event => {
+    const button = event.target.closest("[data-verify-id]");
+    if (!button) return;
+
+    changeVerification(
+      button.dataset.verifyId,
+      button.dataset.verifyValue === "true"
+    );
+  });
+
+  $("searchBtn").addEventListener("click", () =>
+    loadMembers($("memberSearch").value)
+  );
+
+  $("memberSearch").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      loadMembers(event.target.value);
+    }
+  });
+
+  $("notificationForm").addEventListener("submit", sendNotification);
+  $("refreshBtn").addEventListener("click", refreshAll);
+
+  $("logoutBtn").addEventListener("click", async () => {
+    if (!confirm("هل تريد تسجيل الخروج؟")) return;
+    const {error} = await client.auth.signOut();
+    if (error) {
+      showNotice(error.message, "error");
+      return;
+    }
+    location.reload();
+  });
+
+  async function start() {
+    try {
+      const allowed = await verifyAdminAccess();
+      if (allowed) await refreshAll();
+    } catch (error) {
+      console.error(error);
+      setGate("حدث خطأ أثناء التحقق من الحساب. حاول تحديث الصفحة.");
+    }
+  }
+
+  client.auth.onAuthStateChange(() => {
+    start();
+  });
+
+  start();
+})();
+</script>
+</body>
+</html>
