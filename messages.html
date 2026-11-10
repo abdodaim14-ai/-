@@ -903,11 +903,13 @@
 .auth-mini{display:grid;gap:10px;max-width:520px;margin:0 auto}.auth-mini input{width:100%;padding:12px;border-radius:10px}.auth-mini button,.messages-toolbar button{padding:10px 14px;border-radius:10px;cursor:pointer}
 .conversation-search{width:100%;padding:13px 15px;margin:8px 0 12px;border:1px solid rgba(212,175,55,.35);border-radius:12px;background:#090c10;color:#fff;font:inherit;outline:none}.conversation-search:focus{border-color:var(--text-gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}.messages-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.messages-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.messages-stat{padding:16px;border:1px solid rgba(212,175,55,.25);border-radius:14px;text-align:center;background:rgba(0,0,0,.2)}.messages-stat strong{display:block;color:var(--text-gold);font-size:1.7rem}.messages-stat span{color:#ddd;font-size:.9rem}
 #messagesInboxList{display:grid;gap:8px}.messages-empty{color:#bbb;text-align:center;padding:18px}.messages-page-title{text-align:center;color:var(--text-gold)}
+.managed-ads{max-width:760px;margin:14px auto;display:grid;gap:10px;padding:0 12px}.managed-ad-card{display:block;border:1px solid rgba(212,175,55,.4);border-radius:15px;overflow:hidden;color:#f7d070;text-decoration:none;background:#111820;text-align:center}.managed-ad-card img{width:100%;max-height:220px;object-fit:cover}.managed-ad-copy{padding:12px}
 </style></head><body>
 <div class="ambient-light light-1"></div><div class="ambient-light light-2"></div>
 <div class="container animate__animated animate__fadeIn">
 <header class="header-section"><div class="logo-wrapper"><img class="logo-main" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></div><div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div><div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div></header>
 <nav class="messages-nav" aria-label="التنقل الرئيسي"><a href="index.html"><i class="bi bi-house"></i> الرئيسية</a><a href="index.html#communityPanel"><i class="bi bi-people"></i> المجتمع</a><a href="messages.html"><i class="bi bi-chat-dots"></i> الرسائل</a></nav>
+<div id="managedTopAds" class="managed-ads" hidden></div>
 <section class="glass-card" id="authCard"><h3 class="messages-page-title"><i class="bi bi-person-lock"></i> تسجيل الدخول للرسائل</h3><p style="text-align:center;color:#ccc">سجّل الدخول بنفس حسابك المستخدم في الموقع الأساسي.</p><form id="loginForm" class="auth-mini"><input id="email" type="email" placeholder="البريد الإلكتروني" required autocomplete="email"><input id="password" type="password" placeholder="كلمة المرور" required autocomplete="current-password"><button class="main-btn" type="submit">تسجيل الدخول</button><button type="button" id="signupBtn" class="auth-btn">إنشاء حساب بالبريد الإلكتروني</button><button type="button" id="googleBtn" class="auth-btn"><i class="bi bi-google"></i> الدخول باستخدام Google</button><button type="button" id="facebookBtn" class="auth-btn"><i class="bi bi-facebook"></i> الدخول باستخدام Facebook</button></form><div id="authStatus" class="community-state" role="status"></div></section>
 <section class="glass-card community-panel" id="messagesApp" hidden aria-label="الرسائل الخاصة"><h3 class="messages-page-title"><i class="bi bi-chat-square-text-fill"></i> الرسائل الخاصة</h3><div class="messages-toolbar"><button type="button" class="community-action" id="enablePushBtn"><i class="bi bi-bell-fill"></i> تفعيل إشعارات الرسائل</button><button type="button" class="community-action" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> تحديث</button><button type="button" class="community-action danger" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> تسجيل الخروج</button></div><div id="messagesInboxView"><div class="messages-stats"><div class="messages-stat"><strong id="incomingMessageCount">0</strong><span>إجمالي الرسائل الواردة</span></div><div class="messages-stat"><strong id="incomingPeopleCount">0</strong><span>عدد الأشخاص المرسلين</span></div></div><h4 style="color:var(--text-gold)">محادثاتك</h4><input id="conversationSearch" type="search" class="conversation-search" placeholder="ابحث باسم العضو أو محتوى الرسالة..." aria-label="البحث في المحادثات"><div id="messagesInboxList" class="community-list"><div class="messages-empty">جاري تحميل الرسائل...</div></div></div><div id="chatView" hidden><button type="button" class="community-action" id="backBtn"><i class="bi bi-arrow-right"></i> رجوع لقائمة الرسائل</button><div class="community-chat-head" id="chatHead"></div><div id="chatMessages" class="community-messages" aria-live="polite"></div><form id="sendForm" class="community-message-form"><textarea id="messageText" rows="2" maxlength="5000" placeholder="اكتب رسالتك..." required></textarea><button class="community-action primary" type="submit">إرسال <i class="bi bi-send-fill"></i></button></form></div><div id="pageStatus" class="community-state" role="status" aria-live="polite"></div></section>
 </div>
@@ -1003,8 +1005,9 @@ window.communitySupabase = client;
  let user=null, activeConversation=null, activePeer=null, channel=null, renderedUserId=null;
  const fallback='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="50" fill="%23111820"/%3E%3Ccircle cx="50" cy="36" r="18" fill="%23d4af37"/%3E%3Cpath d="M15 94c3-23 17-34 35-34s32 11 35 34" fill="%23d4af37"/%3E%3C/svg%3E';
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const profileName=(p,id)=>`<a href="profile.html?id=${encodeURIComponent(id||p?.id||'')}" style="color:inherit;text-decoration:none">${esc(p?.display_name||'عضو')}${p?.is_verified?' <i class=\"bi bi-patch-check-fill\" style=\"color:#45a8ff\" title=\"موثق\"></i>':''}</a>`;
  const status=t=>$('pageStatus').textContent=t||'';
- async function profiles(ids){if(!ids.length)return{};const {data,error}=await client.from('profiles').select('id,display_name,avatar_url').in('id',[...new Set(ids)]);if(error)throw error;return Object.fromEntries((data||[]).map(p=>[p.id,p]));}
+ async function profiles(ids){if(!ids.length)return{};const {data,error}=await client.from('profiles').select('id,display_name,avatar_url,is_verified').in('id',[...new Set(ids)]);if(error)throw error;return Object.fromEntries((data||[]).map(p=>[p.id,p]));}
  async function peers(){const {data,error}=await client.from('message_requests').select('sender_id,receiver_id,conversation_id,responded_at').eq('status','accepted').not('conversation_id','is',null).or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`).order('responded_at',{ascending:false}).limit(200);if(error)throw error;const map=new Map();(data||[]).forEach(r=>{if(!map.has(r.conversation_id))map.set(r.conversation_id,{conversationId:r.conversation_id,peerId:r.sender_id===user.id?r.receiver_id:r.sender_id});});return [...map.values()];}
 
 async function loadInbox(){
@@ -1030,6 +1033,7 @@ async function loadInbox(){
       .from('messages')
       .select('id',{count:'exact',head:true})
       .in('conversation_id',conversationIds)
+      .eq('is_hidden',false)
       .neq('sender_id',user.id);
 
     if(countError)throw countError;
@@ -1037,8 +1041,9 @@ async function loadInbox(){
     // جلب أحدث الرسائل من الطرفين حتى لا تختفي محادثة بدأتَها أنت.
     const {data:allMessages,error:messagesError}=await client
       .from('messages')
-      .select('id,sender_id,conversation_id,content,created_at')
+      .select('id,sender_id,conversation_id,content,created_at,is_hidden')
       .in('conversation_id',conversationIds)
+      .eq('is_hidden',false)
       .order('created_at',{ascending:false})
       .limit(1000);
 
@@ -1083,7 +1088,7 @@ async function loadInbox(){
           const date=latest?.created_at
             ?new Date(latest.created_at).toLocaleString('ar-EG')
             :'';
-          return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(row.conversationId)}"><img class="community-avatar" src="${esc(row.profile.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title">${esc(row.profile.display_name||'عضو')}</span><span class="community-item-sub" style="display:block">${esc(preview.slice(0,110))}</span><span class="community-item-sub" style="display:block">${esc(date)}</span></span><i class="bi bi-chevron-left"></i></button>`;
+          return `<button type="button" class="community-item" style="width:100%;text-align:right;cursor:pointer" data-conv="${esc(row.conversationId)}"><img class="community-avatar" src="${esc(row.profile.avatar_url||fallback)}" alt=""><span class="community-item-main"><span class="community-item-title"><a href="profile.html?id=${encodeURIComponent(row.peerId)}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none">${esc(row.profile.display_name||'عضو')}${row.profile.is_verified?' <i class=\"bi bi-patch-check-fill\" style=\"color:#45a8ff\" title=\"حساب موثق\"></i>':''}</a></span><span class="community-item-sub" style="display:block">${esc(preview.slice(0,110))}</span><span class="community-item-sub" style="display:block">${esc(date)}</span></span><i class="bi bi-chevron-left"></i></button>`;
         }).join('')
         :'<div class="messages-empty">لا توجد محادثات تطابق البحث.</div>';
 
@@ -1132,7 +1137,7 @@ async function openChat(id){
     const ps=await profiles([activePeer]);
     const p=ps[activePeer]||{};
 
-    $('chatHead').innerHTML=`<img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><strong>${esc(p.display_name||'عضو')}</strong>`;
+    $('chatHead').innerHTML=`<img class="community-avatar" src="${esc(p.avatar_url||fallback)}" alt=""><strong>${profileName(p,x.peerId)}</strong>`;
 
     await loadChat();
 
@@ -1160,8 +1165,8 @@ async function loadChat(){
 
   const {data,error}=await client
     .from('messages')
-    .select('id,sender_id,content,created_at')
-    .eq('conversation_id',activeConversation)
+    .select('id,sender_id,content,created_at,is_hidden')
+    .eq('conversation_id',activeConversation).eq('is_hidden',false)
     .order('created_at',{ascending:true})
     .limit(200);
 
@@ -1409,6 +1414,9 @@ document.addEventListener('visibilitychange',()=>{
 
 })();
 </script>
+<div id="managedBottomAds" class="managed-ads" hidden></div>
+<script>
+(()=>{const c=window.communitySupabase;if(!c)return;const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","\'":"&#39;"}[x]));c.rpc("get_public_ads",{p_page_path:location.pathname||"/"}).then(({data,error})=>{if(error||!Array.isArray(data))return;const render=(id,allowed)=>{const slot=document.getElementById(id);if(!slot)return;let rows=data.filter(a=>allowed.includes(String(a.placement||"").toLowerCase()));const groups=new Map(),singles=[];rows.forEach(a=>a.rotation_group?(groups.has(a.rotation_group)||groups.set(a.rotation_group,[]),groups.get(a.rotation_group).push(a)):singles.push(a));rows=[...singles,...[...groups.values()].map(g=>g[Math.floor(Math.random()*g.length)])];slot.innerHTML="";rows.forEach(a=>{const el=document.createElement("a");el.className="managed-ad-card";el.href=a.target_url||"#";el.target="_blank";el.rel="noopener noreferrer sponsored";if(a.image_url){const im=document.createElement("img");im.src=a.image_url;im.alt=a.title||"إعلان";el.appendChild(im)}const t=document.createElement("div");t.className="managed-ad-copy";t.textContent=a.ad_text||a.title||"";el.appendChild(t);slot.appendChild(el);c.rpc("track_public_ad_event",{p_ad_id:a.id,p_event_type:"impression",p_page_path:location.pathname||"/"});el.addEventListener("click",()=>c.rpc("track_public_ad_event",{p_ad_id:a.id,p_event_type:"click",p_page_path:location.pathname||"/"}));});slot.hidden=!rows.length};render("managedTopAds",["top","header","top_of_page","all_pages"]);render("managedBottomAds",["bottom","footer","bottom_of_page"])}).catch(console.warn)})();
+</script>
 </body>
 </html>
-
