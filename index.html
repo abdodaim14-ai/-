@@ -876,38 +876,16 @@
 
 
 
-        /* Account creation, sign-in and donation additions */
+        /* Account creation and sign-in additions */
         .auth-form-grid { display:grid; grid-template-columns:1fr; gap:10px; max-width:520px; margin:14px auto 0; }
-        .auth-form-grid input, .donation-form input { width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
-        .auth-form-grid input:focus, .donation-form input:focus { border-color:var(--text-gold); box-shadow:0 0 0 3px rgba(212,175,55,.12); }
+        .auth-form-grid input { width:100%; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; outline:none; }
+        .auth-form-grid input:focus { border-color:var(--text-gold); box-shadow:0 0 0 3px rgba(212,175,55,.12); }
         .auth-mode-switch { display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
         .auth-mode-switch button { border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:9px 16px; background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font:inherit; }
         .auth-mode-switch button.active { background:var(--gold-gradient); color:#111; }
         .auth-form-grid .auth-btn { width:100%; }
         .auth-help { color:#bbb; font-size:.88rem; line-height:1.7; }
         .auth-required-note { display:none; padding:12px; margin:12px 0; border:1px solid rgba(212,175,55,.35); border-radius:14px; color:var(--text-gold); background:rgba(0,0,0,.25); line-height:1.7; }
-        .donation-card { padding:22px; text-align:center; }
-        .donation-card h3 { color:var(--text-gold); margin:0 0 8px; }
-        .donation-form { display:grid; gap:12px; max-width:480px; margin:16px auto 0; }
-        .donation-form label { text-align:right; color:#eee; }
-        .donation-amount-wrap { position:relative; }
-        .donation-amount-wrap span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-gold); }
-        .donation-submit { border:0; border-radius:14px; padding:14px 18px; background:var(--gold-gradient); color:#111; cursor:pointer; font:inherit; font-size:1.05rem; }
-        .donation-submit:disabled { opacity:.55; cursor:not-allowed; }
-        .donation-status { min-height:1.5em; color:var(--text-gold); line-height:1.6; }
-        .donation-field { display:grid; gap:7px; text-align:right; }
-        .donation-field small { color:#aaa; font-size:.8rem; line-height:1.6; }
-        .donation-form textarea { width:100%; min-height:88px; resize:vertical; padding:13px 15px; border-radius:12px; border:1px solid rgba(212,175,55,.35); background:#090c10; color:#fff; font:inherit; }
-        .donation-form textarea:focus { border-color:var(--text-gold); outline:none; box-shadow:0 0 0 3px rgba(212,175,55,.12); }
-        .donation-form input[type="file"] { padding:10px; }
-        .donor-photo-preview { width:100px; height:100px; object-fit:cover; border-radius:50%; border:2px solid var(--text-gold); margin:6px auto; }
-        .donation-publish-box { text-align:right; border:1px solid rgba(212,175,55,.3); border-radius:14px; padding:14px; background:rgba(0,0,0,.22); }
-        .donation-publish-main { display:flex; align-items:center; gap:9px; font-weight:700; }
-        .donation-publish-box input[type="checkbox"] { width:18px; height:18px; accent-color:#d4af37; flex:0 0 auto; }
-        .donation-publish-box p { color:#aaa; font-size:.82rem; line-height:1.6; margin:8px 0; }
-        .donation-publish-options { display:grid; gap:9px; padding:12px; margin-top:10px; border-top:1px solid rgba(212,175,55,.2); }
-        .donation-publish-options label { display:flex; align-items:center; gap:8px; }
-        .donation-privacy-note { color:#b8d8c2; font-size:.82rem; line-height:1.6; text-align:right; }
         .form-auth-locked { opacity:.58; }
 
         /* Members community and private messaging */
@@ -948,11 +926,42 @@
 
 
     
+        
+        .header-section{position:sticky;top:0;z-index:1000;background:rgba(7,10,16,.94);backdrop-filter:blur(14px);padding:10px 8px;border-bottom:1px solid rgba(212,175,55,.24)}
+        .platform-nav{position:sticky;top:112px;z-index:999;background:rgba(7,10,16,.94);backdrop-filter:blur(12px)}
+        #accountPanel.authenticated-hidden{display:none!important}
+        .site-floating-actions{position:fixed;top:14px;right:14px;z-index:1200;display:flex;gap:8px;align-items:center}
+        .site-floating-actions a,.site-floating-actions button{border:1px solid rgba(212,175,55,.55);border-radius:999px;padding:9px 13px;background:#111823;color:#f5d778;text-decoration:none;font-weight:700;box-shadow:0 5px 20px #0008;cursor:pointer}
+        .site-floating-actions .floating-donate{background:linear-gradient(135deg,#b88a19,#f2d36b);color:#17120a}
+        .site-floating-actions [hidden]{display:none!important}
+        @media(max-width:600px){.platform-nav{top:92px}.site-floating-actions{top:auto;bottom:14px;right:10px}.site-floating-actions a,.site-floating-actions button{font-size:.85rem;padding:9px 11px}}
+
         /* Unified navigation shared with the standalone messages page */
         .platform-nav{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px auto 22px;padding:10px;border:1px solid rgba(212,175,55,.22);border-radius:16px;background:rgba(0,0,0,.24);}
         .platform-nav a{display:inline-flex;align-items:center;gap:7px;color:#f5d778;text-decoration:none;border:1px solid rgba(212,175,55,.35);padding:9px 15px;border-radius:12px;background:rgba(0,0,0,.22);transition:background .2s,border-color .2s;}
         .platform-nav a:hover,.platform-nav a:focus{background:rgba(212,175,55,.14);border-color:rgba(255,224,102,.8);outline:none;}
         @media(max-width:520px){.platform-nav{gap:6px;padding:8px}.platform-nav a{padding:8px 10px;font-size:.9rem}}
+
+/* Unified Facebook-inspired platform header */
+.social-header{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:18px;width:100%;min-height:76px;padding:8px clamp(12px,3vw,34px);margin:0 0 22px;background:rgba(10,15,23,.96);border-bottom:1px solid rgba(212,175,55,.28);box-shadow:0 8px 28px rgba(0,0,0,.24);backdrop-filter:blur(16px);direction:rtl}
+.social-brand{display:flex;align-items:center;justify-content:center;flex:0 0 62px;width:62px;height:58px;border-radius:15px;text-decoration:none}
+.social-brand img{display:block;width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(212,175,55,.3))}
+.social-nav{display:flex;align-items:center;justify-content:center;gap:clamp(4px,1.5vw,18px);flex:1;min-width:0}
+.social-nav a{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-width:58px;min-height:50px;padding:8px 13px;border-radius:13px;color:#d9e0eb;text-decoration:none;font-weight:700;transition:background .2s,color .2s,transform .2s}
+.social-nav a i{font-size:1.35rem;color:#e1c36b}
+.social-nav a span{display:none}
+.social-nav a:hover,.social-nav a:focus-visible{background:rgba(212,175,55,.13);color:#fff;transform:translateY(-1px);outline:none}
+.social-nav a[aria-current="page"]{background:rgba(212,175,55,.16);color:#fff;box-shadow:inset 0 -3px #d4af37}
+.header-donate-cta{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:190px!important;min-height:52px!important;padding:7px 16px!important;border:1px solid rgba(255,224,130,.8);border-radius:15px!important;background:linear-gradient(135deg,#9f7415,#f4d778 55%,#c69a2e)!important;color:#17120a!important;box-shadow:0 5px 18px rgba(212,175,55,.2);text-align:center}
+.header-donate-cta i{font-size:1.05rem!important;color:#17120a!important}
+.header-donate-cta span{display:block!important;font-size:.82rem;font-weight:900;line-height:1.25}
+.header-donate-cta small{display:block;font-size:.68rem;font-weight:700;opacity:.82;line-height:1.2}
+.header-donate-cta:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.social-header-extra{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.social-header-extra .btn{white-space:nowrap}
+@media(max-width:700px){.social-header{min-height:66px;gap:5px;padding:6px 8px;margin-bottom:14px}.social-brand{flex-basis:46px;width:46px;height:48px}.social-brand img{width:43px;height:43px}.social-nav{gap:2px;justify-content:space-around}.social-nav a{min-width:0;min-height:48px;padding:7px 9px;border-radius:11px}.social-nav a i{font-size:1.3rem}.social-nav a span{display:none}.social-header-extra{gap:4px}.social-header-extra .btn{padding:7px 9px;font-size:.78rem}.header-donate-cta{min-width:112px!important;min-height:45px!important;padding:5px 7px!important}.header-donate-cta span{font-size:.66rem}.header-donate-cta small{font-size:.55rem}.header-donate-cta i{font-size:.9rem!important}}
+@media(max-width:390px){.social-header{padding-inline:5px}.social-brand{flex-basis:40px;width:40px}.social-brand img{width:38px;height:38px}.social-nav a{padding-inline:7px}.social-nav a i{font-size:1.18rem}}
+
 </style>
 </head>
 <body>
@@ -1063,22 +1072,22 @@
 
 <!-- Main Application Layout -->
 <div class="container animate__animated animate__fadeIn">
-    <div id="managedTopAds" class="managed-ads" aria-label="إعلانات المنصة" hidden></div>
-    <div class="header-section">
-        <div class="logo-wrapper">
-            <img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" class="logo-main" alt="داعم المواهب">
-        </div>
-        <div class="site-name"><i class="bi bi-star-fill"></i> داعم المواهب للقرآن الكريم <i class="bi bi-star-fill"></i></div>
-        <div class="quran-verse">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+    <div class="site-floating-actions" aria-label="اختصارات سريعة">
+      <button type="button" id="floatingLogoutBtn" class="floating-logout" hidden><i class="bi bi-box-arrow-right"></i><span>تسجيل الخروج</span></button>
     </div>
-
-    <nav class="platform-nav" aria-label="التنقل الرئيسي">
-        <a href="index.html"><i class="bi bi-house-fill"></i> الرئيسية</a>
-        <a href="#accountPanel"><i class="bi bi-person-circle"></i> حسابي</a>
-        <a href="profile.html"><i class="bi bi-person-badge"></i> ملفي الشخصي</a>
-        <a href="#communityPanel" id="navCommunityLink"><i class="bi bi-people-fill"></i> المجتمع</a>
-        <a href="messages.html"><i class="bi bi-chat-dots-fill"></i> الرسائل</a>
-    </nav>
+    <div id="managedTopAds" class="managed-ads" aria-label="إعلانات المنصة" hidden></div>
+<header class="social-header" aria-label="رأس منصة داعم المواهب">
+  <a class="social-brand" href="index.html" aria-label="داعم المواهب - الرئيسية"><img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></a>
+  <nav class="social-nav" aria-label="التنقل الرئيسي">
+    <a href="index.html" aria-label="الرئيسية" title="الرئيسية"><i class="bi bi-house-door-fill"></i><span>الرئيسية</span></a>
+    <a href="#communityPanel" id="navCommunityLink" aria-label="المجتمع" title="المجتمع"><i class="bi bi-people-fill"></i><span>المجتمع</span></a>
+    <a href="posts.html" aria-label="المنشورات" title="المنشورات"><i class="bi bi-grid-3x3-gap-fill"></i><span>المنشورات</span></a>
+    <a href="messages.html" aria-label="الرسائل" title="الرسائل"><i class="bi bi-chat-dots-fill"></i><span>الرسائل</span></a>
+    <a href="profile.html" aria-label="الملف الشخصي" title="الملف الشخصي"><i class="bi bi-person-circle"></i><span>ملفي</span></a>
+    <a href="donate.html" class="header-donate-cta" aria-label="ساهم في دعم أهل القرآن الكريم" title="ساهم في استمرار خدمة القرآن الكريم"><i class="bi bi-heart-fill"></i><span>كن سببًا في استمرار الخير</span><small>ادعم خدمة القرآن الكريم</small></a>
+  </nav>
+  
+</header>
 
     <!-- تسجيل الدخول وإنشاء الحساب -->
     <section class="glass-card auth-panel" id="accountPanel" aria-label="حساب المستخدم">
@@ -1272,58 +1281,6 @@
             <li><i class="bi bi-clock"></i> مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
         </ul>
     </div>
-
-    <!-- نموذج التبرع - يتطلب تسجيل الدخول -->
-    <section class="glass-card donation-card" id="donationSection">
-        <h3><i class="bi bi-heart-fill"></i> ساهم في دعم المواهب القرآنية</h3>
-        <p style="color:#ddd;line-height:1.8;margin:6px 0;">تبرع بالمبلغ الذي تختاره لدعم أنشطة المنصة وخدمة أهل القرآن الكريم.</p>
-        <div id="donationGuestNote" class="auth-required-note" style="display:block;">لازم تسجل الدخول الأول علشان تقدر تتبرع. <a href="#accountPanel" style="color:#fff;text-decoration:underline;">تسجيل الدخول أو إنشاء حساب</a></div>
-        <form id="donationForm" class="donation-form">
-            <div class="donation-field">
-                <label for="donorFullName">الاسم بالكامل</label>
-                <input id="donorFullName" type="text" maxlength="120" autocomplete="name" placeholder="اكتب الاسم الذي تفضّل استخدامه" required disabled data-donation-field>
-            </div>
-            <div class="donation-field">
-                <label for="donorPhone">رقم الهاتف</label>
-                <input id="donorPhone" type="tel" maxlength="25" autocomplete="tel" inputmode="tel" placeholder="01xxxxxxxxx" required disabled data-donation-field>
-                <small>رقم الهاتف مطلوب لإتمام بيانات الدفع، ولن يظهر للعامة نهائيًا.</small>
-            </div>
-            <div class="donation-field">
-                <label for="donorPhoto">صورة المتبرع (اختياري)</label>
-                <input id="donorPhoto" type="file" accept="image/jpeg,image/png,image/webp" disabled data-donation-field>
-                <small>JPG أو PNG أو WEBP — بحد أقصى 2 ميجابايت.</small>
-                <img id="donorPhotoPreview" class="donor-photo-preview" alt="معاينة صورة المتبرع" hidden>
-            </div>
-            <div class="donation-field">
-                <label for="donationAmount">مبلغ التبرع بالجنيه المصري</label>
-                <div class="donation-amount-wrap"><input id="donationAmount" type="number" min="1" max="1000000" step="0.01" inputmode="decimal" placeholder="اكتب أي مبلغ تريده" required disabled data-donation-field><span>ج.م</span></div>
-            </div>
-            <div class="donation-field">
-                <label for="donationReason">سبب التبرع أو رسالة تحب تضيفها (اختياري)</label>
-                <textarea id="donationReason" rows="3" maxlength="500" placeholder="اكتب رسالتك أو سبب التبرع..." disabled data-donation-field></textarea>
-            </div>
-
-            <div class="donation-publish-box">
-                <label class="donation-publish-main">
-                    <input id="publishDonation" type="checkbox" disabled data-donation-field>
-                    <span>أوافق على نشر تبرعي في المنصة</span>
-                </label>
-                <p>لو لم تفعّل هذا الاختيار، ستظل بيانات تبرعك خاصة ولن يظهر شيء منها في صفحة المتبرعين.</p>
-                <div id="donationPublishOptions" class="donation-publish-options" hidden>
-                    <strong>اختَر المعلومات التي تسمح بنشرها:</strong>
-                    <label><input id="publishName" type="checkbox" disabled data-publish-option> نشر اسمي</label>
-                    <label><input id="publishPhoto" type="checkbox" disabled data-publish-option> نشر صورتي</label>
-                    <label><input id="publishAmount" type="checkbox" disabled data-publish-option> نشر مبلغ التبرع</label>
-                    <label><input id="publishReason" type="checkbox" disabled data-publish-option> نشر سبب التبرع أو رسالتي</label>
-                </div>
-            </div>
-
-            <div class="donation-privacy-note"><i class="bi bi-shield-lock"></i> رقم الهاتف والبريد الإلكتروني لا يتم نشرهما مطلقًا. والنشر اختياري بالكامل.</div>
-            <button class="donation-submit" id="donationSubmitBtn" type="submit" disabled><i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع</button>
-            <div class="donation-status" id="donationStatus" role="status" aria-live="polite"></div>
-        </form>
-        <p class="auth-help">سيتم اختيار وسيلة الدفع في صفحة الدفع الآمنة عند تفعيل ربط Paymob.</p>
-    </section>
 
     <!-- Participation Form -->
     <div class="glass-card form-card animate__animated animate__fadeInUp">
@@ -2103,32 +2060,6 @@
   const profileAvatar = $('profileAvatar');
   const avatarInput = $('profileAvatarInput');
   const talentForm = $('talentForm');
-  const donationForm = $('donationForm');
-  const donationPublishToggle = $('publishDonation');
-  const donationPublishOptions = $('donationPublishOptions');
-  function syncDonationPublishOptions() {
-    const allowed = !!(donationPublishToggle && donationPublishToggle.checked && currentUser && authReady);
-    if (donationPublishOptions) donationPublishOptions.hidden = !allowed;
-    document.querySelectorAll('[data-publish-option]').forEach(input => {
-      input.disabled = !allowed;
-      if (!allowed) input.checked = false;
-    });
-  }
-  donationPublishToggle?.addEventListener('change', syncDonationPublishOptions);
-  $('donorPhoto')?.addEventListener('change', () => {
-    const file = $('donorPhoto').files?.[0];
-    const preview = $('donorPhotoPreview');
-    if (!preview) return;
-    if (!file) { preview.hidden = true; preview.removeAttribute('src'); return; }
-    if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 2 * 1024 * 1024) {
-      $('donorPhoto').value = '';
-      preview.hidden = true;
-      $('donationStatus').textContent = 'الصورة لازم تكون JPG أو PNG أو WEBP وبحجم لا يتجاوز 2 ميجابايت.';
-      return;
-    }
-    preview.src = URL.createObjectURL(file);
-    preview.hidden = false;
-  });
 
   let supabaseClient = null;
   let currentUser = null;
@@ -2235,6 +2166,8 @@
     finally { setBusy(false); }
   });
 
+  $('floatingLogoutBtn')?.addEventListener('click', () => logoutBtn?.click());
+
   logoutBtn?.addEventListener('click', async () => {
     if (!supabaseClient) return;
     setBusy(true);
@@ -2292,13 +2225,7 @@
       }
       note.style.display = allowed ? 'none' : 'block';
     }
-    document.querySelectorAll('[data-donation-field]').forEach(el => { el.disabled = !allowed; });
-    if ($('donationSubmitBtn')) {
-      $('donationSubmitBtn').disabled = !allowed;
-      $('donationSubmitBtn').innerHTML = allowed ? '<i class="bi bi-heart-fill"></i> متابعة التبرع' : '<i class="bi bi-shield-lock"></i> سجّل الدخول للتبرع';
-    }
-    if ($('donationGuestNote')) $('donationGuestNote').style.display = allowed ? 'none' : 'block';
-    syncDonationPublishOptions();
+
   }
 
 
@@ -2693,6 +2620,8 @@
     authReady = true;
     const loggedIn = !!currentUser;
     if (loggedIn) {
+      $('accountPanel')?.classList.add('authenticated-hidden');
+      const floatingLogout = $('floatingLogoutBtn'); if (floatingLogout) floatingLogout.hidden = false;
       authButtons.hidden = true; $('emailAuthForm').hidden = true; $('authModeSwitch').hidden = true;
       logoutBtn.hidden = false; authUser.hidden = false; profileTools.hidden = false;
       const display = currentUser.user_metadata?.display_name || currentUser.user_metadata?.full_name || currentUser.email || 'حسابك';
@@ -2701,6 +2630,8 @@
       setStatus('');
       Promise.resolve().then(() => loadOwnProfile(currentUser));
     } else {
+      $('accountPanel')?.classList.remove('authenticated-hidden');
+      const floatingLogout = $('floatingLogoutBtn'); if (floatingLogout) floatingLogout.hidden = true;
       authButtons.hidden = false; $('emailAuthForm').hidden = false; $('authModeSwitch').hidden = false;
       logoutBtn.hidden = true; authUser.hidden = true; profileTools.hidden = true;
       authIntro.textContent = 'أنشئ حسابك أو سجّل الدخول للوصول إلى خدمات المنصة';
@@ -2717,78 +2648,7 @@
     if (panel) { panel.hidden = false; panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 
-  // Create a secure Paymob intention through the Edge Function; never expose merchant secrets here.
-  donationForm?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    if (!window.requirePlatformAuth('سجّل الدخول قبل التبرع.')) return;
-    const amount = Number($('donationAmount').value);
-    const donorName = $('donorFullName').value.trim();
-    const donorPhone = $('donorPhone').value.trim();
-    const photo = $('donorPhoto').files?.[0] || null;
-    const publish = !!$('publishDonation').checked;
 
-    if (!donorName) { $('donationStatus').textContent = 'اكتب اسم المتبرع.'; $('donorFullName').focus(); return; }
-    if (!donorPhone || donorPhone.replace(/[^0-9+]/g, '').length < 8) {
-      $('donationStatus').textContent = 'اكتب رقم هاتف صحيحًا.'; $('donorPhone').focus(); return;
-    }
-    if (!Number.isFinite(amount) || amount < 1 || amount > 1000000) {
-      $('donationStatus').textContent = 'اكتب مبلغًا صحيحًا من 1 إلى 1,000,000 جنيه.'; return;
-    }
-    if (photo && (!['image/jpeg','image/png','image/webp'].includes(photo.type) || photo.size > 2 * 1024 * 1024)) {
-      $('donationStatus').textContent = 'راجع صورة المتبرع: الصيغ JPG وPNG وWEBP وبحد أقصى 2 ميجابايت.'; return;
-    }
-    if (!currentUser || !supabaseClient) {
-      $('donationStatus').textContent = 'انتهت جلسة الدخول. سجّل الدخول مرة أخرى.'; return;
-    }
-
-    const submitButton = $('donationSubmitBtn');
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري تجهيز التبرع...';
-    $('donationStatus').textContent = 'جاري حفظ بيانات التبرع وتجهيز صفحة الدفع الآمنة...';
-    let uploadedPhotoPath = null;
-
-    try {
-      if (photo) {
-        const ext = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[photo.type];
-        uploadedPhotoPath = currentUser.id + '/' + crypto.randomUUID() + '.' + ext;
-        const { error: uploadError } = await supabaseClient.storage
-          .from('donor-photos')
-          .upload(uploadedPhotoPath, photo, { upsert: false, contentType: photo.type, cacheControl: '3600' });
-        if (uploadError) throw uploadError;
-      }
-
-      const { data, error } = await supabaseClient.functions.invoke('create-payment-intention', {
-        body: {
-          donor_name: donorName,
-          donor_phone: donorPhone,
-          amount_egp: amount,
-          donor_photo_path: uploadedPhotoPath,
-          donation_reason: $('donationReason').value.trim(),
-          publish_donation: publish,
-          publish_name: publish && $('publishName').checked,
-          publish_photo: publish && $('publishPhoto').checked && !!uploadedPhotoPath,
-          publish_amount: publish && $('publishAmount').checked,
-          publish_reason: publish && $('publishReason').checked
-        }
-      });
-      if (error) {
-        let details = error.message || 'تعذر الاتصال بخدمة الدفع.';
-        try { if (error.context) { const body = await error.context.json(); details = body.error || body.message || details; } } catch (_) {}
-        throw new Error(details);
-      }
-      if (!data?.checkout_url) throw new Error('الخادم لم يُرجع رابط الدفع الآمن. راجع إعداد دالة الدفع.');
-      $('donationStatus').textContent = 'تم تجهيز طلب التبرع. جاري تحويلك إلى صفحة Paymob الآمنة...';
-      window.location.assign(data.checkout_url);
-    } catch (error) {
-      console.error('Donation checkout error:', error);
-      if (uploadedPhotoPath) {
-        try { await supabaseClient.storage.from('donor-photos').remove([uploadedPhotoPath]); } catch (_) {}
-      }
-      $('donationStatus').textContent = 'تعذر تجهيز التبرع: ' + (error.message || 'خطأ غير معروف') + ' — لم يتم خصم أي مبلغ.';
-      submitButton.disabled = false;
-      submitButton.innerHTML = '<i class="bi bi-heart-fill"></i> متابعة التبرع';
-    }
-  });
 
   if (!window.supabase?.createClient) {
     setStatus('تعذر تحميل Supabase. تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.');
