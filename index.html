@@ -1677,7 +1677,7 @@
     }
 
     async function fetchPlatformData() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwuJf1gZGfCTZHReVB8lDcxhkwgelMCrLiR6mioZuD9vNA4kTA2dpIH0dPrEb64lC19zA/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyvE7yshdccLDJPiIP_-oiH7eLYidqPg-ruOQ4WTiPveULA7nsbv314-8M4T8K4MNYGFg/exec';
         const totalCounterEl = document.getElementById('totalRegisteredCount');
         const listContainer = document.getElementById('latestReadersList');
         
@@ -1933,7 +1933,7 @@
     }
 
     function lookupTrackingRequest(requestId, target) {
-        const endpoint = 'https://script.google.com/macros/s/AKfycbwuJf1gZGfCTZHReVB8lDcxhkwgelMCrLiR6mioZuD9vNA4kTA2dpIH0dPrEb64lC19zA/exec';
+        const endpoint = 'https://script.google.com/macros/s/AKfycbyvE7yshdccLDJPiIP_-oiH7eLYidqPg-ruOQ4WTiPveULA7nsbv314-8M4T8K4MNYGFg/exec';
         return new Promise((resolve, reject) => {
           const callbackName = '__daaTrack_' + Date.now() + '_' + Math.random().toString(36).slice(2);
           const script = document.createElement('script');
@@ -2007,7 +2007,7 @@
         updateContent(); const contentInt = setInterval(updateContent, 4000);
 
         try {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwuJf1gZGfCTZHReVB8lDcxhkwgelMCrLiR6mioZuD9vNA4kTA2dpIH0dPrEb64lC19zA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyvE7yshdccLDJPiIP_-oiH7eLYidqPg-ruOQ4WTiPveULA7nsbv314-8M4T8K4MNYGFg/exec';
             const photoBase64 = await toBase64(document.getElementById('imgIn').files[0]);
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
             
