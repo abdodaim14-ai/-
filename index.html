@@ -2014,6 +2014,7 @@
             const formData = new URLSearchParams();
             const requestTrackingId = createRequestTrackingId();
             formData.append("RequestId", requestTrackingId);
+            try { const auth = await window.supabaseClient?.auth?.getUser(); if (auth?.data?.user?.id) formData.append("UserId", auth.data.user.id); } catch (_) {}
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", fullNumber);
             formData.append("Surah", document.getElementById('surah').value);
