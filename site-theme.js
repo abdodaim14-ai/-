@@ -4,8 +4,14 @@ const KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
 function apply(d){
  if(!d||typeof d!=='object')return;
  const root=document.documentElement;
- const colors={theme_primary:'--gold-primary',theme_background:'--luxury-bg'};
- Object.entries(colors).forEach(([k,v])=>{if(typeof d[k]==='string'&&/^#[0-9a-f]{3,8}$/i.test(d[k]))root.style.setProperty(v,d[k]);});
+ const primary=d.theme_primary||d.themePrimary;
+ const background=d.theme_background||d.themeBackground;
+ if(typeof primary==='string'&&/^#[0-9a-f]{3,8}$/i.test(primary)){
+  ['--gold-primary','--gold','--text-gold','--gold-light'].forEach(v=>root.style.setProperty(v,primary));
+ }
+ if(typeof background==='string'&&/^#[0-9a-f]{3,8}$/i.test(background)){
+  ['--luxury-bg','--bg','--background'].forEach(v=>root.style.setProperty(v,background));
+ }
  const font=d.font_data_url||d.design_data?.font_data_url;
  const fileName=String(d.font_file_name||d.design_data?.font_file_name||'').toLowerCase();
  const ext=(fileName.split('.').pop()||'').replace(/[^a-z0-9]/g,'');
@@ -17,7 +23,11 @@ function apply(d){
  }
 }
 function start(){
- if(!window.supabase?.createClient)return;
+ if(!window.supabase?.createClient){
+  if(document.getElementById('daa-supabase-loader'))return;
+  const loader=document.createElement('script');loader.id='daa-supabase-loader';loader.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+  loader.onload=start;document.head.appendChild(loader);return;
+ }
  const db=window.supabase.createClient(URL,KEY);
  db.rpc('get_public_site_design').then(({data,error})=>{
   if(error||!data)return;
