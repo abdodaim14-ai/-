@@ -188,9 +188,17 @@ $('contentPanel').addEventListener('click',async e=>{const b=e.target.closest('[
 $('appearanceForm').onsubmit=async e=>{e.preventDefault();try{
  const settings={theme_primary:$('themePrimary').value,theme_background:$('themeBackground').value,site_title:$('siteTitle').value,site_announcement:$('siteAnnouncement').value};
  const fontFile=$('siteFontFile')?.files?.[0];
- if(fontFile){if(fontFile.size>450*1024)throw new Error('حجم الخط أكبر من 450 كيلوبايت.');const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('تعذر قراءة ملف الخط.'));reader.readAsDataURL(fontFile);});settings.font_data_url=dataUrl;settings.font_file_name=fontFile.name;$('siteFontStatus').textContent='تم تجهيز الخط: '+fontFile.name;}
+ if(fontFile){
+  if(fontFile.size>450*1024)throw new Error('حجم الخط أكبر من 450 كيلوبايت.');
+  const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('تعذر قراءة ملف الخط.'));reader.readAsDataURL(fontFile);});
+  settings.font_data_url=dataUrl;settings.font_file_name=fontFile.name;$('siteFontStatus').textContent='تم تجهيز الخط: '+fontFile.name;
+ }
  await rpc('admin_save_settings',{p_settings:settings});
- notice('تم حفظ المظهر. سيُطبّق الخط على الصفحات التي تحمل إعدادات الهوية المشتركة.');
+ const current=await rpc('get_public_site_design').catch(()=>null);
+ const existing=current?.design_data&&typeof current.design_data==='object'?current.design_data:(current||{});
+ const designData={...existing,...settings,theme_text:existing.theme_text||'#f4f4f4',font_family:settings.font_data_url?'DaaCustomFont':(existing.font_family||'inherit'),announcement_visible:true,announcement:settings.site_announcement};
+ await rpc('admin_save_site_design',{p_id:null,p_version_name:'تحديث الهوية والخط',p_design_data:designData,p_publish:true});
+ notice('تم حفظ ونشر الهوية والخط على صفحات الموقع.');
  }catch(x){notice(x.message,'error');}};
 $('maintenanceForm').onsubmit=async e=>{e.preventDefault();try{await rpc('admin_save_settings',{p_settings:{maintenance_enabled:$('maintenanceEnabled').value==='true',maintenance_message:$('maintenanceMessage').value,maintenance_subtext:$('maintenanceSubtext').value}});notice('تم حفظ وضع التحديثات. أضف فحص الصيانة للصفحة الرئيسية كما في ملف SQL.');}catch(x){notice(x.message,'error');}};
 $('refreshVisitorsBtn').onclick=()=>loadLiveVisitors().catch(e=>notice(e.message,'error'));
