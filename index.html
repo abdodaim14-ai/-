@@ -506,6 +506,23 @@
         }
         .criteria-list i { color: var(--text-gold); margin-top: 5px; }
 
+
+        /* Request tracking - responsive */
+        .tracking-card { padding: 26px; text-align: right; }
+        .tracking-form { display:flex; gap:12px; align-items:stretch; }
+        .tracking-form input { flex:1; min-width:0; padding:15px 16px; border:1px solid rgba(212,175,55,.45); border-radius:14px; background:#0c0f14; color:#fff; font:inherit; }
+        .tracking-form button { border:0; border-radius:14px; padding:14px 22px; background:var(--gold-gradient); color:#111; font:inherit; font-weight:800; cursor:pointer; }
+        .tracking-result { display:none; margin-top:18px; padding:18px; border:1px solid rgba(212,175,55,.35); border-radius:16px; background:rgba(0,0,0,.35); overflow-wrap:anywhere; }
+        .tracking-result.show { display:block; }
+        .tracking-status { display:inline-block; margin:8px 0; padding:7px 13px; border-radius:999px; background:rgba(212,175,55,.15); color:var(--text-gold); font-weight:700; }
+        .request-id-value { direction:ltr; unicode-bidi:isolate; display:inline-block; font-weight:800; color:var(--text-gold); letter-spacing:.5px; }
+        @media(max-width:560px) {
+          .tracking-card { padding:18px; }
+          .tracking-form { flex-direction:column; }
+          .tracking-form button { width:100%; min-height:48px; }
+          .tracking-form input { width:100%; min-height:48px; font-size:16px; }
+        }
+
         /* Form Controls */
         .form-card {
             padding: 32px;
@@ -1019,6 +1036,7 @@
             <div><strong>الصفحات:</strong> من ص <span id="modalPageFrom">--</span> إلى ص <span id="modalPageTo">--</span></div>
             <div><strong>التاريخ الهجري:</strong> <span id="modalHijriDate">--</span></div>
             <div><strong>التاريخ الميلادي:</strong> <span id="modalMiladiDate">--</span></div>
+            <div><strong>رقم متابعة الطلب:</strong> <span id="modalRequestId" class="request-id-value">--</span></div>
         </div>
         
         <div class="cert-footer">
@@ -1285,6 +1303,18 @@
             <li><i class="bi bi-clock"></i> مدة التسجيل يجب ألا تتجاوز 3 دقائق كحد أقصى.</li>
         </ul>
     </div>
+
+
+    <!-- Order / Recitation Request Tracking -->
+    <section class="glass-card tracking-card animate__animated animate__fadeInUp" aria-labelledby="trackingTitle">
+      <div class="ann-title" id="trackingTitle"><i class="bi bi-search"></i><span>تتبع طلب تسجيل التلاوة</span></div>
+      <p class="ann-text">معاك رقم الطلب؟ اكتبه هنا علشان تعرف آخر حالة وصلت لها مراجعة تلاوتك.</p>
+      <form class="tracking-form" id="publicTrackingForm">
+        <input id="trackingRequestId" type="text" inputmode="text" autocomplete="off" maxlength="40" placeholder="مثال: DAA-2026-ABC12345" aria-label="رقم الطلب" required>
+        <button type="submit"><i class="bi bi-search"></i> تتبع الطلب</button>
+      </form>
+      <div id="publicTrackingResult" class="tracking-result" aria-live="polite"></div>
+    </section>
 
     <!-- Participation Form -->
     <div class="glass-card form-card animate__animated animate__fadeInUp">
@@ -1897,6 +1927,60 @@
         { type: "إشراقة قرآنية..", text: "الخشوع في التلاوة واجتمع القلب على تدبر الآيات يرفع درجات العبد في الجنة." }
     ];
 
+
+    // Tracking IDs are generated before upload and saved with the registration row.
+    function createRequestTrackingId() {
+        const year = new Date().getFullYear();
+        const random = (window.crypto && crypto.randomUUID)
+          ? crypto.randomUUID().replace(/-/g, '').slice(0, 10).toUpperCase()
+          : (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).toUpperCase();
+        return 'DAA-' + year + '-' + random;
+    }
+
+    function lookupTrackingRequest(requestId, target) {
+        const endpoint = 'https://script.google.com/macros/s/AKfycby6ld_6DTSrz9vwvyeOZy1eosY7hPNwbWXT_pPxV8HmXDNm9xLX3OZ6YDCGDcFcRBSIgQ/exec';
+        return new Promise((resolve, reject) => {
+          const callbackName = '__daaTrack_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+          const script = document.createElement('script');
+          const timer = setTimeout(() => finish(new Error('انتهت مهلة الاتصال. حاول مرة أخرى.')), 15000);
+          function finish(error, data) {
+            clearTimeout(timer);
+            try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+            script.remove();
+            if (error) reject(error); else resolve(data);
+          }
+          window[callbackName] = data => finish(null, data);
+          script.onerror = () => finish(new Error('تعذر الاتصال بخدمة التتبع.'));
+          script.src = endpoint + '?track=' + encodeURIComponent(requestId) + '&callback=' + callbackName + '&_=' + Date.now();
+          document.head.appendChild(script);
+        });
+    }
+
+    document.getElementById('publicTrackingForm')?.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const input = document.getElementById('trackingRequestId');
+      const result = document.getElementById('publicTrackingResult');
+      const id = input.value.trim();
+      result.classList.add('show');
+      result.textContent = 'جاري البحث عن الطلب...';
+      try {
+        const data = await lookupTrackingRequest(id);
+        if (!data || !data.found) {
+          result.textContent = 'لم نعثر على طلب بهذا الرقم. راجع الرقم وحاول مرة أخرى.';
+          return;
+        }
+        const safe = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        result.innerHTML = '<strong>طلب القارئ: ' + safe(data.name) + '</strong>' +
+          '<div>رقم الطلب: <b class="request-id-value">' + safe(data.requestId) + '</b></div>' +
+          '<div>السورة: ' + safe(data.surah) + '</div>' +
+          '<div class="tracking-status">' + safe(data.status || 'تم استلام الطلب') + '</div>' +
+          (data.notes ? '<p>ملاحظة الإدارة: ' + safe(data.notes) + '</p>' : '') +
+          '<small>تاريخ التسجيل: ' + safe(data.date || '—') + '</small>';
+      } catch (error) {
+        result.textContent = error.message || 'تعذر جلب حالة الطلب.';
+      }
+    });
+
     document.getElementById('talentForm').onsubmit = async function(e) {
         e.preventDefault();
         if (typeof window.requirePlatformAuth === 'function' && !window.requirePlatformAuth('لازم تسجل الدخول قبل إرسال التلاوة.')) return;
@@ -1932,6 +2016,8 @@
             const audioBase64 = await toBase64(document.getElementById('fileIn').files[0]);
             
             const formData = new URLSearchParams();
+            const requestTrackingId = createRequestTrackingId();
+            formData.append("RequestId", requestTrackingId);
             formData.append("Name", document.getElementById('name').value);
             formData.append("Phone", fullNumber);
             formData.append("Surah", document.getElementById('surah').value);
@@ -1964,6 +2050,7 @@
                 const miladiStr = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
                 document.getElementById('modalHijriDate').innerText = hijriStr;
                 document.getElementById('modalMiladiDate').innerText = miladiStr + " م";
+                document.getElementById('modalRequestId').innerText = requestTrackingId;
                 
                 document.getElementById('cardModal').style.display = 'flex';
             }, 800);
