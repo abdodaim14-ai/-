@@ -26,7 +26,9 @@ function doPost(e) {
       const note = String(p.note || "").trim().slice(0, 1200);
       if (status === "مرفوض" && !note) throw new Error("اكتب سبب الرفض حتى يعرف المتقدم المطلوب تعديله.");
       sheet.getRange(rowNumber, 12, 1, 3).setValues([[status, note, new Date()]]);
-      return daaJson_({success:true, requestId:p.requestId, status});
+      const applicantUserId = String(sheet.getRange(rowNumber, 16).getValue() || "").trim();
+      const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, note, String(p.requestId || "")) : false;
+      return daaJson_({success:true, requestId:p.requestId, status, notificationSent});
     }
 
     if (p.action === "replace") {
@@ -65,7 +67,7 @@ function doPost(e) {
     sheet.appendRow([
       new Date(), name, "'" + phone, surah,
       p.AyahFrom || "", p.AyahTo || "", p.PageFrom || "", p.PageTo || "",
-      photoUrl, audioUrl, requestId, DAA_DEFAULT_STATUS, "", new Date(), 0
+      photoUrl, audioUrl, requestId, DAA_DEFAULT_STATUS, "", new Date(), 0, String(p.UserId || "").trim()
     ]);
     return daaJson_({success:true, requestId, status:DAA_DEFAULT_STATUS});
   } catch (error) {
@@ -129,11 +131,11 @@ function daaTrackRequest_(sheet, requestId) {
 function daaListRequests_(sheet) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return [];
-  const values = sheet.getRange(2, 1, lastRow - 1, 15).getValues();
+  const values = sheet.getRange(2, 1, lastRow - 1, 16).getValues();
   return values.map((r, i) => ({
     row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
     phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
-    photoUrl:String(r[8] || ""), audioUrl:String(r[9] || ""),
+    photoUrl:String(r[8] || ""), audioUrl:String(r[9] || ""), userId:String(r[15] || ""),
     status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[12] || ""),
     date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
     revisions:Number(r[14] || 0)
@@ -154,6 +156,27 @@ function daaRequireAdmin_(token) {
   if (!allowed) throw new Error("هذا الحساب غير مصرح له بإدارة طلبات التلاوات.");
 }
 
+function daaSendApplicantNotification_(token, userId, status, note, requestId) {
+  let body;
+  const trackingUrl = "https://abdodaim14-ai.github.io/-/track.html?id=" + encodeURIComponent(requestId);
+  if (status === "مرفوض") {
+    body = "طلب التلاوة رقم " + requestId + " يحتاج إلى تعديل. السبب: " + (note || "يرجى مراجعة الملفات") + " افتح صفحة التتبع لاستبدال الصورة أو التسجيل: " + trackingUrl;
+  } else if (status === "مقبول") {
+    body = "تم قبول طلب التلاوة رقم " + requestId + "، شكرًا لمشاركتك. تابع صفحة التتبع: " + trackingUrl;
+  } else {
+    body = "تم تحديث حالة طلب التلاوة رقم " + requestId + " إلى: " + status + ". " + trackingUrl;
+  }
+  try {
+    const response = UrlFetchApp.fetch(DAA_SUPABASE_URL + "/rest/v1/rpc/admin_send_notification", {
+      method:"post", contentType:"application/json",
+      payload:JSON.stringify({p_target_user_id:userId,p_title:"تحديث طلب التلاوة",p_body:body}),
+      headers:{apikey:DAA_SUPABASE_KEY,Authorization:"Bearer " + token},
+      muteHttpExceptions:true
+    });
+    return response.getResponseCode() >= 200 && response.getResponseCode() < 300;
+  } catch (_) { return false; }
+}
+
 function daaFindRequestRow_(sheet, requestId) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return 0;
@@ -162,9 +185,8 @@ function daaFindRequestRow_(sheet, requestId) {
   return 0;
 }
 function daaEnsureColumns_(sheet) {
-  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظة للمتقدم", "آخر تحديث", "مرات إعادة التقديم"];
-  const current = sheet.getRange(1, 11, 1, 5).getDisplayValues()[0];
-  sheet.getRange(1, 11, 1, 5).setValues([headers]);
+  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظة للمتقدم", "آخر تحديث", "مرات إعادة التقديم", "معرف حساب المتقدم"];
+  sheet.getRange(1, 11, 1, 6).setValues([headers]);
 }
 function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
