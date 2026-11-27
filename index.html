@@ -1036,7 +1036,7 @@
             <div><strong>الصفحات:</strong> من ص <span id="modalPageFrom">--</span> إلى ص <span id="modalPageTo">--</span></div>
             <div><strong>التاريخ الهجري:</strong> <span id="modalHijriDate">--</span></div>
             <div><strong>التاريخ الميلادي:</strong> <span id="modalMiladiDate">--</span></div>
-            <div><strong>رقم متابعة الطلب:</strong> <span id="modalRequestId" class="request-id-value">--</span></div>
+            <div class="tracking-link-row"><strong>رابط متابعة طلبك:</strong><br><a id="modalRequestLink" href="#" target="_blank" rel="noopener" class="request-id-value" style="display:inline-block;margin-top:8px;color:var(--text-gold);text-decoration:underline;direction:ltr;overflow-wrap:anywhere">اضغط هنا لفتح صفحة التتبع</a></div>
         </div>
         
         <div class="cert-footer">
@@ -1303,7 +1303,7 @@
     <!-- Order / Recitation Request Tracking -->
     <section class="glass-card tracking-card animate__animated animate__fadeInUp" aria-labelledby="trackingTitle">
       <div class="ann-title" id="trackingTitle"><i class="bi bi-search"></i><span>تتبع طلب تسجيل التلاوة</span></div>
-      <p class="ann-text">معاك رقم الطلب؟ اكتبه هنا علشان تعرف آخر حالة وصلت لها مراجعة تلاوتك.</p>
+      <p class="ann-text">لو استلمت رابط متابعة طلبك افتحه مباشرة، أو استخدم رقم الطلب هنا لو محتفظ بيه من قبل.</p>
       <form class="tracking-form" id="publicTrackingForm">
         <input id="trackingRequestId" type="text" inputmode="text" autocomplete="off" maxlength="40" placeholder="مثال: DAA-2026-ABC12345" aria-label="رقم الطلب" required>
         <button type="submit"><i class="bi bi-search"></i> تتبع الطلب</button>
@@ -2056,7 +2056,10 @@
                 const miladiStr = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', year:'numeric'});
                 document.getElementById('modalHijriDate').innerText = hijriStr;
                 document.getElementById('modalMiladiDate').innerText = miladiStr + " م";
-                document.getElementById('modalRequestId').innerText = requestTrackingId;
+                window.currentRequestTrackingUrl = new URL('track.html?id=' + encodeURIComponent(requestTrackingId), window.location.href).href;
+                const trackingLink = document.getElementById('modalRequestLink');
+                trackingLink.href = window.currentRequestTrackingUrl;
+                trackingLink.textContent = window.currentRequestTrackingUrl;
                 
                 document.getElementById('cardModal').style.display = 'flex';
             }, 800);
@@ -2079,7 +2082,8 @@
         const aFrom = document.getElementById('ayahFrom').value;
         const aTo = document.getElementById('ayahTo').value;
         
-        const message = `*استمارة مشاركة في منصة داعم المواهب للقرآن الكريم*\n\nاسم المشارك: ${name}\nالسورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\nبرعاية خادم القرآن/ عبد الرحمن مكي\n\nرابط المنصة للمشاركة: https://abdodaim14-ai.github.io/-/`;
+        const trackingUrl = window.currentRequestTrackingUrl || 'https://abdodaim14-ai.github.io/-/';
+        const message = `*استمارة مشاركة في منصة داعم المواهب للقرآن الكريم*\n\nاسم المشارك: ${name}\nالسورة: ${surah} (من آية ${aFrom} إلى آية ${aTo})\nبرعاية خادم القرآن/ عبد الرحمن مكي\n\n*رابط متابعة طلبك مباشرة:*\n${trackingUrl}`
         const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
     }
