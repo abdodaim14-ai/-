@@ -234,7 +234,7 @@ function daaGenerateRequestId_() {
 function daaSaveBase64_(folder, data, mime, name) {
   const clean = String(data).replace(/^data:[^,]*,/, "");
   const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), mime, name));
-  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  try { file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (error) { Logger.log("تعذر تفعيل العرض بالرابط: " + error); }
   return file;
 }
 function daaGetOrCreateFolder_(name) {
