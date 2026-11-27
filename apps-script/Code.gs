@@ -164,7 +164,7 @@ function daaFindRequestRow_(sheet, requestId) {
 function daaEnsureColumns_(sheet) {
   const headers = ["رقم الطلب", "حالة الطلب", "ملاحظة للمتقدم", "آخر تحديث", "مرات إعادة التقديم"];
   const current = sheet.getRange(1, 11, 1, 5).getDisplayValues()[0];
-  headers.forEach((h, i) => { if (!current[i]) sheet.getRange(1, 11 + i).setValue(h); });
+  sheet.getRange(1, 11, 1, 5).setValues([headers]);
 }
 function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
