@@ -91,8 +91,8 @@ async function loadQuranRequests(){
  '<p>رقم الطلب: <b dir="ltr" class="gold">'+esc(x.requestId)+'</b> · السورة: '+esc(x.surah)+' · '+esc(x.date)+' · إعادة تقديم: '+(Number(x.revisions)||0)+'</p>'+
  '<p>الهاتف: <span dir="ltr">'+esc(x.phone)+'</span></p>'+
  '<div class="request-media-grid">'+
- (x.photoUrl?'<div class="request-media"><img src="'+esc(x.photoUrl)+'" alt="صورة القارئ" loading="lazy"><span class="media-label"><i class="bi bi-person-bounding-box"></i> صورة القارئ</span></div>':'<div class="request-media missing">لا توجد صورة مرفقة</div>')+
- (x.audioUrl?'<div class="request-audio"><strong><i class="bi bi-headphones"></i> تسجيل القارئ</strong><audio controls preload="none" src="'+esc(x.audioUrl)+'">المتصفح لا يدعم تشغيل الصوت.</audio></div>':'<div class="request-audio missing">لا يوجد تسجيل مرفق</div>')+
+ (x.photoUrl?'<div class="request-media"><img src="'+esc(x.photoUrl)+'" alt="صورة القارئ" loading="lazy"><span class="media-label"><i class="bi bi-person-bounding-box"></i> صورة القارئ</span></div>':(x.photoUnavailable?'<div class="request-media missing">الصورة محفوظة، لكن Google Drive لا يتيح فتحها بالرابط. راجع إعدادات المشاركة.</div>':'<div class="request-media missing">لا توجد صورة مرفقة</div>'))+
+ (x.audioUrl?'<div class="request-audio"><strong><i class="bi bi-headphones"></i> تسجيل القارئ</strong><audio controls preload="none" src="'+esc(x.audioUrl)+'">المتصفح لا يدعم تشغيل الصوت.</audio></div>':(x.audioUnavailable?'<div class="request-audio missing">التسجيل محفوظ، لكن Google Drive لا يتيحه للتشغيل بالرابط. راجع إعدادات المشاركة.</div>':'<div class="request-audio missing">لا يوجد تسجيل مرفق</div>'))+
  '</div>'+
  (x.note?'<p class="hint">آخر ملاحظة: '+esc(x.note)+'</p>':'')+
  '<div class="request-update-grid">'+
