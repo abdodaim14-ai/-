@@ -191,7 +191,7 @@ function daaSendApplicantNotification_(token, userId, status, note, requestId, a
   const trackingUrl = "https://abdodaim14-ai.github.io/-/track.html?id=" + encodeURIComponent(requestId);
   if (status === "مرفوض") {
     body = "طلب التلاوة رقم " + requestId + " يحتاج إلى تعديل. السبب: " + (note || "يرجى مراجعة الملفات") + " افتح صفحة التتبع لاستبدال الصورة أو التسجيل: " + trackingUrl;
-  } else if (status === "مقبول") {
+  } else if (status === "تم قبول الطلب" || status === "مقبول") {
     body = "تم قبول طلب التلاوة رقم " + requestId + "، شكرًا لمشاركتك. تابع صفحة التتبع: " + trackingUrl;
   } else {
     body = "تم تحديث حالة طلب التلاوة رقم " + requestId + " إلى: " + status + ". " + trackingUrl;
@@ -232,9 +232,28 @@ function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
 }
 function daaSaveBase64_(folder, data, mime, name) {
-  const clean = String(data).replace(/^data:[^,]*,/, "");
-  const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), mime, name));
-  try { file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (error) { Logger.log("تعذر تفعيل العرض بالرابط: " + error); }
+  const clean = String(data || "").replace(/^data:[^,]*,/, "").replace(/\\s/g, "");
+  if (!clean) throw new Error("الملف المرفق فارغ أو لم يصل إلى الخادم.");
+  const contentType = String(mime || "application/octet-stream").toLowerCase().trim();
+  if (!/^(image\\/(jpeg|png|webp)|audio\\/(mpeg|mp4|aac|wav|ogg|webm|x-m4a))$/.test(contentType)) {
+    throw new Error("نوع الملف غير مدعوم: " + contentType);
+  }
+  const extension = ({
+    "image/jpeg":"jpg","image/png":"png","image/webp":"webp",
+    "audio/mpeg":"mp3","audio/mp4":"m4a","audio/x-m4a":"m4a",
+    "audio/aac":"aac","audio/wav":"wav","audio/ogg":"ogg","audio/webm":"webm"
+  })[contentType] || "bin";
+  const finalName = String(name || "media").replace(/\\.[^.]+$/, "") + "." + extension;
+  const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), contentType, finalName));
+  try {
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    if (file.getSharingAccess() !== DriveApp.Access.ANYONE_WITH_LINK) {
+      throw new Error("Google Drive لم يؤكد إتاحة الملف بالرابط.");
+    }
+  } catch (error) {
+    try { file.setTrashed(true); } catch (_) {}
+    throw new Error("تم استلام الملف لكن تعذر إتاحته للمشاهدة العامة في Google Drive. راجع إعدادات المشاركة أو سياسة المؤسسة: " + String(error && error.message || error));
+  }
   return file;
 }
 function daaGetOrCreateFolder_(name) {
@@ -242,12 +261,37 @@ function daaGetOrCreateFolder_(name) {
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
 }
 function daaPublicMediaUrl_(url, kind) {
-  const match = String(url || "").match(/[-\w]{25,}/);
+  const match = String(url || "").match(/[-\\w]{25,}/);
   if (!match) return "";
-  try { DriveApp.getFileById(match[0]).setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (_) {}
-  return "https://drive.google.com/uc?export=" + (kind === "image" ? "view" : "download") + "&id=" + match[0];
+  try {
+    const file = DriveApp.getFileById(match[0]);
+    if (file.getSharingAccess() !== DriveApp.Access.ANYONE_WITH_LINK) {
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    }
+    if (file.getSharingAccess() !== DriveApp.Access.ANYONE_WITH_LINK) {
+      Logger.log("ملف Drive غير متاح للعامة: " + match[0]);
+      return "";
+    }
+  } catch (error) {
+    Logger.log("تعذر التحقق من صلاحية ملف Drive " + match[0] + ": " + error);
+    return "";
+  }
+  return kind === "image"
+    ? "https://drive.google.com/thumbnail?id=" + match[0] + "&sz=w1200"
+    : "https://drive.google.com/uc?export=download&id=" + match[0];
 }
 function daaDigits_(value) { return String(value || "").replace(/[^0-9]/g, ""); }
 function daaJson_(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+/**
+ * شغّل هذه الدالة مرة واحدة يدويًا من محرر Apps Script
+ * لمنح المشروع صلاحية UrlFetchApp اللازمة للتحقق من جلسات الإدارة.
+ */
+function authorizeExternalRequests() {
+  const response = UrlFetchApp.fetch("https://www.google.com/generate_204", {muteHttpExceptions:true});
+  Logger.log("تم اختبار صلاحية UrlFetchApp. HTTP " + response.getResponseCode());
+  return response.getResponseCode();
 }
