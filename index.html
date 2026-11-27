@@ -2059,7 +2059,7 @@
                 window.currentRequestTrackingUrl = new URL('track.html?id=' + encodeURIComponent(requestTrackingId), window.location.href).href;
                 const trackingLink = document.getElementById('modalRequestLink');
                 trackingLink.href = window.currentRequestTrackingUrl;
-                trackingLink.textContent = window.currentRequestTrackingUrl;
+                trackingLink.textContent = 'اضغط هنا لفتح طلبك ومتابعته';
                 
                 document.getElementById('cardModal').style.display = 'flex';
             }, 800);
