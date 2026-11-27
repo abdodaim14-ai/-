@@ -163,7 +163,7 @@ function daaListRequests_(sheet) {
   return values.map((r, i) => ({
     row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
     phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
-    photoUrl:String(r[8] || ""), audioUrl:String(r[9] || ""), userId:String(r[15] || ""),
+    photoUrl:daaPublicMediaUrl_(String(r[8] || ""), "image"), audioUrl:daaPublicMediaUrl_(String(r[9] || ""), "audio"), userId:String(r[15] || ""),
     status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[16] || ""),
     scheduledAt:String(r[18] || ""), publishedUrl:String(r[19] || ""), publicNote:String(r[20] || ""),
     date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
@@ -242,8 +242,9 @@ function daaGetOrCreateFolder_(name) {
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
 }
 function daaPublicMediaUrl_(url, kind) {
-  const match = String(url || "").match(/[-\\w]{25,}/);
+  const match = String(url || "").match(/[-\w]{25,}/);
   if (!match) return "";
+  try { DriveApp.getFileById(match[0]).setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (_) {}
   return "https://drive.google.com/uc?export=" + (kind === "image" ? "view" : "download") + "&id=" + match[0];
 }
 function daaDigits_(value) { return String(value || "").replace(/[^0-9]/g, ""); }
