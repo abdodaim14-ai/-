@@ -54,4 +54,4 @@ $('notificationItems').addEventListener('click',async e=>{const b=e.target.close
 $('markAllRead').addEventListener('click',async()=>{const {error}=await db.rpc('platform_mark_all_notifications_read');if(error)say(error.message);else loadNotifications();});
 async function init(){const {data:{session}}=await db.auth.getSession();user=session?.user||null;$('composer').hidden=!user;$('loginBtn').hidden=!!user;$('logoutBtn').hidden=!user;$('logoutBtn').onclick=async()=>{await db.auth.signOut();location.reload();};db.auth.onAuthStateChange((_e,s)=>{user=s?.user||null;$('composer').hidden=!user;$('loginBtn').hidden=!!user;$('logoutBtn').hidden=!user;$('gate').classList.remove('show');if(user){localStorage.removeItem('daem_posts_guest_start');loadFeed();loadNotifications();}else{gateStart();loadFeed();loadNotifications();}});gateStart();await loadFeed();await loadNotifications();}
 $('loginBtn').onclick=()=>location.href='index.html#accountPanel';init().catch(e=>say('حدث خطأ: '+e.message));})();
-</script></body></html>
+</script><script src="site-theme.js"></script>\n</body></html>
