@@ -141,14 +141,17 @@ function daaTrackRequest_(sheet, requestId) {
   const row = sheet.getRange(rowNumber, 1, 1, 21).getValues()[0];
   const status = String(row[11] || DAA_DEFAULT_STATUS);
   const reason = ["مرفوض", "مطلوب تعديل"].includes(status) ? String(row[16] || "") : "";
+  const photoUrl = daaPublicMediaUrl_(String(row[8] || ""), "image");
+  const audioUrl = daaPublicMediaUrl_(String(row[9] || ""), "audio");
   let history = [];
   try { history = JSON.parse(String(row[17] || "[]")); } catch (_) {}
   if (!Array.isArray(history) || !history.length) history = [{status:DAA_DEFAULT_STATUS, at:row[0] instanceof Date ? row[0].toISOString() : new Date().toISOString(), note:"تم استلام الطلب"}];
   return {
     success:true, found:true, requestId:String(row[10] || ""), name:String(row[1] || ""),
     surah:String(row[3] || ""), status, reason,
-    photoUrl:daaPublicMediaUrl_(String(row[8] || ""), "image"),
-    audioUrl:daaPublicMediaUrl_(String(row[9] || ""), "audio"),
+    photoUrl, audioUrl,
+    photoUnavailable:Boolean(row[8]) && !photoUrl,
+    audioUnavailable:Boolean(row[9]) && !audioUrl,
     scheduledAt:String(row[18] || ""), publishedUrl:String(row[19] || ""),
     publicNote:String(row[20] || ""), history,
     canReplace:status === "مرفوض" || status === "مطلوب تعديل",
@@ -161,17 +164,22 @@ function daaListRequests_(sheet) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return [];
   const values = sheet.getRange(2, 1, lastRow - 1, 21).getValues();
-  return values.map((r, i) => ({
-    row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
-    phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
-    photoUrl:daaPublicMediaUrl_(String(r[8] || ""), "image"), audioUrl:daaPublicMediaUrl_(String(r[9] || ""), "audio"), userId:String(r[15] || ""),
-    status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[16] || ""),
-    scheduledAt:String(r[18] || ""), publishedUrl:String(r[19] || ""), publicNote:String(r[20] || ""),
-    date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
-    revisions:Number(r[14] || 0)
-  })).filter(r => r.requestId).reverse();
+  return values.map((r, i) => {
+    const photoUrl = daaPublicMediaUrl_(String(r[8] || ""), "image");
+    const audioUrl = daaPublicMediaUrl_(String(r[9] || ""), "audio");
+    return {
+      row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
+      phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
+      photoUrl, audioUrl,
+      photoUnavailable:Boolean(r[8]) && !photoUrl,
+      audioUnavailable:Boolean(r[9]) && !audioUrl,
+      userId:String(r[15] || ""), status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[16] || ""),
+      scheduledAt:String(r[18] || ""), publishedUrl:String(r[19] || ""), publicNote:String(r[20] || ""),
+      date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
+      revisions:Number(r[14] || 0)
+    };
+  }).filter(r => r.requestId).reverse();
 }
-
 function daaRequireAdmin_(token) {
   if (!token) throw new Error("جلسة الإدارة غير موجودة. سجّل الدخول من جديد.");
   const headers = {apikey:DAA_SUPABASE_KEY, Authorization:"Bearer " + token};
