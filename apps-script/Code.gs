@@ -18,7 +18,7 @@ function doPost(e) {
     daaEnsureColumns_(sheet);
 
     if (p.action === "review") {
-      daaRequireAdmin_(p.access_token);
+      const adminUser = daaRequireAdmin_(p.access_token);
       const rowNumber = daaFindRequestRow_(sheet, String(p.requestId || "").trim());
       if (!rowNumber) throw new Error("الطلب غير موجود.");
       const status = String(p.status || "").trim();
@@ -29,7 +29,7 @@ function doPost(e) {
       sheet.getRange(rowNumber, 14).setValue(new Date());
       sheet.getRange(rowNumber, 17).setValue(note);
       const applicantUserId = String(sheet.getRange(rowNumber, 16).getValue() || "").trim();
-      const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, note, String(p.requestId || "")) : false;
+      const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, note, String(p.requestId || ""), String(adminUser.id || "")) : false;
       return daaJson_({success:true, requestId:p.requestId, status, notificationSent});
     }
 
@@ -157,9 +157,10 @@ function daaRequireAdmin_(token) {
   const role = JSON.parse(roleResponse.getContentText() || "null");
   const allowed = Array.isArray(role) ? role[0] && role[0].allowed : role && role.allowed;
   if (!allowed) throw new Error("هذا الحساب غير مصرح له بإدارة طلبات التلاوات.");
+  return JSON.parse(userResponse.getContentText() || "{}");
 }
 
-function daaSendApplicantNotification_(token, userId, status, note, requestId) {
+function daaSendApplicantNotification_(token, userId, status, note, requestId, adminUserId) {
   let body;
   const trackingUrl = "https://abdodaim14-ai.github.io/-/track.html?id=" + encodeURIComponent(requestId);
   if (status === "مرفوض") {
@@ -169,14 +170,24 @@ function daaSendApplicantNotification_(token, userId, status, note, requestId) {
   } else {
     body = "تم تحديث حالة طلب التلاوة رقم " + requestId + " إلى: " + status + ". " + trackingUrl;
   }
+  const headers = {apikey:DAA_SUPABASE_KEY,Authorization:"Bearer " + token};
   try {
-    const response = UrlFetchApp.fetch(DAA_SUPABASE_URL + "/rest/v1/rpc/admin_send_notification", {
+    const response = UrlFetchApp.fetch(DAA_SUPABASE_URL + "/rest/v1/platform_notifications", {
       method:"post", contentType:"application/json",
-      payload:JSON.stringify({p_target_user_id:userId,p_title:"تحديث طلب التلاوة",p_body:body}),
-      headers:{apikey:DAA_SUPABASE_KEY,Authorization:"Bearer " + token},
+      payload:JSON.stringify({user_id:userId,actor_id:adminUserId,kind:"quran_request_status",message:body,is_read:false}),
+      headers:Object.assign({},headers,{Prefer:"return=minimal"}),
       muteHttpExceptions:true
     });
-    return response.getResponseCode() >= 200 && response.getResponseCode() < 300;
+    if (response.getResponseCode() >= 200 && response.getResponseCode() < 300) return true;
+  } catch (_) {}
+  // Fallback: keep a record in the existing administration notification center.
+  try {
+    const fallback = UrlFetchApp.fetch(DAA_SUPABASE_URL + "/rest/v1/rpc/admin_send_notification", {
+      method:"post", contentType:"application/json",
+      payload:JSON.stringify({p_target_user_id:userId,p_title:"تحديث طلب التلاوة",p_body:body}),
+      headers, muteHttpExceptions:true
+    });
+    return fallback.getResponseCode() >= 200 && fallback.getResponseCode() < 300;
   } catch (_) { return false; }
 }
 
