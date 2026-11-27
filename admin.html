@@ -11,7 +11,7 @@
 
 .admin-brand{display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:14px;background:rgba(212,175,55,.08)}.admin-brand img{width:52px;height:52px;object-fit:contain}.admin-public-nav{display:flex;align-items:center;gap:8px;margin-inline-start:auto;margin-inline-end:16px}.admin-public-nav a[href*='profile.html'],.admin-public-nav a[href*='saved.html'],.admin-public-nav a[href*='library.html'],.admin-public-nav a[href*='readers.html'],.admin-public-nav a[href*='contests.html']{display:none}.request-admin-card{border-color:#d4af3755}.admin-public-nav a{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:#e4c66e;background:rgba(212,175,55,.08);font-size:1.2rem;text-decoration:none}.admin-public-nav a:hover{background:rgba(212,175,55,.2);color:#fff}@media(max-width:700px){.admin-public-nav{gap:3px;margin-inline:4px}.admin-public-nav a{width:34px;height:36px}.admin-brand{width:44px;height:44px}.admin-brand img{width:40px;height:40px}}
 
-</style></head><body><div class="container">
+.request-media-grid{display:grid;grid-template-columns:minmax(130px,190px) minmax(220px,1fr);gap:12px;margin:14px 0}.request-media{border:1px solid #d4af3744;border-radius:12px;padding:8px;background:#0005;display:grid;gap:7px}.request-media img{width:100%;height:170px;object-fit:cover;border-radius:8px}.request-media span,.request-audio strong{color:#f7d070}.request-audio{border:1px solid #d4af3744;border-radius:12px;padding:12px;background:#0005;display:grid;align-content:center;gap:12px}.request-audio audio{width:100%;max-width:100%}.request-update-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.request-update-grid .field{margin:0}.request-media.missing,.request-audio.missing{color:#aeb4bf;min-height:100px;display:grid;place-items:center}@media(max-width:650px){.request-media-grid,.request-update-grid{grid-template-columns:1fr}.request-media img{height:220px}}</style></head><body><div class="container">
 <section id="loginGate" class="card"><img width="90" src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png"><h1>مركز قيادة المنصة</h1><p id="gateMessage" class="muted">جارٍ التحقق من صلاحية حسابك...</p><a class="btn primary" href="./" style="display:inline-block;text-decoration:none">العودة للموقع</a></section>
 <main id="dashboard"><header><a class="admin-brand" href="index.html" aria-label="العودة إلى المنصة"><img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt="شعار داعم المواهب"></a><nav class="admin-public-nav" aria-label="روابط المنصة">
 <a href="index.html" title="الرئيسية"><i class="bi bi-house-door-fill"></i></a><a href="track.html" title="تتبع الطلب"><i class="bi bi-search"></i></a><a href="messages.html" title="الرسائل"><i class="bi bi-chat-dots-fill"></i></a><a href="posts.html" title="المنشورات"><i class="bi bi-grid-3x3-gap-fill"></i></a><a href="donate.html" title="التبرع"><i class="bi bi-heart-fill"></i></a>
@@ -39,8 +39,8 @@
 <section class="card panel" id="contentPanel"><h2 class="gold">إدارة المحتوى والإعلانات</h2><div class="split"><div><h3 class="gold">إضافة منشور إداري</h3><form id="postForm"><div class="field"><label>عنوان المنشور</label><input id="postTitle" required maxlength="180"></div><div class="field"><label>المحتوى</label><textarea id="postBody" required></textarea></div><div class="field"><label>رابط صورة (اختياري)</label><input id="postImage" type="url"></div><button class="btn primary">نشر المنشور</button></form></div><div><h3 class="gold">إضافة إعلان</h3><form id="adForm"><div class="field"><label>اسم الإعلان</label><input id="adTitle" required maxlength="180"></div><div class="field"><label>رابط الإعلان</label><input id="adUrl" type="url"></div><div class="field"><label>رابط الصورة</label><input id="adImage" type="url"></div><div class="field"><label>الحالة</label><select id="adActive"><option value="true">نشط</option><option value="false">متوقف</option></select></div><button class="btn primary">حفظ الإعلان</button></form></div></div><h3 class="gold">المنشورات الإدارية</h3><div id="postsList"></div><h3 class="gold">الإعلانات</h3><div id="adsList"></div><p class="hint">هذه العناصر تُخزّن في جداول إدارة المحتوى الجديدة. لعرضها في واجهة الزوار يجب ربط موضع عرض المنشورات والإعلانات في الصفحة الرئيسية بها.</p></section>
 <section class="card panel active" id="quranRequestsPanel">
 <h2 class="gold"><i class="bi bi-mic-fill"></i> طلبات التلاوات</h2>
-<p class="hint">كل طلبات التسجيل القادمة من النموذج تظهر هنا. افتح الصورة أو التسجيل للمراجعة، ثم اقبل الطلب أو ارفضه مع كتابة السبب الذي سيظهر لصاحب الطلب في صفحة التتبع.</p>
-<div class="toolbar"><select id="requestStatusFilter" style="max-width:220px"><option value="all">كل الطلبات</option><option value="تم استلام الطلب">طلبات جديدة</option><option value="مقبول">مقبولة</option><option value="مرفوض">مرفوضة</option><option value="إعادة التقديم - قيد المراجعة">إعادات التقديم</option></select><button class="btn primary" id="refreshRequestsBtn"><i class="bi bi-arrow-clockwise"></i> تحديث الطلبات</button><span class="pill" id="requestsCount">— طلب</span></div>
+<p class="hint">راجع صورة القارئ واستمع للتسجيل داخل البطاقة، ثم حدّث مرحلة التنفيذ. كل تحديث يُحفظ في سجل زمني ويظهر لصاحب الطلب في صفحة التتبع مع إشعار داخل المنصة.</p>
+<div class="toolbar"><select id="requestStatusFilter" style="max-width:260px"><option value="all">كل الطلبات</option><option value="تم استلام الطلب">تم استلام الطلب</option><option value="تم قبول الطلب">تم قبول الطلب</option><option value="جاري تجهيز التلاوة">جاري تجهيز التلاوة</option><option value="جاري المونتاج والهندسة الصوتية">جاري المونتاج والهندسة الصوتية</option><option value="تم تحديد موعد النشر">تم تحديد موعد النشر</option><option value="تم النشر">تم النشر</option><option value="مرفوض">مرفوضة</option><option value="مطلوب تعديل">مطلوب تعديل</option></select><button class="btn primary" id="refreshRequestsBtn"><i class="bi bi-arrow-clockwise"></i> تحديث الطلبات</button><span class="pill" id="requestsCount">— طلب</span></div>
 <div id="requestsList"><div class="empty">جاري تحميل الطلبات...</div></div>
 </section>
 <section class="card panel" id="appearancePanel"><h2 class="gold">التحكم في مظهر الصفحات</h2><p class="hint">تحكم في ألوان وهوية العناصر العامة من إعدادات محفوظة في قاعدة البيانات. يلزم تحميل هذه الإعدادات في صفحات الموقع لتطبيقها فعلياً.</p><form id="appearanceForm"><div class="grid2"><div class="field"><label>اللون الأساسي</label><input id="themePrimary" type="color" value="#d4af37"></div><div class="field"><label>لون الخلفية</label><input id="themeBackground" type="color" value="#030508"></div></div><div class="field"><label>عنوان الموقع الظاهر</label><input id="siteTitle" maxlength="120"></div><div class="field"><label>رسالة الترحيب / الشريط الإعلاني</label><textarea id="siteAnnouncement"></textarea></div><div class="field"><label>رفع خط مخصص للموقع كله</label><input id="siteFontFile" type="file" accept=".ttf,.otf,.woff,.woff2"><small class="hint">اختر ملف الخط الذي تريده. سيتم تطبيقه على الرئيسية والتتبع والرسائل والمنشورات والتبرع ولوحة الإدارة. الحد الأقصى 450 كيلوبايت.</small><div id="siteFontStatus" class="hint">لا يوجد خط مخصص جديد مختار.</div></div><button class="btn primary">حفظ المظهر والخط</button></form></section>
@@ -85,19 +85,27 @@ async function loadQuranRequests(){
  const all=data.requests||[];$('requestsCount').textContent=all.length+' طلب';
  const filter=$('requestStatusFilter').value;
  const rows=all.filter(x=>filter==='all'||x.status===filter);
- box.innerHTML=rows.map(x=>`<article class="item request-admin-card">
- <div class="toolbar" style="justify-content:space-between"><strong>${esc(x.name)}</strong><span class="tag">${esc(x.status)}</span></div>
- <p>رقم الطلب: <b dir="ltr" class="gold">${esc(x.requestId)}</b> · السورة: ${esc(x.surah)} · ${esc(x.date)} · إعادة تقديم: ${Number(x.revisions)||0}</p>
- <p>الهاتف: <span dir="ltr">${esc(x.phone)}</span></p>
- <div class="actions">${x.photoUrl?`<a class="btn" target="_blank" rel="noopener" href="${esc(x.photoUrl)}">فتح الصورة</a>`:''}${x.audioUrl?`<a class="btn" target="_blank" rel="noopener" href="${esc(x.audioUrl)}">فتح التسجيل</a>`:''}</div>
- ${x.note?`<p class="hint">آخر ملاحظة: ${esc(x.note)}</p>`:''}
- <div class="actions" style="margin-top:12px"><button class="btn primary" data-request-accept="${esc(x.requestId)}">قبول الطلب</button><button class="btn danger" data-request-reject="${esc(x.requestId)}">رفض / طلب تعديل</button></div>
- </article>`).join('')||'<div class="empty">لا توجد طلبات في هذا التصنيف.</div>';
+ const stages=['تم استلام الطلب','تم قبول الطلب','جاري تجهيز التلاوة','جاري المونتاج والهندسة الصوتية','تم تحديد موعد النشر','تم النشر'];
+ box.innerHTML=rows.map(x=>'<article class="item request-admin-card">'+
+ '<div class="toolbar" style="justify-content:space-between"><strong>'+esc(x.name)+'</strong><span class="tag">'+esc(x.status)+'</span></div>'+
+ '<p>رقم الطلب: <b dir="ltr" class="gold">'+esc(x.requestId)+'</b> · السورة: '+esc(x.surah)+' · '+esc(x.date)+' · إعادة تقديم: '+(Number(x.revisions)||0)+'</p>'+
+ '<p>الهاتف: <span dir="ltr">'+esc(x.phone)+'</span></p>'+
+ '<div class="request-media-grid">'+
+ (x.photoUrl?'<div class="request-media"><img src="'+esc(x.photoUrl)+'" alt="صورة القارئ" loading="lazy"><span>صورة القارئ</span></div>':'<div class="request-media missing">لا توجد صورة مرفقة</div>')+
+ (x.audioUrl?'<div class="request-audio"><strong><i class="bi bi-soundwave"></i> تسجيل القارئ</strong><audio controls preload="none" src="'+esc(x.audioUrl)+'">المتصفح لا يدعم تشغيل الصوت.</audio></div>':'<div class="request-audio missing">لا يوجد تسجيل مرفق</div>')+
+ '</div>'+
+ (x.note?'<p class="hint">آخر ملاحظة: '+esc(x.note)+'</p>':'')+
+ '<div class="request-update-grid">'+
+ '<div class="field"><label>مرحلة الطلب</label><select data-status-for="'+esc(x.requestId)+'">'+stages.map(v=>'<option value="'+esc(v)+'" '+(x.status===v?'selected':'')+'>'+esc(v)+'</option>').join('')+'<option value="مرفوض" '+(x.status==='مرفوض'?'selected':'')+'>مرفوض / يحتاج تعديل</option></select></div>'+
+ '<div class="field"><label>موعد النشر</label><input type="datetime-local" data-schedule-for="'+esc(x.requestId)+'" value="'+esc(x.scheduledAt||'')+'"></div>'+
+ '<div class="field"><label>رابط التلاوة المنشورة</label><input type="url" data-published-for="'+esc(x.requestId)+'" placeholder="https://..." value="'+esc(x.publishedUrl||'')+'"></div>'+
+ '<div class="field"><label>رسالة تظهر للقارئ</label><input data-note-for="'+esc(x.requestId)+'" maxlength="1000" placeholder="مثال: التلاوة تحت المراجعة النهائية" value="'+esc(x.publicNote||'')+'"></div>'+
+ '</div><div class="actions"><button class="btn primary" data-save-request="'+esc(x.requestId)+'">حفظ تحديث الطلب وإرسال إشعار</button><a class="btn" target="_blank" rel="noopener" href="track.html?id='+encodeURIComponent(x.requestId)+'">معاينة صفحة التتبع</a></div></article>').join('')||'<div class="empty">لا توجد طلبات في هذا التصنيف.</div>';
  return all;
 }
-async function submitRequestReview(requestId,status,note){
+async function submitRequestReview(requestId,status,note,scheduledAt,publishedUrl,publicNote){
  const token=await getAdminToken();
- const body=new URLSearchParams({action:'review',requestId,status,note,access_token:token});
+ const body=new URLSearchParams({action:'review',requestId,status,note,scheduledAt,publishedUrl,publicNote,access_token:token});
  await fetch(REQUESTS_ENDPOINT,{method:'POST',mode:'no-cors',body});
  await new Promise(resolve=>setTimeout(resolve,1800));
  const rows=await loadQuranRequests();
@@ -107,13 +115,19 @@ async function submitRequestReview(requestId,status,note){
 $('refreshRequestsBtn')?.addEventListener('click',()=>loadQuranRequests().catch(e=>notice(e.message,'error')));
 $('requestStatusFilter')?.addEventListener('change',()=>loadQuranRequests().catch(e=>notice(e.message,'error')));
 $('requestsList')?.addEventListener('click',async e=>{
- const accept=e.target.closest('[data-request-accept]'),reject=e.target.closest('[data-request-reject]');
- if(!accept&&!reject)return;
- const id=(accept||reject).dataset.requestAccept||(accept||reject).dataset.requestReject;
- try{
-  if(accept){const note=prompt('ملاحظة للمتقدم (اختياري):')||'';await submitRequestReview(id,'مقبول',note);notice('تم اعتماد الطلب.');}
-  else {const note=prompt('اكتب سبب الرفض أو المطلوب تعديله، وسيظهر للمتقدم في صفحة التتبع:','الصورة غير ملائمة أو التسجيل يحتاج إلى تحسين.');if(!note||!note.trim())return;await submitRequestReview(id,'مرفوض',note.trim());notice('تم إرسال سبب الرفض للمتقدم.');}
- }catch(err){notice('تعذر تحديث الطلب: '+err.message,'error');}
+ const save=e.target.closest('[data-save-request]');
+ if(!save)return;
+ const id=save.dataset.saveRequest;
+ const get=(selector)=>$('requestsList').querySelector(selector+'[data-'+selector.replace('data-','')+'="'+CSS.escape(id)+'"]');
+ const status=$('requestsList').querySelector('[data-status-for="'+CSS.escape(id)+'"]').value;
+ const scheduledAt=$('requestsList').querySelector('[data-schedule-for="'+CSS.escape(id)+'"]').value;
+ const publishedUrl=$('requestsList').querySelector('[data-published-for="'+CSS.escape(id)+'"]').value.trim();
+ const publicNote=$('requestsList').querySelector('[data-note-for="'+CSS.escape(id)+'"]').value.trim();
+ let note=publicNote;
+ if(status==='مرفوض'){note=prompt('اكتب سبب الرفض أو التعديل المطلوب، وسيظهر للقارئ:',publicNote||'يرجى مراجعة جودة التسجيل أو الصورة وإعادة الإرسال.');if(!note||!note.trim())return;}
+ try{save.disabled=true;save.textContent='جاري الحفظ...';await submitRequestReview(id,status,note,scheduledAt,publishedUrl,publicNote);notice('تم حفظ المرحلة وإرسال التحديث.');}
+ catch(err){notice('تعذر تحديث الطلب: '+err.message,'error');}
+ finally{save.disabled=false;save.textContent='حفظ تحديث الطلب وإرسال إشعار';}
 });
 
 let visitorsLoading=false;
