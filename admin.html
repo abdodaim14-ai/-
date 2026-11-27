@@ -93,13 +93,16 @@ async function loadQuranRequests(){
  ${x.note?`<p class="hint">آخر ملاحظة: ${esc(x.note)}</p>`:''}
  <div class="actions" style="margin-top:12px"><button class="btn primary" data-request-accept="${esc(x.requestId)}">قبول الطلب</button><button class="btn danger" data-request-reject="${esc(x.requestId)}">رفض / طلب تعديل</button></div>
  </article>`).join('')||'<div class="empty">لا توجد طلبات في هذا التصنيف.</div>';
+ return all;
 }
 async function submitRequestReview(requestId,status,note){
  const token=await getAdminToken();
  const body=new URLSearchParams({action:'review',requestId,status,note,access_token:token});
  await fetch(REQUESTS_ENDPOINT,{method:'POST',mode:'no-cors',body});
- await new Promise(resolve=>setTimeout(resolve,1200));
- await loadQuranRequests();
+ await new Promise(resolve=>setTimeout(resolve,1800));
+ const rows=await loadQuranRequests();
+ const saved=rows.find(row=>row.requestId===requestId);
+ if(!saved||saved.status!==status)throw new Error('لم يتم تأكيد حفظ التحديث. تأكد من نشر كود Apps Script الجديد ومن صلاحية حساب الإدارة.');
 }
 $('refreshRequestsBtn')?.addEventListener('click',()=>loadQuranRequests().catch(e=>notice(e.message,'error')));
 $('requestStatusFilter')?.addEventListener('change',()=>loadQuranRequests().catch(e=>notice(e.message,'error')));
