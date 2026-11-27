@@ -111,7 +111,6 @@ function daaTrackRequest_(sheet, requestId) {
     name:String(row[1] || ""),
     surah:String(row[3] || ""),
     status:String(row[11] || DAA_DEFAULT_STATUS),
-    notes:String(row[12] || ""),
     date:row[0] instanceof Date
       ? Utilities.formatDate(row[0], Session.getScriptTimeZone(), "yyyy/MM/dd")
       : String(row[0] || "")
