@@ -6,6 +6,7 @@
  *******************************************************/
 const DAA_FOLDER_NAME = "تلاوات داعم المواهب";
 const DAA_DEFAULT_STATUS = "تم استلام الطلب";
+const DAA_WORKFLOW = ["تم استلام الطلب","تم قبول الطلب","جاري تجهيز التلاوة","جاري المونتاج والهندسة الصوتية","تم تحديد موعد النشر","تم النشر"];
 const DAA_SUPABASE_URL = "https://xkraqrjkimkdawlazjyl.supabase.co";
 const DAA_SUPABASE_KEY = "sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr";
 
@@ -22,15 +23,32 @@ function doPost(e) {
       const rowNumber = daaFindRequestRow_(sheet, String(p.requestId || "").trim());
       if (!rowNumber) throw new Error("الطلب غير موجود.");
       const status = String(p.status || "").trim();
-      if (!["مقبول", "مرفوض", "قيد المراجعة"].includes(status)) throw new Error("حالة غير صحيحة.");
+      if (!DAA_WORKFLOW.includes(status) && !["مرفوض","مطلوب تعديل","قيد المراجعة"].includes(status)) throw new Error("حالة غير صحيحة.");
       const note = String(p.note || "").trim().slice(0, 1200);
+      const scheduledAt = String(p.scheduledAt || "").trim().slice(0, 40);
+      const publishedUrl = String(p.publishedUrl || "").trim().slice(0, 1000);
+      const publicNote = String(p.publicNote || "").trim().slice(0, 1200);
       if (status === "مرفوض" && !note) throw new Error("اكتب سبب الرفض حتى يعرف المتقدم المطلوب تعديله.");
+      if (status === "تم تحديد موعد النشر" && !scheduledAt) throw new Error("حدد موعد النشر أولاً.");
+      if (status === "تم النشر" && publishedUrl && !/^https?:\/\//i.test(publishedUrl)) throw new Error("رابط النشر غير صحيح.");
+      const now = new Date();
+      const previousStatus = String(sheet.getRange(rowNumber, 12).getValue() || DAA_DEFAULT_STATUS);
+      let history = [];
+      try { history = JSON.parse(String(sheet.getRange(rowNumber, 18).getValue() || "[]")); } catch (_) {}
+      if (!Array.isArray(history)) history = [];
+      if (!history.length) {
+        const created = sheet.getRange(rowNumber, 1).getValue();
+        history.push({status:previousStatus, at:created instanceof Date ? created.toISOString() : now.toISOString(), note:"تم استلام الطلب"});
+      }
+      const eventNote = status === "مرفوض" ? note : (publicNote || (status === "تم تحديد موعد النشر" ? "موعد النشر: " + scheduledAt : ""));
+      history.push({status, at:now.toISOString(), note:eventNote, scheduledAt, publishedUrl});
       sheet.getRange(rowNumber, 12).setValue(status);
-      sheet.getRange(rowNumber, 14).setValue(new Date());
-      sheet.getRange(rowNumber, 17).setValue(note);
+      sheet.getRange(rowNumber, 14).setValue(now);
+      sheet.getRange(rowNumber, 17).setValue(status === "مرفوض" ? note : publicNote);
+      sheet.getRange(rowNumber, 18, 1, 4).setValues([[JSON.stringify(history), scheduledAt, publishedUrl, publicNote]]);
       const applicantUserId = String(sheet.getRange(rowNumber, 16).getValue() || "").trim();
-      const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, note, String(p.requestId || ""), String(adminUser.id || "")) : false;
-      return daaJson_({success:true, requestId:p.requestId, status, notificationSent});
+      const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, eventNote, String(p.requestId || ""), String(adminUser.id || "")) : false;
+      return daaJson_({success:true, requestId:p.requestId, status, notificationSent, history});
     }
 
     if (p.action === "replace") {
@@ -119,12 +137,19 @@ function doGet(e) {
 function daaTrackRequest_(sheet, requestId) {
   const rowNumber = daaFindRequestRow_(sheet, requestId);
   if (!rowNumber) return {success:true, found:false};
-  const row = sheet.getRange(rowNumber, 1, 1, 17).getValues()[0];
+  const row = sheet.getRange(rowNumber, 1, 1, 21).getValues()[0];
   const status = String(row[11] || DAA_DEFAULT_STATUS);
   const reason = ["مرفوض", "مطلوب تعديل"].includes(status) ? String(row[16] || "") : "";
+  let history = [];
+  try { history = JSON.parse(String(row[17] || "[]")); } catch (_) {}
+  if (!Array.isArray(history) || !history.length) history = [{status:DAA_DEFAULT_STATUS, at:row[0] instanceof Date ? row[0].toISOString() : new Date().toISOString(), note:"تم استلام الطلب"}];
   return {
     success:true, found:true, requestId:String(row[10] || ""), name:String(row[1] || ""),
     surah:String(row[3] || ""), status, reason,
+    photoUrl:daaPublicMediaUrl_(String(row[8] || ""), "image"),
+    audioUrl:daaPublicMediaUrl_(String(row[9] || ""), "audio"),
+    scheduledAt:String(row[18] || ""), publishedUrl:String(row[19] || ""),
+    publicNote:String(row[20] || ""), history,
     canReplace:status === "مرفوض" || status === "مطلوب تعديل",
     date:row[0] instanceof Date ? Utilities.formatDate(row[0], Session.getScriptTimeZone(), "yyyy/MM/dd") : String(row[0] || ""),
     updatedAt:row[13] instanceof Date ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : ""
@@ -134,12 +159,13 @@ function daaTrackRequest_(sheet, requestId) {
 function daaListRequests_(sheet) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return [];
-  const values = sheet.getRange(2, 1, lastRow - 1, 17).getValues();
+  const values = sheet.getRange(2, 1, lastRow - 1, 21).getValues();
   return values.map((r, i) => ({
     row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
     phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
     photoUrl:String(r[8] || ""), audioUrl:String(r[9] || ""), userId:String(r[15] || ""),
     status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[16] || ""),
+    scheduledAt:String(r[18] || ""), publishedUrl:String(r[19] || ""), publicNote:String(r[20] || ""),
     date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
     revisions:Number(r[14] || 0)
   })).filter(r => r.requestId).reverse();
@@ -199,19 +225,26 @@ function daaFindRequestRow_(sheet, requestId) {
   return 0;
 }
 function daaEnsureColumns_(sheet) {
-  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظات داخلية للإدارة", "آخر تحديث", "مرات إعادة التقديم", "معرف حساب المتقدم", "سبب الرفض الظاهر للمتقدم"];
-  sheet.getRange(1, 11, 1, 7).setValues([headers]);
+  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظات داخلية للإدارة", "آخر تحديث", "مرات إعادة التقديم", "معرف حساب المتقدم", "سبب الرفض الظاهر للمتقدم", "سجل مراحل الطلب", "موعد النشر", "رابط التلاوة المنشورة", "ملاحظة ظاهرة للمتقدم"];
+  sheet.getRange(1, 11, 1, headers.length).setValues([headers]);
 }
 function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
 }
 function daaSaveBase64_(folder, data, mime, name) {
   const clean = String(data).replace(/^data:[^,]*,/, "");
-  return folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), mime, name));
+  const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), mime, name));
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  return file;
 }
 function daaGetOrCreateFolder_(name) {
   const folders = DriveApp.getFoldersByName(name);
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
+}
+function daaPublicMediaUrl_(url, kind) {
+  const match = String(url || "").match(/[-\\w]{25,}/);
+  if (!match) return "";
+  return "https://drive.google.com/uc?export=" + (kind === "image" ? "view" : "download") + "&id=" + match[0];
 }
 function daaDigits_(value) { return String(value || "").replace(/[^0-9]/g, ""); }
 function daaJson_(data) {
