@@ -1969,7 +1969,7 @@
           '<div>رقم الطلب: <b class="request-id-value">' + safe(data.requestId) + '</b></div>' +
           '<div>السورة: ' + safe(data.surah) + '</div>' +
           '<div class="tracking-status">' + safe(data.status || 'تم استلام الطلب') + '</div>' +
-          (data.notes ? '<p>ملاحظة الإدارة: ' + safe(data.notes) + '</p>' : '') +
+          (data.reason ? '<p>ملاحظة الإدارة: ' + safe(data.reason) + '</p>' : '') +
           '<small>تاريخ التسجيل: ' + safe(data.date || '—') + '</small>';
       } catch (error) {
         result.textContent = error.message || 'تعذر جلب حالة الطلب.';
@@ -2021,7 +2021,9 @@
             formData.append("PageFrom", document.getElementById('pageFrom').value);
             formData.append("PageTo", document.getElementById('pageTo').value);
             formData.append("photoData", photoBase64.split(',')[1]);
+            formData.append("photoMime", document.getElementById('imgIn').files[0].type || "image/jpeg");
             formData.append("audioData", audioBase64.split(',')[1]);
+            formData.append("audioMime", document.getElementById('fileIn').files[0].type || "audio/mpeg");
 
             let p = 0; const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
             
