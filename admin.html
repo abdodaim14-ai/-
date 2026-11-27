@@ -92,7 +92,7 @@ async function loadQuranRequests(){
  '<p>الهاتف: <span dir="ltr">'+esc(x.phone)+'</span></p>'+
  '<div class="request-media-grid">'+
  (x.photoUrl?'<div class="request-media"><img src="'+esc(x.photoUrl)+'" alt="صورة القارئ" loading="lazy"><span class="media-label"><i class="bi bi-person-bounding-box"></i> صورة القارئ</span></div>':(x.photoUnavailable?'<div class="request-media missing">الصورة محفوظة، لكن Google Drive لا يتيح فتحها بالرابط. راجع إعدادات المشاركة.</div>':'<div class="request-media missing">لا توجد صورة مرفقة</div>'))+
- (x.audioUrl?'<div class="request-audio"><strong><i class="bi bi-headphones"></i> تسجيل القارئ</strong><audio controls preload="none" src="'+esc(x.audioUrl)+'">المتصفح لا يدعم تشغيل الصوت.</audio></div>':(x.audioUnavailable?'<div class="request-audio missing">التسجيل محفوظ، لكن Google Drive لا يتيحه للتشغيل بالرابط. راجع إعدادات المشاركة.</div>':'<div class="request-audio missing">لا يوجد تسجيل مرفق</div>'))+
+ (x.audioUrl?'<div class="request-audio"><strong><i class="bi bi-headphones"></i> تسجيل القارئ</strong><iframe title="معاينة تسجيل القارئ" src="'+esc(x.audioUrl)+'" width="100%" height="90" allow="autoplay" style="border:0;border-radius:8px;background:#fff"></iframe><a href="'+esc(x.audioUrl)+'" target="_blank" rel="noopener" class="gold">فتح التسجيل في Google Drive</a></div>':(x.audioUnavailable?'<div class="request-audio missing">التسجيل محفوظ، لكن Google Drive لا يتيحه للتشغيل بالرابط. راجع إعدادات المشاركة.</div>':'<div class="request-audio missing">لا يوجد تسجيل مرفق</div>'))+
  '</div>'+
  (x.note?'<p class="hint">آخر ملاحظة: '+esc(x.note)+'</p>':'')+
  '<div class="request-update-grid">'+
