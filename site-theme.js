@@ -19,7 +19,7 @@ function apply(d){
  if(typeof font==='string'&&/^data:[^,]+;base64,/i.test(font)&&formats[ext]){
   let style=document.getElementById('daa-custom-font-style');
   if(!style){style=document.createElement('style');style.id='daa-custom-font-style';document.head.appendChild(style);}
-  style.textContent='@font-face{font-family:"DaaCustomFont";src:url('+JSON.stringify(font)+') format("'+formats[ext]+'");font-display:swap}body,button,input,textarea,select{font-family:"DaaCustomFont",Tahoma,Arial,sans-serif!important}';
+  style.textContent='@font-face{font-family:"DaaCustomFont";src:url('+JSON.stringify(font)+') format("'+formats[ext]+'");font-display:swap}body,body *:not(i):not(.bi):not(svg):not(path){font-family:"DaaCustomFont",Tahoma,Arial,sans-serif!important}';
  }
 }
 function start(){
