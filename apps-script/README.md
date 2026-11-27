@@ -1,7 +1,7 @@
 # تفعيل نظام طلبات التلاوات وتتبعها
 
 رابط Web App الذي رُبط به الموقع حاليًا:
-`https://script.google.com/macros/s/AKfycbwuJf1gZGfCTZHReVB8lDcxhkwgelMCrLiR6mioZuD9vNA4kTA2dpIH0dPrEb64lC19zA/exec`
+`https://script.google.com/macros/s/AKfycbyvE7yshdccLDJPiIP_-oiH7eLYidqPg-ruOQ4WTiPveULA7nsbv314-8M4T8K4MNYGFg/exec`
 
 > هذا رابط تطبيق Google Apps Script المنشور (Web App)، وليس رابط فتح جدول Google Sheets نفسه. يجب أن يكون مشروع Apps Script مربوطًا بجدول التسجيلات الصحيح.
 
