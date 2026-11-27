@@ -83,8 +83,8 @@ function doPost(e) {
     if (daaFindRequestRow_(sheet, requestId)) return daaJson_({success:true, requestId, message:"الطلب مسجل بالفعل"});
     const folder = daaGetOrCreateFolder_(DAA_FOLDER_NAME);
     let photoUrl = "", audioUrl = "";
-    if (p.photoData) photoUrl = daaSaveBase64_(folder, p.photoData, "image/jpeg", "صورة_" + name + "_" + requestId + ".jpg").getUrl();
-    if (p.audioData) audioUrl = daaSaveBase64_(folder, p.audioData, "audio/mpeg", "تلاوة_" + name + "_" + requestId + ".mp3").getUrl();
+    if (p.photoData) photoUrl = daaSaveBase64_(folder, p.photoData, String(p.photoMime || "image/jpeg"), "صورة_" + name + "_" + requestId + ".jpg").getUrl();
+    if (p.audioData) audioUrl = daaSaveBase64_(folder, p.audioData, String(p.audioMime || "audio/mpeg"), "تلاوة_" + name + "_" + requestId + ".mp3").getUrl();
     sheet.appendRow([
       new Date(), name, "'" + phone, surah,
       p.AyahFrom || "", p.AyahTo || "", p.PageFrom || "", p.PageTo || "",
@@ -235,13 +235,13 @@ function daaSaveBase64_(folder, data, mime, name) {
   const clean = String(data || "").replace(/^data:[^,]*,/, "").replace(/\\s/g, "");
   if (!clean) throw new Error("الملف المرفق فارغ أو لم يصل إلى الخادم.");
   const contentType = String(mime || "application/octet-stream").toLowerCase().trim();
-  if (!/^(image\\/(jpeg|png|webp)|audio\\/(mpeg|mp4|aac|wav|ogg|webm|x-m4a))$/.test(contentType)) {
+  if (!/^(image\\/(jpeg|png|webp|heic|heif)|audio\\/(mpeg|mp4|aac|wav|x-wav|ogg|webm|x-m4a|m4a))$/.test(contentType)) {
     throw new Error("نوع الملف غير مدعوم: " + contentType);
   }
   const extension = ({
-    "image/jpeg":"jpg","image/png":"png","image/webp":"webp",
+    "image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/heic":"heic","image/heif":"heif",
     "audio/mpeg":"mp3","audio/mp4":"m4a","audio/x-m4a":"m4a",
-    "audio/aac":"aac","audio/wav":"wav","audio/ogg":"ogg","audio/webm":"webm"
+    "audio/aac":"aac","audio/wav":"wav","audio/x-wav":"wav","audio/m4a":"m4a","audio/ogg":"ogg","audio/webm":"webm"
   })[contentType] || "bin";
   const finalName = String(name || "media").replace(/\\.[^.]+$/, "") + "." + extension;
   const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), contentType, finalName));
