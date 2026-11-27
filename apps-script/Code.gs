@@ -233,18 +233,18 @@ function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
 }
 function daaSaveBase64_(folder, data, mime, name) {
-  const clean = String(data || "").replace(/^data:[^,]*,/, "").replace(/\\s/g, "");
+  const clean = String(data || "").replace(/^data:[^,]*,/, "").replace(/\s/g, "");
   if (!clean) throw new Error("الملف المرفق فارغ أو لم يصل إلى الخادم.");
   const contentType = String(mime || "application/octet-stream").toLowerCase().trim();
-  if (!/^(image\\/(jpeg|png|webp|heic|heif)|audio\\/(mpeg|mp4|aac|wav|x-wav|ogg|webm|x-m4a|m4a))$/.test(contentType)) {
+  if (!/^(image\/(jpeg|png|webp|heic|heif)|audio\/(mpeg|mp4|aac|wav|x-wav|ogg|webm|x-m4a|m4a))$/.test(contentType)) {
     throw new Error("نوع الملف غير مدعوم: " + contentType);
   }
   const extension = ({
     "image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/heic":"heic","image/heif":"heif",
-    "audio/mpeg":"mp3","audio/mp4":"m4a","audio/x-m4a":"m4a",
-    "audio/aac":"aac","audio/wav":"wav","audio/x-wav":"wav","audio/m4a":"m4a","audio/ogg":"ogg","audio/webm":"webm"
+    "audio/mpeg":"mp3","audio/mp4":"m4a","audio/x-m4a":"m4a","audio/m4a":"m4a",
+    "audio/aac":"aac","audio/wav":"wav","audio/x-wav":"wav","audio/ogg":"ogg","audio/webm":"webm"
   })[contentType] || "bin";
-  const finalName = String(name || "media").replace(/\\.[^.]+$/, "") + "." + extension;
+  const finalName = String(name || "media").replace(/\.[^.]+$/, "") + "." + extension;
   const file = folder.createFile(Utilities.newBlob(Utilities.base64Decode(clean), contentType, finalName));
   try {
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
@@ -262,7 +262,7 @@ function daaGetOrCreateFolder_(name) {
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
 }
 function daaPublicMediaUrl_(url, kind) {
-  const match = String(url || "").match(/[-\\w]{25,}/);
+  const match = String(url || "").match(/[-\w]{25,}/);
   if (!match) return "";
   try {
     const file = DriveApp.getFileById(match[0]);
