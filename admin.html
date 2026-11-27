@@ -51,7 +51,7 @@
 (()=>{'use strict';
 const SUPABASE_URL='https://xkraqrjkimkdawlazjyl.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_QXPRwlQsN2-5a-hy5ejKJA_2tmf7MJr';
-const REQUESTS_ENDPOINT='https://script.google.com/macros/s/AKfycbwuJf1gZGfCTZHReVB8lDcxhkwgelMCrLiR6mioZuD9vNA4kTA2dpIH0dPrEb64lC19zA/exec';
+const REQUESTS_ENDPOINT='https://script.google.com/macros/s/AKfycbyvE7yshdccLDJPiIP_-oiH7eLYidqPg-ruOQ4WTiPveULA7nsbv314-8M4T8K4MNYGFg/exec';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);const $=id=>document.getElementById(id);let me=null,members=[];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const date=v=>v?new Date(v).toLocaleString('ar-EG'):'—';
 function notice(msg,type='success'){const n=$('notice');n.textContent=msg;n.className='notice show '+type;window.scrollTo({top:0,behavior:'smooth'});}function gate(msg){$('gateMessage').textContent=msg;$('loginGate').style.display='block';$('dashboard').style.display='none';}
