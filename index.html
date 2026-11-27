@@ -2030,6 +2030,13 @@
             let p = 0; const pInt = setInterval(() => { if(p < 90) { p += 2; progText.innerText = p + "%"; } }, 200);
             
             await fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
+            let savedRequest = null;
+            for (let attempt = 0; attempt < 3; attempt++) {
+                await new Promise(resolve => setTimeout(resolve, 900));
+                savedRequest = await lookupTrackingRequest(requestTrackingId);
+                if (savedRequest && savedRequest.found) break;
+            }
+            if (!savedRequest || !savedRequest.found) throw new Error('لم نتمكن من تأكيد حفظ طلبك. راجع اتصال الخدمة وحاول مرة أخرى.');
             
             clearInterval(pInt); clearInterval(contentInt); progText.innerText = "100%";
             
@@ -2053,7 +2060,7 @@
                 
                 document.getElementById('cardModal').style.display = 'flex';
             }, 800);
-        } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert("حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
+        } catch (err) { overlay.style.display = 'none'; clearInterval(contentInt); alert(err.message || "حدث خطأ تقني، يرجى التأكد من اتصال الإنترنت وحجم الملفات."); }
     };
 
     function downloadCertificateImage() {
