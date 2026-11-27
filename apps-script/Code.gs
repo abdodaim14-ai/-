@@ -285,9 +285,10 @@ function daaPublicMediaUrl_(url, kind) {
     Logger.log("تعذر التحقق من صلاحية ملف Drive " + match[0] + ": " + error);
     return "";
   }
+  // Use browser-view URLs: Drive's download endpoint is not a reliable HTML5 audio stream.
   return kind === "image"
-    ? "https://drive.google.com/thumbnail?id=" + match[0] + "&sz=w1200"
-    : "https://drive.google.com/uc?export=download&id=" + match[0];
+    ? "https://drive.google.com/uc?export=view&id=" + match[0]
+    : "https://drive.google.com/file/d/" + match[0] + "/preview";
 }
 function daaDigits_(value) { return String(value || "").replace(/[^0-9]/g, ""); }
 function daaJson_(data) {
