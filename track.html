@@ -1,35 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#030508">
-<title>تتبع الطلب | داعم المواهب للقرآن الكريم</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#030508"><title>تتبع الطلب | داعم المواهب للقرآن الكريم</title>
+<link rel="icon" href="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;background:#030508;color:#f3f4f6;font-family:Tahoma,Arial,sans-serif;display:grid;place-items:center}
-main{width:min(100%,620px);background:rgba(12,16,24,.92);border:1px solid rgba(212,175,55,.4);border-radius:24px;padding:clamp(20px,5vw,36px);box-shadow:0 20px 60px #000}
-h1{color:#f7d070;text-align:center;font-size:clamp(22px,5vw,30px)}p{line-height:1.9;color:#d1d5db}
-form{display:flex;gap:10px;margin-top:22px}input{min-width:0;flex:1;padding:15px;border-radius:12px;border:1px solid #75602d;background:#080b10;color:#fff;font-size:16px}button{padding:14px 20px;border:0;border-radius:12px;background:linear-gradient(135deg,#ffe066,#d4af37,#996515);font-weight:bold;font-size:16px;cursor:pointer}
-#result{display:none;margin-top:20px;padding:18px;border:1px solid #6c5728;border-radius:16px;line-height:2;overflow-wrap:anywhere}#result.show{display:block}.status{display:inline-block;color:#f7d070;background:#3a3018;border-radius:30px;padding:4px 14px;font-weight:bold}.id{direction:ltr;unicode-bidi:isolate;color:#f7d070;font-weight:bold}
-a{color:#f7d070}@media(max-width:520px){body{padding:12px}form{flex-direction:column}button{width:100%;min-height:48px}}
+:root{--gold:#d4af37;--gold-light:#f7d070;--bg:#030508;--panel:rgba(12,16,24,.9);--line:rgba(212,175,55,.35)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 85% 0%,#d4af3718,transparent 34%),var(--bg);color:#f4f4f4;font-family:Tahoma,Arial,sans-serif;padding:0 0 45px}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px clamp(12px,4vw,34px);background:#090d14ed;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--gold-light);text-decoration:none;font-weight:bold}.brand img{width:44px;height:44px;object-fit:contain}
+nav{display:flex;gap:7px;flex-wrap:wrap}nav a{color:#eee;text-decoration:none;padding:9px 12px;border-radius:10px}nav a.active,nav a:hover{background:#d4af3722;color:var(--gold-light)}
+main{width:min(100% - 28px,720px);margin:36px auto;background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,4vw,34px);box-shadow:0 22px 60px #0009}
+h1,h2{color:var(--gold-light);text-align:center}h1{font-size:clamp(24px,5vw,32px)}p{line-height:1.9;color:#d2d6df}
+.field{display:grid;gap:7px;margin:14px 0}.field label{color:var(--gold-light);font-weight:bold}
+input{width:100%;min-width:0;padding:14px;border-radius:12px;border:1px solid #75602d;background:#080b10;color:white;font:inherit;font-size:16px}
+button{border:0;border-radius:12px;padding:13px 20px;background:linear-gradient(135deg,#ffe066,#d4af37,#996515);font:inherit;font-weight:bold;color:#111;cursor:pointer;min-height:48px}
+form.search{display:flex;gap:10px;margin-top:22px}.search input{flex:1}
+#result{display:none;margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:16px;line-height:2;background:#0005;overflow-wrap:anywhere}#result.show{display:block}
+.status{display:inline-block;color:var(--gold-light);background:#3a3018;border-radius:30px;padding:5px 14px;font-weight:bold;margin:8px 0}
+.reason{padding:13px;border-right:3px solid var(--gold);background:#d4af3710;border-radius:10px;margin-top:12px}
+#replacePanel{display:none;margin-top:18px;padding:18px;border:1px dashed var(--line);border-radius:16px}#replacePanel.show{display:block}
+.small{font-size:.9rem;color:#aeb4bf}
+@media(max-width:560px){header{align-items:flex-start;flex-direction:column}nav{width:100%;display:grid;grid-template-columns:repeat(4,1fr)}nav a{text-align:center;padding:9px 3px;font-size:.83rem}form.search{flex-direction:column}main{margin:18px auto}}
 </style>
 </head>
 <body>
+<header><a class="brand" href="./"><img src="https://i.postimg.cc/0yZxfgx2/Picsart-26-01-13-17-01-28-072.png" alt=""><span>داعم المواهب للقرآن الكريم</span></a>
+<nav aria-label="التنقل"><a href="./">الرئيسية</a><a class="active" href="track.html">تتبع الطلب</a><a href="messages.html">الرسائل</a><a href="posts.html">المنشورات</a><a href="donate.html">التبرع</a></nav></header>
 <main>
-<h1><i class="bi bi-search"></i> تتبع طلبك</h1>
-<p>اكتب رقم الطلب الذي ظهر لك بعد إرسال التلاوة لمعرفة آخر حالة مسجلة لطلبك.</p>
-<form id="trackForm"><input id="requestId" maxlength="40" required placeholder="DAA-2026-XXXXXXXXXX" aria-label="رقم الطلب"><button type="submit">بحث عن الطلب</button></form>
+<h1><i class="bi bi-search"></i> تتبع طلب التلاوة</h1>
+<p>اكتب رقم الطلب الذي ظهر لك بعد التسجيل. لو طلبك محتاج تعديل، هتلاقي سبب الرفض وإمكانية استبدال الصورة أو التسجيل من نفس الصفحة.</p>
+<form class="search" id="trackForm"><input id="requestId" maxlength="40" required placeholder="DAA-2026-XXXXXXXXXXXX" aria-label="رقم الطلب"><button type="submit">عرض حالة الطلب</button></form>
 <div id="result" aria-live="polite"></div>
-<p style="text-align:center;margin-top:24px"><a href="./">العودة إلى الصفحة الرئيسية</a></p>
+<section id="replacePanel">
+<h2>استبدال الملفات وإعادة التقديم</h2><p>اكتب رقم الهاتف المسجل في الطلب، وبعدها اختار الملف الجديد اللي عايز تستبدله. اترك الملف اللي مش محتاج تغييره من غير اختيار.</p>
+<form id="replaceForm">
+<div class="field"><label for="replacePhone">رقم الهاتف المسجل في الطلب</label><input id="replacePhone" inputmode="tel" autocomplete="tel" required placeholder="رقم الهاتف"></div>
+<div class="field"><label for="replacePhoto">صورة جديدة (اختياري)</label><input id="replacePhoto" type="file" accept="image/*"></div>
+<div class="field"><label for="replaceAudio">تسجيل جديد (اختياري)</label><input id="replaceAudio" type="file" accept="audio/*"></div>
+<p class="small">الحد الأقصى للصورة 5 ميجابايت، وللتسجيل 15 ميجابايت.</p>
+<button id="replaceSubmit" type="submit">إرسال الملفات الجديدة وإعادة الطلب</button>
+</form><div id="replaceStatus" class="small" role="status"></div>
+</section>
+<p class="small" style="text-align:center;margin-top:24px"><a href="./" style="color:var(--gold-light)">العودة إلى الصفحة الرئيسية</a></p>
 </main>
 <script>
-const endpoint='https://script.google.com/macros/s/AKfycby6ld_6DTSrz9vwvyeOZy1eosY7hPNwbWXT_pPxV8HmXDNm9xLX3OZ6YDCGDcFcRBSIgQ/exec';
-const result=document.getElementById('result');
+const endpoint='https://script.google.com/macros/s/AKfycbyAv0B18pikXLjPV3eV0PMOYXhjxQ7mAyMu8vwjq9exqjIx5GJJu5mCusWZxTv6Bl-7gA/exec';
+const result=document.getElementById('result'),replacePanel=document.getElementById('replacePanel');
+let currentRequest=null;
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function lookup(id){return new Promise((resolve,reject)=>{const cb='daaTrack'+Date.now()+Math.random().toString(36).slice(2);const s=document.createElement('script');const timer=setTimeout(()=>done(new Error('انتهت مهلة الاتصال. حاول مرة أخرى.')),15000);function done(err,data){clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data)}window[cb]=data=>done(null,data);s.onerror=()=>done(new Error('تعذر الاتصال بخدمة التتبع.'));s.src=endpoint+'?track='+encodeURIComponent(id)+'&callback='+cb+'&_='+Date.now();document.head.appendChild(s);});}
-document.getElementById('trackForm').addEventListener('submit',async e=>{e.preventDefault();result.className='show';result.textContent='جاري البحث...';try{const d=await lookup(document.getElementById('requestId').value.trim());if(!d.found){result.textContent='رقم الطلب غير موجود. تأكد من كتابته بشكل صحيح.';return;}result.innerHTML='<strong>طلب القارئ: '+esc(d.name)+'</strong><br>رقم الطلب: <b class="id">'+esc(d.requestId)+'</b><br>السورة: '+esc(d.surah)+'<br><span class="status">'+esc(d.status)+'</span>'+(d.notes?'<br>ملاحظة الإدارة: '+esc(d.notes):'')+'<br><small>تاريخ التسجيل: '+esc(d.date)+'</small>';}catch(err){result.textContent=err.message||'حدث خطأ أثناء البحث.';}});
+function jsonp(params){return new Promise((resolve,reject)=>{const cb='daaTrack_'+Date.now()+'_'+Math.random().toString(36).slice(2);const s=document.createElement('script');let done=false;const finish=(err,data)=>{if(done)return;done=true;clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data)};const timer=setTimeout(()=>finish(new Error('انتهت مهلة الاتصال. حاول مرة أخرى.')),18000);window[cb]=data=>finish(null,data);s.onerror=()=>finish(new Error('تعذر الاتصال بخدمة التتبع.'));s.src=endpoint+'?'+new URLSearchParams({...params,callback:cb,_:Date.now()});document.head.appendChild(s);});}
+async function lookup(id){const d=await jsonp({track:id});currentRequest=d.found?d:null;replacePanel.classList.toggle('show',!!(d.found&&d.canReplace));if(!d.found){result.innerHTML='رقم الطلب غير موجود. راجع الرقم وحاول مرة أخرى.';return;}result.innerHTML='<strong>طلب القارئ: '+esc(d.name)+'</strong><br>رقم الطلب: <b style="direction:ltr;unicode-bidi:isolate;color:var(--gold-light)">'+esc(d.requestId)+'</b><br>السورة: '+esc(d.surah)+'<br><span class="status">'+esc(d.status)+'</span><br>تاريخ التسجيل: '+esc(d.date)+(d.updatedAt?'<br>آخر تحديث: '+esc(d.updatedAt):'')+(d.reason?'<div class="reason"><strong>ملاحظة الإدارة:</strong><br>'+esc(d.reason)+'</div>':'')+(d.canReplace?'<p>تقدر تعدّل الملفات المطلوبة من النموذج الموجود تحت.</p>':'');}
+document.getElementById('trackForm').addEventListener('submit',async e=>{e.preventDefault();result.className='show';result.textContent='جاري البحث عن طلبك...';replacePanel.classList.remove('show');try{await lookup(document.getElementById('requestId').value.trim());}catch(err){result.textContent=err.message||'حدث خطأ أثناء البحث.';}});
+function readFile(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(new Error('تعذرت قراءة الملف.'));r.readAsDataURL(file);});}
+document.getElementById('replaceForm').addEventListener('submit',async e=>{e.preventDefault();const photo=document.getElementById('replacePhoto').files[0],audio=document.getElementById('replaceAudio').files[0],phone=document.getElementById('replacePhone').value.trim(),id=document.getElementById('requestId').value.trim(),status=document.getElementById('replaceStatus'),button=document.getElementById('replaceSubmit');if(!photo&&!audio){status.textContent='اختار صورة أو تسجيل جديد على الأقل.';return;}if(photo&&photo.size>5*1024*1024){status.textContent='الصورة أكبر من 5 ميجابايت.';return;}if(audio&&audio.size>15*1024*1024){status.textContent='التسجيل أكبر من 15 ميجابايت.';return;}try{button.disabled=true;status.textContent='جاري رفع الملفات وإعادة تقديم الطلب...';const payload=new URLSearchParams({action:'replace',RequestId:id,Phone:phone});if(photo){payload.set('photoData',await readFile(photo));payload.set('photoMime',photo.type||'image/jpeg');}if(audio){payload.set('audioData',await readFile(audio));payload.set('audioMime',audio.type||'audio/mpeg');}await fetch(endpoint,{method:'POST',mode:'no-cors',body:payload});await new Promise(r=>setTimeout(r,1800));await lookup(id);status.textContent='تم إرسال الملفات. حالة طلبك الآن: إعادة التقديم - قيد المراجعة.';e.target.reset();}catch(err){status.textContent=err.message||'تعذر إرسال الملفات.';}finally{button.disabled=false;}});
 const params=new URLSearchParams(location.search);if(params.get('id')){document.getElementById('requestId').value=params.get('id');document.getElementById('trackForm').requestSubmit();}
 </script>
+<script src="site-theme.js"></script>
 </body></html>
