@@ -1970,7 +1970,8 @@
           '<div>السورة: ' + safe(data.surah) + '</div>' +
           '<div class="tracking-status">' + safe(data.status || 'تم استلام الطلب') + '</div>' +
           (data.reason ? '<p>ملاحظة الإدارة: ' + safe(data.reason) + '</p>' : '') +
-          '<small>تاريخ التسجيل: ' + safe(data.date || '—') + '</small>';
+          '<small>تاريخ التسجيل: ' + safe(data.date || '—') + '</small>' +
+          (data.canReplace ? '<p><a href="track.html?id=' + encodeURIComponent(data.requestId) + '" style="color:var(--text-gold)">استبدال الصورة أو التسجيل من صفحة التتبع</a></p>' : '');
       } catch (error) {
         result.textContent = error.message || 'تعذر جلب حالة الطلب.';
       }
