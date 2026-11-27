@@ -25,7 +25,9 @@ function doPost(e) {
       if (!["مقبول", "مرفوض", "قيد المراجعة"].includes(status)) throw new Error("حالة غير صحيحة.");
       const note = String(p.note || "").trim().slice(0, 1200);
       if (status === "مرفوض" && !note) throw new Error("اكتب سبب الرفض حتى يعرف المتقدم المطلوب تعديله.");
-      sheet.getRange(rowNumber, 12, 1, 3).setValues([[status, note, new Date()]]);
+      sheet.getRange(rowNumber, 12).setValue(status);
+      sheet.getRange(rowNumber, 14).setValue(new Date());
+      sheet.getRange(rowNumber, 17).setValue(note);
       const applicantUserId = String(sheet.getRange(rowNumber, 16).getValue() || "").trim();
       const notificationSent = applicantUserId ? daaSendApplicantNotification_(p.access_token, applicantUserId, status, note, String(p.requestId || "")) : false;
       return daaJson_({success:true, requestId:p.requestId, status, notificationSent});
@@ -50,7 +52,8 @@ function doPost(e) {
         sheet.getRange(rowNumber, 10).setValue(audio.getUrl());
       }
       const revision = Number(sheet.getRange(rowNumber, 15).getValue() || 0) + 1;
-      sheet.getRange(rowNumber, 12, 1, 4).setValues([["إعادة التقديم - قيد المراجعة", "", new Date(), revision]]);
+      sheet.getRange(rowNumber, 12, 1, 4).setValues([["إعادة التقديم - قيد المراجعة", sheet.getRange(rowNumber, 13).getValue(), new Date(), revision]]);
+      sheet.getRange(rowNumber, 17).clearContent();
       return daaJson_({success:true, requestId, status:"إعادة التقديم - قيد المراجعة"});
     }
 
@@ -67,7 +70,7 @@ function doPost(e) {
     sheet.appendRow([
       new Date(), name, "'" + phone, surah,
       p.AyahFrom || "", p.AyahTo || "", p.PageFrom || "", p.PageTo || "",
-      photoUrl, audioUrl, requestId, DAA_DEFAULT_STATUS, "", new Date(), 0, String(p.UserId || "").trim()
+      photoUrl, audioUrl, requestId, DAA_DEFAULT_STATUS, "", new Date(), 0, String(p.UserId || "").trim(), ""
     ]);
     return daaJson_({success:true, requestId, status:DAA_DEFAULT_STATUS});
   } catch (error) {
@@ -116,9 +119,9 @@ function doGet(e) {
 function daaTrackRequest_(sheet, requestId) {
   const rowNumber = daaFindRequestRow_(sheet, requestId);
   if (!rowNumber) return {success:true, found:false};
-  const row = sheet.getRange(rowNumber, 1, 1, 15).getValues()[0];
+  const row = sheet.getRange(rowNumber, 1, 1, 17).getValues()[0];
   const status = String(row[11] || DAA_DEFAULT_STATUS);
-  const reason = ["مرفوض", "مطلوب تعديل", "إعادة التقديم - قيد المراجعة"].includes(status) ? String(row[12] || "") : "";
+  const reason = ["مرفوض", "مطلوب تعديل"].includes(status) ? String(row[16] || "") : "";
   return {
     success:true, found:true, requestId:String(row[10] || ""), name:String(row[1] || ""),
     surah:String(row[3] || ""), status, reason,
@@ -131,12 +134,12 @@ function daaTrackRequest_(sheet, requestId) {
 function daaListRequests_(sheet) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return [];
-  const values = sheet.getRange(2, 1, lastRow - 1, 16).getValues();
+  const values = sheet.getRange(2, 1, lastRow - 1, 17).getValues();
   return values.map((r, i) => ({
     row:i + 2, requestId:String(r[10] || ""), name:String(r[1] || ""),
     phone:String(r[2] || "").replace(/^'/, ""), surah:String(r[3] || ""),
     photoUrl:String(r[8] || ""), audioUrl:String(r[9] || ""), userId:String(r[15] || ""),
-    status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[12] || ""),
+    status:String(r[11] || DAA_DEFAULT_STATUS), note:String(r[16] || ""),
     date:r[0] instanceof Date ? Utilities.formatDate(r[0], Session.getScriptTimeZone(), "yyyy/MM/dd HH:mm") : String(r[0] || ""),
     revisions:Number(r[14] || 0)
   })).filter(r => r.requestId).reverse();
@@ -185,8 +188,8 @@ function daaFindRequestRow_(sheet, requestId) {
   return 0;
 }
 function daaEnsureColumns_(sheet) {
-  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظة للمتقدم", "آخر تحديث", "مرات إعادة التقديم", "معرف حساب المتقدم"];
-  sheet.getRange(1, 11, 1, 6).setValues([headers]);
+  const headers = ["رقم الطلب", "حالة الطلب", "ملاحظات داخلية للإدارة", "آخر تحديث", "مرات إعادة التقديم", "معرف حساب المتقدم", "سبب الرفض الظاهر للمتقدم"];
+  sheet.getRange(1, 11, 1, 7).setValues([headers]);
 }
 function daaGenerateRequestId_() {
   return "DAA-" + new Date().getFullYear() + "-" + Utilities.getUuid().replace(/-/g, "").slice(0, 12).toUpperCase();
