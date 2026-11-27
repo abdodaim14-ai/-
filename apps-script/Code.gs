@@ -40,11 +40,11 @@ function doPost(e) {
       const folder = daaGetOrCreateFolder_(DAA_FOLDER_NAME);
       const name = String(sheet.getRange(rowNumber, 2).getValue() || "قارئ").trim();
       if (p.photoData) {
-        const photo = daaSaveBase64_(folder, p.photoData, "image/jpeg", "صورة_" + name + "_" + requestId + ".jpg");
+        const photo = daaSaveBase64_(folder, p.photoData, String(p.photoMime || "image/jpeg"), "صورة_" + name + "_" + requestId + ".jpg");
         sheet.getRange(rowNumber, 9).setValue(photo.getUrl());
       }
       if (p.audioData) {
-        const audio = daaSaveBase64_(folder, p.audioData, "audio/mpeg", "تلاوة_" + name + "_" + requestId + ".mp3");
+        const audio = daaSaveBase64_(folder, p.audioData, String(p.audioMime || "audio/mpeg"), "تلاوة_" + name + "_" + requestId + ".mp3");
         sheet.getRange(rowNumber, 10).setValue(audio.getUrl());
       }
       const revision = Number(sheet.getRange(rowNumber, 15).getValue() || 0) + 1;
